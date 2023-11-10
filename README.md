@@ -21,6 +21,8 @@ npm run start:debug
 
 
 # run the frontend app:
+change directory into the base folder of the frontend,
+
 install dependencies:
 npm install
 
