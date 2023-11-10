@@ -1,9 +1,10 @@
 # jewelleryShop
-We sell ethically sourced luxury jewellery 
+We are an e-commerce website that sell ethically sourced luxury jewellery 
 
-#running the app
+# running the app
+the backend and frontend have to be run simultaneously
 
-#backend app:
+# run the backend app:
 #install dependencies
 npm install
 
@@ -14,10 +15,10 @@ npm run start:dev
 npm run start:prod
 
 #run in debug mode
-nom run start:debug
+npm run start:debug
 
 
-#frontend app:
+# run the frontend app:
 #install dependencies
 npm install
 
