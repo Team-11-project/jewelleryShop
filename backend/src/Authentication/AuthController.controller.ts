@@ -1,9 +1,13 @@
 import { CreateUserDto } from './../Dto/CreateUserDto.dto';
-import { Controller, Post, Get, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, UseGuards } from '@nestjs/common';
 import { AuthService } from './AuthService.service';
 import { BaseResponse } from 'src/Responses/BaseResponse';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { LoginUserDto } from 'src/Dto/LoginUserDto.dto';
+import { JwtGuard } from 'src/guards/jwt.guard';
+import { RolesGuard } from 'src/guards/role.guard';
+import { Roles } from 'src/Decorators/role.decorator';
+import { Role } from 'src/Entities/Role.enum';
 
 @ApiBearerAuth()
 @ApiTags("Authentication Controller")
@@ -23,6 +27,10 @@ export class AuthController{
         return await this.authService.loginUser(loginUserDto);
     }
 
-    // @UseGuards(JwtGuard, RolesGuard)
-    // @Roles(Role.ADMIN)
+    @UseGuards(JwtGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    @Get("getUserByUserId")
+    async getUserByUserId(@Param("userId") userId: number): Promise<BaseResponse> {
+        return await this.authService.getUserByUserId(userId);
+    }
 }

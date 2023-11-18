@@ -12,5 +12,5 @@ export class LoginUserDto{
 
     @IsString()
     @ApiProperty({example: '*****', description: "user's valid password", required: true})
-    employeeNumber: string
+    employeeNumber: number
 }

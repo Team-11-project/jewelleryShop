@@ -90,12 +90,17 @@ export class AuthService{
     }
     }
 
+
     async loginUser(loginUserDto: LoginUserDto): Promise<any>{
         try {
-            const {email, password} = loginUserDto
+            const {email, password, employeeNumber} = loginUserDto
 
             const findUser = await this.userRepository.findOne({
-                where: {email: email}})
+                where: {
+                    email: email
+                }})
+
+
                 if(findUser){
                     //finds user
                     const validate = await this.validateUserPassword(password, findUser)
@@ -124,7 +129,7 @@ export class AuthService{
                 }
                 return {
                     status: 400,
-                    message: "email is incorrect"
+                    message: "email or employee number is incorrect"
              }
             
         } catch (error) {
@@ -135,5 +140,37 @@ export class AuthService{
             }
             
         }
+    }
+
+    async getUserByUserId(id: number): Promise<BaseResponse>{
+        try {
+
+            const user = await this.userRepository.findOne({
+                where:{
+                    userId: id
+                }
+            })
+
+            if(!user){
+                return{
+                    status: 400,
+                    message: "user not found"
+                }
+            }
+
+            return{
+                status: 200,
+                message: "User found",
+                response: user
+            }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad Request",
+                response: error.detail
+            }
+        }
+        return
     }
 }
