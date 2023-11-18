@@ -6,12 +6,15 @@ import { BaseResponse } from "src/Responses/BaseResponse";
 import { Repository } from "typeorm";
 import * as bcrypt from 'bcrypt';
 import { Role } from 'src/Entities/Role.enum';
+import { LoginUserDto } from 'src/Dto/LoginUserDto.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService{
     constructor(
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>,
+        private jwtService: JwtService,
     ){}
 
     async hashPassword (password: string): Promise<string>{
@@ -37,7 +40,6 @@ export class AuthService{
             })
 
             if(checkUser){
-                console.log(checkUser)
                 return{
                     status: 400,
                     message: "User already exists, please log in or change password",
@@ -77,6 +79,59 @@ export class AuthService{
                 status: 400,
                 message: "Bad Request",
                 response: error
+            }
+            
+        }
+    }
+
+    async validateUserPassword(password: string, user: UserEntity): Promise<any>{
+        if (user){
+        return await bcrypt.compare(password, user.password)
+    }
+    }
+
+    async loginUser(loginUserDto: LoginUserDto): Promise<any>{
+        try {
+            const {email, password} = loginUserDto
+
+            const findUser = await this.userRepository.findOne({
+                where: {email: email}})
+                if(findUser){
+                    //finds user
+                    const validate = await this.validateUserPassword(password, findUser)
+                    if(validate == true){
+                        const user = {
+                            id: findUser.userId,
+                            firstName: findUser.firstName,
+                            lastName: findUser.lastName,
+                            email: findUser.email,
+                            role: findUser.role,
+                            employeeNumber: findUser.employeeNumber,
+                            isActive: findUser.isActive,
+                            createdAt: findUser.createdAt,
+                        }
+                        const token = await this.jwtService.signAsync({user})
+                        return {
+                            token: token
+                        }
+                    }
+                    else{
+                        return {
+                            status: 400,
+                            message: "password is incorrect"
+                     }
+                    }
+                }
+                return {
+                    status: 400,
+                    message: "email is incorrect"
+             }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad Request",
+                response: error.detail
             }
             
         }
