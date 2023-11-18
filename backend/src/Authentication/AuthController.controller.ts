@@ -33,4 +33,18 @@ export class AuthController{
     async getUserByUserId(@Param("userId") userId: number): Promise<BaseResponse> {
         return await this.authService.getUserByUserId(userId);
     }
+
+    @UseGuards(JwtGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    @Get("getUserByRole")
+    async getUserByRole(@Param("role") role: Role): Promise<BaseResponse> {
+        return await this.authService.getUserByRole(role);
+    }
+
+    @UseGuards(JwtGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    @Get("getAllUsers")
+    async getAllUsers():Promise<BaseResponse>{
+        return await this.authService.getAllUsers();
+    }
 }

@@ -171,6 +171,57 @@ export class AuthService{
                 response: error.detail
             }
         }
-        return
+        
     }
+
+    async getUserByRole(role: Role): Promise<BaseResponse>{
+        try {
+
+            const user = await this.userRepository.find({
+                where:{
+                    role: role
+                }
+            })
+
+            if(!user){
+                return{
+                    status: 400,
+                    message: "user not found"
+                }
+            }
+
+            return{
+                status: 200,
+                message: "User found",
+                response: user
+            }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad Request",
+                response: error.detail
+            }
+        }
+        
+    }
+    async getAllUsers():Promise<BaseResponse>{
+        try {
+            const users = await this.userRepository.find()
+            return {
+                status: 200,
+                message: "Users Found",
+                response: users
+            }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad Request",
+                response: error.detail
+            }
+        }
+        
+    }
+    
 }
