@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { type } from 'os';
 import { AuthModule } from './Authentication/auth.module';
+import { UserEntity } from './Entities/UserEntity.entity';
 
 @Module({
   imports: [
