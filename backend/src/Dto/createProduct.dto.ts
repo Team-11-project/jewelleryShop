@@ -28,6 +28,7 @@ export class CreateProductDto{
     @ApiProperty({example: 'image url for now', description: "product image", required: true})
     image: string
 
+    @IsNumber()
     @ApiProperty({example: '1', description: "product category id", required: true})
-    category: CategoryEntity
+    category: number
 }
