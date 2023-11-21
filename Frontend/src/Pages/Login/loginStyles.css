@@ -1,9 +1,14 @@
 .outlet{
     display: flex;
+    font-family: 'Libre Caslon Display', sans-serif;
 }
 
+/* *{
+    box-sizing: border-box;
+} */
+
 .leftSide{
-    min-height: 97vh;
+    height: 100vh;
     width: 45%;
     display: flex;
     flex-direction: column;
@@ -65,12 +70,11 @@
 
 .acc{
     font-size: 1vw;
-
 }
 
 .inWith{
     text-decoration: underline;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-size: 1.2vw;
 }
 
@@ -92,7 +96,7 @@
     height: 40px;
     background-color: black;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .divider{
@@ -103,8 +107,13 @@
 }
 
 .line{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
     width: 8vw;
+}
+
+.or{
+    font-size: 1.5vw;
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .entry{
@@ -112,7 +121,7 @@
     flex-direction: column;
 }
 
-.form{
+.form form{
     display: flex;
     flex-direction: column;
     row-gap: 3vh;
@@ -134,17 +143,17 @@
 .FPass{
     color: rgb(85, 85, 253);
     text-decoration: underline;
-    font-size: 1.8vw;
-}
-
-.rem {
-    font-size: 1.8vw;
+    font-size: 1.5vw;
 }
 
 .rem input{
     font-size: 3vw;
 }
 
+.rem label{
+    font-size: 1.5vw;
+
+}
 
 .btn{
     display: flex;
@@ -156,6 +165,55 @@
     border: 0;
     border-radius: 5px;
     height: 4vh;
-    width: 8vw;
+    width: 10vw;
     font-size: 1.8vw;
+    font-family: 'Libre Caslon Display', sans-serif;
+}
+
+@media only screen and (max-width: 850px) {
+    .leftSide{
+        width: 35vw;
+    }
+
+    .rightSide{
+        width: 65vw;
+    }
+
+    .log{
+        font-size: 4vw;
+    }
+    
+    .acc{
+        font-size: 2vw;
+    }
+
+    .inWith{
+        font-size: 1.8vw;
+    }
+
+    .box1{
+        width: 40px;
+        height: 40px;
+    }
+
+    .or{
+        font-size: 2.5vw;
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+    .entry label{
+        font-size: 2.5vw;
+    }
+    
+    .entry input{
+        width: 25vw;
+        height: 2vh;
+    }
+  }
+
+@media only screen and (max-width: 600px) {
+    .box1{
+        width: 28px;
+        height: 28px;
+    }
 }
