@@ -31,5 +31,5 @@ export class ProductEntity{
     image: string
 
     @Column()
-    createdAt: string
+    createdAt: Date
 }
