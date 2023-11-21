@@ -39,31 +39,33 @@ function Login() {
 
 
                     <div className="form">
-                        <div className="entry">
-                            <label>Email:</label>
-                            <input
-                                className="border-2 border-black rounded-md"
-                                type="text"
-                                name="email"
-                            />
-                        </div>
-                        <div className="entry">
-                            <label>Password:</label>
-                            <input
-                                className="border-2 border-black rounded-md"
-                                type="password"
-                                name="password"
-                            />
-                        </div>
-                        <div className="rem">
-                            <input type="checkbox" className='cb' /> Remember me
-                        </div>
-                        <div className="FPass">Forgot Password?</div>
-                        <div className="btn">
-                            <button>Log In</button>
-                        </div>
+                        <form action="" onSubmit={loginUser}>
+                            <div className="entry">
+                                <label>Email:</label>
+                                <input
+                                    className="border-2 border-black rounded-md"
+                                    type="text"
+                                    name="email"
+                                />
+                            </div>
+                            <div className="entry">
+                                <label>Password:</label>
+                                <input
+                                    className="border-2 border-black rounded-md"
+                                    type="password"
+                                    name="password"
+                                />
+                            </div>
+                            <div className="rem">
+                                <input type="checkbox" className='cb' />
+                                <label>Remember me</label>
+                            </div>
+                            <div className="FPass">Forgot Password?</div>
+                            <div className="btn">
+                                <button type='submit'>Log In</button>
+                            </div>
 
-
+                        </form>
                     </div>
                 </div>
             </div >
