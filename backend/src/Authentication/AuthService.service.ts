@@ -90,7 +90,6 @@ export class AuthService{
     }
     }
 
-
     async loginUser(loginUserDto: LoginUserDto): Promise<any>{
         try {
             const {email, password, employeeNumber} = loginUserDto
@@ -205,7 +204,8 @@ export class AuthService{
         }
         
     }
-    async getAllUsers():Promise<BaseResponse>{
+
+    async getAllUsers(): Promise<BaseResponse>{
         try {
             const users = await this.userRepository.find()
             return {
@@ -223,5 +223,5 @@ export class AuthService{
         }
         
     }
-    
+
 }
