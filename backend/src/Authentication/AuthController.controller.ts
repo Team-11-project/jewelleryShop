@@ -8,7 +8,7 @@ import { JwtGuard } from 'src/guards/jwt.guard';
 import { RolesGuard } from 'src/guards/role.guard';
 import { Roles } from 'src/Decorators/role.decorator';
 import { Role } from 'src/Entities/Role.enum';
-import * as nodemailer from 'nodemailer';
+// import * as nodemailer from 'nodemailer';
 
 
 @ApiBearerAuth()
@@ -49,6 +49,5 @@ export class AuthController{
     async getAllUsers():Promise<BaseResponse>{
         return await this.authService.getAllUsers();
     }
-
     
 }

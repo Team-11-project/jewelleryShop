@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './../Dto/CreateUserDto.dto';
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "src/Entities/UserEntity.entity";
+import { ProductEntity } from "src/Entities/Product.entity";
 import { BaseResponse } from "src/Responses/BaseResponse";
 import { Repository } from "typeorm";
 import * as bcrypt from 'bcrypt';
@@ -15,6 +16,8 @@ export class AuthService{
     constructor(
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>,
+        @InjectRepository(ProductEntity)
+        private readonly productRepository: Repository<ProductEntity>,
         private jwtService: JwtService,
     ){}
 
@@ -259,5 +262,39 @@ export class AuthService{
         }
         
     }
+
+    async getProductById(id: number): Promise<BaseResponse>{
+        try {
+
+            const product = await this.productRepository.findOne({
+                where:{
+                    productId: id
+                }
+            })
+
+            if(!product){
+                return{
+                    status: 400,
+                    message: "Product not found"
+                }
+            }
+
+            return{
+                status: 200,
+                message: "Product found",
+                response: product
+            }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad Request",
+                response: error.detail
+            }
+        }
+        
+    }
+
+    
 
 }
