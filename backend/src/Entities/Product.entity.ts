@@ -4,7 +4,7 @@ import { CategoryEntity } from "./Category.entity";
 @Entity()
 export class ProductEntity{
     @PrimaryGeneratedColumn()
-    id: number
+    productId: number
 
     @Column()
     name: string

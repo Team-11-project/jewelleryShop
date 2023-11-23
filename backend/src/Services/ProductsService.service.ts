@@ -190,4 +190,68 @@ export class ProductService{
             
         }
     }
+
+    async getProductById(id: number): Promise<BaseResponse>{
+        try {
+
+            const product = await this.productRepository.findOne({
+                where:{
+                    productId: id
+                }
+            })
+
+            if(!product){
+                return{
+                    status: 400,
+                    message: "Product not found"
+                }
+            }
+
+            return{
+                status: 200,
+                message: "Product found",
+                response: product
+            }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad Request",
+                response: error.detail
+            }
+        }
+        
+    }
+
+    async getProductByCategory(Category: string): Promise<BaseResponse>{
+        try {
+
+            const product = await this.categoryRepository.find({
+                where:{
+                    categoryName: Category
+                }
+            })
+
+            if(!product){
+                return{
+                    status: 400,
+                    message: "No products"
+                }
+            }
+
+            return{
+                status: 200,
+                message: "Products found",
+                response: product
+            }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad Request",
+                response: error.detail
+            }
+        }
+        
+    }
 }

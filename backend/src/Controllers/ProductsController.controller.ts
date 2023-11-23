@@ -1,5 +1,5 @@
 import { ProductService } from './../Services/ProductsService.service';
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards, Param } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Roles } from 'src/Decorators/role.decorator';
 import { CreateCategoryDto } from 'src/Dto/createCategory.dto';
@@ -49,6 +49,13 @@ export class ProductsController{
     @Post("uploadImage")
     async uploadProductImage(): Promise<BaseResponse> {
        return this.productService.uploadProductImage()
+    }
+
+    @UseGuards(JwtGuard, RolesGuard)
+    @Roles(Role.USER)
+    @Get("getProductById")
+    async getProductById(@Param("productId") productId: number): Promise<BaseResponse> {
+        return await this.productService.getProductById(productId);
     }
 
 }
