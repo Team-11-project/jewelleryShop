@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { Role } from 'src/Entities/Role.enum';
 import { LoginUserDto } from 'src/Dto/LoginUserDto.dto';
 import { JwtService } from '@nestjs/jwt';
+// import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class AuthService{
@@ -21,6 +22,40 @@ export class AuthService{
         const saltRounds = 12
        return await bcrypt.hash(password, saltRounds);
     }
+
+    // async generateVerificationCode(): Promise<string>{
+    //     const characters = '0123456789';
+    //     let verificationCode = '';
+    //     for (let i = 0; i < 6; i++) {
+    //         const randomIndex = Math.floor(Math.random() * characters.length);
+    //         verificationCode += characters[randomIndex];
+    //       }
+        
+    //       return verificationCode;
+    // }
+
+    // //async sendVerificationEmail(email: string): Promise<void> {
+    //     const transporter = nodemailer.createTransport({
+    //       service: 'gmail',
+    //       auth: {
+    //         user: 'regalia912@gmail.com',
+    //         pass: 'Regal912lia' 
+    //       }
+    //     });
+
+    //     const vCode = this.generateVerificationCode();
+        
+    //     const mailOptions = {
+    //       from: 'regalia912@gmail.com',
+    //       to: email,
+    //       subject: 'Verification Code',
+    //       text: `Your verification code is: $vcode`
+    //     };
+      
+    //     await transporter.sendMail(mailOptions);
+      
+    //     console.log('Verification email sent successfully.');
+    // }
 
     async createUser(createUserDto: CreateUserDto): Promise<BaseResponse>{
         try {
@@ -66,6 +101,7 @@ export class AuthService{
             }
             
              const newUser = await this.userRepository.save(user);
+            //  this.sendVerificationEmail(user.email);
 
              if (newUser){
                 return{
@@ -223,5 +259,7 @@ export class AuthService{
         }
         
     }
+
+    
     
 }
