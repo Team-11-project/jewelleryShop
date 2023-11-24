@@ -1,6 +1,7 @@
 import { CreateProductDto } from './../Dto/createProduct.dto';
 import { CategoryEntity } from './../Entities/Category.entity';
 import { CreateCategoryDto } from './../Dto/createCategory.dto';
+import { UpdateProductDto } from './../Dto/updateProduct.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProductEntity } from 'src/Entities/Product.entity';
@@ -85,6 +86,78 @@ export class ProductService{
                 response: error
             }
             
+        }
+    }
+
+    async deleteProduct(id: number): Promise<BaseResponse> {
+        try {
+            const productToDelete = await this.productRepository.findOne({
+                where:{
+                    productId: id
+                }
+        });
+    
+            if (!productToDelete) {
+                return {
+                    status: 400,
+                    message: "Product not found",
+                };
+            }
+    
+            // Delete the product
+            await this.productRepository.remove(productToDelete);
+    
+            return {
+                status: 200,
+                message: "Product deleted successfully",
+            };
+        } catch (error) {
+            return {
+                status: 400,
+                message: "Internal Server Error",
+                response: error,
+            };
+        }
+    }
+
+    async updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<BaseResponse> {
+        try {
+            // Check if the product exists
+            const existingProduct = await this.productRepository.findOne({
+                where:{
+                    productId: id
+                }
+            });
+    
+            if (!existingProduct) {
+                return {
+                    status: 400,
+                    message: "Product not found",
+                };
+            }
+    
+            // Update product properties
+            existingProduct.name = updateProductDto.name || existingProduct.name;
+            existingProduct.price = updateProductDto.price || existingProduct.price;
+            existingProduct.material = updateProductDto.material || existingProduct.material;
+            existingProduct.keywords = updateProductDto.keywords || existingProduct.keywords;
+            existingProduct.image = updateProductDto.image || existingProduct.image;
+            existingProduct.details = updateProductDto.detail || existingProduct.details;
+    
+            // Update the product in the database
+            const updatedProduct = await this.productRepository.save(existingProduct);
+    
+            return {
+                status: 200,
+                message: "Product updated successfully",
+                response: updatedProduct,
+            };
+        } catch (error) {
+            return {
+                status: 400,
+                message: "Internal Server Error",
+                response: error,
+            };
         }
     }
 
@@ -222,6 +295,7 @@ export class ProductService{
         }
         
     }
+
 
     async getProductByCategory(Category: string): Promise<BaseResponse>{
         try {
