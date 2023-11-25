@@ -1,8 +1,9 @@
 import { ProductService } from './../Services/ProductsService.service';
-import { Body, Controller, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards, Param, Delete, Put } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Roles } from 'src/Decorators/role.decorator';
 import { CreateCategoryDto } from 'src/Dto/createCategory.dto';
+import { UpdateProductDto } from './../Dto/updateProduct.dto';
 import { CreateProductDto } from 'src/Dto/createProduct.dto';
 import { Role } from 'src/Entities/Role.enum';
 import { BaseResponse } from 'src/Responses/BaseResponse';
@@ -57,4 +58,33 @@ export class ProductsController{
     async updateCategory(@Param('id') id: number, @Body() createCategoryDto: CreateCategoryDto): Promise<BaseResponse> {
        return this.productService.updateCategory(id, createCategoryDto)
     }
+    @UseGuards(JwtGuard, RolesGuard)
+    @Roles(Role.USER)
+    @Get("getProductById")
+    async getProductById(@Param("productId") productId: number): Promise<BaseResponse> {
+        return await this.productService.getProductById(productId);
+    }
+
+    @UseGuards(JwtGuard, RolesGuard)
+    @Roles(Role.USER)
+    @Get("getProductByCategory")
+    async getProductByCategory(@Param("categoryName") categoryName: string): Promise<BaseResponse> {
+        return await this.productService.getProductByCategory(categoryName);
+    }
+
+    @UseGuards(JwtGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    @Delete(':id')
+        async deleteProduct(@Param('id') productId: number) {
+        return await this.productService.deleteProduct(productId);
+    }
+
+    @UseGuards(JwtGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    @Put(':id')
+        async updateProduct(@Param('id') productId: number, @Body() updateProductDto: UpdateProductDto) {
+        return await this.productService.updateProduct(productId, updateProductDto);
+  }
+
+
 }
