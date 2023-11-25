@@ -29,7 +29,7 @@ import { ProductsController } from './Controllers/ProductsController.controller'
 TypeOrmModule.forFeature([ProductEntity, CategoryEntity]),
 AuthModule
   ],
-  controllers: [AppController, ProductsController],
+  controllers: [ProductsController],
   providers: [AppService, JwtGuard, JwtStrategy, ProductService],
 })
 export class AppModule {}

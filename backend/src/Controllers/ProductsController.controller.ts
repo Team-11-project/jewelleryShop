@@ -1,5 +1,5 @@
 import { ProductService } from './../Services/ProductsService.service';
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Roles } from 'src/Decorators/role.decorator';
 import { CreateCategoryDto } from 'src/Dto/createCategory.dto';
@@ -20,35 +20,41 @@ export class ProductsController{
 
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Post("createProduct")
+    @Post("create-product")
     async createProduct(@Body() createProductDto: CreateProductDto): Promise<BaseResponse> {
         return this.productService.createProduct(createProductDto);
     }
 
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Post("createCategory")
+    @Post("create-category")
     async createCategory(@Body() createCategoryDto: CreateCategoryDto): Promise<BaseResponse> {
         return this.productService.createCategory(createCategoryDto);
     }
 
     @UseGuards(JwtGuard)
-    @Get("getAllCategories")
+    @Get("get-all-categories")
     async getAllCategories(): Promise<BaseResponse> {
        return this.productService.getAllCategories()
     }
 
     @UseGuards(JwtGuard)
-    @Get("getAllProducts")
+    @Get("get-all-products")
     async getAllProducts(): Promise<BaseResponse> {
        return this.productService.getAllProducts()
     }
 
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Post("uploadImage")
+    @Post("upload-product-image")
     async uploadProductImage(): Promise<BaseResponse> {
        return this.productService.uploadProductImage()
     }
 
+    @UseGuards(JwtGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    @Put("update-category")
+    async updateCategory(@Param('id') id: number, @Body() createCategoryDto: CreateCategoryDto): Promise<BaseResponse> {
+       return this.productService.updateCategory(id, createCategoryDto)
+    }
 }

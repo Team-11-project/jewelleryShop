@@ -190,4 +190,39 @@ export class ProductService{
             
         }
     }
+
+    async updateCategory(id: number, createCategoryDto: CreateCategoryDto): Promise<BaseResponse> {
+        try {
+
+            const categoryFromDb = await this.categoryRepository.findOne({
+                where: {
+                    id: id
+                }
+            })
+
+            if(!categoryFromDb){
+                return{
+                    status: 400,
+                    message: "category not found",
+                }
+            }
+
+            categoryFromDb.categoryName = createCategoryDto.categoryName
+            const update = await this.categoryRepository.update(id, categoryFromDb)
+
+            return{
+                status: 200,
+                message: "category updated",
+                response: update
+            }
+
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad request",
+                response: error
+            }
+        }
+    }
 }
