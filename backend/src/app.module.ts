@@ -4,23 +4,32 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { type } from 'os';
+import { AuthModule } from './Authentication/auth.module';
+import { UserEntity } from './Entities/UserEntity.entity';
+import { JwtGuard } from './guards/jwt.guard';
+import { JwtStrategy } from './guards/jwt.strategy';
+import { ProductService } from './Services/ProductsService.service';
+import { ProductEntity } from './Entities/Product.entity';
+import { CategoryEntity } from './Entities/Category.entity';
+import { ProductsController } from './Controllers/ProductsController.controller';
 
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: parseInt(<string>process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DATABASE,
+      host: process.env.HOST,
+      port: parseInt(<string>process.env.PORT),
+      username: process.env.USER,
+      database: process.env.DATABASE,
+      password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
 }),
-TypeOrmModule.forFeature([])
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity]),
+AuthModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ProductsController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService],
 })
 export class AppModule {}

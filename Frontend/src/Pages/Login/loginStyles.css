@@ -1,0 +1,214 @@
+.outlet{
+    display: flex;
+    font-family: 'Libre Caslon Display', sans-serif;
+}
+
+.leftSide{
+    height: 97vh;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10vh;
+    padding-top: 3vh;
+    background-color: #01003C;
+    color: #FFD977;
+}
+
+.rightSide{
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Libre Caslon Display', sans-serif;
+    padding-top: 20vh;
+}
+
+.logo{
+    font-size: 3vw;
+    font-family: 'Playball', sans-serif;
+    position: absolute;
+    top: 2vh;
+    left: 3vw;
+}
+
+.text{
+    text-align: center;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Playball', sans-serif;                              
+}
+
+.text-head{
+    font-size: 6vw;
+}
+
+.text-small{
+    font-size: 2vw;
+}
+
+.fr{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.log-head{
+    margin-bottom: 5vh;
+}
+
+.log{
+    font-size: 2vw;
+}
+
+.acc{
+    font-size: 1vw;
+}
+
+.inWith{
+    text-decoration: underline;
+    margin-bottom: 15px;
+    font-size: 1.2vw;
+}
+
+.mid{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.social-login{
+    display: flex;
+    column-gap: 1.5vw;
+}
+
+.box1{
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.divider{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1vw;
+}
+
+.line{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    width: 8vw;
+}
+
+.or{
+    font-size: 1.5vw;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.entry{
+    display: flex;
+    flex-direction: column;
+}
+
+.form form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vh;
+}
+
+.entry label{
+    font-size: 1.9vw;
+}
+
+.entry input{
+    background-color: #e9e9e9;
+    border: 0;
+    width: 20vw;
+    height: 3.5vh;
+    border-radius: 5px;
+    padding-left: 0.5vw;
+}
+
+.FPass{
+    color: rgb(85, 85, 253);
+    text-decoration: underline;
+    font-size: 1.5vw;
+}
+
+.rem input{
+    font-size: 3vw;
+}
+
+.rem label{
+    font-size: 1.5vw;
+
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+}
+
+.btn button{
+    background-color: #FFD977;
+    border: 0;
+    border-radius: 5px;
+    height: 4vh;
+    width: 10vw;
+    font-size: 1.8vw;
+    font-family: 'Libre Caslon Display', sans-serif;
+}
+
+@media only screen and (max-width: 850px) {
+    .leftSide{
+        width: 35vw;
+    }
+
+    .rightSide{
+        width: 65vw;
+    }
+
+    .log{
+        font-size: 4vw;
+    }
+    
+    .acc{
+        font-size: 2vw;
+    }
+
+    .inWith{
+        font-size: 1.8vw;
+    }
+
+    .box1{
+        width: 40px;
+        height: 40px;
+    }
+
+    .or{
+        font-size: 2.5vw;
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+    .entry label{
+        font-size: 2.5vw;
+    }
+    
+    .entry input{
+        width: 25vw;
+        height: 2vh;
+    }
+  }
+
+@media only screen and (max-width: 600px) {
+    .box1{
+        width: 28px;
+        height: 28px;
+    }
+}
