@@ -8,6 +8,8 @@ import './App.css'
 import Login from './Pages/Login/Login';
 import { AuthProvider } from './Context/AuthContext'
 import ForgotPassword from './forgotPassword/forgotPassword';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,12 +19,13 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' exact element={<Home />} />
-          <Route path='/forgotPassword' exact element={<forgotPassword />} />
+          {/* <Route path='/forgotPassword' exact element={<ForgotPassword/>} /> */}
 
         </Routes>
         <AuthProvider>
           <Routes>
             <Route path='/login' exact element={<Login />} />
+            <Route path='/forgotPassword' exact element={<ForgotPassword/>} />
           </Routes>
         </AuthProvider>
 
