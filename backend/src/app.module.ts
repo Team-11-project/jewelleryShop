@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { type } from 'os';
 import { AuthModule } from './Authentication/auth.module';
-import { UserEntity } from './Entities/UserEntity.entity';
+import { UserEntity } from './Entities/User.entity';
 import { JwtGuard } from './guards/jwt.guard';
 import { JwtStrategy } from './guards/jwt.strategy';
 import { ProductService } from './Services/ProductsService.service';

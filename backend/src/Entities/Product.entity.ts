@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import { CategoryEntity } from "./Category.entity";
+import {ShoppingCartEntity} from "./ShoppingCart.entity";
 
 @Entity()
 export class ProductEntity{
@@ -35,4 +36,8 @@ export class ProductEntity{
 
     @Column()
     createdAt: Date
+
+    @ManyToMany(() => ShoppingCartEntity, (cart) => cart.products)
+    @JoinTable()
+    shoppingCarts: ShoppingCartEntity[];
 }

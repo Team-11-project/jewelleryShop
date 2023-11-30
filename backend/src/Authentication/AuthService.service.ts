@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import {BadRequestException, Injectable, NotFoundException} from '@nestjs/common';
 import { CreateUserDto } from './../Dto/CreateUserDto.dto';
 import { InjectRepository } from "@nestjs/typeorm";
-import { UserEntity } from "src/Entities/UserEntity.entity";
+import { UserEntity } from "src/Entities/User.entity";
 import { ProductEntity } from "src/Entities/Product.entity";
 import { BaseResponse } from "src/Responses/BaseResponse";
 import { Repository } from "typeorm";
@@ -9,13 +9,17 @@ import * as bcrypt from 'bcrypt';
 import { Role } from 'src/Entities/Role.enum';
 import { LoginUserDto } from 'src/Dto/LoginUserDto.dto';
 import { JwtService } from '@nestjs/jwt';
+import { UsedResetToken } from 'src/Entities/UsedResetToken.entity'; // Update the path accordingly
 // import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class AuthService{
+
     constructor(
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>,
+        @InjectRepository(UsedResetToken)
+        private readonly usedResetTokenRepository: Repository<UsedResetToken>,
         @InjectRepository(ProductEntity)
         private readonly productRepository: Repository<ProductEntity>,
         private jwtService: JwtService,
@@ -297,6 +301,67 @@ export class AuthService{
         
     }
 
-    
+    async generateResetToken(email: string): Promise<string | null> {
+        try {
+            const user = await this.userRepository.findOne({
+                where:{
+                    email: email
+                }
+            })
+            if (user) {
+                const resetToken = this.jwtService.sign({
+                    userId: user.userId,
+                    email: user.email,
+                });
+
+                // TODO: Send an email to the user with the reset link containing the resetToken
+
+                return resetToken;
+            }
+
+            return null;
+        } catch (error) {
+            return null;
+        }
+    }
+    async resetPassword(resetToken: string, newPassword: string): Promise<string> {
+        try {
+            const decodedToken = this.jwtService.verify(resetToken) as { email: string };
+
+            const user = await this.userRepository.findOne({
+                where: {
+                    ...decodedToken,
+                },
+            });
+            if (!user) {
+                throw new NotFoundException('User not found');
+            }
+
+            const usedToken = await this.usedResetTokenRepository.findOne({
+                where: {
+                    resetToken:resetToken,
+                },
+            });
+            if (usedToken) {
+                throw new BadRequestException('Reset token has already been used');
+            }
+
+            const hashedPassword = await this.hashPassword(newPassword);
+
+            user.password = hashedPassword;
+            await this.userRepository.save(user);
+
+            const newUsedToken = new UsedResetToken();
+            newUsedToken.resetToken = resetToken;
+            newUsedToken.createdAt = new Date();
+            await this.usedResetTokenRepository.save(newUsedToken);
+
+            return 'Password reset successfully';
+        } catch (error) {
+            throw new BadRequestException('Invalid reset token');
+        }
+    }
+
+
 
 }
