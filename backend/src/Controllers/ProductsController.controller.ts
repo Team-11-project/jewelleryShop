@@ -40,9 +40,21 @@ export class ProductsController{
     }
 
     @UseGuards(JwtGuard)
-    @Get("get-all-products/:skip")
-    async getAllProducts(@Param("skip") skip:number): Promise<BaseResponse> {
-       return this.productService.getAllProducts(skip)
+    @Get("get-all-products-with-pagination/:skip")
+    async getAllProductsWithPagination(@Param("skip") skip:number): Promise<BaseResponse> {
+       return this.productService.getAllProductsWithPagination(skip)
+    }
+
+    @UseGuards(JwtGuard)
+    @Get("get-all-products")
+    async getAllProducts(): Promise<BaseResponse> {
+       return this.productService.getAllProducts()
+    }
+
+    @UseGuards(JwtGuard)
+    @Get("get-all-products-count")
+    async getAllProductsCount():  Promise<number> {
+       return this.productService.getAllProductsCount()
     }
 
     @UseGuards(JwtGuard, RolesGuard)

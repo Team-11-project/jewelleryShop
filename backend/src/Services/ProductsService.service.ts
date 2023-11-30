@@ -228,7 +228,7 @@ export class ProductService{
         }
     }
 
-    async getAllProducts(skip: number): Promise<BaseResponse> {
+    async getAllProductsWithPagination(skip: number): Promise<BaseResponse> {
         try {
             const allProducts = await this.productRepository.find({
                 order: {
@@ -257,6 +257,41 @@ export class ProductService{
             }
             
         }
+    }
+
+    async getAllProducts(): Promise<BaseResponse> {
+        try {
+            const allProducts = await this.productRepository.find({
+                order: {
+                    productId: 'ASC' 
+                }
+            })
+            if (allProducts){
+                return{
+                    status: 200,
+                    message: "products found",
+                    response: allProducts
+                }
+            }
+            return{
+                status: 400,
+                message: "there are no products",
+            }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad request",
+                response: error
+            }
+            
+        }
+    }
+
+    async getAllProductsCount(): Promise<number>{
+        const allProducts = await this.productRepository.find()
+        const count = allProducts.length
+        return count;
     }
 
     async uploadProductImage(): Promise<BaseResponse> {

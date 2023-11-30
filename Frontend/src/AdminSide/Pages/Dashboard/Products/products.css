@@ -28,3 +28,30 @@
     border-radius: 5px;
     background-color: #FFD977;
 }
+
+.pagination{
+    background-color: #f3f3f3;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.p{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-no{
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.active-page-no{
+    background-color: #FFD977;
+    padding: 2px 5px 2px 5px;
+    border-radius: 3px;
+    /* padding-left: 10px; */
+}
