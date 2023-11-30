@@ -1,0 +1,8 @@
+.regalia{
+    font-size: 2vw;
+    font-family: 'Playball', sans-serif;
+}
+.b{
+    display: flex;
+    justify-content: space-between;
+}

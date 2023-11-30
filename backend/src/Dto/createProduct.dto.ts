@@ -24,6 +24,10 @@ export class CreateProductDto{
     @ApiProperty({example: '10000', description: "product's price", required: true})
     price: number
 
+    @IsNumber()
+    @ApiProperty({example: '30', description: "product's stock level", required: true})
+    stock: number
+
     @IsString()
     @ApiProperty({example: 'image url for now', description: "product image", required: true})
     image: string
