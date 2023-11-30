@@ -1,0 +1,22 @@
+{
+  "name": "jewelleryshop",
+  "version": "1.0.0",
+  "description": "We are an e-commerce website that sell ethically sourced luxury jewellery",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "react-bootstrap": "^2.9.1",
+    "react-scripts": "^3.0.1",
+    "svgo": "^3.0.4"
+  },
+  "devDependencies": {
+    "vite": "^5.0.4"
+  }
+}
