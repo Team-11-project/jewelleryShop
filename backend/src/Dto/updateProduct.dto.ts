@@ -27,6 +27,11 @@ export class UpdateProductDto {
     @ApiProperty({ example: 10000, description: "product's price" })
     price?: number;
 
+    @IsNumber()
+    @IsOptional()
+    @ApiProperty({ example: 10, description: "product's stock level" })
+    stock?: number;
+
     @IsString()
     @IsOptional()
     @ApiProperty({ example: 'image url for now', description: "product image" })

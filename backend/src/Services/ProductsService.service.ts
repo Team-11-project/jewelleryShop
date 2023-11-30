@@ -56,6 +56,7 @@ export class ProductService{
             product.keywords = createProductDto.keywords
             product.image = createProductDto.image
             product.details = createProductDto.detail
+            product.stock = createProductDto.stock
             product.createdAt = date
             product.category = await this.categoryRepository.findOne({
                 where:{
@@ -143,6 +144,7 @@ export class ProductService{
             existingProduct.keywords = updateProductDto.keywords || existingProduct.keywords;
             existingProduct.image = updateProductDto.image || existingProduct.image;
             existingProduct.details = updateProductDto.detail || existingProduct.details;
+            existingProduct.stock = updateProductDto.stock || existingProduct.stock;
     
             // Update the product in the database
             const updatedProduct = await this.productRepository.save(existingProduct);
@@ -226,9 +228,15 @@ export class ProductService{
         }
     }
 
-    async getAllProducts(): Promise<BaseResponse> {
+    async getAllProductsWithPagination(skip: number): Promise<BaseResponse> {
         try {
-            const allProducts = await this.productRepository.find()
+            const allProducts = await this.productRepository.find({
+                order: {
+                    productId: 'ASC' 
+                },
+                take: 6,
+                skip: skip
+            })
             if (allProducts){
                 return{
                     status: 200,
@@ -251,6 +259,41 @@ export class ProductService{
         }
     }
 
+    async getAllProducts(): Promise<BaseResponse> {
+        try {
+            const allProducts = await this.productRepository.find({
+                order: {
+                    productId: 'ASC' 
+                }
+            })
+            if (allProducts){
+                return{
+                    status: 200,
+                    message: "products found",
+                    response: allProducts
+                }
+            }
+            return{
+                status: 400,
+                message: "there are no products",
+            }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad request",
+                response: error
+            }
+            
+        }
+    }
+
+    async getAllProductsCount(): Promise<number>{
+        const allProducts = await this.productRepository.find()
+        const count = allProducts.length
+        return count;
+    }
+
     async uploadProductImage(): Promise<BaseResponse> {
         try {
             
@@ -261,6 +304,41 @@ export class ProductService{
                 response: error
             }
             
+        }
+    }
+
+    async updateCategory(id: number, createCategoryDto: CreateCategoryDto): Promise<BaseResponse> {
+        try {
+
+            const categoryFromDb = await this.categoryRepository.findOne({
+                where: {
+                    id: id
+                }
+            })
+
+            if(!categoryFromDb){
+                return{
+                    status: 400,
+                    message: "category not found",
+                }
+            }
+
+            categoryFromDb.categoryName = createCategoryDto.categoryName
+            const update = await this.categoryRepository.update(id, categoryFromDb)
+
+            return{
+                status: 200,
+                message: "category updated",
+                response: update
+            }
+
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad request",
+                response: error
+            }
         }
     }
 
