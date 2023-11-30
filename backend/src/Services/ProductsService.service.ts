@@ -56,6 +56,7 @@ export class ProductService{
             product.keywords = createProductDto.keywords
             product.image = createProductDto.image
             product.details = createProductDto.detail
+            product.stock = createProductDto.stock
             product.createdAt = date
             product.category = await this.categoryRepository.findOne({
                 where:{
@@ -143,6 +144,7 @@ export class ProductService{
             existingProduct.keywords = updateProductDto.keywords || existingProduct.keywords;
             existingProduct.image = updateProductDto.image || existingProduct.image;
             existingProduct.details = updateProductDto.detail || existingProduct.details;
+            existingProduct.stock = updateProductDto.stock || existingProduct.stock;
     
             // Update the product in the database
             const updatedProduct = await this.productRepository.save(existingProduct);
@@ -226,9 +228,15 @@ export class ProductService{
         }
     }
 
-    async getAllProducts(): Promise<BaseResponse> {
+    async getAllProducts(skip: number): Promise<BaseResponse> {
         try {
-            const allProducts = await this.productRepository.find()
+            const allProducts = await this.productRepository.find({
+                order: {
+                    productId: 'ASC' 
+                },
+                take: 6,
+                skip: skip
+            })
             if (allProducts){
                 return{
                     status: 200,

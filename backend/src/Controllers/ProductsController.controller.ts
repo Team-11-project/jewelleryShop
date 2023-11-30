@@ -40,9 +40,9 @@ export class ProductsController{
     }
 
     @UseGuards(JwtGuard)
-    @Get("get-all-products")
-    async getAllProducts(): Promise<BaseResponse> {
-       return this.productService.getAllProducts()
+    @Get("get-all-products/:skip")
+    async getAllProducts(@Param("skip") skip:number): Promise<BaseResponse> {
+       return this.productService.getAllProducts(skip)
     }
 
     @UseGuards(JwtGuard, RolesGuard)
@@ -54,19 +54,18 @@ export class ProductsController{
 
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Put("update-category")
+    @Put("update-category/:id")
     async updateCategory(@Param('id') id: number, @Body() createCategoryDto: CreateCategoryDto): Promise<BaseResponse> {
        return this.productService.updateCategory(id, createCategoryDto)
     }
-    @UseGuards(JwtGuard, RolesGuard)
-    @Roles(Role.USER)
+
+    @UseGuards(JwtGuard)
     @Get("getProductById")
     async getProductById(@Param("productId") productId: number): Promise<BaseResponse> {
         return await this.productService.getProductById(productId);
     }
 
-    @UseGuards(JwtGuard, RolesGuard)
-    @Roles(Role.USER)
+    @UseGuards(JwtGuard)
     @Get("getProductByCategory")
     async getProductByCategory(@Param("categoryName") categoryName: string): Promise<BaseResponse> {
         return await this.productService.getProductByCategory(categoryName);

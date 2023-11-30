@@ -7,6 +7,9 @@ import Home from './homePagr/home'
 import './App.css'
 import Login from './Pages/Login/Login';
 import { AuthProvider } from './Context/AuthContext'
+import Dashboard from './AdminSide/Pages/Dashboard/Dashboard';
+import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
+import Products from './AdminSide/Pages/Dashboard/Products/Products';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,12 +17,11 @@ function App() {
   return (
     <>
       <Router>
-        <Routes>
-          <Route path='/' exact element={<Home />} />
-        </Routes>
         <AuthProvider>
           <Routes>
+            <Route path='/' exact element={<Home />} />
             <Route path='/login' exact element={<Login />} />
+            <Route path='/dashboard' exact element={<Dashboard />} />
           </Routes>
         </AuthProvider>
 
