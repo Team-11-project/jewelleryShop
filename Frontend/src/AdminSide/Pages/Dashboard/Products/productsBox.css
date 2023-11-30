@@ -1,10 +1,12 @@
 .box-container{
     border: 1.2px solid black;
     border-radius: 10px;
-    padding: 1%;
-    width: 28%;
-    height: 280px;
+    padding: 3%;
+    /* width: 28%; */
+    height: 34vh;
     position: relative;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .prod-image{
