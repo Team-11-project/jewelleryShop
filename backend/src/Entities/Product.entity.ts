@@ -30,6 +30,9 @@ export class ProductEntity{
     @Column()
     image: string
 
+    @Column({default: null})
+    stock: number
+
     @Column()
     createdAt: Date
 }

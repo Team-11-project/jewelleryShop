@@ -21,46 +21,63 @@ export class ProductsController{
 
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Post("createProduct")
+    @Post("create-product")
     async createProduct(@Body() createProductDto: CreateProductDto): Promise<BaseResponse> {
         return this.productService.createProduct(createProductDto);
     }
 
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Post("createCategory")
+    @Post("create-category")
     async createCategory(@Body() createCategoryDto: CreateCategoryDto): Promise<BaseResponse> {
         return this.productService.createCategory(createCategoryDto);
     }
 
     @UseGuards(JwtGuard)
-    @Get("getAllCategories")
+    @Get("get-all-categories")
     async getAllCategories(): Promise<BaseResponse> {
        return this.productService.getAllCategories()
     }
 
     @UseGuards(JwtGuard)
-    @Get("getAllProducts")
+    @Get("get-all-products-with-pagination/:skip")
+    async getAllProductsWithPagination(@Param("skip") skip:number): Promise<BaseResponse> {
+       return this.productService.getAllProductsWithPagination(skip)
+    }
+
+    @UseGuards(JwtGuard)
+    @Get("get-all-products")
     async getAllProducts(): Promise<BaseResponse> {
        return this.productService.getAllProducts()
     }
 
+    @UseGuards(JwtGuard)
+    @Get("get-all-products-count")
+    async getAllProductsCount():  Promise<number> {
+       return this.productService.getAllProductsCount()
+    }
+
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Post("uploadImage")
+    @Post("upload-product-image")
     async uploadProductImage(): Promise<BaseResponse> {
        return this.productService.uploadProductImage()
     }
 
     @UseGuards(JwtGuard, RolesGuard)
-    @Roles(Role.USER)
+    @Roles(Role.ADMIN)
+    @Put("update-category/:id")
+    async updateCategory(@Param('id') id: number, @Body() createCategoryDto: CreateCategoryDto): Promise<BaseResponse> {
+       return this.productService.updateCategory(id, createCategoryDto)
+    }
+
+    @UseGuards(JwtGuard)
     @Get("getProductById")
     async getProductById(@Param("productId") productId: number): Promise<BaseResponse> {
         return await this.productService.getProductById(productId);
     }
 
-    @UseGuards(JwtGuard, RolesGuard)
-    @Roles(Role.USER)
+    @UseGuards(JwtGuard)
     @Get("getProductByCategory")
     async getProductByCategory(@Param("categoryName") categoryName: string): Promise<BaseResponse> {
         return await this.productService.getProductByCategory(categoryName);
