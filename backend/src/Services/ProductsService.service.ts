@@ -300,11 +300,11 @@ export class ProductService{
     async getProductByCategory(Category: string): Promise<BaseResponse>{
         try {
 
-            const product = await this.categoryRepository.find({
-                where:{
-                    categoryName: Category
-                }
-            })
+            const product = await this.productRepository.find({
+                where: {
+                    category: { categoryName: Category },
+                },
+            });
 
             if(!product){
                 return{

@@ -53,15 +53,13 @@ export class ProductsController{
     }
 
     @UseGuards(JwtGuard, RolesGuard)
-    @Roles(Role.USER)
-    @Get("getProductById")
+    @Get("getProductById/:productId")
     async getProductById(@Param("productId") productId: number): Promise<BaseResponse> {
         return await this.productService.getProductById(productId);
     }
 
     @UseGuards(JwtGuard, RolesGuard)
-    @Roles(Role.USER)
-    @Get("getProductByCategory")
+    @Get("getProductByCategory/:categoryName")
     async getProductByCategory(@Param("categoryName") categoryName: string): Promise<BaseResponse> {
         return await this.productService.getProductByCategory(categoryName);
     }
