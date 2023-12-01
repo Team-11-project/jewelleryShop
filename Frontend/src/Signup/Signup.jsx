@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom/client';
+import { Link } from 'react-router-dom';
 import './Signup.css';
-import Google from './assets/Icons/Google.svg';
-import Instagram from './assets/Icons/Instagram.svg';
-import Facebook from './assets/Icons/Facebook.svg';
+import Google from '../assets/Icons/Google.svg';
+import Instagram from '../assets/Icons/Instagram.svg';
+import Facebook from '../assets/Icons/Facebook.svg';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    password: '',
-    confirmPassword: '',
-    agreePrivacyPolicy: false,
-    agreeTermsConditions: false,
+    password1: '',
+    password2: '',
+    role: 'user',
+    // agreePrivacyPolicy: false,
+    // agreeTermsConditions: false,
   });
 
   const Input = (e) => {
@@ -23,9 +25,34 @@ const Signup = () => {
     });
   };
 
-  const Submit = (e) => {
-    e.preventDefault();
-    console.log('Signup form submitted:', formData);
+  const Submit = async (e) => {
+    e.preventDefault()
+    try {
+      console.log("trying signup")
+      const response = await fetch('http://localhost:3000/auth/createUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      
+// console.log("next point")
+
+      const res = await response.json()
+      if (res.status == 200) {
+        console.log(res.status)
+        alert('Signup complete');
+  
+      } else {
+        // const errorData = await response.json();
+        alert('Signup incomplete');
+      }
+    } catch (error) {
+      console.log('Signup Error:', error);
+      // setError('Error during signup.');
+    }
   };
 
   return (
@@ -68,13 +95,25 @@ const Signup = () => {
 
         <form onSubmit={Submit}>
           <div className="form-group">
-            <label htmlFor="fullName">Full Name</label>
+            <label htmlFor="firstName">First Name</label>
             <input
               type="text"
-              id="fullName"
-              name="fullName"
-              value={formData.fullName}
-              onChange={Input}
+              id="firstName"
+              name="firstName"
+              value={formData.firstName}
+              onChange={(e)=>{setFormData({...formData, firstName: e.target.value})}}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={formData.lastName}
+              onChange={(e)=>{setFormData({...formData, lastName: e.target.value})}}
               required
             />
           </div>
@@ -92,30 +131,30 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password1">Password</label>
             <input
               type="password"
-              id="password"
-              name="password"
-              value={formData.password}
+              id="password1"
+              name="password1"
+              value={formData.password1}
               onChange={Input}
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label htmlFor="password2">Confirm Password</label>
             <input
               type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
+              id="password2"
+              name="password2"
+              value={formData.password2}
               onChange={Input}
               required
             />
           </div>
 
-          <div className="checkbox-group">
+          {/* <div className="checkbox-group">
             <input
               type="checkbox"
               id="agreePrivacyPolicy"
@@ -127,9 +166,9 @@ const Signup = () => {
             <label htmlFor="agreePrivacyPolicy">
               I agree to the <a href="/privacy-policy">Privacy Policy</a>
             </label>
-          </div>
+          </div> */}
 
-          <div className="checkbox-group">
+          {/* <div className="checkbox-group">
             <input
               type="checkbox"
               id="agreeTermsConditions"
@@ -141,7 +180,7 @@ const Signup = () => {
             <label htmlFor="agreeTermsConditions">
               I agree to the <a href="/terms-conditions">Terms and Conditions</a>
             </label>
-          </div>
+          </div> */}
 
           <button type="submit">Sign Up</button>
         </form>
@@ -149,11 +188,5 @@ const Signup = () => {
     </div>
   );
 };
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Signup />
-  </React.StrictMode>
-);
 
 export default Signup;
