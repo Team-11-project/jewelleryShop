@@ -72,7 +72,7 @@ export class AuthService{
                 where: {
                     email: createUserDto.email
                 }
-            })
+            }) 
 
             if(checkUser){
                 return{
@@ -115,8 +115,7 @@ export class AuthService{
                 status: 400,
                 message: "Bad Request",
                 response: error
-            }
-            
+            } 
         }
     }
 
@@ -154,6 +153,7 @@ export class AuthService{
                         return {
                             token: token
                         }
+                        
                     }
                     else{
                         return {
@@ -179,12 +179,14 @@ export class AuthService{
 
     async getUserByUserId(id: number): Promise<BaseResponse>{
         try {
+            console.log(id)
 
             const user = await this.userRepository.findOne({
                 where:{
                     userId: id
                 }
             })
+            console.log(user)
 
             if(!user){
                 return{
