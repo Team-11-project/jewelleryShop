@@ -11,12 +11,10 @@ function Dashboard() {
 
     const getPage = (p) => {
         setPage(p)
-        console.log(page)
     }
 
     const getEx = (e) => {
         setEx(e)
-        console.log(ex)
     }
 
     const PageDisplay = () => {
