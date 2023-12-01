@@ -183,6 +183,7 @@ export class ProductService{
             }
             let category = new CategoryEntity()
             category.categoryName = createCategoryDto.categoryName
+            category.description = createCategoryDto.description
             const newCategory = await this.categoryRepository.save(category)
 
             if(newCategory)
@@ -264,7 +265,8 @@ export class ProductService{
             const allProducts = await this.productRepository.find({
                 order: {
                     productId: 'ASC' 
-                }
+                },
+                relations:["category"]
             })
             if (allProducts){
                 return{
@@ -348,7 +350,7 @@ export class ProductService{
             const product = await this.productRepository.findOne({
                 where:{
                     productId: id
-                }
+                },
             })
 
             if(!product){

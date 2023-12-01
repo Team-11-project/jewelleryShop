@@ -9,6 +9,7 @@
     align-items: center;
     font-family: 'Libre Caslon Display', sans-serif;
     background-color: white;
+    padding-top: 10px;
     /* gap: 2vh; */
 }
 
@@ -38,6 +39,7 @@
 }
 
 .full-section p{
+    padding-top: 10px;
     color: rgba(0, 0, 0, 0.461);
     font-size: 1.2vw;
 }

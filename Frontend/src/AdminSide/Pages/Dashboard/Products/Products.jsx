@@ -7,31 +7,42 @@ import ProductBox from './ProductBox'
 import { faChevronLeft, faChevronRight, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NewProduct from './popups/newProduct/NewProduct'
+import EditProduct from './popups/editproduct/EditProduct'
 
 function Products() {
     let { authTokens } = useContext(AuthContext)
 
     const [Allproducts, setAllProducts] = useState([])
     const [newProductPop, setNewProductPop] = useState(false)
-    const [productsCount, setProductsCount] = useState(0)
+    const [editProdPop, setEditProdPop] = useState(false)
+    const [isOption, setIsOption] = useState(false)
+    const [chosenProd, setChosenProd] = useState({})
     const [pages, setPages] = useState([])
     const [currPage, setCurrPage] = useState(1)
-    const totalPageCount = Math.ceil(productsCount / 6);
+    const totalPageCount = Math.ceil(Allproducts.length / 6);
     const lastIndex = currPage * 6
     const firstIndex = lastIndex - 6
     const products = Allproducts.slice(firstIndex, lastIndex)
 
     const range = (start, end) => {
         let length = end - start + 1;
-        /*
-            Create an array of certain length and set the elements within it from
-          start value to end value.
-        */
         setPages(Array.from({ length }, (_, idx) => idx + start));
     };
 
     const getPop = (pop) => {
         setNewProductPop(pop)
+    }
+
+    const getIsOption = (opt) => {
+        setIsOption(opt)
+    }
+
+    const getChosenProd = (prod) => {
+        setChosenProd(prod)
+    }
+
+    const getEditPop = (pop) => {
+        setEditProdPop(pop)
     }
 
     const prevPage = () => {
@@ -102,22 +113,28 @@ function Products() {
 
     useEffect(() => {
         getProducts(authTokens.token)
-        getProductsCount(authTokens.token)
         range(1, totalPageCount)
-        // console.log(currPage)
-    }, [Allproducts, newProductPop, currPage])
+        console.log(isOption)
+        // console.log(chosenProd)
+        // getProductsCount(authTokens.token)
+    }, [authTokens, totalPageCount, isOption])
 
     return (
         <>
             {newProductPop === true ? <NewProduct getPop={getPop} /> : ""}
+            {editProdPop === true ? <EditProduct getEditPop={getEditPop} chosenProd={chosenProd} getIsOption={getIsOption} /> : ""}
+
+
             <div className="path">Dashboard/Products</div>
             <div className="prod-container">
                 {products.length > 0 && (
-                    <div className="prod">
-                        {products.map(product => (
-                            <ProductBox key={product.productId} product={product} />
-                        ))}
-                    </div>
+                    <>
+                        <div className="prod">
+                            {products.map(product => (
+                                <ProductBox key={product.productId} product={product} getChosenProd={getChosenProd} getEditPop={getEditPop} getIsOption={getIsOption} />
+                            ))}
+                        </div>
+                    </>
                 )}
 
                 <div className="prod-container-footer">
@@ -136,10 +153,14 @@ function Products() {
                             <div className="p">
                                 {pages.map(page => (
                                     // <ProductBox key={product.productId} product={product} />
-                                    <div onClick={() => { setPage(page) }} className={currPage === page ? "active-page-no page-no" : "page-no"}>{page}</div>
+                                    <div key={page} onClick={() => { setPage(page) }} className={currPage === page ? "active-page-no page-no" : "page-no"}>{page}</div>
                                 ))}
                             </div>
                         )}
+                        {
+                            pages.length > 6 && (
+                                <div className="page-no">...</div>
+                            )}
                         {
                             currPage == pages[pages.length - 1] ?
                                 <div className=""></div>
