@@ -1,0 +1,125 @@
+.box-container{
+    border: 1.2px solid black;
+    border-radius: 10px;
+    padding: 3%;
+    /* width: 28%; */
+    height: 36vh;
+    position: relative;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.prod-image{
+    width: 32%;
+    height: 12vh;
+    border-radius: 5px;
+    background-color: black;
+}
+
+.box-head{
+    display: flex;
+    column-gap: 2%;
+}
+
+.deets{
+    display: flex;
+    justify-content: space-between; 
+    column-gap: 20px;
+}
+
+.prod-det{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 8px;
+}
+
+.options-menu{
+    position: absolute;
+    right: 3%;
+}
+
+.options-menu button{
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 3px;
+}
+
+.box-body{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    /* margin-bottom: 20px; */
+}
+
+.box-foot{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    position: absolute;
+    bottom: 10px;
+    width: 88%;
+}
+
+.grey-box{
+    background-color: #F1F1F1;
+    width: 76%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 15px 15px 0px 0px;
+    border: 1px solid black;
+    border-bottom: 0;
+}
+
+.grey-box-2{
+    background-color: #F1F1F1;
+    width: 76%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 10px 10px 10px 10px;
+    border: 1px solid black;
+  
+}
+
+.level{
+    display: flex;
+    justify-content: space-between;
+}
+
+.close-btn{
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background-color: #F1F1F1;
+    position: absolute;
+    right: 1%;
+    top: 1.5%;
+}
+
+.opened-menu{
+    background-color: #F1F1F1;
+    padding: 8px 8px 0px 8px;
+    border-radius: 5px;
+}
+
+.option{
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.options-menu{
+    background-color: #F1F1F1;
+    padding: 5px;
+    border-radius: 2px;
+}

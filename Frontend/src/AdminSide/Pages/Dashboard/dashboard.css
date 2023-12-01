@@ -1,0 +1,15 @@
+.dash{
+    display: flex;
+    gap: 2vw;
+    background-color: #E9E9E9;
+    font-family: 'Libre Caslon Display', sans-serif;
+    padding-right: 2vw;
+}
+.ac{
+    min-height: 100vh;
+    min-width: 81vw;
+}
+.coll{
+    min-width: 91vw;
+   
+}
