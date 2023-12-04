@@ -5,6 +5,7 @@ import { UpdateProductDto } from './../Dto/updateProduct.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProductEntity } from 'src/Entities/Product.entity';
+import { CartEntity } from 'src/Entities/Cart.entity';
 import { BaseResponse } from "src/Responses/BaseResponse";
 import { Repository } from "typeorm";
 
@@ -16,7 +17,11 @@ export class ProductService{
         private readonly productRepository: Repository<ProductEntity>,
         @InjectRepository(CategoryEntity)
         private readonly categoryRepository: Repository<CategoryEntity>,
+        @InjectRepository(CartEntity)
+        private readonly cartRepository: Repository<CartEntity>,
     ){}
+
+    
 
     async createProduct(createProductDto: CreateProductDto): Promise<BaseResponse> {
         try {
@@ -142,6 +147,7 @@ export class ProductService{
             existingProduct.price = updateProductDto.price || existingProduct.price;
             existingProduct.material = updateProductDto.material || existingProduct.material;
             existingProduct.keywords = updateProductDto.keywords || existingProduct.keywords;
+            
             existingProduct.image = updateProductDto.image || existingProduct.image;
             existingProduct.details = updateProductDto.detail || existingProduct.details;
             existingProduct.stock = updateProductDto.stock || existingProduct.stock;
@@ -408,4 +414,6 @@ export class ProductService{
         }
         
     }
+
+    
 }
