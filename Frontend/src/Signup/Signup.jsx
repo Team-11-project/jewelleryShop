@@ -73,6 +73,7 @@ const Signup = () => {
         </div>
       </div>
       <div className="right-half">
+        <h6>Are you an admin?<a href="/AdminSignup">Admin sign up</a></h6>
         <h1>Create Your Account</h1>
         <p>
           Already have an account? <a href="/login">Log in</a>
@@ -154,7 +155,7 @@ const Signup = () => {
             />
           </div>
 
-          {/* <div className="checkbox-group">
+          <div className="form-group">
             <input
               type="checkbox"
               id="agreePrivacyPolicy"
@@ -166,9 +167,9 @@ const Signup = () => {
             <label htmlFor="agreePrivacyPolicy">
               I agree to the <a href="/privacy-policy">Privacy Policy</a>
             </label>
-          </div> */}
+          </div> 
 
-          {/* <div className="checkbox-group">
+          <div className="form-group">
             <input
               type="checkbox"
               id="agreeTermsConditions"
@@ -180,7 +181,7 @@ const Signup = () => {
             <label htmlFor="agreeTermsConditions">
               I agree to the <a href="/terms-conditions">Terms and Conditions</a>
             </label>
-          </div> */}
+          </div>
 
           <button type="submit">Sign Up</button>
         </form>
