@@ -11,6 +11,8 @@ import { JwtStrategy } from './guards/jwt.strategy';
 import { ProductService } from './Services/ProductsService.service';
 import { ProductEntity } from './Entities/Product.entity';
 import { CategoryEntity } from './Entities/Category.entity';
+import { ProductsController } from './Controllers/ProductsController.controller';
+import { CartEntity } from './Entities/Cart.entity';
 
 @Module({
   imports: [
@@ -25,10 +27,10 @@ import { CategoryEntity } from './Entities/Category.entity';
       autoLoadEntities: true,
       synchronize: true,
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity]),
 AuthModule
   ],
-  controllers: [AppController],
+  controllers: [ProductsController],
   providers: [AppService, JwtGuard, JwtStrategy, ProductService],
 })
 export class AppModule {}

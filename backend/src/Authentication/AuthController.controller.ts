@@ -8,6 +8,8 @@ import { JwtGuard } from 'src/guards/jwt.guard';
 import { RolesGuard } from 'src/guards/role.guard';
 import { Roles } from 'src/Decorators/role.decorator';
 import { Role } from 'src/Entities/Role.enum';
+// import * as nodemailer from 'nodemailer';
+
 
 @ApiBearerAuth()
 @ApiTags("Authentication Controller")
@@ -29,14 +31,15 @@ export class AuthController{
 
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Get("getUserByUserId")
+    @Get("getUserByUserId/:userId")
     async getUserByUserId(@Param("userId") userId: number): Promise<BaseResponse> {
+      
         return await this.authService.getUserByUserId(userId);
     }
 
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Get("getUserByRole")
+    @Get("getUserByRole/:role")
     async getUserByRole(@Param("role") role: Role): Promise<BaseResponse> {
         return await this.authService.getUserByRole(role);
     }
@@ -47,4 +50,5 @@ export class AuthController{
     async getAllUsers():Promise<BaseResponse>{
         return await this.authService.getAllUsers();
     }
+    
 }
