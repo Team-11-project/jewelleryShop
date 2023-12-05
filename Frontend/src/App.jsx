@@ -1,32 +1,35 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, useLocation } from 'react-router-dom'
-import { Route } from 'react-router';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Home from './homePagr/home'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+import Home from './homePage/home';
 import Login from './Pages/Login/Login';
-import { AuthProvider } from './Context/AuthContext'
+import AppNavbar from './assets/navbar';
+import Footer from './assets/footer';
+import Products from './productsPage/products';
+import AddCart from './addCart/addCart';
+import { AuthProvider } from './Context/AuthContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faHome, faTh, faInfo, faStar);
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <Router>
+    <Router>
+      <AuthProvider>
+        <AppNavbar />
         <Routes>
-          <Route path='/' exact element={<Home />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/products' element={<Products />} />
+          <Route path="/addCart" element={<AddCart />} />
         </Routes>
-        <AuthProvider>
-          <Routes>
-            <Route path='/login' exact element={<Login />} />
-          </Routes>
-        </AuthProvider>
-
-      </Router>
-
-    </>
-  )
+        <Footer />
+      </AuthProvider>
+    </Router>
+  );
 }
 
-export default App
+export default App;
