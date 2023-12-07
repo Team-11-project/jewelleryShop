@@ -68,7 +68,7 @@ const Home = () => {
       <div className="container-fluid section-3">
         <div className="row">
           <div className="col-md-6 order-md-2 image-container">
-            <img src={img3} alt="" className="img-fluid" />
+            <img src={img1} alt="" className="img-fluid" />
           </div>
 
           <div className="col-md-6 order-md-1 d-flex align-items-center justify-content-center text-container">

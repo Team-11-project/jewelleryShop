@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './homePage/home';
+import About from './about us/about';
 import Login from './Pages/Login/Login';
 import AppNavbar from './assets/navbar';
 import Footer from './assets/footer';
@@ -30,6 +31,7 @@ function App() {
            <Route path='/forgotPassword' exact element={<ForgotPassword />} />
             <Route path='/dashboard' exact element={<Dashboard />} />
           <Route path='/products' element={<Products />} />
+          <Route path='/about' element={<About />} />
           <Route path="/addCart" element={<AddCart />} />
         </Routes>
         <Footer />
