@@ -18,9 +18,6 @@ export class ProductEntity{
     @Column()
     material: string
 
-    // @Column()
-    // stock: string
-
     @Column()
     details: string
 

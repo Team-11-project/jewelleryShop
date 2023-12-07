@@ -2,25 +2,38 @@ import { CreateProductDto } from './../Dto/createProduct.dto';
 import { CategoryEntity } from './../Entities/Category.entity';
 import { CreateCategoryDto } from './../Dto/createCategory.dto';
 import { UpdateProductDto } from './../Dto/updateProduct.dto';
-import { Injectable } from '@nestjs/common';
+import { Body, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProductEntity } from 'src/Entities/Product.entity';
 import { BaseResponse } from "src/Responses/BaseResponse";
 import { Repository } from "typeorm";
+import { ConfigService } from '@nestjs/config';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import * as AWS from 'aws-sdk';
 
 
 @Injectable()
 export class ProductService{
+
+    private readonly s3Client = new S3Client({region: this.configService.getOrThrow("AWS_S3_REGION")})
+    private readonly s3 = new AWS.S3({
+        accessKeyId: this.configService.getOrThrow("AWS_ACCESS_KEY_ID"),
+        secretAccessKey: this.configService.getOrThrow("AWS_SECRET_ACCESS_KEY"),
+        region: this.configService.getOrThrow("AWS_S3_REGION")
+    })
+
     constructor(
         @InjectRepository(ProductEntity)
         private readonly productRepository: Repository<ProductEntity>,
         @InjectRepository(CategoryEntity)
         private readonly categoryRepository: Repository<CategoryEntity>,
+        private readonly configService: ConfigService
     ){}
 
-    async createProduct(createProductDto: CreateProductDto): Promise<BaseResponse> {
+    async createProduct(createProductDto: CreateProductDto, fileName:string, file:Buffer): Promise<BaseResponse> {
         try {
 
+            console.log(fileName)
             const date = new Date();
 
             const productFromDb = await this.productRepository.findOne({
@@ -54,7 +67,7 @@ export class ProductService{
             product.price = createProductDto.price
             product.material = createProductDto.material
             product.keywords = createProductDto.keywords
-            product.image = createProductDto.image
+            product.image = await (await this.uploadProductImage(fileName, file)).response
             product.details = createProductDto.detail
             product.stock = createProductDto.stock
             product.createdAt = date
@@ -296,8 +309,19 @@ export class ProductService{
         return count;
     }
 
-    async uploadProductImage(): Promise<BaseResponse> {
+    async uploadProductImage(fileName: string, file:Buffer): Promise<BaseResponse> {
         try {
+            let img = await this.s3.upload({
+                Bucket: 'regalia-storage',
+                Key:fileName,
+                Body:file,
+                ContentType: 'image/jpeg'
+            }).promise()
+            return{
+                status: 200,
+                message:"done",
+                response:img.Location
+            }
             
         } catch (error) {
             return{
@@ -375,7 +399,6 @@ export class ProductService{
         }
         
     }
-
 
     async getProductByCategory(Category: string): Promise<BaseResponse>{
         try {
