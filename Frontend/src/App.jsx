@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './homePage/home';
 import About from './about us/about';
 import Login from './Pages/Login/Login';
+import Contact from './Contact Us/contact';
 import AppNavbar from './assets/navbar';
 import Footer from './assets/footer';
 import Products from './productsPage/products';
@@ -31,6 +32,7 @@ function App() {
            <Route path='/forgotPassword' exact element={<ForgotPassword />} />
             <Route path='/dashboard' exact element={<Dashboard />} />
           <Route path='/products' element={<Products />} />
+          <Route path='/contact' element={<Contact />} />
           <Route path='/about' element={<About />} />
           <Route path="/addCart" element={<AddCart />} />
         </Routes>

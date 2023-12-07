@@ -1,0 +1,16 @@
+h1,h5{
+  color:  rgba(218, 165, 32, 1);
+}
+body{
+  background-color: rgba(255, 255, 240, 1);
+}
+
+#boxBlue{
+  background: rgba(1, 0, 60, 1);
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background:  rgba(218, 165, 32, 1) !important;
+  color: white;
+}
+
