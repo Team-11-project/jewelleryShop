@@ -1,5 +1,7 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, ManyToMany, PrimaryGeneratedColumn ,JoinTable} from "typeorm";
 import { CategoryEntity } from "./Category.entity";
+import { CartEntity } from "./Cart.entity";
+
 
 @Entity()
 export class ProductEntity{
@@ -32,4 +34,8 @@ export class ProductEntity{
 
     @Column()
     createdAt: Date
+
+    @ManyToMany(type => CartEntity, cart => cart.products)
+    @JoinTable()
+    carts: CartEntity[];
 }

@@ -15,6 +15,7 @@ import { ProductsController } from './Controllers/ProductsController.controller'
 import * as fs from 'fs';
 import { join } from 'path';
 // import "../global-bundle.pem"
+import { CartEntity } from './Entities/Cart.entity';
 
 import path from "path";
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
@@ -55,7 +56,7 @@ import path from "path";
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity]),
 
   ],
   controllers: [ProductsController],
