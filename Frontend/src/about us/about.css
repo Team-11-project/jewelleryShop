@@ -1,5 +1,5 @@
 h1,h5{
-  color:  rgba(218, 165, 32, 1);
+  color:  rgb(255, 217, 119);
 }
 body{
   background-color: rgba(255, 255, 240, 1);
@@ -14,6 +14,6 @@ body{
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-  background:  rgba(218, 165, 32, 1) !important;
+  background:  rgb(255, 217, 119) !important;
   color: white;
 }

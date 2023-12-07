@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
+import { LazyImage} from "react-image";
 import { Carousel, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +17,7 @@ const About = () => {
             id="boxBlue"
           >
             <div className="text-center p-5 text-white">
-              <h1>About Us</h1>
+              <h3>About Us</h3>
               <p>
                 Explore the world of Regalia and get involved. Let’s work
                 towards breaking barriers, one fine piece at a time.
@@ -40,7 +41,7 @@ const About = () => {
       <div className="container-fluid mission-section">
         <div className="row">
           <div className="text-center text-container">
-            <h1>Our Mission</h1>
+            <h3>Our Mission</h3>
             <p>
               “We are redefining luxury in the world of fine jewelry by offering
               meticulously crafted, ethically-sourced pieces that transcend time
@@ -49,19 +50,34 @@ const About = () => {
           </div>
         </div>
         <div className="row ">
-          <div className="col">
+        <div className="col">
             <div className="image-container mt-0">
-              <img src={img2} alt="" className="img-fluid" />
+              <LazyImage
+                src={img2}
+                alt=""
+                className="img-fluid"
+                style={{ maxWidth: "100%", maxHeight: "100%" }}
+              />
             </div>
           </div>
           <div className="col">
             <div className="image-container mt-0">
-              <img src={img3} alt="" className="img-fluid" />
+              <LazyImage
+                src={img3}
+                alt=""
+                className="img-fluid"
+                style={{ maxWidth: "100%", maxHeight: "100%" }}
+              />
             </div>
           </div>
           <div className="col">
             <div className="image-container mt-0">
-              <img src={img4} alt="" className="img-fluid" />
+              <LazyImage
+                src={img4}
+                alt=""
+                className="img-fluid"
+                style={{ maxWidth: "100%", maxHeight: "100%" }}
+              />
             </div>
           </div>
         </div>
@@ -71,7 +87,7 @@ const About = () => {
       <div className="container-fluid values-section">
         <div className="row">
           <div className="text-center text-container">
-            <h1>Our Values</h1>
+            <h3>Our Values</h3>
           </div>
         </div>
         <div className="row mx-5">
@@ -98,7 +114,7 @@ const About = () => {
         <div className="row blue">
           <div className="col p-5 d-flex align-items-center justify-content-center">
             <div className="text-center text-container text-white">
-              <h1>Our Vision</h1>
+              <h3>Our Vision</h3>
 
               <p>
                 Regalia envisions a world where luxury is not just a status
@@ -149,7 +165,7 @@ const About = () => {
         <div className="row blue">
           <div className="col p-5 d-flex align-items-center justify-content-center">
             <div className="text-center text-container ">
-              <h1>Interesed joining us?</h1>
+              <h3>Interesed joining us?</h3>
 
               <p className="text-white">
                 We're on the lookout for passionate individuals to join the
