@@ -6,14 +6,13 @@ import Instagram from '../assets/Icons/Instagram.svg';
 import Facebook from '../assets/Icons/Facebook.svg';
 
 const Signup = () => {
-
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     password1: '',
     password2: '',
-    role: 'user',
+    role: 'admin',
     // agreePrivacyPolicy: false,
     // agreeTermsConditions: false,
   });
@@ -75,7 +74,7 @@ const Signup = () => {
         </div>
       </div>
       <div className="right-half">
-        <h6>Are you an admin?<a href="/AdminSignup">Admin sign up</a></h6>
+        <h6>Are you a customer?<a href="/Signup">Sign up</a></h6>
         <h1>Create Your Account</h1>
         <p>
           Already have an account? <a href="/login">Log in</a>

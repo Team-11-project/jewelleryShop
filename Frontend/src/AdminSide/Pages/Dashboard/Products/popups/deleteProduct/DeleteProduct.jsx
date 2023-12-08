@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '../../../../../../Context/AuthContext';
+import './DeleteProduct.css';
 
 function DeleteProduct({ getDeletePop, chosenProd }) {
   let { authTokens } = useContext(AuthContext);
@@ -9,6 +10,7 @@ function DeleteProduct({ getDeletePop, chosenProd }) {
   const handlePop = (pop) => {
     getDeletePop(pop);
   };
+//   console.log(chosenProd)
 
 
   console.log(chosenProd, "del")
@@ -39,24 +41,31 @@ function DeleteProduct({ getDeletePop, chosenProd }) {
     } 
     catch (error) {
       console.error('Error:', error.message);
-      alert('An unexpected error occurred. Please try again.');
+      alert(`An unexpected error occurred. Please try again. ${error.message}`);
     }
   };
 
   return (
     <div className="delete-popup">
       <div className="delete-popup-inner">
-        <button className="close-btn" onClick={() => handlePop(false)}>
+        <button className="cancel-btn" onClick={() => handlePop(false)}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
-        <div className="delete-content">
-          <FontAwesomeIcon icon={faTrash} className="delete-icon" />
-          <p>Are you sure you want to delete the product?</p>
-          <div className="delete-actions">
-            <button onClick={() => handleDelete()}>Delete</button>
-            <button onClick={() => handlePop(false)}>Cancel</button>
+        <form onSubmit={handleDelete}>
+          <div className="left-form">
           </div>
-        </div>
+          <div className="right-form">
+            <div className="form-item">
+              <label>Are you sure you want to delete this product?</label>
+            </div>
+            <div className="submit-product">
+              <button type="submit">Delete</button>
+              <button type="button" onClick={() => handlePop(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import './ViewProduct.css';
 
 function ViewProduct({ product, closeDetailView }) {
   return (
@@ -10,10 +11,10 @@ function ViewProduct({ product, closeDetailView }) {
           <FontAwesomeIcon icon={faTimes} />
         </button>
         <div className="view-product-content">
-          <h2>{product.name}</h2>
-          <p>Material: {product.material}</p>
-          <p>Price: £{product.price}</p>
-          <p>Stock Level: {product.stock}</p>
+          <h2 className="product-name">{product.name}</h2>
+          <p className="product-info">Material: {product.material}</p>
+          <p className="product-info">Price: £{product.price}</p>
+          <p className="product-info">Stock Level: {product.stock}</p>
         </div>
       </div>
     </div>

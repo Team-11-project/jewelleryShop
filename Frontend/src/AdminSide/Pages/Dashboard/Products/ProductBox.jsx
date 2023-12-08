@@ -8,7 +8,10 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDelet
     const [isOption, setIsOption] = useState(false)
     const empty = {}
 
+    // console.log(product,"product")
     const handleChosenProd = (prod) => {
+        // console.log("test")
+        console.log(prod, "handle")
         getChosenProd(prod)
     }
 
@@ -23,18 +26,28 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDelet
         getIsOption(opt)
     }
 
+    const handleDeleteOption = () => {
+        getChosenProd(product);
+        //console.log(true);
+        openDeletePopup(true);
+    };
+
+    useEffect(()=>{
+        // handleChosenProd(product)
+    },[product])
+
     const OptionMenu = () => {
 
         if (isOption === true) {
             return (
                 <>
-                    <div className="">
+                    <div className="" onClick={()=>handleChosenProd(product)}>
                         <button className="close-btn" onClick={() => { setIsOption(false); handleChosenProd(empty); handleOption(false) }}><FontAwesomeIcon icon={faXmark} /></button>
 
                         <div className="opened-menu">
                             <div className="option" onClick={() => { handleChosenProd(product); handleEditPop(true) }}><FontAwesomeIcon icon={faPenToSquare} /> Edit</div>
-                            <div className="option"><FontAwesomeIcon icon={faTrash} />Delete</div>
-                            <div className="option o-p"><FontAwesomeIcon icon={faCircleInfo} />View</div>
+                            <div className="option" onClick={handleDeleteOption}><FontAwesomeIcon icon={faTrash} /> Delete</div>
+                            <div className="option o-p" onClick={() => openViewProduct(product)}><FontAwesomeIcon icon={faCircleInfo} />View</div>
                         </div>
                     </div>
 
@@ -55,17 +68,14 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDelet
             {/* {editProdPop === true ? <EditProduct getEditPop={getEditPop} /> : ""} */}
             <div className="box-container">
                 <div className="box-head">
-                    <div className="prod-image">
-                        <img src={product?.image} alt="product image" />
-                    </div>
+                    <div className="prod-image"></div>
                     <div className="deets">
                         <div className="prod-det">
                             <div className="name">{product?.name}</div>
                             <div className="material">{product?.material}</div>
-                            <div className="price">£{product?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                            <div className="price">£{product?.price}</div>
                         </div>
                         {OptionMenu()}
-
 
                     </div>
                 </div>
@@ -88,11 +98,9 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDelet
                             <div className="val">{product?.stock}</div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </>
     )
 }
-
 export default ProductBox
