@@ -6,3 +6,8 @@
     display: flex;
     justify-content: space-between;
 }
+
+.b a{
+    color: black;
+    text-decoration: none;
+}

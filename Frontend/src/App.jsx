@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './homePage/home';
@@ -20,19 +20,31 @@ import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons'
 library.add(faHome, faTh, faInfo, faStar);
 
 function App() {
+
+  const currentURL = window.location.pathname
+  console.log(currentURL)
+
   return (
     <Router>
       <AuthProvider>
-        <AppNavbar />
+        {/* {
+          currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <AppNavbar />
+        } */}
+        {/* {
+          currentURL === "/" ? <AppNavbar /> : <></>
+        } */}
+
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
-           <Route path='/forgotPassword' exact element={<ForgotPassword />} />
-            <Route path='/dashboard' exact element={<Dashboard />} />
+          <Route path='/forgotPassword' exact element={<ForgotPassword />} />
+          <Route path='/dashboard' exact element={<Dashboard />} />
           <Route path='/products' element={<Products />} />
           <Route path="/addCart" element={<AddCart />} />
         </Routes>
-        <Footer />
+        {
+          currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <Footer />
+        }
       </AuthProvider>
     </Router>
   );
