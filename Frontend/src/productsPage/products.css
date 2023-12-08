@@ -1,9 +1,7 @@
-/* products.css */
-
 .products-container {
     padding: 4em 0;
 }
-  
+ 
 .products-intro {
     text-align: center;
 }
@@ -88,7 +86,7 @@
 .card-img-top {
     border-radius: 15px 15px 0 0;
     width: 100%;
-    height: 200px; /* Set the desired height for your images */
+    height: 250px; /* Set the desired height for your images */
     object-fit: cover;
 }
   

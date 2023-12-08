@@ -15,6 +15,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ForgotPassword from './forgotPassword/forgotPassword';
 import Dashboard from './AdminSide/Pages/Dashboard/Dashboard';
 import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
+import IndividualProduct from './productsPage/individualProducts';
+import AddCartPage from './addCart/addCartPage';
+
 import CheckoutPage from './Checkout/checkout';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -38,6 +41,8 @@ function App() {
           <Route path='/contact' element={<Contact />} />
           <Route path='/about' element={<About />} />
           <Route path="/addCart" element={<AddCart />} />
+          <Route path='/product/:productId' element={<IndividualProduct />} />
+          <Route path="/addCartPage" element={<AddCartPage />} />
         </Routes>
         <Footer />
       </AuthProvider>
