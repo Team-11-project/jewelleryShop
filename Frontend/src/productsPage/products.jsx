@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faShoppingBag, faFilter, faSort } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import img1 from './img1.jpg';
+import rolexOyster from './rolexOyster.jpg'
 import './products.css';
 import AppNavbar from '../assets/navbar';
 
@@ -16,7 +17,7 @@ function Products() {
   const [showFilters, setShowFilters] = useState(false);
 
   const products = [
-    { id: 1, name: 'Product 1', price: 20, image: img1 },
+    { id: 1, name: 'Rolex Oyster Perpetual', price: 8000, image: rolexOyster },
     { id: 2, name: 'Product 2', price: 30, image: img1 },
     { id: 3, name: 'Product 2', price: 30, image: img1 },
     { id: 4, name: 'Product 2', price: 30, image: img1 },
@@ -25,7 +26,6 @@ function Products() {
     { id: 7, name: 'Product 2', price: 30, image: img1 },
     { id: 8, name: 'Product 2', price: 30, image: img1 },
     { id: 9, name: 'Product 2', price: 30, image: img1 },
-    // Add more products as needed
   ];
 
   const priceOptions = ['100-500', '500-1000', '1000-5000', '5000+'];
@@ -145,10 +145,12 @@ function Products() {
           <div className="card-container">
             {products.map((product) => (
               <Card key={product.id}>
-                <Card.Img variant="top" src={product.image} />
+                <Link to={`/product/${product.id}`}>
+                  <Card.Img variant="top" src={product.image} />
+                </Link>
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
-                  <Card.Text>${product.price}</Card.Text>
+                  <Card.Text>£{product.price}</Card.Text>
                   <div className="card-icons">
                     <a href="#" onClick={() => handleHeartClick(product)}>
                       <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
@@ -163,8 +165,7 @@ function Products() {
           </div>
         </div>
       </Container>
-    </>
-  );
+      );
 }
 
-export default Products;
+      export default Products;
