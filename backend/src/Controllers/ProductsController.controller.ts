@@ -1,6 +1,6 @@
 import { ProductService } from './../Services/ProductsService.service';
-import { Body, Controller, Get, Post, UseGuards, Param, Delete, Put } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Get, Post, UseGuards, Param, Delete, Put, UseInterceptors, UploadedFile, ParseFilePipe, MaxFileSizeValidator, FileTypeValidator } from "@nestjs/common";
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from "@nestjs/swagger";
 import { Roles } from 'src/Decorators/role.decorator';
 import { CreateCategoryDto } from 'src/Dto/createCategory.dto';
 import { UpdateProductDto } from './../Dto/updateProduct.dto';
@@ -9,6 +9,7 @@ import { Role } from 'src/Entities/Role.enum';
 import { BaseResponse } from 'src/Responses/BaseResponse';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { RolesGuard } from 'src/guards/role.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiBearerAuth()
 @ApiTags("Products Controller")
@@ -19,11 +20,45 @@ export class ProductsController{
     ){}
 
 
+    @ApiConsumes('multipart/form-data')
+    @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+        name: {
+            type: 'string'
+        },
+        keywords: {
+           type:  'string'
+        },
+        material: {
+            type: 'string'
+        },
+        detail: {
+            type: 'string'
+        },
+        price: {
+            type: 'number'
+        },
+        stock: {
+        type: 'number'
+        },
+        category: {
+            type: 'number'
+        },
+      },
+    },
+  })
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
+    @UseInterceptors(FileInterceptor("file"))
     @Post("create-product")
-    async createProduct(@Body() createProductDto: CreateProductDto): Promise<BaseResponse> {
-        return this.productService.createProduct(createProductDto);
+    async createProduct(@UploadedFile(new ParseFilePipe({validators: [new FileTypeValidator({fileType: 'image/jpeg'})]})) file: Express.Multer.File, @Body() createProductDto: CreateProductDto): Promise<BaseResponse> {
+        return this.productService.createProduct(createProductDto, file.originalname, file.buffer);
     }
 
     @UseGuards(JwtGuard, RolesGuard)
@@ -59,26 +94,19 @@ export class ProductsController{
 
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Post("upload-product-image")
-    async uploadProductImage(): Promise<BaseResponse> {
-       return this.productService.uploadProductImage()
-    }
-
-    @UseGuards(JwtGuard, RolesGuard)
-    @Roles(Role.ADMIN)
     @Put("update-category/:id")
     async updateCategory(@Param('id') id: number, @Body() createCategoryDto: CreateCategoryDto): Promise<BaseResponse> {
        return this.productService.updateCategory(id, createCategoryDto)
     }
 
     @UseGuards(JwtGuard)
-    @Get("getProductById")
+    @Get("getProductById/:productId")
     async getProductById(@Param("productId") productId: number): Promise<BaseResponse> {
         return await this.productService.getProductById(productId);
     }
 
     @UseGuards(JwtGuard)
-    @Get("getProductByCategory")
+    @Get("getProductByCategory/:categoyName")
     async getProductByCategory(@Param("categoryName") categoryName: string): Promise<BaseResponse> {
         return await this.productService.getProductByCategory(categoryName);
     }
@@ -95,6 +123,31 @@ export class ProductsController{
     @Put(':id')
         async updateProduct(@Param('id') productId: number, @Body() updateProductDto: UpdateProductDto) {
         return await this.productService.updateProduct(productId, updateProductDto);
+  }
+
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @Post("upload-file")
+  @UseInterceptors(FileInterceptor("file"))
+  async uploadFile(@UploadedFile(
+    new ParseFilePipe({
+        validators: [
+            // new MaxFileSizeValidator({maxSize: 300000}),
+            new FileTypeValidator({fileType: 'image/jpeg'})
+        ]
+    })
+  ) file: Express.Multer.File){
+    return await this.productService.uploadProductImage(file.originalname, file.buffer)
   }
 
 
