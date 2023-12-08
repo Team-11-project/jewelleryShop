@@ -1,10 +1,17 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
-import { LazyImage} from "react-image";
 import { Carousel, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-
+import "./about.css";
+import img1 from "./img1.png";
+import img2 from "./img2.png";
+import img3 from "./img3.png";
+import img4 from "./img4.png";
+import img5 from "./img5.png";
+import img6 from "./img6.png";
+import img7 from "./img7.png";
+import img8 from "./img8.png";
 
 const About = () => {
   return (
@@ -17,7 +24,7 @@ const About = () => {
             id="boxBlue"
           >
             <div className="text-center p-5 text-white">
-              <h3>About Us</h3>
+              <h1>About Us</h1>
               <p>
                 Explore the world of Regalia and get involved. Let’s work
                 towards breaking barriers, one fine piece at a time.
@@ -41,7 +48,7 @@ const About = () => {
       <div className="container-fluid mission-section">
         <div className="row">
           <div className="text-center text-container">
-            <h3>Our Mission</h3>
+            <h1>Our Mission</h1>
             <p>
               “We are redefining luxury in the world of fine jewelry by offering
               meticulously crafted, ethically-sourced pieces that transcend time
@@ -49,35 +56,20 @@ const About = () => {
             </p>
           </div>
         </div>
-        <div className="row ">
-        <div className="col">
-            <div className="image-container mt-0">
-              <LazyImage
-                src={img2}
-                alt=""
-                className="img-fluid"
-                style={{ maxWidth: "100%", maxHeight: "100%" }}
-              />
+        <div className="row px-3">
+          <div className="col img px-3">
+            <div className="image-container  px-3 mt-0">
+              <img src={img2} alt=""  class="img-fluid float-right"/>
             </div>
           </div>
-          <div className="col">
-            <div className="image-container mt-0">
-              <LazyImage
-                src={img3}
-                alt=""
-                className="img-fluid"
-                style={{ maxWidth: "100%", maxHeight: "100%" }}
-              />
+          <div className="col img px-3">
+            <div className="image-container px-3 mt-0">
+              <img src={img3} alt="" class="img-fluid float-center" />
             </div>
           </div>
-          <div className="col">
-            <div className="image-container mt-0">
-              <LazyImage
-                src={img4}
-                alt=""
-                className="img-fluid"
-                style={{ maxWidth: "100%", maxHeight: "100%" }}
-              />
+          <div className="col img px-3" >
+            <div className="image-container px-3 mt-0">
+              <img src={img4} alt=""class="img-fluid float-left" />
             </div>
           </div>
         </div>
@@ -87,10 +79,10 @@ const About = () => {
       <div className="container-fluid values-section">
         <div className="row">
           <div className="text-center text-container">
-            <h3>Our Values</h3>
+            <h1>Our Values</h1>
           </div>
         </div>
-        <div className="row mx-5">
+        <div className="row mx-5 mb-5">
           <div className="col">
             <div className="image-container mt-0">
               <img src={img5} alt="" className="img-fluid" />
@@ -114,7 +106,7 @@ const About = () => {
         <div className="row blue">
           <div className="col p-5 d-flex align-items-center justify-content-center">
             <div className="text-center text-container text-white">
-              <h3>Our Vision</h3>
+              <h1>Our Vision</h1>
 
               <p>
                 Regalia envisions a world where luxury is not just a status
@@ -165,7 +157,7 @@ const About = () => {
         <div className="row blue">
           <div className="col p-5 d-flex align-items-center justify-content-center">
             <div className="text-center text-container ">
-              <h3>Interesed joining us?</h3>
+              <h1>Interesed joining us?</h1>
 
               <p className="text-white">
                 We're on the lookout for passionate individuals to join the
