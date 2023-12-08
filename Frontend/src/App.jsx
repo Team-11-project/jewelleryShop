@@ -18,6 +18,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faHome, faTh, faInfo, faStar);
+import CheckoutPage from './Checkout/checkout';
 
 function App() {
   return (
@@ -29,13 +30,10 @@ function App() {
           <Route path='/login' element={<Login />} />
            <Route path='/forgotPassword' exact element={<ForgotPassword />} />
             <Route path='/dashboard' exact element={<Dashboard />} />
-          <Route path='/products' element={<Products />} />
-          <Route path="/addCart" element={<AddCart />} />
-        </Routes>
-        <Footer />
-      </AuthProvider>
-    </Router>
-  );
+          </Routes>
+        </AuthProvider>
+      </Router>
+  )
 }
 
 export default App;
