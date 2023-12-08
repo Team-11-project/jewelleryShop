@@ -12,10 +12,16 @@ import { ProductService } from './Services/ProductsService.service';
 import { ProductEntity } from './Entities/Product.entity';
 import { CategoryEntity } from './Entities/Category.entity';
 import { ProductsController } from './Controllers/ProductsController.controller';
+import * as fs from 'fs';
+import { join } from 'path';
+// import "../global-bundle.pem"
 import { CartEntity } from './Entities/Cart.entity';
 
+import path from "path";
+// const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
+    AuthModule,
     ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -26,11 +32,36 @@ import { CartEntity } from './Entities/Cart.entity';
       password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
+      entities: [ProductEntity, CategoryEntity, UserEntity],
+      // ssl: {
+      //   ca: process.env.CERT,
+      // },
+      // extra:{
+      //   // encrypt: true,
+      //   trustServerCertificate: true
+      // }
+      // ssl:{
+      //   ca: fs.readFileSync("/Users/ruka/Desktop/team-11/jewelleryShop/backend/global-bundle.pem"),
+        // cert: fs.readFileSync("../backend/global-bundle.pem"),
+        // key: fs.readFileSync("../global-bundle.pem")
+        // rejectUnauthorized: false
+      // }
+      // ssl:{
+      //   ca: fs.readFileSync("global-bundle.pem"),
+      //   // rejectUnauthorized: false
+      // },
+      // extra: { 
+      //   trustServerCertificate: false,
+      //   Encrypt: true,
+      //   IntegratedSecurity: false,
+      //   }
 }),
 TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity]),
-AuthModule
+
   ],
   controllers: [ProductsController],
   providers: [AppService, JwtGuard, JwtStrategy, ProductService],
 })
 export class AppModule {}
+
+

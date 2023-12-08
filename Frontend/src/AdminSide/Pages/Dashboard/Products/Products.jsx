@@ -15,6 +15,7 @@ function Products() {
     let { authTokens } = useContext(AuthContext)
 
     const [Allproducts, setAllProducts] = useState([])
+    const [productsCount, setProductsCount] = useState()
     const [newProductPop, setNewProductPop] = useState(false)
     const [editProdPop, setEditProdPop] = useState(false)
     const [deleteProductPop, setDeleteProductPop] = useState(false);
@@ -35,8 +36,6 @@ function Products() {
         let length = end - start + 1;
         setPages(Array.from({ length }, (_, idx) => idx + start));
     };
-
-    console.log(chosenProd, "products page")
 
     const getPop = (pop) => {
         setNewProductPop(pop)
@@ -141,7 +140,7 @@ function Products() {
         console.log(isOption)
         // console.log(chosenProd)
         // getProductsCount(authTokens.token)
-    }, [authTokens, totalPageCount, isOption, prodLength])
+    }, [authTokens, totalPageCount, isOption])
 
     return (
         <>
@@ -168,7 +167,7 @@ function Products() {
                             currPage == 1 ?
                                 <div className=""></div>
                                 :
-                                <div className="page-no" onClick={() => prevPage()}>
+                                <div className="page-no" onClick={() => { prevPage(); getProducts(authTokens.token) }}>
                                     <FontAwesomeIcon icon={faChevronLeft} />
                                 </div>
 
@@ -190,7 +189,7 @@ function Products() {
                             currPage == pages[pages.length - 1] ?
                                 <div className=""></div>
                                 :
-                                <div className="page-no" onClick={() => nextPage()}>
+                                <div className="page-no" onClick={() => { nextPage(); getProducts(authTokens.token) }}>
                                     <FontAwesomeIcon icon={faChevronRight} />
                                 </div>
 
