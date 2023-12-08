@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import img1 from './img1.jpg';
 import rolexOyster from './rolexOyster.jpg'
 import './products.css';
+import AppNavbar from '../assets/navbar';
 
 function Products() {
   const [selectedPrice, setSelectedPrice] = useState(null);
@@ -52,116 +53,119 @@ function Products() {
   };
 
   return (
-    <Container className="products-container">
-      <Row>
-        <Col>
-          <div className="products-intro">
-            <h1>All Products</h1>
-            <p>Explore our wide range of exquisite products. Find the perfect piece for every occasion.</p>
-          </div>
-        </Col>
-      </Row>
+    <>
+      <AppNavbar />
+      <Container className="products-container">
 
-      <div className="filter-bar">
-        <Button variant="light" className="filter-toggle" onClick={handleToggleFilters}>
-          <FontAwesomeIcon icon={faSort} color="rgb(255,217,119)" />
-          <FontAwesomeIcon icon={faFilter} color="rgb(255,217,119)" />
-        </Button>
+        <Row>
+          <Col>
+            <div className="products-intro">
+              <h1>All Products</h1>
+              <p>Explore our wide range of exquisite products. Find the perfect piece for every occasion.</p>
+            </div>
+          </Col>
+        </Row>
 
-        {showFilters && (
-          <div className="filter-options">
-            <Form.Group className="filter-group">
-              <Form.Label>Price:</Form.Label>
-              <Dropdown onSelect={(eventKey) => setSelectedPrice(eventKey)}>
-                <Dropdown.Toggle variant="light" id="dropdown-price">
-                  {selectedPrice || 'Select Price Range'}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {priceOptions.map((option) => (
-                    <Dropdown.Item key={option} eventKey={option}>
-                      {option}
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Form.Group>
+        <div className="filter-bar">
+          <Button variant="light" className="filter-toggle" onClick={handleToggleFilters}>
+            <FontAwesomeIcon icon={faSort} color="rgb(255,217,119)" />
+            <FontAwesomeIcon icon={faFilter} color="rgb(255,217,119)" />
+          </Button>
 
-            <Form.Group className="filter-group">
-              <Form.Label>Material:</Form.Label>
-              <Dropdown onSelect={(eventKey) => setSelectedMaterial(eventKey)}>
-                <Dropdown.Toggle variant="light" id="dropdown-material">
-                  {selectedMaterial || 'Select Material'}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {materialOptions.map((option) => (
-                    <Dropdown.Item key={option} eventKey={option}>
-                      {option}
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Form.Group>
+          {showFilters && (
+            <div className="filter-options">
+              <Form.Group className="filter-group">
+                <Form.Label>Price:</Form.Label>
+                <Dropdown onSelect={(eventKey) => setSelectedPrice(eventKey)}>
+                  <Dropdown.Toggle variant="light" id="dropdown-price">
+                    {selectedPrice || 'Select Price Range'}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {priceOptions.map((option) => (
+                      <Dropdown.Item key={option} eventKey={option}>
+                        {option}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Form.Group>
 
-            <Form.Group className="filter-group">
-              <Form.Label>Category:</Form.Label>
-              <Dropdown onSelect={(eventKey) => setSelectedCategory(eventKey)}>
-                <Dropdown.Toggle variant="light" id="dropdown-category">
-                  {selectedCategory || 'Select Category'}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {categoryOptions.map((option) => (
-                    <Dropdown.Item key={option} eventKey={option}>
-                      {option}
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Form.Group>
+              <Form.Group className="filter-group">
+                <Form.Label>Material:</Form.Label>
+                <Dropdown onSelect={(eventKey) => setSelectedMaterial(eventKey)}>
+                  <Dropdown.Toggle variant="light" id="dropdown-material">
+                    {selectedMaterial || 'Select Material'}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {materialOptions.map((option) => (
+                      <Dropdown.Item key={option} eventKey={option}>
+                        {option}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Form.Group>
 
-            <Form.Group className="filter-group">
-              <Form.Label>Sort By:</Form.Label>
-              <Dropdown onSelect={(eventKey) => setSelectedSort(eventKey)}>
-                <Dropdown.Toggle variant="light" id="dropdown-sort">
-                  {selectedSort || 'Select Sorting'}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {sortOptions.map((option) => (
-                    <Dropdown.Item key={option} eventKey={option}>
-                      {option}
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Form.Group>
-          </div>
-        )}
-      </div>
+              <Form.Group className="filter-group">
+                <Form.Label>Category:</Form.Label>
+                <Dropdown onSelect={(eventKey) => setSelectedCategory(eventKey)}>
+                  <Dropdown.Toggle variant="light" id="dropdown-category">
+                    {selectedCategory || 'Select Category'}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {categoryOptions.map((option) => (
+                      <Dropdown.Item key={option} eventKey={option}>
+                        {option}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Form.Group>
 
-      <div className="product-display">
-        <div className="card-container">
-          {products.map((product) => (
-            <Card key={product.id}>
-              <Link to={`/product/${product.id}`}>
-                <Card.Img variant="top" src={product.image} />
-              </Link>
-              <Card.Body>
-                <Card.Title>{product.name}</Card.Title>
-                <Card.Text>£{product.price}</Card.Text>
-                <div className="card-icons">
-                  <a href="#" onClick={() => handleHeartClick(product)}>
-                    <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
-                  </a>
-                  <Link to="/addCart">
-                    <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
-                  </Link>
-                </div>
-              </Card.Body>
-            </Card>
-          ))}
+              <Form.Group className="filter-group">
+                <Form.Label>Sort By:</Form.Label>
+                <Dropdown onSelect={(eventKey) => setSelectedSort(eventKey)}>
+                  <Dropdown.Toggle variant="light" id="dropdown-sort">
+                    {selectedSort || 'Select Sorting'}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {sortOptions.map((option) => (
+                      <Dropdown.Item key={option} eventKey={option}>
+                        {option}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Form.Group>
+            </div>
+          )}
         </div>
-      </div>
-    </Container>
-  );
+
+        <div className="product-display">
+          <div className="card-container">
+            {products.map((product) => (
+              <Card key={product.id}>
+                <Link to={`/product/${product.id}`}>
+                  <Card.Img variant="top" src={product.image} />
+                </Link>
+                <Card.Body>
+                  <Card.Title>{product.name}</Card.Title>
+                  <Card.Text>£{product.price}</Card.Text>
+                  <div className="card-icons">
+                    <a href="#" onClick={() => handleHeartClick(product)}>
+                      <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
+                    </a>
+                    <Link to="/addCart">
+                      <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
+                    </Link>
+                  </div>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </Container>
+      );
 }
 
-export default Products;
+      export default Products;

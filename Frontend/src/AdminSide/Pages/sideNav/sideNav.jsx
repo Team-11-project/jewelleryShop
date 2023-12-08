@@ -10,7 +10,7 @@ function SideNav({ getPage, getEx }) {
     let { authTokens } = useContext(AuthContext)
 
     const [isCollapsed, setIsCollapsed] = useState(false)
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(1)
     // const [selectedCat, setSelectedCat] = useState(0)
     const [categories, setCategories] = useState([])
 
@@ -28,6 +28,7 @@ function SideNav({ getPage, getEx }) {
             if (response.status == 200) {
                 // console.log(resJson, "response")
                 setCategories(resJson.response);
+                getCategories(token)
             } else {
                 console.log(resJson.message);
                 alert("error: " + resJson.message)
@@ -53,7 +54,7 @@ function SideNav({ getPage, getEx }) {
                 <button className="coll-btn" onClick={() => { setIsCollapsed(false) }}>
                     <FontAwesomeIcon icon={faChevronRight} />
                 </button>
-                <div className="sideNav-container">
+                <div className="side-container">
                     <div className="full-section">
                         <div className={page === 0 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(0) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faChartLine} /></div>
@@ -71,7 +72,7 @@ function SideNav({ getPage, getEx }) {
 
                     <div className="bottom-line"></div>
 
-                    <div className="full-section">
+                    {/* <div className="full-section">
                         <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(4) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faLayerGroup} /></div>
                         </div>
@@ -81,7 +82,26 @@ function SideNav({ getPage, getEx }) {
                         <div className={page === 6 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(6) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
                         </div>
-                    </div>
+                    </div> */}
+                    {categories.length > 0 ? (
+                        <div className="full-section">
+                            {categories.map(category => (
+                                <div className="full-page" key={category.id}>
+                                    <div className="full-icon"><FontAwesomeIcon icon={faLayerGroup} /></div>
+                                </div>
+
+                            ))}
+                            <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(4) }}>
+                                <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
+                            </div>
+                        </div>
+                    )
+                        :
+                        <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(4) }}>
+                            <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
+                            <div className="full-page-name">New</div>
+                        </div>
+                    }
 
                     <div className="bottom-line"></div>
 

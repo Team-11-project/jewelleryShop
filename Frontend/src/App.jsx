@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './homePage/home';
@@ -27,10 +27,20 @@ library.add(faHome, faTh, faInfo, faStar);
 import CheckoutPage from './Checkout/checkout';
 
 function App() {
+
+  const currentURL = window.location.pathname
+  console.log(currentURL)
+
   return (
     <Router>
       <AuthProvider>
-        <AppNavbar />
+        {/* {
+          currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <AppNavbar />
+        } */}
+        {/* {
+          currentURL === "/" ? <AppNavbar /> : <></>
+        } */}
+
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
@@ -44,9 +54,11 @@ function App() {
           <Route path='/product/:productId' element={<IndividualProduct />} />
           <Route path="/addCartPage" element={<AddCartPage />} />
         </Routes>
-        <Footer />
+        {
+          currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <Footer />
+        }
       </AuthProvider>
     </Router>
   )
-  }
+}
 export default App;

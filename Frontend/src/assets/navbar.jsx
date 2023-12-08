@@ -45,6 +45,9 @@ function AppNavbar() {
             <Nav.Link className="nav-link-custom" as={Link} to="/contact">
               Contact
             </Nav.Link>
+            <Nav.Link className="nav-link-custom" as={Link} to="/dashboard">
+              Dashboard
+            </Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link className="nav-link-icons" href="#" onClick={toggleSearch}>
