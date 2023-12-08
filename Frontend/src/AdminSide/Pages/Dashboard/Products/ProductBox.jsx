@@ -3,12 +3,16 @@ import "./productsBox.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faEllipsis, faInfo, faPenToSquare, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 
-function ProductBox({ product, getChosenProd, getEditPop, getIsOption }) {
+function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDeletePopup, openViewProduct}) {
 
     const [isOption, setIsOption] = useState(false)
     const empty = {}
 
+
+    // console.log(product,"product")
     const handleChosenProd = (prod) => {
+        // console.log("test")
+        console.log(prod, "handle")
         getChosenProd(prod)
     }
 
@@ -23,18 +27,28 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption }) {
         getIsOption(opt)
     }
 
+    const handleDeleteOption = () => {
+        getChosenProd(product);
+        //console.log(true);
+        openDeletePopup(true);
+    };
+
+    useEffect(()=>{
+        // handleChosenProd(product)
+    },[product])
+
     const OptionMenu = () => {
 
         if (isOption === true) {
             return (
                 <>
-                    <div className="">
+                    <div className="" onClick={()=>handleChosenProd(product)}>
                         <button className="close-btn" onClick={() => { setIsOption(false); handleChosenProd(empty); handleOption(false) }}><FontAwesomeIcon icon={faXmark} /></button>
 
                         <div className="opened-menu">
                             <div className="option" onClick={() => { handleChosenProd(product); handleEditPop(true) }}><FontAwesomeIcon icon={faPenToSquare} /> Edit</div>
-                            <div className="option"><FontAwesomeIcon icon={faTrash} />Delete</div>
-                            <div className="option o-p"><FontAwesomeIcon icon={faCircleInfo} />View</div>
+                            <div className="option" onClick={handleDeleteOption}><FontAwesomeIcon icon={faTrash} /> Delete</div>
+                            <div className="option o-p" onClick={() => openViewProduct(product)}><FontAwesomeIcon icon={faCircleInfo} />View</div>
                         </div>
                     </div>
 
