@@ -2,8 +2,12 @@ import { Controller, Post, Delete, Param, Get, ParseIntPipe, UseGuards, Req } fr
 import { CartService } from './../Services/CartService.service';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { BaseResponse } from 'src/Responses/BaseResponse';
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UserEntity } from './../Entities/UserEntity.entity'; 
 
+
+@ApiBearerAuth()
+@ApiTags("Cart Controller")
 @Controller('cart')
 @UseGuards(JwtGuard)
 export class CartController {
@@ -21,13 +25,11 @@ export class CartController {
     return this.cartService.removeFromCart(userId, productId);
   }
 
-  @Get(':userId')
+  @Get('getOrCreateCart/:userId')
   async getOrCreateCart(@Param('userId') userId: number) {
       const result = await this.cartService.getOrCreateCart(userId);
       return result;
     }
-
-
 
   @UseGuards(JwtGuard)
     @Get("getCartByUserId/:userId")

@@ -13,6 +13,8 @@ import { ProductEntity } from './Entities/Product.entity';
 import { CategoryEntity } from './Entities/Category.entity';
 import { ProductsController } from './Controllers/ProductsController.controller';
 import { CartEntity } from './Entities/Cart.entity';
+import { CartController } from './Controllers/CartController.controller';
+import { CartService } from './Services/CartService.service';
 
 @Module({
   imports: [
@@ -27,10 +29,10 @@ import { CartEntity } from './Entities/Cart.entity';
       autoLoadEntities: true,
       synchronize: true,
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity]),
 AuthModule
   ],
-  controllers: [ProductsController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService],
+  controllers: [ProductsController,CartController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService],
 })
 export class AppModule {}
