@@ -24,7 +24,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faHome, faTh, faInfo, faStar);
-import CheckoutPage from './Checkout/checkout';
 
 function App() {
 
