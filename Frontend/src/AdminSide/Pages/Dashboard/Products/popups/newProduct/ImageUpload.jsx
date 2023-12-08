@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import './imageUpload.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faImage } from '@fortawesome/free-solid-svg-icons'
 
 function ImageUpload({ getImage }) {
     const [image, setImage] = useState([])
-    // setImageData(image[0])
     getImage(image)
-    // console.log(image)
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         acceptedFiles: 'image/jpeg',
@@ -21,16 +21,16 @@ function ImageUpload({ getImage }) {
                     preview: URL.createObjectURL(upFile)
                 }))
             )
-
         }
-
     })
 
     return (
         <>
             <div className="image-cont">
-                <div {...getRootProps()}>
+                <div {...getRootProps()} className='image-body'>
                     <input {...getInputProps()} />
+
+                    {image ? <></> : <FontAwesomeIcon icon={faImage} />}
                     {
                         isDragActive ? <p> drop your image here..</p> : <p>drop your image here or click to upload</p>
                     }
@@ -43,9 +43,7 @@ function ImageUpload({ getImage }) {
                     })}
                 </div>
             </div>
-
         </>
     )
-
 }
 export default ImageUpload

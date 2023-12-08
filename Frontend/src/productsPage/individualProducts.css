@@ -1,0 +1,42 @@
+.individual-p-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px; 
+}
+
+.product-details {
+  margin-top: 20px;
+}
+
+.product-details h1 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 16px;
+  color: #555;
+}
+
+.star-rating {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: gold;
+}
+
+.price-p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.add-to-cart-btn {
+display: flex;
+}

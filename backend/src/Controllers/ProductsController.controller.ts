@@ -68,19 +68,19 @@ export class ProductsController{
         return this.productService.createCategory(createCategoryDto);
     }
 
-    @UseGuards(JwtGuard)
+    // @UseGuards(JwtGuard)
     @Get("get-all-categories")
     async getAllCategories(): Promise<BaseResponse> {
        return this.productService.getAllCategories()
     }
 
-    @UseGuards(JwtGuard)
+    // @UseGuards(JwtGuard)
     @Get("get-all-products-with-pagination/:skip")
     async getAllProductsWithPagination(@Param("skip") skip:number): Promise<BaseResponse> {
        return this.productService.getAllProductsWithPagination(skip)
     }
 
-    @UseGuards(JwtGuard)
+    // @UseGuards(JwtGuard)
     @Get("get-all-products")
     async getAllProducts(): Promise<BaseResponse> {
        return this.productService.getAllProducts()
@@ -99,14 +99,14 @@ export class ProductsController{
        return this.productService.updateCategory(id, createCategoryDto)
     }
 
-    @UseGuards(JwtGuard)
+    // @UseGuards(JwtGuard)
     @Get("getProductById/:productId")
     async getProductById(@Param("productId") productId: number): Promise<BaseResponse> {
         return await this.productService.getProductById(productId);
     }
 
 
-    @UseGuards(JwtGuard)
+    // @UseGuards(JwtGuard)
     @Get("getProductByCategory/:categoyName")
     async getProductByCategory(@Param("categoryName") categoryName: string): Promise<BaseResponse> {
         return await this.productService.getProductByCategory(categoryName);
