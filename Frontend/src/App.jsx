@@ -12,6 +12,7 @@ import ForgotPassword from './forgotPassword/forgotPassword';
 import Dashboard from './AdminSide/Pages/Dashboard/Dashboard';
 import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
 import Products from './AdminSide/Pages/Dashboard/Products/Products';
+import CheckoutPage from './Checkout/checkout';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,6 +26,7 @@ function App() {
             <Route path='/login' exact element={<Login />} />
             <Route path='/forgotPassword' exact element={<ForgotPassword />} />
             <Route path='/dashboard' exact element={<Dashboard />} />
+            <Route path='/checkout' exact element={<CheckoutPage />} />
           </Routes>
         </AuthProvider>
       </Router>
