@@ -35,7 +35,6 @@ export class ProductEntity{
     @Column()
     createdAt: Date
 
-    @ManyToMany(type => CartEntity, cart => cart.products)
-    @JoinTable()
-    carts: CartEntity[];
+    @ManyToOne(() => CartEntity, cart => cart.products)
+    carts: CartEntity;
 }

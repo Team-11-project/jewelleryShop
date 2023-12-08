@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinTable, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { UserEntity } from './UserEntity.entity'; 
 import { ProductEntity } from './Product.entity'; 
 
@@ -7,17 +7,15 @@ export class CartEntity {
     @PrimaryGeneratedColumn()
     cartId: number;
 
-    @OneToOne(() => UserEntity, user => user.carts)
+    @OneToOne(() => UserEntity)
+    @JoinColumn({'name': 'cart'})
     user: UserEntity;
 
-    @OneToMany(type => ProductEntity, product => product.carts)
+    @OneToMany(() => ProductEntity, product => product.carts)
     products: ProductEntity[];
 
     @Column()
     isSubmitted: Boolean
-
-    @Column()
-    details: string
 
     @Column({ type: 'date' })
     createdAt: Date

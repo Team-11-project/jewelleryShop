@@ -58,7 +58,7 @@ import path from "path";
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity]),
 
   ],
   controllers: [ProductsController,CartController],
