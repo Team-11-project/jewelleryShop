@@ -53,7 +53,7 @@ function SideNav({ getPage, getEx }) {
                 <button className="coll-btn" onClick={() => { setIsCollapsed(false) }}>
                     <FontAwesomeIcon icon={faChevronRight} />
                 </button>
-                <div className="container">
+                <div className="sideNav-container">
                     <div className="full-section">
                         <div className={page === 0 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(0) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faChartLine} /></div>

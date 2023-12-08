@@ -13,6 +13,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ForgotPassword from './forgotPassword/forgotPassword';
 import Dashboard from './AdminSide/Pages/Dashboard/Dashboard';
 import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
+import IndividualProduct from './productsPage/individualProducts';
+import AddCartPage from './addCart/addCartPage';
+
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -31,6 +34,8 @@ function App() {
             <Route path='/dashboard' exact element={<Dashboard />} />
           <Route path='/products' element={<Products />} />
           <Route path="/addCart" element={<AddCart />} />
+          <Route path='/product/:productId' element={<IndividualProduct />} />
+          <Route path="/addCartPage" element={<AddCartPage />} />
         </Routes>
         <Footer />
       </AuthProvider>
