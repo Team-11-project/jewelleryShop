@@ -3,7 +3,7 @@ import './checkout.css';
 import diamondRingImg from './signatureRing.png';
 import silverNecklaceImg from './silverNecklace.png';
 
-    const CheckoutPage = () => {
+    const Checkout = () => {
         return (
           <div className="checkout-container">
             <h1 className="checkout-title">CHECKOUT</h1>
@@ -83,4 +83,4 @@ import silverNecklaceImg from './silverNecklace.png';
   );
 };
 
-export default CheckoutPage;
+export default Checkout;

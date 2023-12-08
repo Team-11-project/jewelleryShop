@@ -8,6 +8,7 @@ import { faChevronLeft, faChevronRight, faPlus } from '@fortawesome/free-solid-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NewProduct from './popups/newProduct/NewProduct'
 import EditProduct from './popups/editproduct/EditProduct'
+import NewCategory from './popups/newCategory/newCategory'
 
 function Products() {
     let { authTokens } = useContext(AuthContext)
@@ -15,6 +16,7 @@ function Products() {
     const [Allproducts, setAllProducts] = useState([])
     const [productsCount, setProductsCount] = useState()
     const [newProductPop, setNewProductPop] = useState(false)
+    const [newCategoryPop, setNewCategoryPop] = useState(true)
     const [editProdPop, setEditProdPop] = useState(false)
     const [isOption, setIsOption] = useState(false)
     const [chosenProd, setChosenProd] = useState({})
@@ -33,6 +35,7 @@ function Products() {
 
     const getPop = (pop) => {
         setNewProductPop(pop)
+        
     }
 
     const getIsOption = (opt) => {
@@ -125,7 +128,7 @@ function Products() {
         <>
             {newProductPop === true ? <NewProduct getPop={getPop} /> : ""}
             {editProdPop === true ? <EditProduct getEditPop={getEditPop} chosenProd={chosenProd} getIsOption={getIsOption} /> : ""}
-
+            {newCategoryPop === true ? <NewCategory/>: ""}
 
             <div className="path">Dashboard/Products</div>
             <div className="prod-container">

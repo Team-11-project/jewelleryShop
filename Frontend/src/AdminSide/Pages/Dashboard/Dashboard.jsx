@@ -5,10 +5,16 @@ import SideNav from '../sideNav/sideNav'
 import Overview from './Overview/Overview'
 import Products from './Products/Products'
 
+
+
 function Dashboard() {
     const [page, setPage] = useState(0)
     const [ex, setEx] = useState(false)
 
+    const [isNewCategory, setIsNewCategory] = useState(false)
+    const getIsNewCategory = (p) => {
+        setIsNewCategory(p) 
+    }
     const getPage = (p) => {
         setPage(p)
     }
@@ -32,7 +38,7 @@ function Dashboard() {
     return (
         <>
             <div className="dash">
-                <SideNav getPage={getPage} getEx={getEx} />
+                <SideNav getPage={getPage} getEx={getEx} getIsNewCategory={getIsNewCategory}/>
                 <div className={ex === false ? "ac" : "coll ac"}>
                     <Navbar />
                     {PageDisplay()}
