@@ -98,8 +98,8 @@ const ContactUs = () => {
 
         {/* Random Text Section */}
         <Col id="boxBlue" className="d-flex align-items-center justify-content-center text-white">
-          <h1 className="m-3">Random Responsibly crafted jewellery</h1>
-          <p>{randomText}</p>
+          <h3 className="m-3">Random Responsibly crafted jewellery</h3>
+          <h6>{randomText}</h6>
 
         </Col>
       </Row>
