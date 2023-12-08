@@ -165,7 +165,7 @@ function Products() {
           </div>
         </div>
       </Container>
-      );
+    </>
+  )
 }
-
-      export default Products;
+export default Products;
