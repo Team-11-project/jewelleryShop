@@ -15,11 +15,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ForgotPassword from './forgotPassword/forgotPassword';
 import Dashboard from './AdminSide/Pages/Dashboard/Dashboard';
 import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
+import CheckoutPage from './Checkout/checkout';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faHome, faTh, faInfo, faStar);
+import CheckoutPage from './Checkout/checkout';
 
 function App() {
   return (
@@ -29,8 +31,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
-           <Route path='/forgotPassword' exact element={<ForgotPassword />} />
-            <Route path='/dashboard' exact element={<Dashboard />} />
+          <Route path='/forgotPassword' exact element={<ForgotPassword />} />
+          <Route path='/dashboard' exact element={<Dashboard />} />
+          <Route path='/checkout' exact element={<CheckoutPage />} />
           <Route path='/products' element={<Products />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/about' element={<About />} />
@@ -39,7 +42,6 @@ function App() {
         <Footer />
       </AuthProvider>
     </Router>
-  );
-}
-
+  )
+  }
 export default App;

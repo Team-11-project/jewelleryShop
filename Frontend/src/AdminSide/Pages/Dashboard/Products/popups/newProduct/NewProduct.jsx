@@ -3,12 +3,15 @@ import './newProduct.css'
 import AuthContext from '../../../../../../Context/AuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import ImageUpload from './ImageUpload'
 
 function NewProduct({ getPop }) {
 
     let { authTokens } = useContext(AuthContext)
 
     const [categories, setCategories] = useState([])
+
+
 
     const handlePop = () => {
         getPop(false)
@@ -20,24 +23,38 @@ function NewProduct({ getPop }) {
         material: "",
         detail: "",
         price: 0,
-        image: "",
         stock: 0,
         category: 0,
     })
+
+    const [imageData, setImageData] = useState([])
+    const getImage = (image) => {
+        setImageData(image[0])
+    }
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         const token = authTokens.token
         try {
             console.log("submitted")
-            console.log(formData)
+            // console.log(formData)
+            // console.log(imageData)
+            let data = new FormData();
+            data.append('name', formData.name),
+                data.append('keywords', formData.keywords),
+                data.append('material', formData.material),
+                data.append('detail', formData.detail),
+                data.append('price', formData.price),
+                data.append('stock', formData.stock),
+                data.append('category', formData.category),
+                data.append('file', imageData)
             const req = await fetch("http://localhost:3000/products/create-product", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(formData),
+                body: data,
             });
             const res = await req.json();
             if (res.status === 200) {
@@ -82,7 +99,7 @@ function NewProduct({ getPop }) {
 
     useEffect(() => {
         getCategories(authTokens.token)
-    }, [categories])
+    }, [authTokens])
 
     return (
         <div className='new-prod-popup'>
@@ -157,13 +174,15 @@ function NewProduct({ getPop }) {
                             />
                         </div>
                         <div className="form-item">
+
                             <label>Product Image:</label>
-                            <input
+                            <ImageUpload getImage={getImage} />
+                            {/* <input
                                 type="text"
                                 name="image"
                                 value={formData.image}
                                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                            />
+                            /> */}
                         </div>
                         <div className="submit-product">
                             <button type='submit'>Create Product</button>
