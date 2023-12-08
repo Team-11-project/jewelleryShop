@@ -8,7 +8,7 @@ import Products from './Products/Products'
 
 
 function Dashboard() {
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(1)
     const [ex, setEx] = useState(false)
 
     const [isNewCategory, setIsNewCategory] = useState(false)

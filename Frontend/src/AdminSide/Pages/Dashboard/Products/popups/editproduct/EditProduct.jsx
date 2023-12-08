@@ -65,8 +65,6 @@ function EditProduct({ getEditPop, chosenProd, getIsOption }) {
         console.log(chosenProd.productId, "chosen")
         try {
 
-            console.log("submitted")
-            console.log(formData)
             const req = await fetch(`http://localhost:3000/products/${chosenProd?.productId}`,
                 {
                     method: "PUT",
