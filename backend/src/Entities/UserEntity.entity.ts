@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn} from "typeorm";
 import { Role } from "./Role.enum";
 import { CartEntity } from "./Cart.entity";
 
@@ -31,7 +31,8 @@ export class UserEntity{
     @Column()
     employeeNumber: number
 
-    @OneToMany(type => CartEntity, cart => cart.user)
-    carts: CartEntity[];
+    @OneToOne(() => CartEntity)
+    @JoinColumn({name: 'cartId'})
+    cart: CartEntity;
 
 }
