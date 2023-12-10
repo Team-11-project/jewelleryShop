@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet, Link } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './homePage/home';
@@ -11,26 +11,27 @@ import Footer from './assets/footer';
 import Products from './productsPage/products';
 import AddCart from './addCart/addCart';
 import { AuthProvider } from './Context/AuthContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import ForgotPassword from './forgotPassword/forgotPassword';
 import Dashboard from './AdminSide/Pages/Dashboard/Dashboard';
 import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
-import CheckoutPage from './Checkout/checkout';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faHome, faTh, faInfo, faStar);
-import CheckoutPage from './Checkout/checkout';
+
+const MainLayout = ({ children }) => (
+  <>
+    {children}
+    <Footer />
+  </>
+);
 
 function App() {
-
-  const currentURL = window.location.pathname
-  console.log(currentURL)
-
   return (
     <Router>
       <AuthProvider>
-        <AppNavbar />
         <Routes>
           <Route
             path="/"
@@ -41,12 +42,12 @@ function App() {
           <Route path='/dashboard' exact element={<MainLayout><Dashboard /></MainLayout>} />
           <Route path='/products' element={<MainLayout><Products /></MainLayout>} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/about' element={<About />} />
-          <Route path="/addCart" element={<AddCart />} />
+          <Route path='/about' element={<MainLayout><About /></MainLayout>} />
+          <Route path="/addCart" element={<MainLayout><AddCart /></MainLayout>} />
         </Routes>
-        <Footer />
       </AuthProvider>
     </Router>
-  )
-  }
+  );
+}
+
 export default App;
