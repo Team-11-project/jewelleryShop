@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet, Link } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './homePage/home';
@@ -15,33 +15,40 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ForgotPassword from './forgotPassword/forgotPassword';
 import Dashboard from './AdminSide/Pages/Dashboard/Dashboard';
 import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
-import CheckoutPage from './Checkout/checkout';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faHome, faTh, faInfo, faStar);
-import CheckoutPage from './Checkout/checkout';
+
+const MainLayout = ({ children }) => (
+  <>
+    <AppNavbar />
+    {children}
+    <Footer />
+  </>
+);
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <AppNavbar />
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/forgotPassword' exact element={<ForgotPassword />} />
-          <Route path='/dashboard' exact element={<Dashboard />} />
-          <Route path='/checkout' exact element={<CheckoutPage />} />
-          <Route path='/products' element={<Products />} />
+          <Route
+            path="/"
+            element={<MainLayout><Home /></MainLayout>}
+          />
+          <Route path='/login' element={<MainLayout><Login /></MainLayout>} />
+          <Route path='/forgotPassword' exact element={<MainLayout><ForgotPassword /></MainLayout>} />
+          <Route path='/dashboard' exact element={<MainLayout><Dashboard /></MainLayout>} />
+          <Route path='/products' element={<MainLayout><Products /></MainLayout>} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/about' element={<About />} />
-          <Route path="/addCart" element={<AddCart />} />
+          <Route path='/about' element={<MainLayout><About /></MainLayout>} />
+          <Route path="/addCart" element={<MainLayout><AddCart /></MainLayout>} />
         </Routes>
-        <Footer />
       </AuthProvider>
     </Router>
-  )
-  }
+  );
+}
+
 export default App;
