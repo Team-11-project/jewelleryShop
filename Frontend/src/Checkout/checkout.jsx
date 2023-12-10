@@ -2,6 +2,8 @@ import React from 'react';
 import './checkout.css';
 import diamondRingImg from './signatureRing.png';
 import silverNecklaceImg from './silverNecklace.png';
+import { useLocation } from 'react-router';
+import CheckoutBox from './checkoutBox';
 
 const countries = [
     "Australia", "Austria", "Belgium", "Canada", "Croatia", "France",
@@ -12,6 +14,9 @@ const countries = [
 
 
 const Checkout = () => {
+  const location = useLocation()
+  const Cart = location.state
+  console.log(Cart)
   const goBack = () => {
     window.history.back();
   };
@@ -62,22 +67,16 @@ const Checkout = () => {
           </div>
           <div className="checkout-column">
           <div className="column-header">Order Details</div>
-        <div className="order-summary-item">
-          <img src={diamondRingImg} alt="Signature pear diamond ring" className="order-item-image" />
-          <div>
-            <p className="item-name">Signature pear diamond ring</p>
-            <p className="item-details">Size: M, Qty: 1</p>
-            <p className="item-price">£10,000</p>
-          </div>
-        </div>
-        <div className="order-summary-item">
-          <img src={silverNecklaceImg} alt="Silver necklace" className="order-item-image" />
-          <div>
-            <p className="item-name">Silver necklace</p>
-            <p className="item-details">Size: S, Qty: 1</p>
-            <p className="item-price"> £5,445</p>
-          </div>
-        </div>
+          {Cart && (
+                    <>
+                        <div className="">
+                            {Cart.map(item => (
+                                <CheckoutBox key={item.productId} item={item}/>
+                            ))}
+                        </div>
+                    </>
+                )}
+        
             <div className="subtotal-row">
                 <span className="amount-label">Subtotal:</span>
                 <span className="amount-value">£15,445</span>

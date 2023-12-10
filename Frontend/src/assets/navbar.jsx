@@ -59,9 +59,10 @@ function AppNavbar() {
             <Nav.Link className="nav-link-icons" href="#">
               <FontAwesomeIcon icon={faUser} style={{ color: "#ffd977" }} />
             </Nav.Link>
-            <Nav.Link className="nav-link-icons" href="#">
+            <Nav.Link className="nav-link-icons" href="/cart">
+
               <FontAwesomeIcon icon={faShoppingBag} style={{ color: "#ffd977" }} />
-              <div className="shopping-bag-count">5</div>
+              {/* <div className="shopping-bag-count">5</div> */}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

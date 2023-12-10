@@ -42,10 +42,29 @@ function EditCategory({ getPop, selectedCat }) {
         }
     }
 
-    const handleDelete = () => {
-        // Delete category logic 
-        console.log("Delete Category ID:", formData.id);
-    };
+    const handleDelete = async (e) => {
+        e.preventDefault()
+        const token = authTokens.token
+        try {
+
+            const req = await fetch(`http://localhost:3000/products/deleteCategory/${selectedCat?.categoryName}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+            const res = await req.json();
+            if (res.status === 200) {
+                handlePop(false)
+                handleIsOption(false)
+            } else {
+                alert("error: " + res.message);
+            }
+        } catch (error) {
+
+        }
+    }
 
     return (
         <div className='edit-cat-popup'>

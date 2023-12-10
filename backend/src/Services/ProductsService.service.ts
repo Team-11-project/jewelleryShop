@@ -394,7 +394,7 @@ async deleteCategory(name: string): Promise<BaseResponse> {
             }
 
             categoryFromDb.categoryName = createCategoryDto.categoryName
-            categoryFromDb.description= createCategoryDto.description
+            categoryFromDb.description = createCategoryDto.description
             await this.categoryRepository.update(id, categoryFromDb)
             const updated = await this.categoryRepository.findOne({
                 where:{

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col, Dropdown, Form, Card, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faShoppingBag, faFilter, faSort } from '@fortawesome/free-solid-svg-icons';
@@ -7,35 +7,88 @@ import img1 from './img1.jpg';
 import rolexOyster from './rolexOyster.jpg'
 import './products.css';
 import AppNavbar from '../assets/navbar';
+import AuthContext from '../Context/AuthContext';
 
 function Products() {
+  let { user } = useContext(AuthContext)
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSort, setSelectedSort] = useState(null);
   const [cart, setCart] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
+  const [AllProducts, setAllProducts] = useState([])
 
-  const products = [
-    { id: 1, name: 'Rolex Oyster Perpetual', price: 8000, image: rolexOyster },
-    { id: 2, name: 'Product 2', price: 30, image: img1 },
-    { id: 3, name: 'Product 2', price: 30, image: img1 },
-    { id: 4, name: 'Product 2', price: 30, image: img1 },
-    { id: 5, name: 'Product 2', price: 30, image: img1 },
-    { id: 6, name: 'Product 2', price: 30, image: img1 },
-    { id: 7, name: 'Product 2', price: 30, image: img1 },
-    { id: 8, name: 'Product 2', price: 30, image: img1 },
-    { id: 9, name: 'Product 2', price: 30, image: img1 },
-  ];
+
+  const getProducts = async () => {
+    try {
+      // setIsLoading(true)
+      let response = await fetch(`http://localhost:3000/products/get-all-products`,
+        {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+      const resJson = await response.json();
+      if (response.status === 200) {
+        console.log(resJson, "response")
+        setAllProducts(resJson.response);
+      } else {
+        console.log(resJson);
+        alert("error: " + resJson.message)
+      }
+    }
+    catch (error) {
+      // setIsLoading(true)
+      console.log(error)
+    }
+  }
+
+  const addToCart = async (productId) => {
+    // http://localhost:3000/cart/add/userid/productid
+    try {
+      // setIsLoading(true)
+      const userId = user.user.id
+      let response = await fetch(`http://localhost:3000/cart/add/${userId}/${productId}`,
+        {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+      // const resJson = await response.json();
+    }
+    catch (error) {
+      // setIsLoading(true)
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getProducts()
+  }, [])
+
+  // const products = [
+  //   { id: 1, name: 'Rolex Oyster Perpetual', price: 8000, image: rolexOyster },
+  //   { id: 2, name: 'Product 2', price: 30, image: img1 },
+  //   { id: 3, name: 'Product 2', price: 30, image: img1 },
+  //   { id: 4, name: 'Product 2', price: 30, image: img1 },
+  //   { id: 5, name: 'Product 2', price: 30, image: img1 },
+  //   { id: 6, name: 'Product 2', price: 30, image: img1 },
+  //   { id: 7, name: 'Product 2', price: 30, image: img1 },
+  //   { id: 8, name: 'Product 2', price: 30, image: img1 },
+  //   { id: 9, name: 'Product 2', price: 30, image: img1 },
+  // ];
 
   const priceOptions = ['100-500', '500-1000', '1000-5000', '5000+'];
   const materialOptions = ['Gold', 'Silver', 'Diamond', 'Gemstone'];
   const categoryOptions = ['Earrings', 'Watches', 'Necklaces', 'Bracelets'];
   const sortOptions = ['Recommend', 'New Arrivals', 'Price Low to High', 'Price High to Low'];
 
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-  };
+  // const addToCart = (product) => {
+  //   setCart([...cart, product]);
+  // };
 
   const handleToggleFilters = () => {
     setShowFilters(!showFilters);
@@ -143,9 +196,9 @@ function Products() {
 
         <div className="product-display">
           <div className="card-container">
-            {products.map((product) => (
-              <Card key={product.id}>
-                <Link to={`/product/${product.id}`}>
+            {AllProducts.map((product) => (
+              <Card key={product.productId}>
+                <Link to={`/product/${product.productId}`} state={product}>
                   <Card.Img variant="top" src={product.image} />
                 </Link>
                 <Card.Body>
@@ -155,7 +208,7 @@ function Products() {
                     <a href="#" onClick={() => handleHeartClick(product)}>
                       <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
                     </a>
-                    <Link to="/addCart">
+                    <Link to="/addCart" onClick={() => addToCart(product?.productId)}>
                       <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
                     </Link>
                   </div>
