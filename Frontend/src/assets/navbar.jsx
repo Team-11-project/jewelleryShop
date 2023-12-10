@@ -1,5 +1,5 @@
 // navbar.jsx
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -7,9 +7,11 @@ import Container from 'react-bootstrap/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faHeart, faShoppingBag, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
 import './navbar.css';
+import AuthContext from '../Context/AuthContext';
 
 function AppNavbar() {
   const [searchVisible, setSearchVisible] = useState(false);
+  let { authTokens, user, logoutUser } = useContext(AuthContext)
 
   const toggleSearch = () => {
     setSearchVisible(!searchVisible);
@@ -39,12 +41,35 @@ function AppNavbar() {
             <Nav.Link className="nav-link-custom" as={Link} to="/products">
               Products
             </Nav.Link>
-            <Nav.Link className="nav-link-custom" as={Link} to="/best-sellers">
-              Best Sellers
-            </Nav.Link>
+
+            {
+              authTokens
+                ?
+                <Nav.Link className="nav-link-custom" onClick={() => logoutUser()}>
+                  logout
+                </Nav.Link>
+                :
+                <Nav.Link className="nav-link-custom" as={Link} to="/login">
+                  login
+                </Nav.Link>
+            }
+
             <Nav.Link className="nav-link-custom" as={Link} to="/contact">
               Contact
             </Nav.Link>
+            {
+              user?.user.role === 'admin'
+                ?
+                <Nav.Link className="nav-link-custom" as={Link} to="/dashboard">
+                  Dashboard
+                </Nav.Link>
+                :
+                <></>
+
+            }
+            {/* <Nav.Link className="nav-link-custom" as={Link} to="/dashboard">
+              Dashboard
+            </Nav.Link> */}
           </Nav>
           <Nav>
             <Nav.Link className="nav-link-icons" href="#" onClick={toggleSearch}>
@@ -56,9 +81,10 @@ function AppNavbar() {
             <Nav.Link className="nav-link-icons" href="#">
               <FontAwesomeIcon icon={faUser} style={{ color: "#ffd977" }} />
             </Nav.Link>
-            <Nav.Link className="nav-link-icons" href="#">
+            <Nav.Link className="nav-link-icons" href="/cart">
+
               <FontAwesomeIcon icon={faShoppingBag} style={{ color: "#ffd977" }} />
-              <div className="shopping-bag-count">5</div>
+              {/* <div className="shopping-bag-count">5</div> */}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

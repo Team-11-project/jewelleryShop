@@ -1,0 +1,109 @@
+@import url('https://fonts.cdnfonts.com/css/libre-caslon-display');
+@import url('https://fonts.cdnfonts.com/css/Kapakana');
+@import url('https://fonts.cdnfonts.com/css/Playball');
+
+body {
+  font-family: 'Libre Caslon Display';
+  margin: 0;
+  padding: 0;
+}
+
+#root{
+  padding: 0;
+}
+
+.signup-container {
+  display: flex;
+}
+
+.left-half {
+  background: #01003C;
+  color: #FFD977;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 45vw; 
+}
+
+.right-half {
+  font-size: 130%;
+  text-align: center;
+  flex: 1;
+  padding: 20px;
+  width: 55vw;
+}
+
+.right-half h6 {
+  padding: 20px;;
+  font-size: 100%;
+  text-align: right;
+}
+
+.regalia-text {
+  font-size: 10px;
+  font-family: 'Kapakana';
+  font-weight: 200;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 5px; 
+  left: 10px;
+}
+
+.middle-text {
+  text-align: center;
+  font-size: 70px;
+  font-family: 'Playball';
+  font-weight: 400;
+  word-wrap: break-word;
+  margin-bottom: 40px;
+}
+
+.middle-text p {
+  margin: 5px 0;
+}
+
+.slogan {
+  text-align: center;
+  font-size: 24px;
+  font-family: 'Libre Caslon Display';
+  font-weight: 400;
+  word-wrap: break-word;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 50%;
+  padding: 8px;
+}
+
+button {
+  color: #000000;
+  border-radius: 6px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+}
+
+button:hover {
+  transition: background-color 0.3s ease-out 100ms;
+  background-color: #FFD977;
+  color: white;
+}
+
+.right-half .create-account-heading {
+  font-family: 'Libre Caslon Display';
+  color: black !important;
+  font-size: 60px;
+}

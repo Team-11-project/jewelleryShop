@@ -7,6 +7,8 @@ import './home.css';
 import img1 from './img1.jpg';
 import img2 from './img2.jpg';
 import img3 from './img3.jpg';
+import AppNavbar from '../assets/navbar';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [index, setIndex] = useState(0);
@@ -34,6 +36,7 @@ const Home = () => {
   return (
     <>
       {/* First Section */}
+      <AppNavbar />
       <div className="container-fluid section" style={sectionStyle}>
         <div style={overlayStyle}></div>
         <div className="row">
@@ -41,7 +44,8 @@ const Home = () => {
             <div className="text-center">
               <h1>Discover Unique Jewellery</h1>
               <p>Handcrafted with Love and Precision</p>
-              <button className="btn btn-primary">Explore Now</button>
+              <button className="btn btn-primary">
+                <Link to={'/products'}>Explore Now</Link></button>
             </div>
           </div>
         </div>
@@ -52,7 +56,7 @@ const Home = () => {
         <div className="row">
           <div className="col-md-6 order-md-2 d-flex align-items-center justify-content-center text-container">
             <div className="text-center">
-              <h1>Shop Our Exquisite <br/> Earring Collection</h1>
+              <h1>Shop Our Exquisite <br /> Earring Collection</h1>
               <p>This is the magic of design</p>
               <button className="btn btn-secondary">View Collection</button>
             </div>

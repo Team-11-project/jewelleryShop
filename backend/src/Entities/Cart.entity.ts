@@ -1,33 +1,23 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToOne, JoinColumn } from 'typeorm';
-import { UserEntity } from './UserEntity.entity'; // Assuming you have a UserEntity
-import { ProductEntity } from './Product.entity'; // Assuming you have a ProductEntity
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { UserEntity } from './UserEntity.entity'; 
+import { ProductEntity } from './Product.entity'; 
 
 @Entity('cart')
 export class CartEntity {
     @PrimaryGeneratedColumn()
     cartId: number;
 
-    @ManyToMany(type => ProductEntity, product => product.carts)
-    @JoinTable()
+    @OneToOne(() => UserEntity)
+    @JoinColumn({'name': 'cart'})
+    user: UserEntity;
+
+    @OneToMany(() => ProductEntity, product => product.carts)
     products: ProductEntity[];
 
     @Column()
-    keywords: string
+    isSubmitted: Boolean
 
-    @Column()
-    material: string
-
-    @Column()
-    details: string
-
-    @Column()
-    price: number
-
-    @Column()
-    image: string
-
-    @OneToOne(() => UserEntity, user => user.carts)
-    @JoinColumn({ name: 'userId' }) 
-    user: UserEntity;
+    @Column({ type: 'date' })
+    createdAt: Date
 
 }

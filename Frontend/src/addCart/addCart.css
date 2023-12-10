@@ -1,8 +1,5 @@
-/* addCart.css */
-
 .add-cart-container {
   padding: 4em 0;
-  height: 100vh;
 }
 
 .add-cart-content {
@@ -54,14 +51,14 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin: 5px; /* Add margin between buttons */
+  margin: 5px;
 }
 
 .continue-shopping-btn:hover,
-.proceed-to-checkout-btn:hover {
+.view-shopping-cart-btn:hover {
   background-color: gold;
 }
 
-.proceed-to-checkout-btn {
+.view-shopping-cart-btn {
   margin-top: 15px;
 }
