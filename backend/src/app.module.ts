@@ -16,6 +16,8 @@ import * as fs from 'fs';
 import { join } from 'path';
 // import "../global-bundle.pem"
 import { CartEntity } from './Entities/Cart.entity';
+import { CartController } from './Controllers/CartController.controller';
+import { CartService } from './Services/CartService.service';
 
 import path from "path";
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
@@ -56,11 +58,11 @@ import path from "path";
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity]),
 
   ],
-  controllers: [ProductsController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService],
+  controllers: [ProductsController,CartController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService],
 })
 export class AppModule {}
 

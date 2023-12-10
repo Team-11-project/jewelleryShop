@@ -3,15 +3,17 @@ import "./productsBox.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faEllipsis, faInfo, faPenToSquare, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 
-function ProductBox({ product, getChosenProd, getEditPop, getIsOption }) {
+function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDeletePopup, openViewProduct}) {
 
     const [isOption, setIsOption] = useState(false)
     const empty = {}
 
-    // const handleChosenProd = (prod) => {
-    //     console.log(prod, "prodBox")
-    //     getChosenProd(prod)
-    // }
+    // console.log(product,"product")
+    const handleChosenProd = (prod) => {
+        // console.log("test")
+        console.log(prod, "handle")
+        getChosenProd(prod)
+    }
 
     const handleEditPop = (pop) => {
         getEditPop(pop)
@@ -24,22 +26,28 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption }) {
         getIsOption(opt)
     }
 
-    useEffect(() => {
+    const handleDeleteOption = () => {
+        getChosenProd(product);
+        //console.log(true);
+        openDeletePopup(true);
+    };
 
-    }, [product])
+    useEffect(()=>{
+        // handleChosenProd(product)
+    },[product])
 
     const OptionMenu = () => {
 
         if (isOption === true) {
             return (
                 <>
-                    <div className="">
-                        <button className="close-btn" onClick={() => { setIsOption(false); getChosenProd(empty); handleOption(false) }}><FontAwesomeIcon icon={faXmark} /></button>
+                    <div className="" onClick={()=>handleChosenProd(product)}>
+                        <button className="close-btn" onClick={() => { setIsOption(false); handleChosenProd(empty); handleOption(false) }}><FontAwesomeIcon icon={faXmark} /></button>
 
                         <div className="opened-menu">
-                            <div className="option" onClick={() => { getChosenProd(product); handleEditPop(true) }}><FontAwesomeIcon icon={faPenToSquare} /> Edit</div>
-                            <div className="option"><FontAwesomeIcon icon={faTrash} />Delete</div>
-                            <div className="option o-p"><FontAwesomeIcon icon={faCircleInfo} />View</div>
+                            <div className="option" onClick={() => { handleChosenProd(product); handleEditPop(true) }}><FontAwesomeIcon icon={faPenToSquare} /> Edit</div>
+                            <div className="option" onClick={handleDeleteOption}><FontAwesomeIcon icon={faTrash} /> Delete</div>
+                            <div className="option o-p" onClick={() => openViewProduct(product)}><FontAwesomeIcon icon={faCircleInfo} />View</div>
                         </div>
                     </div>
 
@@ -60,17 +68,14 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption }) {
             {/* {editProdPop === true ? <EditProduct getEditPop={getEditPop} /> : ""} */}
             <div className="box-container">
                 <div className="box-head">
-                    <div className="prod-image">
-                        <img src={product?.image} alt="product image" />
-                    </div>
+                    <div className="prod-image"></div>
                     <div className="deets">
                         <div className="prod-det">
                             <div className="name">{product?.name}</div>
                             <div className="material">{product?.material}</div>
-                            <div className="price">£{product?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                            <div className="price">£{product?.price}</div>
                         </div>
                         {OptionMenu()}
-
 
                     </div>
                 </div>
@@ -93,11 +98,9 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption }) {
                             <div className="val">{product?.stock}</div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </>
     )
 }
-
 export default ProductBox

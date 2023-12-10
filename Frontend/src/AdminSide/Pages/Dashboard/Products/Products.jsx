@@ -8,7 +8,12 @@ import { faChevronLeft, faChevronRight, faPlus } from '@fortawesome/free-solid-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NewProduct from './popups/newProduct/NewProduct'
 import EditProduct from './popups/editproduct/EditProduct'
+<<<<<<< HEAD
 import NewCategory from './popups/newCategory/newCategory'
+=======
+import DeleteProduct from './popups/deleteProduct/DeleteProduct'
+import ViewProduct from './popups/viewProduct/ViewProduct'
+>>>>>>> 4780d9534e972039c7e4ec089ca75018dfb5bb9c
 
 function Products({isNewCategory}) {
     let { authTokens } = useContext(AuthContext)
@@ -19,7 +24,11 @@ function Products({isNewCategory}) {
     const [newProductPop, setNewProductPop] = useState(false)
    
     const [editProdPop, setEditProdPop] = useState(false)
+    const [deleteProductPop, setDeleteProductPop] = useState(false);
+    const [viewProductPop, setViewProductPop] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
     const [isOption, setIsOption] = useState(false)
+
     const [chosenProd, setChosenProd] = useState({})
     const [pages, setPages] = useState([])
     const [currPage, setCurrPage] = useState(1)
@@ -27,12 +36,12 @@ function Products({isNewCategory}) {
     const lastIndex = currPage * 6
     const firstIndex = lastIndex - 6
     const products = Allproducts.slice(firstIndex, lastIndex)
+    const prodLength = products.length
 
     const range = (start, end) => {
         let length = end - start + 1;
         setPages(Array.from({ length }, (_, idx) => idx + start));
     };
-    // console.log(chosenProd, "prod")s
 
     const getPop = (pop) => {
         setNewProductPop(pop)
@@ -49,6 +58,21 @@ function Products({isNewCategory}) {
 
     const getEditPop = (pop) => {
         setEditProdPop(pop)
+    }
+
+    const openDeletePopup = (value) => {
+        setChosenProd(value); 
+        setDeleteProductPop(true);
+    }
+
+    const openViewProduct = (product) => {
+        setSelectedProduct(product);
+        setViewProductPop(true);
+    }
+
+    const closeViewProduct = () => {
+        setSelectedProduct(null);
+        setViewProductPop(false);
     }
 
     const prevPage = () => {
@@ -123,13 +147,18 @@ function Products({isNewCategory}) {
         console.log(isOption)
         // console.log(chosenProd)
         // getProductsCount(authTokens.token)
-    }, [authTokens, totalPageCount, isOption, newProductPop, editProdPop])
+    }, [authTokens, totalPageCount, isOption])
 
     return (
         <>
             {newProductPop === true ? <NewProduct getPop={getPop} /> : ""}
             {editProdPop === true ? <EditProduct getEditPop={getEditPop} chosenProd={chosenProd} getIsOption={getIsOption} /> : ""}
+<<<<<<< HEAD
             
+=======
+            {deleteProductPop && <DeleteProduct getDeletePop={setDeleteProductPop} chosenProd={chosenProd} />}
+            {viewProductPop && <ViewProduct product={selectedProduct} closeDetailView={closeViewProduct}/>}
+>>>>>>> 4780d9534e972039c7e4ec089ca75018dfb5bb9c
 
             <div className="path">Dashboard/Products</div>
             <div className="prod-container">
@@ -137,7 +166,7 @@ function Products({isNewCategory}) {
                     <>
                         <div className="prod">
                             {products.map(product => (
-                                <ProductBox key={product.productId} product={product} getChosenProd={getChosenProd} getEditPop={getEditPop} getIsOption={getIsOption} />
+                                <ProductBox key={product.productId} product={product} getChosenProd={getChosenProd} getEditPop={getEditPop} getIsOption={getIsOption} openDeletePopup={openDeletePopup} openViewProduct={openViewProduct}/>
                             ))}
                         </div>
                     </>
