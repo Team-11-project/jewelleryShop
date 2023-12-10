@@ -6,7 +6,6 @@ import Instagram from '../assets/Icons/Instagram.svg';
 import Facebook from '../assets/Icons/Facebook.svg';
 
 const Signup = () => {
-
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -14,8 +13,6 @@ const Signup = () => {
     password1: '',
     password2: '',
     role: 'user',
-    // agreePrivacyPolicy: false,
-    // agreeTermsConditions: false,
   });
 
   const Input = (e) => {
@@ -29,7 +26,6 @@ const Signup = () => {
   const Submit = async (e) => {
     e.preventDefault()
     try {
-      console.log("trying signup")
       const response = await fetch('http://localhost:3000/auth/createUser', {
         method: 'POST',
         headers: {
@@ -38,22 +34,15 @@ const Signup = () => {
         body: JSON.stringify(formData),
       });
 
-      
-// console.log("next point")
-
       const res = await response.json()
-      if (res.status == 200) {
-        console.log(res.status)
+      if (res.status === 200) {
         alert('Signup complete');
         window.location.href = "/Login";
-  
       } else {
-        // const errorData = await response.json();
         alert('Signup incomplete');
       }
     } catch (error) {
-      console.log('Signup Error:', error);
-      // setError('Error during signup.');
+      //console.log('Signup Error:', error);
     }
   };
 
@@ -76,7 +65,7 @@ const Signup = () => {
       </div>
       <div className="right-half">
         <h6>Are you an admin?<a href="/AdminSignup">Admin sign up</a></h6>
-        <h1>Create Your Account</h1>
+        <h1 className="create-account-heading">Create Your Account</h1>
         <p>
           Already have an account? <a href="/login">Log in</a>
         </p>
