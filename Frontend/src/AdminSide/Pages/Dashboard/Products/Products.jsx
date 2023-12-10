@@ -8,12 +8,9 @@ import { faChevronLeft, faChevronRight, faPlus } from '@fortawesome/free-solid-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NewProduct from './popups/newProduct/NewProduct'
 import EditProduct from './popups/editproduct/EditProduct'
-<<<<<<< HEAD
 import NewCategory from './popups/newCategory/newCategory'
-=======
 import DeleteProduct from './popups/deleteProduct/DeleteProduct'
 import ViewProduct from './popups/viewProduct/ViewProduct'
->>>>>>> 4780d9534e972039c7e4ec089ca75018dfb5bb9c
 
 function Products({isNewCategory}) {
     let { authTokens } = useContext(AuthContext)
@@ -153,12 +150,9 @@ function Products({isNewCategory}) {
         <>
             {newProductPop === true ? <NewProduct getPop={getPop} /> : ""}
             {editProdPop === true ? <EditProduct getEditPop={getEditPop} chosenProd={chosenProd} getIsOption={getIsOption} /> : ""}
-<<<<<<< HEAD
             
-=======
             {deleteProductPop && <DeleteProduct getDeletePop={setDeleteProductPop} chosenProd={chosenProd} />}
             {viewProductPop && <ViewProduct product={selectedProduct} closeDetailView={closeViewProduct}/>}
->>>>>>> 4780d9534e972039c7e4ec089ca75018dfb5bb9c
 
             <div className="path">Dashboard/Products</div>
             <div className="prod-container">
