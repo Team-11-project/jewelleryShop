@@ -54,7 +54,7 @@ function Products() {
     }
 
     const openDeletePopup = (value) => {
-        setChosenProd(value); 
+        setChosenProd(value);
         setDeleteProductPop(true);
     }
 
@@ -140,14 +140,14 @@ function Products() {
         console.log(isOption)
         // console.log(chosenProd)
         // getProductsCount(authTokens.token)
-    }, [authTokens, totalPageCount, isOption])
+    }, [authTokens, totalPageCount, isOption, newProductPop, editProdPop, deleteProductPop, viewProductPop])
 
     return (
         <>
             {newProductPop === true ? <NewProduct getPop={getPop} /> : ""}
             {editProdPop === true ? <EditProduct getEditPop={getEditPop} chosenProd={chosenProd} getIsOption={getIsOption} /> : ""}
             {deleteProductPop && <DeleteProduct getDeletePop={setDeleteProductPop} chosenProd={chosenProd} />}
-            {viewProductPop && <ViewProduct product={selectedProduct} closeDetailView={closeViewProduct}/>}
+            {viewProductPop && <ViewProduct product={selectedProduct} closeDetailView={closeViewProduct} />}
 
             <div className="path">Dashboard/Products</div>
             <div className="prod-container">
@@ -155,7 +155,7 @@ function Products() {
                     <>
                         <div className="prod">
                             {products.map(product => (
-                                <ProductBox key={product.productId} product={product} getChosenProd={getChosenProd} getEditPop={getEditPop} getIsOption={getIsOption} openDeletePopup={openDeletePopup} openViewProduct={openViewProduct}/>
+                                <ProductBox key={product.productId} product={product} getChosenProd={getChosenProd} getEditPop={getEditPop} getIsOption={getIsOption} openDeletePopup={openDeletePopup} openViewProduct={openViewProduct} />
                             ))}
                         </div>
                     </>

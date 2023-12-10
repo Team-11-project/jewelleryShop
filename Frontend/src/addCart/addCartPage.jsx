@@ -27,36 +27,31 @@ const AddCartPage = () => {
   };
 
   const handleDeleteItem = (itemId) => {
-    const updatedCartItems = cartItems.filter(item => item.id !== itemId);
-    setCartItems(updatedCartItems);
+    const updatedItems = items.filter(item => item.id !== itemId);
+    setItems(updatedItems);
     setDeletePopup(false);
   };
 
-  // http://localhost:3000/cart/add/userid/productid
   const getCart = async (userId) => {
     try {
-      let response = await fetch(`http://localhost:3000/cart/getOrCreateCart/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
+      const response = await fetch(`http://localhost:3000/cart/getOrCreateCart/${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       const resJson = await response.json();
+
       if (response.status === 200) {
-        console.log(resJson.products, "response")
         setItems(resJson.products);
       } else {
         console.log(resJson);
-        alert("error: " + resJson.message)
+        alert('Error: ' + resJson.message);
       }
-
     } catch (error) {
-      console.log(error)
-
+      console.error(error);
     }
-  }
-
+  };
 
   useEffect(() => {
     if (user) {
@@ -85,9 +80,6 @@ const AddCartPage = () => {
                         <p className="item-name">{item.name}</p>
                         <p>Price: ${item.price.toFixed(2)}</p>
                       </Col>
-                      {/* <Col md={2} className="item-quantity">
-                        <p>Quantity: {item.quantity}</p>
-                      </Col> */}
                       <Col md={2}>
                         <FontAwesomeIcon
                           icon={faTrash}
@@ -102,7 +94,9 @@ const AddCartPage = () => {
               <div className="total">
                 <p>Total: ${items.reduce((total, item) => total + item.price, 0).toFixed(2)}</p>
               </div>
-              <Button variant="primary" className="checkout-btn">Proceed to Checkout</Button>
+              <Button variant="primary" className="checkout-btn">
+                Proceed to Checkout
+              </Button>
             </div>
           </Col>
         </Row>
@@ -112,6 +106,7 @@ const AddCartPage = () => {
             getDeletePop={setDeletePopup}
             chosenProduct={selectedProduct}
             handleDeleteItem={handleDeleteItem}
+            user={user}
           />
         )}
       </Container>
