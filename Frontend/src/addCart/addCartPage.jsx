@@ -11,7 +11,7 @@ import AuthContext from '../Context/AuthContext';
 
 const AddCartPage = () => {
   let { user } = useContext(AuthContext)
-  console.log(user.user)
+  // console.log(user.user)
   const [items, setItems] = useState([])
   const [cartItems, setCartItems] = useState([
     { id: 1, name: 'Rolex Oyster Perpetual GOLD', price: 8000.00, quantity: 2, image: rolexOyster },
@@ -59,7 +59,11 @@ const AddCartPage = () => {
 
 
   useEffect(() => {
-    getCart(user.user.id)
+    if (user) {
+      getCart(user?.user.id)
+
+    }
+
   }, [])
 
   return (
