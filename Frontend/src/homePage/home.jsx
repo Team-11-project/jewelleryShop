@@ -8,6 +8,7 @@ import img1 from './img1.jpg';
 import img2 from './img2.jpg';
 import img3 from './img3.jpg';
 import AppNavbar from '../assets/navbar';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [index, setIndex] = useState(0);
@@ -43,7 +44,8 @@ const Home = () => {
             <div className="text-center">
               <h1>Discover Unique Jewellery</h1>
               <p>Handcrafted with Love and Precision</p>
-              <button className="btn btn-primary">Explore Now</button>
+              <button className="btn btn-primary">
+                <Link to={'/products'}>Explore Now</Link></button>
             </div>
           </div>
         </div>

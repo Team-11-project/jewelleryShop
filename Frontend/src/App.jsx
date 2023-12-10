@@ -8,7 +8,7 @@ import Login from './Pages/Login/Login';
 import Contact from './Contact Us/contact';
 import AppNavbar from './assets/navbar';
 import Footer from './assets/footer';
-import Products from './productsPage/products';  
+import Products from './productsPage/products';
 import AddCart from './addCart/addCart';
 import { AuthProvider } from './Context/AuthContext';
 import ForgotPassword from './forgotPassword/forgotPassword';
@@ -52,9 +52,9 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path="/addCart" element={<AddCart />} />
           <Route path='/product/:productId' element={<IndividualProduct />} />
-          <Route path="/addCartPage" element={<AddCartPage />} />
-          <Route path='/Signup' exact element={<Signup />}/>
-          <Route path='/AdminSignUp' exact element={<AdminSignUp/>}/>
+          <Route path="/cart" element={<AddCartPage />} />
+          <Route path='/Signup' exact element={<Signup />} />
+          <Route path='/AdminSignUp' exact element={<AdminSignUp />} />
         </Routes>
         {
           currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <Footer />
