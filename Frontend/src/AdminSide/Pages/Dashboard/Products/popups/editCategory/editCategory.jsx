@@ -1,28 +1,49 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './editCategory.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons';
+import AuthContext from '../../../../../../Context/AuthContext';
 
-function EditCategory({ getPop }) {
-    // Initialize formData state with hardcoded values
+function EditCategory({ getPop, selectedCat }) {
+    let { authTokens } = useContext(AuthContext)
     const [formData, setFormData] = useState({
-        id: Math.random(), // Assuming you want a random ID for illustrative purposes
-        categoryName: "Necklaces",
-        categoryDescription: "All Necklaces"
+        categoryName: selectedCat?.categoryName || "",
+        description: selectedCat?.description || "", 
     });
+    console.log(selectedCat)
 
     const handlePop = () => {
         getPop(false);
     };
 
-    const handleUpdate = async (e) => {
-        e.preventDefault();
-        // Update category logic here
-        console.log("Update Category:", formData);
-    };
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const token = authTokens.token
+        try {
+
+            const req = await fetch(`http://localhost:3000/products/update-category/${selectedCat?.id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(formData),
+                });
+            const res = await req.json();
+            if (res.status === 200) {
+                handlePop(false)
+                handleIsOption(false)
+            } else {
+                alert("error: " + res.message);
+            }
+        } catch (error) {
+
+        }
+    }
 
     const handleDelete = () => {
-        // Delete category logic here
+        // Delete category logic 
         console.log("Delete Category ID:", formData.id);
     };
 
@@ -33,7 +54,7 @@ function EditCategory({ getPop }) {
                     <FontAwesomeIcon icon={faXmark} />
                 </button>
 
-                <form onSubmit={handleUpdate}>
+                <form onSubmit={handleSubmit}>
                     <div className="form-item">
                         <label>Category Name:</label>
                         <input
@@ -48,8 +69,8 @@ function EditCategory({ getPop }) {
                         <label>Category Description:</label>
                         <textarea
                             name="categoryDescription"
-                            value={formData.categoryDescription}
-                            onChange={(e) => setFormData({ ...formData, categoryDescription: e.target.value })}
+                            value={formData.description}
+                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             placeholder="Type description here" 
                         />
                     </div>

@@ -2,7 +2,7 @@ body {
     font-family: 'Libre Caslon Display', serif;
 }
 
-.new-cat-popup {
+/* .new-cat-popup {
     margin-top: 50px;
     display: flex;
     justify-content: center;
@@ -13,7 +13,22 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.75);
-}
+} */
+
+.new-cat-popup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    font-family: 'Libre Caslon Display', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
 
 .new-cat-popup-inner {
     background-color: #ffffff;
@@ -66,13 +81,13 @@ body {
     width: 100%;
 }
 
-.submit-category {
+.create-category {
     display: flex;
     justify-content: flex-end;
     margin-top: 5px;
 }
 
-.submit-category button {
+.create-category button {
     padding: 8px 10px;
     font-size: 16px;
     background-color: #FFD977;
@@ -83,7 +98,28 @@ body {
     margin-left: 15px;
 }
 
-.submit-category button:hover {
+.create-category button:hover {
+    background-color: #f4c60b;
+}
+
+.cancel-category {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+.cancel-category button {
+    padding: 8px 10px;
+    font-size: 16px;
+    background-color: #FFD977;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.cancel-category button:hover {
     background-color: #f4c60b;
 }
 

@@ -10,13 +10,14 @@ import NewProduct from './popups/newProduct/NewProduct'
 import EditProduct from './popups/editproduct/EditProduct'
 import NewCategory from './popups/newCategory/newCategory'
 
-function Products() {
+function Products({isNewCategory}) {
     let { authTokens } = useContext(AuthContext)
+    // console.log(isNewCategory)
 
     const [Allproducts, setAllProducts] = useState([])
     const [productsCount, setProductsCount] = useState()
     const [newProductPop, setNewProductPop] = useState(false)
-    const [newCategoryPop, setNewCategoryPop] = useState(true)
+   
     const [editProdPop, setEditProdPop] = useState(false)
     const [isOption, setIsOption] = useState(false)
     const [chosenProd, setChosenProd] = useState({})
@@ -128,7 +129,7 @@ function Products() {
         <>
             {newProductPop === true ? <NewProduct getPop={getPop} /> : ""}
             {editProdPop === true ? <EditProduct getEditPop={getEditPop} chosenProd={chosenProd} getIsOption={getIsOption} /> : ""}
-            {newCategoryPop === true ? <NewCategory/>: ""}
+            
 
             <div className="path">Dashboard/Products</div>
             <div className="prod-container">

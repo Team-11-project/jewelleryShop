@@ -18,6 +18,8 @@ import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
 import Checkout from './Checkout/checkout';
 import NewCategory from './AdminSide/Pages/Dashboard/Products/popups/newCategory/newCategory';
 import EditCategory from './AdminSide/Pages/Dashboard/Products/popups/editCategory/editCategory';
+import IndividualProduct from './productsPage/individualProducts'
+import AddCartPage from './addCart/addCartPage'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -44,7 +46,6 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/forgot-password' exact element={<ForgotPassword />} />
           <Route path='/dashboard' exact element={<Dashboard />} />
-          <Route path='/checkout' exact element={<CheckoutPage />} />
           <Route path='/products' element={<Products />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/about' element={<About />} />
