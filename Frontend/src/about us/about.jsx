@@ -74,7 +74,7 @@ const About = () => {
             </div>
           </div>
           <div className="text-center text-container mt-4">
-            <h4>ELEVATING JEWELLERY BEYOND LUXURY</h4>
+            <h4>Elevating Jewellery Beyond Luxury</h4>
           </div>
         </div>
       </div>
