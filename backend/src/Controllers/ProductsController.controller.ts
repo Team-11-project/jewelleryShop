@@ -17,6 +17,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class ProductsController{
     constructor(
         private productService: ProductService
+      
     ){}
 
 
@@ -105,6 +106,7 @@ export class ProductsController{
         return await this.productService.getProductById(productId);
     }
 
+
     // @UseGuards(JwtGuard)
     @Get("getProductByCategory/:categoyName")
     async getProductByCategory(@Param("categoryName") categoryName: string): Promise<BaseResponse> {
@@ -113,9 +115,16 @@ export class ProductsController{
 
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @Delete(':id')
+    @Delete('deleteproduct/:id')
         async deleteProduct(@Param('id') productId: number) {
         return await this.productService.deleteProduct(productId);
+    }
+
+    @UseGuards(JwtGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    @Delete('deleteCategory/:name')
+        async deleteCategory(@Param('name') categoryName: string) {
+        return await this.productService.deleteCategory(categoryName);
     }
 
     @UseGuards(JwtGuard, RolesGuard)

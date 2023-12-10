@@ -5,6 +5,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import AuthContext from '../../../../../../Context/AuthContext'
 
 function EditProduct({ getEditPop, chosenProd, getIsOption }) {
+    console.log(chosenProd)
 
     // const categories = [2, 3, 4]
 

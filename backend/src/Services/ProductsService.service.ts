@@ -137,6 +137,46 @@ export class ProductService{
         }
     }
 
+    // In your CategoryService
+async deleteCategory(name: string): Promise<BaseResponse> {
+    try {
+        // Find the category to delete
+        const categoryToDelete = await this.categoryRepository.findOne({
+            where: {
+                categoryName: name,
+            },
+            relations: ['products'], // Assuming 'products' is the relation name in CategoryEntity
+        });
+
+        if (!categoryToDelete) {
+            return {
+                status: 404,
+                message: "Category not found",
+            };
+        }
+
+        // Delete all products associated with the category
+        if (categoryToDelete.products && categoryToDelete.products.length > 0) {
+            await this.productRepository.remove(categoryToDelete.products);
+        }
+
+        // Delete the category
+        await this.categoryRepository.remove(categoryToDelete);
+
+        return {
+            status: 200,
+            message: "Category and associated products deleted successfully",
+        };
+    } catch (error) {
+        return {
+            status: 500,
+            message: "Internal Server Error",
+            response: error.message || error,
+        };
+    }
+}
+  
+
     async updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<BaseResponse> {
         try {
             // Check if the product exists
