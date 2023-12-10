@@ -17,38 +17,39 @@ const About = () => {
   return (
     <>
       {/* About Us Section */}
-      <div className="container-fluid about-section">
-        <div className="row mt-5">
-          <div
-            className="col p-0 d-flex align-items-center justify-content-center"
-            id="boxBlue"
-          >
-            <div className="text-center p-5 text-white">
-              <h1>About Us</h1>
-              <p>
-                Explore the world of Regalia and get involved. Let’s work
-                towards breaking barriers, one fine piece at a time.
-              </p>
-            </div>
-          </div>
-          <div className="col p-0 max-height-100">
-            <div className="image-container mt-0">
-              <img
-                src={img1}
-                alt=""
-                className="img-fluid"
-                style={{ maxWidth: "100%", maxHeight: "100%" }}
-              />
-            </div>
+        <div className="container-fluid about-section">
+    <div className="row">
+      <div className="col-md-6 p-0 align-items-center justify-content-centre" id="boxBlue">
+        <div className="text-center p-0 text-white">
+          <div className="image-container my-5">
+            <img
+              src={img1}
+              alt=""
+              className="img-fluid mt-5"
+              style={{ maxWidth: "50%", maxHeight: "50%",borderRadius:"20px" }}
+            />
           </div>
         </div>
       </div>
+      <div className="col-md-6 d-flex align-items-center justify-content-center p-5" id="boxBlue">
+  <div className="text-center text-white">
+    <h1>Regalia</h1>
+    <p>
+      Explore the world of Regalia and get involved. Let’s work towards
+      breaking barriers, one fine piece at a time.
+    </p>
+  </div>
+</div>
+
+    </div>
+  </div>
+
 
       {/* Mission Section */}
       <div className="container-fluid mission-section">
         <div className="row">
           <div className="text-center text-container">
-            <h1>Our Mission</h1>
+            <h2>Our Mission</h2>
             <p>
               “We are redefining luxury in the world of fine jewelry by offering
               meticulously crafted, ethically-sourced pieces that transcend time
@@ -56,21 +57,24 @@ const About = () => {
             </p>
           </div>
         </div>
-        <div className="row px-3">
-          <div className="col img px-3">
-            <div className="image-container  px-3 mt-0">
+        <div className="row px-5">
+          <div className="col img px-5">
+            <div className="image-container  px-5 mt-0">
               <img src={img2} alt=""  class="img-fluid float-right"/>
             </div>
           </div>
-          <div className="col img px-3">
-            <div className="image-container px-3 mt-0">
+          <div className="col img px-5">
+            <div className="image-container px-5 mt-0">
               <img src={img3} alt="" class="img-fluid float-center" />
             </div>
           </div>
-          <div className="col img px-3" >
-            <div className="image-container px-3 mt-0">
+          <div className="col img px-5" >
+            <div className="image-container px-5 mt-0">
               <img src={img4} alt=""class="img-fluid float-left" />
             </div>
+          </div>
+          <div className="text-center text-container mt-4">
+            <h4>ELEVATING JEWELLERY BEYOND LUXURY</h4>
           </div>
         </div>
       </div>
@@ -79,22 +83,22 @@ const About = () => {
       <div className="container-fluid values-section">
         <div className="row">
           <div className="text-center text-container">
-            <h1>Our Values</h1>
+            <h2>Our Values</h2>
           </div>
         </div>
-        <div className="row mx-5 mb-5">
-          <div className="col">
-            <div className="image-container mt-0">
+        <div className="row px-5">
+          <div className="col img px-10">
+            <div className="image-container px-5 mt-0">
               <img src={img5} alt="" className="img-fluid" />
             </div>
           </div>
-          <div className="col">
-            <div className="image-container mt-0">
+          <div className="col px-10">
+            <div className="image-container px-5 mt-0">
               <img src={img6} alt="" className="img-fluid" />
             </div>
           </div>
-          <div className="col">
-            <div className="image-container mt-0">
+          <div className="col px-10">
+            <div className="image-container px-5 mt-0">
               <img src={img7} alt="" className="img-fluid" />
             </div>
           </div>
@@ -106,7 +110,7 @@ const About = () => {
         <div className="row blue">
           <div className="col p-5 d-flex align-items-center justify-content-center">
             <div className="text-center text-container text-white">
-              <h1>Our Vision</h1>
+              <h2>Our Vision</h2>
 
               <p>
                 Regalia envisions a world where luxury is not just a status
@@ -130,7 +134,7 @@ const About = () => {
         <div className="row">
           <div className="col p-5 d-flex align-items-center justify-content-center">
             <div className="text-center text-container px-4">
-              <h1>Our community</h1>
+              <h2>Our Community</h2>
 
               <p>
                 Our Regalia Community? That’s you. Welcome to our Regalia
@@ -152,43 +156,7 @@ const About = () => {
         </div>
       </div>
 
-      {/* Join us Section */}
-      <div className="container-fluid values-section">
-        <div className="row blue">
-          <div className="col p-5 d-flex align-items-center justify-content-center">
-            <div className="text-center text-container ">
-              <h1>Interesed joining us?</h1>
-
-              <p className="text-white">
-                We're on the lookout for passionate individuals to join the
-                growing Regalia family. While we value skills and experience,
-                your beliefs, character, and attitude are what truly matter to
-                us. Elevate your career with Regalia, where your unique
-                qualities contribute to our legacy of responsible luxury.
-              </p>
-
-              <h5>
-                Sign up to our newsletter to be the first to hear about new
-                releases.
-              </h5>
-              <form>
-                <div class="form-group">
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter email"
-                  />
-                  <button type="button" class="btn btn-primary mt-3">
-                    Primary
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </>
   );
 };
