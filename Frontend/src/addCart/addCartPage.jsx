@@ -10,8 +10,14 @@ import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
 
 const AddCartPage = () => {
-  const { user } = useContext(AuthContext);
-  const [items, setItems] = useState([]);
+  let { user } = useContext(AuthContext)
+  // console.log(user.user)
+  const [items, setItems] = useState([])
+  const [cartItems, setCartItems] = useState([
+    { id: 1, name: 'Rolex Oyster Perpetual GOLD', price: 8000.00, quantity: 2, image: rolexOyster },
+    { id: 2, name: 'Product 2', price: 30, quantity: 1, image: rolexOyster },
+  ]);
+
   const [deletePopup, setDeletePopup] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -48,8 +54,12 @@ const AddCartPage = () => {
   };
 
   useEffect(() => {
-    getCart(user.user.id);
-  }, [user]);
+    if (user) {
+      getCart(user?.user.id)
+
+    }
+
+  }, [])
 
   return (
     <>
@@ -96,7 +106,7 @@ const AddCartPage = () => {
             getDeletePop={setDeletePopup}
             chosenProduct={selectedProduct}
             handleDeleteItem={handleDeleteItem}
-            user = {user}
+            user={user}
           />
         )}
       </Container>
