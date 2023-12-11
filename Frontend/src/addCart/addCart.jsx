@@ -18,7 +18,8 @@ const AddCart = () => {
               <p>You've successfully added the item to your shopping cart.</p>
               <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
               <Button variant="primary" className="continue-shopping-btn">
-                Continue Shopping
+                <Link to={'/products'}>Continue Shopping</Link>
+
               </Button>
 
               {/* Proceed to Checkout Button */}

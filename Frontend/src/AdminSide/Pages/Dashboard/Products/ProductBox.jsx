@@ -3,7 +3,7 @@ import "./productsBox.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faEllipsis, faInfo, faPenToSquare, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 
-function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDeletePopup, openViewProduct}) {
+function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDeletePopup, openViewProduct }) {
 
     const [isOption, setIsOption] = useState(false)
     const empty = {}
@@ -32,16 +32,16 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDelet
         openDeletePopup(true);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         // handleChosenProd(product)
-    },[product])
+    }, [product])
 
     const OptionMenu = () => {
 
         if (isOption === true) {
             return (
                 <>
-                    <div className="" onClick={()=>handleChosenProd(product)}>
+                    <div className="" onClick={() => handleChosenProd(product)}>
                         <button className="close-btn" onClick={() => { setIsOption(false); handleChosenProd(empty); handleOption(false) }}><FontAwesomeIcon icon={faXmark} /></button>
 
                         <div className="opened-menu">
@@ -68,7 +68,9 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDelet
             {/* {editProdPop === true ? <EditProduct getEditPop={getEditPop} /> : ""} */}
             <div className="box-container">
                 <div className="box-head">
-                    <div className="prod-image"></div>
+                    <div className="prod-image">
+                        <img src={product?.image} alt="" />
+                    </div>
                     <div className="deets">
                         <div className="prod-det">
                             <div className="name">{product?.name}</div>
