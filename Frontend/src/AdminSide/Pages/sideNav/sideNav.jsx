@@ -6,11 +6,11 @@ import "./sideNav.css"
 import AuthContext from '../../../Context/AuthContext';
 
 // function SideNav() {
-function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelectedCat }) {
+function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelectedCat, isEditCategory, isNewCategory }) {
     let { authTokens } = useContext(AuthContext)
 
     const [isCollapsed, setIsCollapsed] = useState(false)
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(1)
     const [selectedCat, setSelectedCat] = useState({})
     const [categories, setCategories] = useState([])
 
@@ -45,7 +45,7 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
         getEx(isCollapsed)
 
         // console.log(categories)
-    }, [authTokens, page, isCollapsed, categories]);
+    }, [authTokens, page, isEditCategory, isNewCategory]);
 
     const Collapsed = () => {
         return (
@@ -53,7 +53,7 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                 <button className="coll-btn" onClick={() => { setIsCollapsed(false) }}>
                     <FontAwesomeIcon icon={faChevronRight} />
                 </button>
-                <div className="container">
+                <div className="side-container">
                     <div className="full-section">
                         <div className={page === 0 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(0) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faChartLine} /></div>
@@ -71,19 +71,26 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
 
                     <div className="bottom-line"></div>
 
-                    <div className="full-section">
-                        <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(4) }}>
-                            <div className="full-icon"><FontAwesomeIcon icon={faLayerGroup} /></div>
+                    {categories.length > 0 ? (
+                        <div className="full-section">
+                            {categories.map(category => (
+                                <div className="full-page" key={category.id} onClick={() => { (getIsEditCategory(true)); getSelectedCat(category) }}>
+                                    <div className="full-icon"><FontAwesomeIcon icon={faLayerGroup} /></div>
+                                </div>
+
+                            ))}
+                            <div className={"full-page"} onClick={() => { getIsNewCategory(true) }}>
+                                <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
+                            </div>
                         </div>
-                        <div className={page === 5 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(5) }}>
-                            <div className="full-icon"><FontAwesomeIcon icon={faLayerGroup} /></div>
-                        </div>
-                        <div className={page === 6 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(6) }}>
+                    )
+                        :
+                        <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { getIsNewCategory(true) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
                         </div>
-                    </div>
+                    }
 
-                    <div className="bottom-line"></div>
+                    {/* <div className="bottom-line"></div>
 
                     <div className="full-section insight">
                         <div className={page === 7 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(7) }}>
@@ -95,7 +102,7 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
 
 
 
-                    </div>
+                    </div> */}
 
                 </div>
             </>
@@ -136,26 +143,26 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                         <div className="full-section">
                             <p>Categories</p>
                             {categories.map(category => (
-                                <div className="full-page" key={category.id} onClick={() => {(getIsEditCategory(true)); getSelectedCat(category)}}>
+                                <div className="full-page" key={category.id} onClick={() => { (getIsEditCategory(true)); getSelectedCat(category) }}>
                                     <div className="full-icon"><FontAwesomeIcon icon={faLayerGroup} /></div>
                                     <div className="full-page-name">{category?.categoryName}</div>
                                 </div>
 
                             ))}
-                            <div className={"full-page"} onClick={() => { getIsNewCategory(true)}}>
+                            <div className={"full-page"} onClick={() => { getIsNewCategory(true) }}>
                                 <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
                                 <div className="full-page-name">New</div>
                             </div>
                         </div>
                     )
                         :
-                        <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(4) }}>
+                        <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { getIsNewCategory(true) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
                             <div className="full-page-name">New</div>
                         </div>
                     }
 
-                    <div className="full-bottom-line"></div>
+                    {/* <div className="full-bottom-line"></div>
 
                     <div className="full-section insight">
                         <p>Insights</p>
@@ -167,7 +174,7 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                             <div className="full-icon"><FontAwesomeIcon icon={faEnvelope} /></div>
                             <div className="full-page-name">Inbox</div>
                         </div>
-                    </div>
+                    </div> */}
 
                 </div>
             </>

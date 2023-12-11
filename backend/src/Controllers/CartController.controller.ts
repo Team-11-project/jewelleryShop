@@ -36,4 +36,11 @@ async removeFromCart(
     async getCartByUserId(@Param("userId") userId: number): Promise<BaseResponse> {
         return await this.cartService.getCartByUserId(userId);
     }
+
+    @Delete('removeAll/:userId')
+   async removeAllFromCart(
+  @Param('userId') userId: number
+) {
+  return this.cartService.removeAllFromCart(userId);
+}
 }

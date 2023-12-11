@@ -10,7 +10,7 @@ import EditCategory from './Products/popups/editCategory/editCategory'
 
 
 function Dashboard() {
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(1)
     const [ex, setEx] = useState(false)
     const [isNewCategory, setIsNewCategory] = useState(false)
     const [selectedCat, setSelectedCat] = useState({})
@@ -19,14 +19,14 @@ function Dashboard() {
     }
     console.log(selectedCat)
     const getIsNewCategory = (p) => {
-        setIsNewCategory(p) 
+        setIsNewCategory(p)
     }
     const [newCategoryPop, setNewCategoryPop] = useState(isNewCategory)
 
     console.log(isNewCategory)
     const [isEditCategory, setIsEditCategory] = useState(false)
     const getIsEditCategory = (p) => {
-        setIsEditCategory(p) 
+        setIsEditCategory(p)
     }
     const [editCategoryPop, setEditCategoryPop] = useState(isEditCategory)
 
@@ -55,13 +55,13 @@ function Dashboard() {
         <>
             <div className="dash">
                 <SideNav getPage={getPage} getEx={getEx} getIsNewCategory={getIsNewCategory} getIsEditCategory={getIsEditCategory}
-                getSelectedCat={selectedCategory}/>
+                    getSelectedCat={selectedCategory} isEditCategory={isEditCategory} isNewCategory={isNewCategory} />
                 <div className={ex === false ? "ac" : "coll ac"}>
                     <Navbar />
-                    {isNewCategory === true ? <NewCategory getPop={getIsNewCategory}/>: ""}
-                    {isEditCategory === true ? <EditCategory getPop={getIsEditCategory} selectedCat={selectedCat}/>: ""}
-                    
-                    {}
+                    {isNewCategory === true ? <NewCategory getPop={getIsNewCategory} /> : ""}
+                    {isEditCategory === true ? <EditCategory getPop={getIsEditCategory} selectedCat={selectedCat} /> : ""}
+
+                    { }
                     {PageDisplay()}
                 </div>
             </div>

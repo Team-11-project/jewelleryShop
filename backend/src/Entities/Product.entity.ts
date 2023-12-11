@@ -26,7 +26,7 @@ export class ProductEntity{
     @Column()
     price: number
 
-    @Column()
+    @Column({nullable: true})
     image: string
 
     @Column({default: null})
