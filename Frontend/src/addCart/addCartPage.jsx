@@ -60,7 +60,7 @@ const AddCartPage = () => {
 
     }
 
-  }, [])
+  }, [deletePopup])
 
   return (
     <>

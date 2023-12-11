@@ -32,14 +32,14 @@ export class CartService {
       }
   
       // Initialize 'products' array if not already initialized
-      console.log(cart)
+      // console.log(cart)s
       if(!cart.products){
         cart.products = [];
       }
       else if (cart.products.length < 1) {
         cart.products = [];
       }
-      console.log(cart.products.length)
+      // console.log(cart.products.length)
   
       // Check if the product with the given productId is not already in the cart
       if (!cart.products.some((p) => p.productId === product.productId)) {
@@ -151,5 +151,25 @@ if(user)
         }
         
     }
+}
+
+async removeAllFromCart(userId: number): Promise<CartEntity> {
+  try {
+    // Get or create the cart for the user
+    let cart = await this.getOrCreateCart(userId);
+
+    // Check if the cart has products
+    if (cart.products) {
+      // Filter out the product with the given productId
+      cart.products = [];
+
+      // Save the updated cart
+      return this.cartRepository.save(cart);
+    } else {
+      throw new Error('Cart is empty or not found');
+    }
+  } catch (error) {
+    throw new Error('Error removing from cart: ' + error.message);
+  }
 }
 }

@@ -12,37 +12,39 @@ import img5 from "./img5.png";
 import img6 from "./img6.png";
 import img7 from "./img7.png";
 import img8 from "./img8.png";
+import AppNavbar from "../assets/navbar";
 
 const About = () => {
   return (
     <>
+      <AppNavbar />
       {/* About Us Section */}
-        <div className="container-fluid about-section">
-    <div className="row">
-      <div className="col-md-6 p-0 align-items-center justify-content-centre" id="boxBlue">
-        <div className="text-center p-0 text-white">
-          <div className="image-container my-5">
-            <img
-              src={img1}
-              alt=""
-              className="img-fluid mt-5"
-              style={{ maxWidth: "50%", maxHeight: "50%",borderRadius:"20px" }}
-            />
+      <div className="container-fluid about-section">
+        <div className="row">
+          <div className="col-md-6 p-0 align-items-center justify-content-centre" id="boxBlue">
+            <div className="text-center p-0 text-white">
+              <div className="image-container my-5">
+                <img
+                  src={img1}
+                  alt=""
+                  className="img-fluid mt-5"
+                  style={{ maxWidth: "50%", maxHeight: "50%", borderRadius: "20px" }}
+                />
+              </div>
+            </div>
           </div>
+          <div className="col-md-6 d-flex align-items-center justify-content-center p-5" id="boxBlue">
+            <div className="text-center text-white">
+              <h1>Regalia</h1>
+              <p>
+                Explore the world of Regalia and get involved. Let’s work towards
+                breaking barriers, one fine piece at a time.
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
-      <div className="col-md-6 d-flex align-items-center justify-content-center p-5" id="boxBlue">
-  <div className="text-center text-white">
-    <h1>Regalia</h1>
-    <p>
-      Explore the world of Regalia and get involved. Let’s work towards
-      breaking barriers, one fine piece at a time.
-    </p>
-  </div>
-</div>
-
-    </div>
-  </div>
 
 
       {/* Mission Section */}
@@ -60,7 +62,7 @@ const About = () => {
         <div className="row px-5">
           <div className="col img px-5">
             <div className="image-container  px-5 mt-0">
-              <img src={img2} alt=""  class="img-fluid float-right"/>
+              <img src={img2} alt="" class="img-fluid float-right" />
             </div>
           </div>
           <div className="col img px-5">
@@ -70,7 +72,7 @@ const About = () => {
           </div>
           <div className="col img px-5" >
             <div className="image-container px-5 mt-0">
-              <img src={img4} alt=""class="img-fluid float-left" />
+              <img src={img4} alt="" class="img-fluid float-left" />
             </div>
           </div>
           <div className="text-center text-container mt-4">
@@ -149,14 +151,14 @@ const About = () => {
             </div>
           </div>
           <div className="col my-5">
-          <div className="image-container mt-0 text-center">
-  <img src={img8} alt="" className="img-fluid w-50 mx-auto" />
-</div>
+            <div className="image-container mt-0 text-center">
+              <img src={img8} alt="" className="img-fluid w-50 mx-auto" />
+            </div>
           </div>
         </div>
       </div>
 
-      
+
     </>
   );
 };
