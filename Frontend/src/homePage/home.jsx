@@ -58,7 +58,9 @@ const Home = () => {
             <div className="text-center">
               <h1>Shop Our Exquisite <br /> Earring Collection</h1>
               <p>This is the magic of design</p>
-              <button className="btn btn-secondary">View Collection</button>
+              <button className="btn btn-primary">
+                <Link to={'/products'}>Explore Now</Link></button>
+              {/* <button className="btn btn-secondary">View Collection</button> */}
             </div>
           </div>
 
@@ -79,14 +81,16 @@ const Home = () => {
             <div className="text-center">
               <h1>Discover Our New Watch Collection</h1>
               <p>Explore the latest trends in jewellery</p>
-              <button className="btn btn-info">View Collection</button>
+              <button className="btn btn-primary">
+                <Link to={'/products'}>Explore Now</Link></button>
+              {/* <button className="btn btn-info">View Collection</button> */}
             </div>
           </div>
         </div>
       </div>
 
       {/* Fourth Section - New Arrivals */}
-      <div className="container-fluid section-4">
+      {/* <div className="container-fluid section-4">
         <div className="row">
           <div className="col-md-12 text-container">
             <h1>New Arrivals</h1>
@@ -120,7 +124,7 @@ const Home = () => {
             </Carousel.Item>
           ))}
         </Carousel>
-      </div>
+      </div> */}
     </>
   );
 };
