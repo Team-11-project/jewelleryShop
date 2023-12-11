@@ -8,6 +8,7 @@ import rolexOyster from './rolexOyster.jpg';
 import Navbar from '../AdminSide/Pages/navbar/navbar';
 import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const AddCartPage = () => {
   let { user } = useContext(AuthContext)
@@ -78,7 +79,7 @@ const AddCartPage = () => {
                       </Col>
                       <Col md={6} className="item-details">
                         <p className="item-name">{item.name}</p>
-                        <p>Price: ${item.price.toFixed(2)}</p>
+                        <p>Price: £{item.price.toFixed(2)}</p>
                       </Col>
                       <Col md={2}>
                         <FontAwesomeIcon
@@ -92,11 +93,13 @@ const AddCartPage = () => {
                 ))}
               </div>
               <div className="total">
-                <p>Total: ${items.reduce((total, item) => total + item.price, 0).toFixed(2)}</p>
+                <p>Total: £{items.reduce((total, item) => total + item.price, 0).toFixed(2)}</p>
               </div>
-              <Button variant="primary" className="checkout-btn">
-                Proceed to Checkout
-              </Button>
+              <Link to="/checkout" state={items}> 
+                <Button variant="dark" className="proceed-to-checkout-btn">
+                  Proceed to Checkout
+                </Button>
+              </Link>
             </div>
           </Col>
         </Row>

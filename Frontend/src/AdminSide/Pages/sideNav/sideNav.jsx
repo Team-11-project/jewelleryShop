@@ -6,12 +6,12 @@ import "./sideNav.css"
 import AuthContext from '../../../Context/AuthContext';
 
 // function SideNav() {
-function SideNav({ getPage, getEx }) {
+function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelectedCat, isEditCategory, isNewCategory }) {
     let { authTokens } = useContext(AuthContext)
 
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [page, setPage] = useState(1)
-    // const [selectedCat, setSelectedCat] = useState(0)
+    const [selectedCat, setSelectedCat] = useState({})
     const [categories, setCategories] = useState([])
 
     const getCategories = async (token) => {
@@ -28,7 +28,6 @@ function SideNav({ getPage, getEx }) {
             if (response.status == 200) {
                 // console.log(resJson, "response")
                 setCategories(resJson.response);
-                getCategories(token)
             } else {
                 console.log(resJson.message);
                 alert("error: " + resJson.message)
@@ -46,7 +45,7 @@ function SideNav({ getPage, getEx }) {
         getEx(isCollapsed)
 
         // console.log(categories)
-    }, [authTokens, page, isCollapsed]);
+    }, [authTokens, page, isEditCategory, isNewCategory]);
 
     const Collapsed = () => {
         return (
@@ -72,38 +71,26 @@ function SideNav({ getPage, getEx }) {
 
                     <div className="bottom-line"></div>
 
-                    {/* <div className="full-section">
-                        <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(4) }}>
-                            <div className="full-icon"><FontAwesomeIcon icon={faLayerGroup} /></div>
-                        </div>
-                        <div className={page === 5 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(5) }}>
-                            <div className="full-icon"><FontAwesomeIcon icon={faLayerGroup} /></div>
-                        </div>
-                        <div className={page === 6 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(6) }}>
-                            <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
-                        </div>
-                    </div> */}
                     {categories.length > 0 ? (
                         <div className="full-section">
                             {categories.map(category => (
-                                <div className="full-page" key={category.id}>
+                                <div className="full-page" key={category.id} onClick={() => { (getIsEditCategory(true)); getSelectedCat(category) }}>
                                     <div className="full-icon"><FontAwesomeIcon icon={faLayerGroup} /></div>
                                 </div>
 
                             ))}
-                            <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(4) }}>
+                            <div className={"full-page"} onClick={() => { getIsNewCategory(true) }}>
                                 <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
                             </div>
                         </div>
                     )
                         :
-                        <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(4) }}>
+                        <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { getIsNewCategory(true) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
-                            <div className="full-page-name">New</div>
                         </div>
                     }
 
-                    <div className="bottom-line"></div>
+                    {/* <div className="bottom-line"></div>
 
                     <div className="full-section insight">
                         <div className={page === 7 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(7) }}>
@@ -112,7 +99,10 @@ function SideNav({ getPage, getEx }) {
                         <div className={page === 8 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(8) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faEnvelope} /></div>
                         </div>
-                    </div>
+
+
+
+                    </div> */}
 
                 </div>
             </>
@@ -153,20 +143,20 @@ function SideNav({ getPage, getEx }) {
                         <div className="full-section">
                             <p>Categories</p>
                             {categories.map(category => (
-                                <div className="full-page" key={category.id}>
+                                <div className="full-page" key={category.id} onClick={() => { (getIsEditCategory(true)); getSelectedCat(category) }}>
                                     <div className="full-icon"><FontAwesomeIcon icon={faLayerGroup} /></div>
                                     <div className="full-page-name">{category?.categoryName}</div>
                                 </div>
 
                             ))}
-                            <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(4) }}>
+                            <div className={"full-page"} onClick={() => { getIsNewCategory(true) }}>
                                 <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
                                 <div className="full-page-name">New</div>
                             </div>
                         </div>
                     )
                         :
-                        <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(4) }}>
+                        <div className={page === 4 ? "active-icon full-page" : "full-page"} onClick={() => { getIsNewCategory(true) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
                             <div className="full-page-name">New</div>
                         </div>
