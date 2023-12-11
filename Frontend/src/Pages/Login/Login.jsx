@@ -20,7 +20,7 @@ function Login() {
                 <div className="rightSide">
                     <div className="log-head">
                         <div className="log">Log into your account</div>
-                        <div className="acc">Don't have an account? <a href="#">Sign up</a></div>
+                        <div className="acc">Don't have an account? <a href="/signup">Sign up</a></div>
                     </div>
 
                     <div className="mid">

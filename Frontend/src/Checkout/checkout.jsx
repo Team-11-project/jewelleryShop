@@ -4,6 +4,7 @@ import diamondRingImg from './signatureRing.png';
 import silverNecklaceImg from './silverNecklace.png';
 import { useLocation } from 'react-router';
 import CheckoutBox from './checkoutBox';
+import { Link } from 'react-router-dom';
 
 const countries = [
     "Australia", "Austria", "Belgium", "Canada", "Croatia", "France",
@@ -20,6 +21,11 @@ const Checkout = () => {
   const goBack = () => {
     window.history.back();
   };
+
+  const subtotal = Cart ? Cart.reduce((acc, item) => acc + parseFloat(item.price), 0) : 0;
+  const formattedSubtotal = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(subtotal);
+  const total = subtotal+34.99
+  const formattedTotal = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(total);
     return (
       <div className="checkout-container">
         <button onClick={goBack} className="back-button">← Back</button>
@@ -79,17 +85,20 @@ const Checkout = () => {
         
             <div className="subtotal-row">
                 <span className="amount-label">Subtotal:</span>
-                <span className="amount-value">£15,445</span>
+                <span className="amount-value">{formattedSubtotal}</span>
             </div>
             <div className="shipping-row">
                 <span className="amount-label">Shipping:</span>
-                <span className="amount-value">£4.99</span>
+                <span className="amount-value">£34.99</span>
             </div>
             <div className="total-row">
                 <span className="amount-label">TOTAL:</span>
-                <span className="amount-value">£15,449.99</span>
+                <span className="amount-value">{formattedTotal}</span>
             </div>
-            <button className="checkout-button">Checkout</button>
+            <Link to="/checkoutComplete">
+              <button className="checkout-button">Checkout</button>
+            </Link>
+            
           </div>
         </div>
       </div>
