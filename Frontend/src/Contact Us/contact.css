@@ -1,16 +1,52 @@
-h3{
-  color:  rgba(218, 165, 32, 1);
-}
+
 body{
   background-color: rgba(255, 255, 240, 1);
+}
+
+.logoMain{
+  color: rgb(255, 217, 119) !important;
+  font-family: 'Kapakana' !important;
+  font-size: 70px !important;
+  font-weight: 400;
+}
+
+h4{
+
+  color: rgb(255, 217, 119) !important;
+  font-family: 'Kapakana' !important;
+  font-size: 40px;
+  font-weight: 400;
+}
+
+h6{
+  color: white;
+  font-size: 20px !important;
+  font-weight: 200;
+  font-variant-caps: all-petite-caps;
+  margin-top: 1rem;
+  letter-spacing: 0.5rem;
+
+}
+
+.form-label{
+  color: black;
+  font-family: "Libre Caslon Display"  !important ;
+  margin-top: 1rem;
 }
 
 #boxBlue{
   background: rgba(1, 0, 60, 1);
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-  background:  rgba(218, 165, 32, 1) !important;
-  color: white;
+.text-black.text-center.cu{
+  font-family: "Libre Caslon Display"  !important ;
+
+  font-size: 50px !important;
 }
+
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  border: 0;
+}
+
 

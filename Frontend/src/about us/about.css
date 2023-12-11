@@ -1,5 +1,14 @@
-h1,h5{
-  color: rgb(255, 217, 119) !important;
+h1{
+  color: #ffd977 !important;
+  font-family: 'Kapakana' !important;
+  font-size: 100px !important;
+  font-weight: 400;
+}
+h2{
+  color: #ffd977 !important;
+  font-family: 'Libre Caslon Display' !important;
+  font-size: 70px;
+  font-weight:400;
 }
 body{
   background-color: rgba(255, 255, 240, 1);
