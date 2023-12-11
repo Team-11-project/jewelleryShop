@@ -32,7 +32,7 @@ const Checkout = () => {
   const removeAllFromCart = async () => {
     const userid = user?.user.id
     try {
-      let response = await fetch(`http://localhost:3000/cart/removeAll/${userid}`,
+      let response = await fetch(http://localhost:3000/cart/removeAll/${userid},
         {
           method: "DELETE",
           headers: {
@@ -125,4 +125,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default Checkout;
