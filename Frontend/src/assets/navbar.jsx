@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faHeart, faShoppingBag, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
 import './navbar.css';
+import AuthContext from '../Context/AuthContext';
 
 function AppNavbar() {
   const [searchVisible, setSearchVisible] = useState(false);

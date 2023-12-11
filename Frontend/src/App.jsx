@@ -16,10 +16,11 @@ import Dashboard from './AdminSide/Pages/Dashboard/Dashboard';
 import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
 import IndividualProduct from './productsPage/individualProducts';
 import AddCartPage from './addCart/addCartPage';
-import CheckoutPage from './Checkout/checkout';
+import Checkout from './Checkout/checkout';
 import ProductsAdmin from './AdminSide/Pages/Dashboard/Products/Products';
 import Signup from './Signup/Signup'
 import AdminSignUp from './Signup/AdminSignUp'
+import CheckoutComplete from './Checkout/checkoutComplete';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -46,7 +47,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/forgotPassword' exact element={<ForgotPassword />} />
           <Route path='/dashboard' exact element={<Dashboard />} />
-          <Route path='/checkout' exact element={<CheckoutPage />} />
+          <Route path='/checkout' exact element={<Checkout />} />
           <Route path='/products' element={<Products />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/about' element={<About />} />
@@ -55,6 +56,7 @@ function App() {
           <Route path="/cart" element={<AddCartPage />} />
           <Route path='/Signup' exact element={<Signup />} />
           <Route path='/AdminSignUp' exact element={<AdminSignUp />} />
+          <Route path='/CheckoutComplete' exact element={<CheckoutComplete />} />
         </Routes>
         {
           currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <Footer />

@@ -28,7 +28,7 @@ const Signup = () => {
   const Submit = async (e) => {
     e.preventDefault()
     try {
-      console.log("trying signup")
+      //console.log("trying signup")
       const response = await fetch('http://localhost:3000/auth/createUser', {
         method: 'POST',
         headers: {
@@ -42,7 +42,7 @@ const Signup = () => {
 
       const res = await response.json()
       if (res.status == 200) {
-        console.log(res.status)
+        //console.log(res.status)
         alert('Signup complete');
         window.location.href = "/Login";
   
@@ -51,7 +51,7 @@ const Signup = () => {
         alert('Signup incomplete');
       }
     } catch (error) {
-      console.log('Signup Error:', error);
+      //console.log('Signup Error:', error);
       // setError('Error during signup.');
     }
   };
@@ -74,8 +74,8 @@ const Signup = () => {
         </div>
       </div>
       <div className="right-half">
-        <h6>Are you a customer?<a href="/Signup">Sign up</a></h6>
-        <h1>Create Your Account</h1>
+        <h6>Are you a customer? <a href="/Signup">Sign up</a></h6>
+        <h1 className="create-account-heading">Create Your Account</h1>
         <p>
           Already have an account? <a href="/login">Log in</a>
         </p>

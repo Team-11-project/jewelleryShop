@@ -26,11 +26,10 @@
 }
 
 .logo{
-    font-size: 3vw;
-    font-family: 'Playball', sans-serif;
-    position: absolute;
-    top: 2vh;
-    left: 3vw;
+    color: rgb(255, 217, 119) !important;
+    font-family: 'Kapakana' !important;
+    font-size: 70px !important;
+    font-weight: 400;
 }
 
 .text{
