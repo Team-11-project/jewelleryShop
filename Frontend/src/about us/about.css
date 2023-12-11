@@ -1,33 +1,56 @@
-h1{
-  color: #ffd977 !important;
-  font-family: 'Kapakana' !important;
-  font-size: 100px !important;
+.about-page h1 {
+  color: #ffd977;
+  font-family: 'Kapakana';
+  font-size: 100px;
   font-weight: 400;
 }
-h2{
-  color: #ffd977 !important;
-  font-family: 'Libre Caslon Display' !important;
+
+.about-page h2 {
+  color: #ffd977;
+  font-family: 'Libre Caslon Display', sans-serif;
   font-size: 70px;
   font-weight:400;
 }
-body{
+
+.about-page h4{
+  font-family: 'Libre Caslon Display', sans-serif;
+  font-weight: 600;
+}
+
+.about-page body {
   background-color: rgba(255, 255, 240, 1);
 }
 
-#boxBlue{
+.about-page #boxBlue {
   background: rgba(1, 0, 60, 1);
 }
 
-.row.blue{
+.about-page .row.blue {
   background: rgba(1, 0, 60, 1);
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-  background:  rgb(255, 217, 119) !important;
+.about-page .btn-primary, .about-page .btn-primary:hover, .about-page .btn-primary:active, .about-page .btn-primary:visited {
+  background: rgb(255, 217, 119);
   color: white;
 }
 
-.col.img{
-  height:50% !important;
-  width:50% !important
+.about-page .col.img {
+  height:50%;
+  width:50%;
+}
+
+.elevating-jewellery{
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.about-page .values-section .image-container:last-child {
+  margin-bottom: 30px;
+}
+
+.about-page .values-section .image-container img {
+  height: 320px; 
+  width: auto; 
+  display: block; 
+  object-fit: cover;
 }

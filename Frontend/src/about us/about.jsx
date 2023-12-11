@@ -16,7 +16,7 @@ import AppNavbar from "../assets/navbar";
 
 const About = () => {
   return (
-    <>
+    <div className="about-page">
       <AppNavbar />
       {/* About Us Section */}
       <div className="container-fluid about-section">
@@ -76,18 +76,13 @@ const About = () => {
             </div>
           </div>
           <div className="text-center text-container mt-4">
-            <h4>ELEVATING JEWELLERY BEYOND LUXURY</h4>
+            <h4 className="elevating-jewellery">ELEVATING JEWELLERY BEYOND LUXURY</h4>
           </div>
         </div>
       </div>
 
       {/* OUR Values section */}
       <div className="container-fluid values-section">
-        <div className="row">
-          <div className="text-center text-container">
-            <h2>Our Values</h2>
-          </div>
-        </div>
         <div className="row px-5">
           <div className="col img px-10">
             <div className="image-container px-5 mt-0">
@@ -157,9 +152,7 @@ const About = () => {
           </div>
         </div>
       </div>
-
-
-    </>
+    </div>
   );
 };
 
