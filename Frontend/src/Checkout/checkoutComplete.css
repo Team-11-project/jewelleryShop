@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full height of the viewport */
-    width: 100vw; /* Full width of the viewport */
+    height: 100vh; 
+    width: 100vw; 
     background: #01003C;
     font-family: 'Libre Caslon Display', sans-serif;
   }
@@ -15,14 +15,17 @@
   }
   
 .thank-you-container{
-    color: white
+    color: #ffd977
+}
+.thank-you-container p{
+    color: white;
+    font-family: 'Libre Caslon Text', sans-serif;
 }
   
 
 .thank-you-container button {
     padding: 10px 20px;
-    background-color: #ffd977;
-    ;
+    background-color: #ffd977;;
     color: black;
     border: none;
     border-radius: 4px;
