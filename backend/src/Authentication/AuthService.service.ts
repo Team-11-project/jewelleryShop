@@ -1,13 +1,16 @@
+import { ResetPasswordDto } from './../Dto/resetPassword.dto';
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './../Dto/CreateUserDto.dto';
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "src/Entities/UserEntity.entity";
 import { BaseResponse } from "src/Responses/BaseResponse";
 import { Repository } from "typeorm";
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { Role } from 'src/Entities/Role.enum';
 import { LoginUserDto } from 'src/Dto/LoginUserDto.dto';
 import { JwtService } from '@nestjs/jwt';
+import { MailService } from 'src/Mail/MailService.service';
+import { use } from 'passport';
 // import * as nodemailer from 'nodemailer';
 
 @Injectable()
@@ -16,6 +19,7 @@ export class AuthService{
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>,
         private jwtService: JwtService,
+        private mailService: MailService,
     ){}
 
     async hashPassword (password: string): Promise<string>{
@@ -261,5 +265,90 @@ export class AuthService{
         }
         
     }
+
+    async sendResetcode(email:string): Promise<BaseResponse>{
+        try {
+            const user = await this.userRepository.findOne({
+                where:{
+                    email: email
+                }
+            })
+            if(!user){
+                return{
+                    status: 400,
+                    message: "user not found"
+                }
+            }
+            else{
+                const OTP = Math.floor(100000 + Math.random() * 900000).toString()
+                const encryptedOtp = await this.hashPassword(OTP)
+                user.password = encryptedOtp;
+                await this.userRepository.save(user)
+                const sendCode = await this.mailService.sendMail(email, OTP)
+                return{
+                    status: 200,
+                    message: "email sent",
+                    response: {
+                        userId: user.userId,
+                        email_response:sendCode
+                    }
+                }
+            }
+        } catch (error) {
+            console.log(error) 
+        }
+
+    }
+
+    async resetPassword(userId:number, resetPasswordDto:ResetPasswordDto): Promise<BaseResponse>{
+        try {
+            const user = await this.userRepository.findOne({
+                where:{
+                    userId: userId
+                }
+            })
+            const validate = await this.validateUserPassword(resetPasswordDto.otp, user)
+            if (validate == true){
+                if(resetPasswordDto.password1 == resetPasswordDto.password2){
+                    const encryptedPass = await this.hashPassword(resetPasswordDto.password1)
+                    user.password = encryptedPass;
+                    await this.userRepository.save(user)
+                    return {
+                        status:200,
+                        message:"passwords has been reset"
+                    }
+                }
+                else{
+                    return {
+                        status:400,
+                        message:"passwords do not match"
+                    }
+                }
+            }
+            else{
+                return {
+                    status:400,
+                    message:"otp is wrong"
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        
+       
+    }
+
+    // async validateUser(otp:string, email:string){
+    //     try {
+    //         const user = await this.userRepository.findOne({
+    //             where:{
+    //                 email: email
+    //             }
+    //         })
+    //         const validate = await this.validateUserPassword(otp, user)}
+    //     catch (error) {
+            
+    // }
+// }
 
 }

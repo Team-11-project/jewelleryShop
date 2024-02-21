@@ -5,6 +5,7 @@ import { ProductEntity } from "src/Entities/Product.entity";
 import { AuthService } from './AuthService.service';
 import { AuthController } from './AuthController.controller';
 import { JwtModule } from '@nestjs/jwt';
+import { MailService } from 'src/Mail/MailService.service';
 
 @Module({
     imports: [
@@ -17,7 +18,7 @@ import { JwtModule } from '@nestjs/jwt';
         TypeOrmModule.forFeature([UserEntity]),
         TypeOrmModule.forFeature([ProductEntity]),
     ],
-    providers: [AuthService],
+    providers: [AuthService, MailService],
     controllers: [AuthController],
     exports: [],
     
