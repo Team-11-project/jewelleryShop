@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 
     const loginUser = async (e) => {
         e.preventDefault();
-        const req = await fetch("http://localhost:3000/auth/loginUser", {
+        const req = await fetch("http://localhost:3001/auth/loginUser", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
