@@ -58,8 +58,12 @@ export class ProductsController{
     @Roles(Role.ADMIN)
     @UseInterceptors(FileInterceptor("file"))
     @Post("create-product")
-    async createProduct(@UploadedFile(new ParseFilePipe({validators: [new FileTypeValidator({fileType: 'image/jpeg'})]})) file: Express.Multer.File, @Body() createProductDto: CreateProductDto): Promise<BaseResponse> {
+    async createProduct(@UploadedFile(new ParseFilePipe({validators: [new FileTypeValidator({fileType: 'image/jpeg'})], fileIsRequired: false})) file: Express.Multer.File, @Body() createProductDto: CreateProductDto): Promise<BaseResponse> {
+      if (file){
         return this.productService.createProduct(createProductDto, file.originalname, file.buffer);
+
+      }
+        return this.productService.createProduct(createProductDto);
     }
 
     @UseGuards(JwtGuard, RolesGuard)

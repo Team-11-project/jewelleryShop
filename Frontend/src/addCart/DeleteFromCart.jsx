@@ -4,31 +4,27 @@ import { faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '../Context/AuthContext';
 
 function DeleteFromCart({ getDeletePop, chosenProduct, handleDeleteItem }) {
-  const { authTokens } = useContext(AuthContext);
+  const { authTokens, user } = useContext(AuthContext);
 
   const handlePop = (pop) => {
     getDeletePop(pop);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
+    e.preventDefault()
     const token = authTokens.token;
+    const userid = user.user.id;
 
+    //console.log(chosenProduct);
     try {
-      const req = await fetch(`http://localhost:3000/products/${chosenProduct.id}`, {
+      const req = await fetch(`http://localhost:3000/cart/remove/${userid}/${chosenProduct.productId}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json',
+          //'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
       const res = await req.json();
-
-      if (res.status === 200) {
-        handleDeleteItem(chosenProduct.id);
-      } else {
-        console.error('Delete request failed:', res.message);
-        alert('Error deleting product. Please try again.');
-      }
 
       handlePop(false);
     } catch (error) {
@@ -44,8 +40,7 @@ function DeleteFromCart({ getDeletePop, chosenProduct, handleDeleteItem }) {
           <FontAwesomeIcon icon={faTimes} />
         </button>
         <form onSubmit={handleDelete}>
-          <div className="left-form">
-          </div>
+          <div className="left-form"></div>
           <div className="right-form">
             <div className="form-item">
               <label>Are you sure you want to delete this item from your cart?</label>

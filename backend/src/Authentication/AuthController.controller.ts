@@ -8,6 +8,7 @@ import { JwtGuard } from 'src/guards/jwt.guard';
 import { RolesGuard } from 'src/guards/role.guard';
 import { Roles } from 'src/Decorators/role.decorator';
 import { Role } from 'src/Entities/Role.enum';
+import { ResetPasswordDto } from 'src/Dto/resetPassword.dto';
 // import * as nodemailer from 'nodemailer';
 
 
@@ -49,6 +50,16 @@ export class AuthController{
     @Get("getAllUsers")
     async getAllUsers():Promise<BaseResponse>{
         return await this.authService.getAllUsers();
+    }
+
+    @Get("sendResetCode/:email")
+    async sendResetCode(@Param("email") email: string): Promise<BaseResponse> {
+        return await this.authService.sendResetcode(email);
+    }
+
+    @Post("resetPassword/:userId")
+    async resetPassword(@Param("userId") userId: number, @Body() resetPasswordDto: ResetPasswordDto): Promise<BaseResponse> {
+        return await this.authService.resetPassword(userId, resetPasswordDto);
     }
     
 }

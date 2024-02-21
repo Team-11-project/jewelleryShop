@@ -1,86 +1,128 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './checkout.css';
 import diamondRingImg from './signatureRing.png';
 import silverNecklaceImg from './silverNecklace.png';
+import { useLocation } from 'react-router';
+import CheckoutBox from './checkoutBox';
+import { Link } from 'react-router-dom';
+import AuthContext from '../Context/AuthContext';
 
-    const CheckoutPage = () => {
-        return (
-          <div className="checkout-container">
-            <h1 className="checkout-title">CHECKOUT</h1>
-            <h2 className="shipping-title">Shipping Details</h2>
-            <div className="checkout-columns">
-              <div className="checkout-column">
-                <label className="input-label">Full Name</label>
-                <input className="input-field" type="text" />
-                <label className="input-label">Address</label>
-                <input className="input-field" type="text" />
-                <div className="input-row">
-                <div className="input-group">
-                    <label className="input-label">Country</label>
-                    <input className="input-field input-field-small" type="text" />
-                </div>
-                <div className="input-group">
-                    <label className="input-label">City/Town</label>
-                    <input className="input-field input-field-small" type="text" />
-                </div>
-                <div className="input-group">
-                    <label className="input-label">Postcode</label>
-                    <input className="input-field input-field-small" type="text" />
-                </div>
-                </div>
-                <h2 className="payment-title">Payment Details</h2>
-                <div className="checkout-column"></div>
-                <label className="input-label">Cardholder's Name</label>
-                <input className="input-field" type="text" />
-                <label className="input-label">Card Number</label>
-                <input className="input-field" type="text" />
-                <div className="input-row payment-input-row">
-                    <div className="input-group">
-                        <label className="input-label">Expiry Date</label>
-                        <input className="input-field input-field-small" type="text" />
-                    </div>
-                    <div className="input-group">
-                        <label className="input-label">CVC/CVV</label>
-                        <input className="input-field input-field-small" type="text" />
-                    </div>
-                 </div>
+const countries = [
+  "Australia", "Austria", "Belgium", "Canada", "Croatia", "France",
+  "Germany", "Italy", "Netherlands", "Portugal", "Poland", "Russia", "Spain",
+  "Sweden", "Switzerland", "Turkey", "United Kingdom", "United States"
+
+];
+
+
+const Checkout = () => {
+  let { user } = useContext(AuthContext)
+  const location = useLocation()
+  const Cart = location.state
+  console.log(Cart)
+  const goBack = () => {
+    window.history.back();
+  };
+
+  const subtotal = Cart ? Cart.reduce((acc, item) => acc + parseFloat(item.price), 0) : 0;
+  const formattedSubtotal = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(subtotal);
+  const total = subtotal + 34.99
+  const formattedTotal = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(total);
+
+  const removeAllFromCart = async () => {
+    const userid = user?.user.id
+    try {
+      let response = await fetch(`http://localhost:3000/cart/removeAll/${userid}`,
+        {
+          method: "DELETE",
+          headers: {
+            // 'Content-Type': 'application/json',
+          }
+        },
+      )
+      console.log(response.json())
+    } catch (error) {
+      console.log(error)
+
+    }
+  }
+  return (
+    <div className="checkout-container">
+      <button onClick={goBack} className="back-button">← Back</button>
+      <h1 className="checkout-title">CHECKOUT</h1>
+      <div className="checkout-columns">
+        <div className="checkout-column">
+          <h2 className="section-title">Shipping Details</h2>
+          <label className="input-label">Full Name</label>
+          <input className="input-field" type="text" placeholder="First name and surname" />
+          <label className="input-label">Address</label>
+          <input className="input-field" type="text" placeholder="" />
+          <div className="input-row">
+            <div className="input-group">
+              <label className="input-label">Country</label>
+              <select className="input-field input-field-small">
+                {countries.map((country) => (
+                  <option key={country} value={country}>{country}</option>
+                ))}
+              </select>
+            </div>
+            <div className="input-group">
+              <label className="input-label">City/Town</label>
+              <input className="input-field input-field-small" type="text" placeholder="" />
+            </div>
+            <div className="input-group">
+              <label className="input-label">Postcode</label>
+              <input className="input-field input-field-small" type="text" placeholder="" />
+            </div>
+          </div>
+          <h2 className="section-title">Payment Details</h2>
+          <label className="input-label">Cardholder's Name</label>
+          <input className="input-field" type="text" placeholder="" maxLength="100" />
+          <label className="input-label">Card Number</label>
+          <input className="input-field" type="text" inputMode="numeric" pattern="\d*" maxLength="16" placeholder="1234 5678 9012 3456" />
+          <div className="input-row payment-input-row">
+            <div className="input-group">
+              <label className="input-label">Expiry Date</label>
+              <input className="input-field input-field-small" type="month" />
+            </div>
+            <div className="input-group">
+              <label className="input-label">CVC/CVV</label>
+              <input className="input-field input-field-small" type="text" inputMode="numeric" pattern="\d*" maxLength="4" placeholder="123" />
+            </div>
+          </div>
+        </div>
+        <div className="checkout-column">
+          <div className="column-header">Order Details</div>
+          {Cart && (
+            <>
+              <div className="">
+                {Cart.map(item => (
+                  <CheckoutBox key={item.productId} item={item} />
+                ))}
               </div>
-              <div className="checkout-column">
-        <div className="column-header">Order Details</div>
-        <div className="checkout-column order-details"></div>
-        <div className="order-summary-item">
-          <img src={diamondRingImg} alt="Signature pear diamond ring" className="order-item-image" />
-          <div>
-            <p className="item-name">Signature pear diamond ring</p>
-            <p className="item-details">Size: M, Qty: 1</p>
-            <p className="item-price">£10,000</p>
+            </>
+          )}
+
+          <div className="subtotal-row">
+            <span className="amount-label">Subtotal:</span>
+            <span className="amount-value">{formattedSubtotal}</span>
           </div>
-        </div>
-        <div className="order-summary-item">
-          <img src={silverNecklaceImg} alt="Silver necklace" className="order-item-image" />
-          <div>
-            <p className="item-name">Silver necklace</p>
-            <p className="item-details">Size: S, Qty: 1</p>
-            <p className="item-price"> £5,445</p>
+          <div className="shipping-row">
+            <span className="amount-label">Shipping:</span>
+            <span className="amount-value">£34.99</span>
           </div>
-        </div>
-            <div className="subtotal-row">
-                <span className="amount-label">Subtotal:</span>
-                <span className="amount-value">£15,445</span>
-            </div>
-            <div className="shipping-row">
-                <span className="amount-label">Shipping:</span>
-                <span className="amount-value">£4.99</span>
-            </div>
-            <div className="total-row">
-                <span className="amount-label">TOTAL:</span>
-                <span className="amount-value">£15,449.99</span>
-            </div>
-            <button className="checkout-button">Checkout</button>
+          <div className="total-row">
+            <span className="amount-label">TOTAL:</span>
+            <span className="amount-value">{formattedTotal}</span>
           </div>
+          <Link to="/checkoutComplete" >
+            <button type='submit' className="checkout-button" onClick={() => removeAllFromCart()}>Checkout</button>
+          </Link>
+
         </div>
-        </div>
+      </div>
+    </div>
   );
 };
 
-export default CheckoutPage;
+export default Checkout;

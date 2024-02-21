@@ -10,35 +10,33 @@ function DeleteProduct({ getDeletePop, chosenProd }) {
   const handlePop = (pop) => {
     getDeletePop(pop);
   };
-//   console.log(chosenProd)
+  //console.log(chosenProd)
 
 
-  console.log(chosenProd, "del")
+  //console.log(chosenProd, "del")
 
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
+    e.preventDefault()
     const token = authTokens.token;
-    console.log(chosenProd)
-    console.log(chosenProd?.productId)
+    //console.log(chosenProd)
+    //console.log(chosenProd?.productId)
     try {
-      const req = await fetch(`http://localhost:3000/products/${chosenProd?.productId}`, {
+      const req = await fetch(`http://localhost:3000/products/deleteproduct/${chosenProd?.productId}`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
+          //'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
-    });
+      });
       const res = await req.json();
-      if (res.status === 200) {
-        alert('Your product has been deleted successfully')
-      } 
-      
-      else {
-        console.log(res.status);
-        console.error('Delete request failed:', res.message);
-        alert('Error deleting product. Please try again.');
-      }
+      // if (res.status !== 200) {
+
+      //   //console.log(res.status);
+      //   console.error('Delete request failed:', res.message);
+      //   alert('Error deleting product. Please try again.');
+      // }
       handlePop(false);
-    } 
+    }
     catch (error) {
       console.error('Error:', error.message);
       alert(`An unexpected error occurred. Please try again. ${error.message}`);

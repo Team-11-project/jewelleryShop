@@ -8,15 +8,18 @@ import { faChevronLeft, faChevronRight, faPlus } from '@fortawesome/free-solid-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NewProduct from './popups/newProduct/NewProduct'
 import EditProduct from './popups/editproduct/EditProduct'
+import NewCategory from './popups/newCategory/newCategory'
 import DeleteProduct from './popups/deleteProduct/DeleteProduct'
 import ViewProduct from './popups/viewProduct/ViewProduct'
 
-function Products() {
+function Products({isNewCategory}) {
     let { authTokens } = useContext(AuthContext)
+    // console.log(isNewCategory)
 
     const [Allproducts, setAllProducts] = useState([])
     const [productsCount, setProductsCount] = useState()
     const [newProductPop, setNewProductPop] = useState(false)
+   
     const [editProdPop, setEditProdPop] = useState(false)
     const [deleteProductPop, setDeleteProductPop] = useState(false);
     const [viewProductPop, setViewProductPop] = useState(false);
@@ -39,6 +42,7 @@ function Products() {
 
     const getPop = (pop) => {
         setNewProductPop(pop)
+        
     }
 
     const getIsOption = (opt) => {
@@ -54,7 +58,7 @@ function Products() {
     }
 
     const openDeletePopup = (value) => {
-        setChosenProd(value); 
+        setChosenProd(value);
         setDeleteProductPop(true);
     }
 
@@ -140,14 +144,15 @@ function Products() {
         console.log(isOption)
         // console.log(chosenProd)
         // getProductsCount(authTokens.token)
-    }, [authTokens, totalPageCount, isOption])
+    }, [authTokens, totalPageCount, isOption, newProductPop, editProdPop, deleteProductPop, viewProductPop])
 
     return (
         <>
             {newProductPop === true ? <NewProduct getPop={getPop} /> : ""}
             {editProdPop === true ? <EditProduct getEditPop={getEditPop} chosenProd={chosenProd} getIsOption={getIsOption} /> : ""}
+            
             {deleteProductPop && <DeleteProduct getDeletePop={setDeleteProductPop} chosenProd={chosenProd} />}
-            {viewProductPop && <ViewProduct product={selectedProduct} closeDetailView={closeViewProduct}/>}
+            {viewProductPop && <ViewProduct product={selectedProduct} closeDetailView={closeViewProduct} />}
 
             <div className="path">Dashboard/Products</div>
             <div className="prod-container">
@@ -155,7 +160,7 @@ function Products() {
                     <>
                         <div className="prod">
                             {products.map(product => (
-                                <ProductBox key={product.productId} product={product} getChosenProd={getChosenProd} getEditPop={getEditPop} getIsOption={getIsOption} openDeletePopup={openDeletePopup} openViewProduct={openViewProduct}/>
+                                <ProductBox key={product.productId} product={product} getChosenProd={getChosenProd} getEditPop={getEditPop} getIsOption={getIsOption} openDeletePopup={openDeletePopup} openViewProduct={openViewProduct} />
                             ))}
                         </div>
                     </>

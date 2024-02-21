@@ -1,0 +1,107 @@
+body {
+    font-family: 'Libre Caslon Display', serif;
+}
+
+.edit-cat-popup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    font-family: 'Libre Caslon Display', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+
+.edit-cat-popup-inner {
+    background-color: #ffffff;
+    padding: 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+}
+
+.cancel-btn {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-color: #F6F6F6;
+    color: #000;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #ccc;
+}
+
+.form-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 300;
+    color: #000;
+}
+
+.form-item input[type="text"],
+.form-item textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #F6F6F6;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.form-item textarea {
+    height: 65px;
+}
+
+.edit-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+    gap: 20px;
+}
+
+.edit-buttons .delete-btn,
+.edit-buttons .update-btn {
+    padding: 8px 10px;
+    font-size: 16px;
+    background-color: #FFD977;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.edit-buttons .delete-btn {
+    background-color: rgba(190, 0, 0, 0.61);;
+}
+
+.edit-buttons .update-btn {
+    background-color: #FFD977;
+}
+
+.edit-buttons button:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .edit-cat-popup-inner {
+        padding: 20px;
+        max-width: 90%;
+    }
+}
