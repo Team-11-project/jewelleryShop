@@ -26,6 +26,7 @@ import { MailService } from './Mail/MailService.service';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
+    ConfigModule.forRoot({isGlobal: true}),
     MailerModule.forRoot({
       transport: {
         host: 'smtp.gmail.com',
@@ -33,17 +34,12 @@ import { MailService } from './Mail/MailService.service';
         ignoreTLS: true,
         secure: true,
         auth: {
-            user: 'regalia912@gmail.com',
-            pass: 'mmhnksmrwzozoxqh'
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASS,
         },
-    },
-    defaults:
-    {
-      from: '"Regalia-No-Reply" <regalia912@gmail.com>'
     }
     }),
     AuthModule,
-    ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.HOST,
