@@ -39,4 +39,6 @@
 
 .add-to-cart-btn {
 display: flex;
+background-color: #FFD977;
+color: black;
 }

@@ -33,10 +33,10 @@ export class ProductService{
         private readonly configService: ConfigService
     ){}
 
-    async createProduct(createProductDto: CreateProductDto, fileName:string, file:Buffer): Promise<BaseResponse> {
+    async createProduct(createProductDto: CreateProductDto, fileName?:string, file?:Buffer): Promise<BaseResponse> {
         try {
 
-            console.log(fileName)
+            // console.log(fileName)
             const date = new Date();
 
             const productFromDb = await this.productRepository.findOne({
@@ -70,7 +70,9 @@ export class ProductService{
             product.price = createProductDto.price
             product.material = createProductDto.material
             product.keywords = createProductDto.keywords
+            if(fileName){
             product.image = await (await this.uploadProductImage(fileName, file)).response
+            }
             product.details = createProductDto.detail
             product.stock = createProductDto.stock
             product.createdAt = date
@@ -81,6 +83,7 @@ export class ProductService{
             })
 
             const newProduct = await this.productRepository.save(product)
+            console.log(newProduct)
 
             if(product){
                 return{
@@ -97,6 +100,7 @@ export class ProductService{
 
             
         } catch (error) {
+            console.log(error)
             return{
                 status: 400,
                 message: "Bad request",

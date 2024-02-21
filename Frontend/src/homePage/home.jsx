@@ -86,7 +86,7 @@ const Home = () => {
       </div>
 
       {/* Fourth Section - New Arrivals */}
-      <div className="container-fluid section-4">
+      {/* <div className="container-fluid section-4">
         <div className="row">
           <div className="col-md-12 text-container">
             <h1>New Arrivals</h1>
@@ -120,7 +120,7 @@ const Home = () => {
             </Carousel.Item>
           ))}
         </Carousel>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -37,15 +37,15 @@ const Signup = () => {
         body: JSON.stringify(formData),
       });
 
-      
-// console.log("next point")
+
+      // console.log("next point")
 
       const res = await response.json()
       if (res.status == 200) {
         //console.log(res.status)
         alert('Signup complete');
         window.location.href = "/Login";
-  
+
       } else {
         // const errorData = await response.json();
         alert('Signup incomplete');
@@ -103,7 +103,7 @@ const Signup = () => {
               id="firstName"
               name="firstName"
               value={formData.firstName}
-              onChange={(e)=>{setFormData({...formData, firstName: e.target.value})}}
+              onChange={(e) => { setFormData({ ...formData, firstName: e.target.value }) }}
               required
             />
           </div>
@@ -115,7 +115,7 @@ const Signup = () => {
               id="lastName"
               name="lastName"
               value={formData.lastName}
-              onChange={(e)=>{setFormData({...formData, lastName: e.target.value})}}
+              onChange={(e) => { setFormData({ ...formData, lastName: e.target.value }) }}
               required
             />
           </div>
@@ -156,7 +156,7 @@ const Signup = () => {
             />
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <input
               type="checkbox"
               id="agreePrivacyPolicy"
@@ -168,9 +168,9 @@ const Signup = () => {
             <label htmlFor="agreePrivacyPolicy">
               I agree to the <a href="/privacy-policy">Privacy Policy</a>
             </label>
-          </div> 
+          </div>  */}
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <input
               type="checkbox"
               id="agreeTermsConditions"
@@ -182,7 +182,7 @@ const Signup = () => {
             <label htmlFor="agreeTermsConditions">
               I agree to the <a href="/terms-conditions">Terms and Conditions</a>
             </label>
-          </div>
+          </div> */}
 
           <button type="submit">Sign Up</button>
         </form>

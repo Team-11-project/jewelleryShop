@@ -1,4 +1,4 @@
-body {
+.checkout-container {
   font-family: 'Libre Caslon Display', sans-serif;
   background-color: white;
   }
@@ -209,6 +209,22 @@ body {
       margin-left: auto;
       margin-right: auto;
   }
+
+  .input-field-small {
+    padding: 10px; 
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: calc(100% - 20px); 
+    font-size: 14px; 
+  }
+  
+  .input-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px; 
+  }
+  
   
   
   /* Responsive layout adjustments */

@@ -56,11 +56,11 @@ function Login() {
                                     name="password"
                                 />
                             </div>
-                            <div className="rem">
+                            {/* <div className="rem">
                                 <input type="checkbox" className='cb' />
                                 <label>Remember me</label>
-                            </div>
-                            <div className="FPass">Forgot Password?</div>
+                            </div> */}
+                            {/* <div className="FPass">Forgot Password?</div> */}
                             <div className="btn">
                                 <button type='submit'>Log In</button>
                             </div>

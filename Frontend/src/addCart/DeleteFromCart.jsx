@@ -10,10 +10,11 @@ function DeleteFromCart({ getDeletePop, chosenProduct, handleDeleteItem }) {
     getDeletePop(pop);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
+    e.preventDefault()
     const token = authTokens.token;
     const userid = user.user.id;
-  
+
     //console.log(chosenProduct);
     try {
       const req = await fetch(`http://localhost:3000/cart/remove/${userid}/${chosenProduct.productId}`, {
@@ -24,13 +25,13 @@ function DeleteFromCart({ getDeletePop, chosenProduct, handleDeleteItem }) {
         },
       });
       const res = await req.json();
-  
+
       handlePop(false);
     } catch (error) {
       console.error('Error:', error.message);
       alert(`An unexpected error occurred. Please try again. ${error.message}`);
     }
-  };  
+  };
 
   return (
     <div className="delete-popup">
