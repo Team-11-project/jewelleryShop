@@ -1,9 +1,10 @@
-import { Controller, Post, Delete, Param, Get, ParseIntPipe, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, Delete, Param, Get, ParseIntPipe, UseGuards, Req, Body } from '@nestjs/common';
 import { CartService } from './../Services/CartService.service';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { BaseResponse } from 'src/Responses/BaseResponse';
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UserEntity } from './../Entities/UserEntity.entity'; 
+import { CreateOrderDto } from 'src/Dto/createOrderDto.dto';
 
 
 @ApiBearerAuth()
@@ -43,4 +44,10 @@ async removeFromCart(
 ) {
   return this.cartService.removeAllFromCart(userId);
 }
+
+ @UseGuards(JwtGuard)
+ @Post("createOrder")
+ async createCart(@Body() createOrderDto: CreateOrderDto): Promise<BaseResponse>{
+  return await this.cartService.createOrder(createOrderDto);
+ }
 }

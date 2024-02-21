@@ -1,3 +1,4 @@
+import { CreateOrderDto } from './../Dto/createOrderDto.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -5,6 +6,8 @@ import { ProductEntity } from 'src/Entities/Product.entity';
 import { CartEntity } from 'src/Entities/Cart.entity';
 import { UserEntity } from 'src/Entities/UserEntity.entity';
 import { BaseResponse } from 'src/Responses/BaseResponse';
+import { OrderEntity } from 'src/Entities/Order.entity';
+import { OrderStatus } from 'src/Entities/OrderStatus.enum';
 
 @Injectable()
 export class CartService {
@@ -15,6 +18,8 @@ export class CartService {
     private readonly productRepository: Repository<ProductEntity>,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(OrderEntity)
+    private readonly orderRepository: Repository<OrderEntity>,
   ) {}
 
   async addToCart(userId: number, productId: number): Promise<CartEntity> {
@@ -54,8 +59,6 @@ export class CartService {
       throw new Error('Error adding to cart: ' + error.message);
     }
   }
-  
-  
     
   async removeFromCart(userId: number, productId: number): Promise<CartEntity> {
     try {
@@ -76,7 +79,6 @@ export class CartService {
       throw new Error('Error removing from cart: ' + error.message);
     }
   }
-  
 
   async getOrCreateCart(Id: number): Promise<any> {
 const user = await this.userRepository.findOne({
@@ -116,7 +118,6 @@ if(user)
     return cart;
   }
 }
-  
 
   async getCartByUserId(Id: number): Promise<BaseResponse> {
     try {
@@ -170,6 +171,41 @@ async removeAllFromCart(userId: number): Promise<CartEntity> {
     }
   } catch (error) {
     throw new Error('Error removing from cart: ' + error.message);
+  }
+}
+
+async createOrder(createOrderDto: CreateOrderDto): Promise<BaseResponse> {
+  try {
+    let order = new OrderEntity
+    order.billingAddress = createOrderDto.billingAddress
+    order.cart = await this.cartRepository.findOne({
+      where: {
+        cartId : createOrderDto.cartId
+      }})
+    order.createdAt = new Date
+    order.paymentDetail = createOrderDto.paymentDetail
+    order.shippingAddress = createOrderDto.shippingAddress
+    order.status = OrderStatus.PENDING
+    order.totalPrice = 10
+
+    const newOrder = await this.orderRepository.save(order)
+    console.log(newOrder)
+
+    if(newOrder){
+      this.removeAllFromCart(createOrderDto.userId)
+        return{
+            status: 200,
+            message: "order created",
+            response: newOrder
+        }
+    }
+    return{
+        status: 400,
+        message: "order could not be created"
+    }
+
+  } catch (error) {
+    console.log(error)
   }
 }
 }

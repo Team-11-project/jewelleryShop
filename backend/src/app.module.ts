@@ -20,9 +20,28 @@ import { CartController } from './Controllers/CartController.controller';
 import { CartService } from './Services/CartService.service';
 
 import path from "path";
+import { OrderEntity } from './Entities/Order.entity';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { MailService } from './Mail/MailService.service';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        ignoreTLS: true,
+        secure: true,
+        auth: {
+            user: 'regalia912@gmail.com',
+            pass: 'mmhnksmrwzozoxqh'
+        },
+    },
+    defaults:
+    {
+      from: '"Regalia-No-Reply" <regalia912@gmail.com>'
+    }
+    }),
     AuthModule,
     ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRoot({
@@ -58,11 +77,11 @@ import path from "path";
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity]),
 
   ],
   controllers: [ProductsController,CartController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService],
 })
 export class AppModule {}
 
