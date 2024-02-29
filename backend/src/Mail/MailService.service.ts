@@ -1,18 +1,23 @@
 import { MailerService } from "@nestjs-modules/mailer";
 import { Injectable } from "@nestjs/common";
+import { UserEntity } from "src/Entities/UserEntity.entity";
 
 @Injectable()
 export class MailService {
   constructor(private readonly mailerService: MailerService) {}
 
-  async sendMail(userEmail:string, body:string) {
+  async sendMail(body:string, user:UserEntity) {
     try {
       await this.mailerService.sendMail({
-        to: userEmail,
+        to: user.email,
         from: '"Regalia" <regalia912@gmail.com>', // sender address
         subject: "Reset your password", // Subject line
-        text: 'text', // plaintext body
-        html:'<p> This is your OTP '+body+ '</p>' ,
+        template: './ForgotPassword',
+        context:{
+          name: user.firstName,
+          
+          otp: body
+        }
       });
       return {
         success: true,
