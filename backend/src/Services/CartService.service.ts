@@ -235,7 +235,6 @@ async deleteOrder(orderId: number): Promise<BaseResponse>{
 
   } catch (error) {
     console.log(error)
-    
   }
 }
 }
