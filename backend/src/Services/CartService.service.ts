@@ -237,4 +237,26 @@ async deleteOrder(orderId: number): Promise<BaseResponse>{
     console.log(error)
   }
 }
+
+async getAllOrders(): Promise<BaseResponse>{
+  try {
+
+    const orders = await this.orderRepository.find()
+    if (orders){
+      return{
+        status: 200,
+        message: "orders found",
+        response: orders
+      }
+  }
+  return{
+    status: 400,
+    message: "no orders found"
+  }
+    
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
 }
