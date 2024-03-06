@@ -1,5 +1,6 @@
 import { MailerService } from "@nestjs-modules/mailer";
 import { Injectable } from "@nestjs/common";
+import { ContactDto } from "src/Dto/contact.dto";
 
 @Injectable()
 export class MailService {
@@ -23,6 +24,12 @@ export class MailService {
         error: error
       };
     }
+  }
+
+  async handleContactForm(contactData: ContactDto): Promise<any> {
+    // Implement logic
+    console.log(contactData);
+    return { success: true, message: 'Your message has been received.' };
   }
 
 }
