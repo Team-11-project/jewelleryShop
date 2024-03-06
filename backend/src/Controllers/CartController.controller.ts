@@ -7,6 +7,7 @@ import { UserEntity } from './../Entities/UserEntity.entity';
 import { CreateOrderDto } from 'src/Dto/createOrderDto.dto';
 import { Roles } from 'src/Decorators/role.decorator';
 import { Role } from 'src/Entities/Role.enum';
+import { get } from 'http';
 
 
 @ApiBearerAuth()
@@ -57,6 +58,13 @@ async removeFromCart(
  @Roles(Role.ADMIN)
  @Delete("deleteOrder/:orderId")
  async deleteOrder(@Param("orderId") orderId: number): Promise<BaseResponse>{
-  return await this.cartService.deleteOrder(orderId)
+  return await this.cartService.deleteOrder(orderId);
+ }
+
+ @UseGuards(JwtGuard)
+ @Roles(Role.ADMIN)
+ @Get("getAllOrders")
+ async getAllOrders():Promise<BaseResponse>{
+  return await this.cartService.getAllOrders();
  }
 }
