@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException, InternalServerErrorException, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { OrderEntity } from "src/entities/order.entity";
-import { OrderStatus } from "src/entities/OrderStatus.enum";
+import { OrderEntity } from "./../entities/order.entity";
+import { OrderStatus } from "./../entities/OrderStatus.enum";
 
 @Injectable()
 export class OrderService {
