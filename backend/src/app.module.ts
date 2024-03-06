@@ -23,6 +23,8 @@ import path from "path";
 import { OrderEntity } from './Entities/Order.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './Mail/MailService.service';
+import { OrdersController } from './Controllers/OrdersController.controller';
+import { OrderService } from './Services/OrderService.service';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -76,8 +78,8 @@ import { MailService } from './Mail/MailService.service';
 TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity]),
 
   ],
-  controllers: [ProductsController,CartController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService],
+  controllers: [ProductsController,CartController,OrdersController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService],
 })
 export class AppModule {}
 
