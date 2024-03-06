@@ -3,8 +3,8 @@ import { ApiBearerAuth, ApiTags, ApiParam, ApiResponse, ApiNotFoundResponse } fr
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { RolesGuard } from 'src/guards/role.guard'; 
 import { OrderService } from './../Services/OrderService.service'; 
-import { OrderEntity } from './../entities/Order.entity';
-import { OrderStatus } from "./../entities/OrderStatus.enum";
+import { OrderEntity } from './../Entities/Order.entity';
+import { OrderStatus } from "./../Entities/OrderStatus.enum";
 
 @ApiBearerAuth()
 @ApiTags("Orders Controller")
