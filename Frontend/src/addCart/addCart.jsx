@@ -15,7 +15,7 @@ const AddCart = () => {
   const [items, setItems] = useState([])
   const getCart = async (userId) => {
     try {
-      let response = await fetch(`http://localhost:3000/cart/getOrCreateCart/${userId}`,
+      let response = await fetch(`http://localhost:3001/cart/getOrCreateCart/${userId}`,
         {
           method: "GET",
           headers: {

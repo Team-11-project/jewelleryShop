@@ -23,7 +23,7 @@ function Products() {
   const getProducts = async () => {
     try {
       // setIsLoading(true)
-      let response = await fetch(`http://localhost:3000/products/get-all-products`,
+      let response = await fetch(`http://localhost:3001/products/get-all-products`,
         {
           method: "GET",
           headers: {
@@ -46,11 +46,11 @@ function Products() {
   }
 
   const addToCart = async (productId) => {
-    // http://localhost:3000/cart/add/userid/productid
+   
     try {
       // setIsLoading(true)
       const userId = user.user.id
-      let response = await fetch(`http://localhost:3000/cart/add/${userId}/${productId}`,
+      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}`,
         {
           method: "POST",
           headers: {
