@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { type } from 'os';
 import { AuthModule } from './Authentication/auth.module';
 import { UserEntity } from './Entities/UserEntity.entity';
@@ -39,6 +40,13 @@ import { ContactService } from './Services/contact.service';
         auth: {
             user: process.env.MAIL_USER,
             pass: process.env.MAIL_PASS,
+        },
+    },
+    template: {
+      dir: join(__dirname, 'Mail/MailTemplates'),
+        adapter: new HandlebarsAdapter(),
+        options: {
+          strict: true,
         },
     }
     }),

@@ -12,6 +12,7 @@ import Products from './productsPage/products';
 import AddCart from './addCart/addCart';
 import { AuthProvider } from './Context/AuthContext';
 import ForgotPassword from './forgotPassword/forgotPassword';
+import ResetPassword from './resetPassword/resetPassword';
 import Dashboard from './AdminSide/Pages/Dashboard/Dashboard';
 import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
 import IndividualProduct from './productsPage/individualProducts';
@@ -21,6 +22,7 @@ import ProductsAdmin from './AdminSide/Pages/Dashboard/Products/Products';
 import Signup from './Signup/Signup'
 import AdminSignUp from './Signup/AdminSignUp'
 import CheckoutComplete from './Checkout/checkoutComplete';
+import Orders from './AdminSide/Pages/Dashboard/Orders/Orders';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -46,6 +48,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/forgotPassword' exact element={<ForgotPassword />} />
+          <Route path='/ResetPassword' exact element={<ResetPassword />} />
           <Route path='/dashboard' exact element={<Dashboard />} />
           <Route path='/checkout' exact element={<Checkout />} />
           <Route path='/products' element={<Products />} />

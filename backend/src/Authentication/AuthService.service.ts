@@ -139,8 +139,10 @@ export class AuthService{
                 }})
 
 
+
                 if(findUser){
                     //finds user
+                    console.log(findUser)
                     const validate = await this.validateUserPassword(password, findUser)
                     if(validate == true){
                         const user = {
@@ -284,7 +286,7 @@ export class AuthService{
                 const encryptedOtp = await this.hashPassword(OTP)
                 user.password = encryptedOtp;
                 await this.userRepository.save(user)
-                const sendCode = await this.mailService.sendMail(email, OTP)
+                const sendCode = await this.mailService.sendMail(OTP, user)
                 return{
                     status: 200,
                     message: "email sent",

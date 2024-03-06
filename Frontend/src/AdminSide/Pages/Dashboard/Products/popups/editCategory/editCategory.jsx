@@ -21,7 +21,7 @@ function EditCategory({ getPop, selectedCat }) {
         const token = authTokens.token
         try {
 
-            const req = await fetch(`http://localhost:3000/products/update-category/${selectedCat?.id}`,
+            const req = await fetch(`http://localhost:3001/products/update-category/${selectedCat?.id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -47,7 +47,7 @@ function EditCategory({ getPop, selectedCat }) {
         const token = authTokens.token
         try {
 
-            const req = await fetch(`http://localhost:3000/products/deleteCategory/${selectedCat?.categoryName}`,
+            const req = await fetch(`http://localhost:3001/products/deleteCategory/${selectedCat?.categoryName}`,
                 {
                     method: "DELETE",
                     headers: {
