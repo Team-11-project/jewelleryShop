@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './forgotPassword.css'; 
+import { useNavigate } from 'react-router';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
+  const [userId, setUserId] = useState(0)
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +20,10 @@ const ForgotPassword = () => {
 
       if (response.ok) {
         console.log('Email link sent successfully');
-        redirectToResetPassword();
+        const res = await response.json()
+        // setUserId(response.response)
+        console.log(res.response.userId)
+        redirectToResetPassword(res.response.userId);
       } else {
         console.error('Failed to send email link');
       }
@@ -30,8 +36,9 @@ const ForgotPassword = () => {
     setEmail(e.target.value);
   };
 
-  const redirectToResetPassword = () => {
-    window.location.href = '/ResetPassword';
+  const redirectToResetPassword = (id) => {
+    navigate('/ResetPassword', {state: {userId: id}})
+    // window.location.href = '/ResetPassword';
   };
 
   return (
