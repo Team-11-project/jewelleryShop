@@ -21,7 +21,7 @@ function DeleteProduct({ getDeletePop, chosenProd }) {
     //console.log(chosenProd)
     //console.log(chosenProd?.productId)
     try {
-      const req = await fetch(`http://localhost:3000/products/deleteproduct/${chosenProd?.productId}`, {
+      const req = await fetch(`http://localhost:3001/products/deleteproduct/${chosenProd?.productId}`, {
         method: 'DELETE',
         headers: {
           //'Content-Type': 'application/json',

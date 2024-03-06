@@ -39,11 +39,11 @@ function IndividualProduct() {
   let { user } = useContext(AuthContext)
 
   const addToCart = async (productId) => {
-    // http://localhost:3000/cart/add/userid/productid
+    
     try {
       // setIsLoading(true)
       const userId = user.user.id
-      let response = await fetch(`http://localhost:3000/cart/add/${userId}/${productId}`,
+      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}`,
         {
           method: "POST",
           headers: {

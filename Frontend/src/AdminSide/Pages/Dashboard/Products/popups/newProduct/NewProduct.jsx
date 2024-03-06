@@ -49,7 +49,7 @@ function NewProduct({ getPop }) {
                 data.append('stock', formData.stock),
                 data.append('category', formData.category),
                 data.append('file', imageData)
-            const req = await fetch("http://localhost:3000/products/create-product", {
+            const req = await fetch("http://localhost:3001/products/create-product", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ function NewProduct({ getPop }) {
     const getCategories = async (token) => {
         try {
             // setIsLoading(true)
-            let response = await fetch('http://localhost:3000/products/get-all-categories',
+            let response = await fetch('http://localhost:3001/products/get-all-categories',
                 {
                     method: "GET",
                     headers: {
