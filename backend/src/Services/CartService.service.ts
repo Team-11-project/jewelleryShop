@@ -208,4 +208,33 @@ async createOrder(createOrderDto: CreateOrderDto): Promise<BaseResponse> {
     console.log(error)
   }
 }
+
+async deleteOrder(orderId: number): Promise<BaseResponse>{
+  try {
+
+    const order = await this.orderRepository.findOne(
+      {
+        where:{
+          id: orderId
+        },
+        relations: ['cart'], 
+      }
+    )
+    if(!order){
+      return{
+        status: 404,
+        message: "order not found"
+      }
+    }
+
+    await this.orderRepository.delete(order);
+    return{
+      status: 200,
+      message: "order deleted"
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
+}
 }
