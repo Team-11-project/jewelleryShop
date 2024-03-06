@@ -17,7 +17,7 @@ function DeleteFromCart({ getDeletePop, chosenProduct, handleDeleteItem }) {
 
     //console.log(chosenProduct);
     try {
-      const req = await fetch(`http://localhost:3000/cart/remove/${userid}/${chosenProduct.productId}`, {
+      const req = await fetch(`http://localhost:3001/cart/remove/${userid}/${chosenProduct.productId}`, {
         method: 'DELETE',
         headers: {
           //'Content-Type': 'application/json',

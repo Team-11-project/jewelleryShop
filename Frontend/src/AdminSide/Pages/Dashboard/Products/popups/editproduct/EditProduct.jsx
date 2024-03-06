@@ -35,7 +35,7 @@ function EditProduct({ getEditPop, chosenProd, getIsOption }) {
     const getCategories = async (token) => {
         try {
             // setIsLoading(true)
-            let response = await fetch('http://localhost:3000/products/get-all-categories',
+            let response = await fetch('http://localhost:3001/products/get-all-categories',
                 {
                     method: "GET",
                     headers: {
@@ -66,7 +66,7 @@ function EditProduct({ getEditPop, chosenProd, getIsOption }) {
         console.log(chosenProd.productId, "chosen")
         try {
 
-            const req = await fetch(`http://localhost:3000/products/${chosenProd?.productId}`,
+            const req = await fetch(`http://localhost:3001/products/${chosenProd?.productId}`,
                 {
                     method: "PUT",
                     headers: {

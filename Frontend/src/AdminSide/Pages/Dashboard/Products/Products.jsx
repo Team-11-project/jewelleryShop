@@ -89,7 +89,7 @@ function Products({isNewCategory}) {
 
     const getProductsCount = async (token) => {
         try {
-            let response = await fetch(`http://localhost:3000/products/get-all-products-count`,
+            let response = await fetch(`http://localhost:3001/products/get-all-products-count`,
                 {
                     method: "GET",
                     headers: {
@@ -114,7 +114,7 @@ function Products({isNewCategory}) {
     const getProducts = async (token) => {
         try {
             // setIsLoading(true)
-            let response = await fetch(`http://localhost:3000/products/get-all-products`,
+            let response = await fetch(`http://localhost:3001/products/get-all-products`,
                 {
                     method: "GET",
                     headers: {

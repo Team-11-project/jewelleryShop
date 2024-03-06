@@ -16,7 +16,7 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
 
     const getCategories = async (token) => {
         try {
-            let response = await fetch('http://localhost:3000/products/get-all-categories',
+            let response = await fetch('http://localhost:3001/products/get-all-categories',
                 {
                     method: "GET",
                     headers: {
