@@ -58,6 +58,7 @@ export class OrderService {
                 where: {
                     status: status,
                 },
+                relations: ['cart']
             });
 
             if (!orders || orders.length === 0) {
