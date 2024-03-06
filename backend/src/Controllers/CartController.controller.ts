@@ -5,6 +5,9 @@ import { BaseResponse } from 'src/Responses/BaseResponse';
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UserEntity } from './../Entities/UserEntity.entity'; 
 import { CreateOrderDto } from 'src/Dto/createOrderDto.dto';
+import { Roles } from 'src/Decorators/role.decorator';
+import { Role } from 'src/Entities/Role.enum';
+import { get } from 'http';
 
 
 @ApiBearerAuth()
@@ -47,7 +50,21 @@ async removeFromCart(
 
  @UseGuards(JwtGuard)
  @Post("createOrder")
- async createCart(@Body() createOrderDto: CreateOrderDto): Promise<BaseResponse>{
+ async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<BaseResponse>{
   return await this.cartService.createOrder(createOrderDto);
+ }
+
+ @UseGuards(JwtGuard)
+ @Roles(Role.ADMIN)
+ @Delete("deleteOrder/:orderId")
+ async deleteOrder(@Param("orderId") orderId: number): Promise<BaseResponse>{
+  return await this.cartService.deleteOrder(orderId);
+ }
+
+ @UseGuards(JwtGuard)
+ @Roles(Role.ADMIN)
+ @Get("getAllOrders")
+ async getAllOrders():Promise<BaseResponse>{
+  return await this.cartService.getAllOrders();
  }
 }

@@ -35,7 +35,7 @@ const AddCartPage = () => {
 
   const getCart = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:3000/cart/getOrCreateCart/${userId}`, {
+      const response = await fetch(`http://localhost:3001/cart/getOrCreateCart/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

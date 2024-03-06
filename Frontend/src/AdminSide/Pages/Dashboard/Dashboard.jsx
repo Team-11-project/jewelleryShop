@@ -6,7 +6,7 @@ import Overview from './Overview/Overview'
 import Products from './Products/Products'
 import NewCategory from './Products/popups/newCategory/newCategory'
 import EditCategory from './Products/popups/editCategory/editCategory'
-
+import Orders from './Orders/Orders'
 
 
 function Dashboard() {
@@ -45,6 +45,9 @@ function Dashboard() {
         }
         if (page === 1) {
             return <Products isNewCategory={isNewCategory} />
+        }
+        if (page == 2)  {
+            return <Orders />;
         }
     }
 
