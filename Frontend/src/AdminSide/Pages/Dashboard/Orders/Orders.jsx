@@ -1,17 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Orders.css";
 
 const Orders = () => {
-  const ordersData = [
-    { id: 1, serialNumber: 1, orderId: "#30498", status: "Pending", date: "10/10/24" },
-    { id: 2, serialNumber: 2, orderId: "#30499", status: "In Progress", date: "10/10/24" },
-    { id: 3, serialNumber: 3, orderId: "#30500", status: "Returned", date: "10/10/24" },
-    { id: 4, serialNumber: 4, orderId: "#30501", status: "Delivered", date: "10/10/24" }
-  ];
-
+  const [ordersData, setOrdersData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState(ordersData);
+  const [searchResults, setSearchResults] = useState([]);
   const [filter, setFilter] = useState(""); 
+
+  useEffect(() => {
+    fetchOrdersData();
+  }, []);
+
+  const fetchOrdersData = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/cart/getAllOrders');
+      if (!response.ok) {
+        throw new Error('Failed to fetch orders');
+      }
+      
+      const data = await response.json();
+
+      setOrdersData(data);
+      setSearchResults(data);
+    } catch (error) {
+      console.error("Error fetching orders data:", error);
+    }
+  };
 
   const handleSearchChange = (event) => {
     const term = event.target.value;
