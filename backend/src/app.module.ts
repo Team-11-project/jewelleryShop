@@ -29,6 +29,8 @@ import { OrderService } from './Services/OrderService.service';
 // import { ReviewService } from './Services/ReviewService.service';
 // import { ReviewController } from './Controllers/ReviewController.controller';
  import { ReviewEntity } from './Entities/review.entity';
+import { ReviewService } from './Services/ReviewService.service';
+import { ReviewController } from './Controllers/ReviewController.controller';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -89,8 +91,8 @@ import { OrderService } from './Services/OrderService.service';
 TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity, ReviewEntity]),
 
   ],
-  controllers: [ProductsController,CartController,OrdersController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService],
+  controllers: [ProductsController,CartController,OrdersController, ReviewController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService, ReviewService],
 })
 export class AppModule {}
 

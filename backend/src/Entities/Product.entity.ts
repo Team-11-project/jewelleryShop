@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, OneToMany} from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, ManyToMany,JoinTable} from "typeorm";
 import { CategoryEntity } from "./Category.entity";
 import { CartEntity } from "./Cart.entity";
 import { ReviewEntity } from './review.entity';
@@ -37,5 +37,10 @@ export class ProductEntity {
 
     @ManyToOne(() => CartEntity, cart => cart.products)
     carts: CartEntity;
+
+    @ManyToMany(() => ReviewEntity)
+    @JoinTable()
+    reviews: ReviewEntity[];
+
 
 }

@@ -1,21 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { ProductEntity } from './product.entity';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class ReviewEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @Column()
-  customerName: string;
+    @Column()
+    customerName: string;
 
-  @Column()
-  content: string;
+    @Column()
+    content: string;
 
-  @Column({ nullable: true })
-  productId: number;
+    @Column({ nullable: true })
+    productId: number; // Add this line to include productId field
 
+    @Column({ default: false })
+    isWebsiteReview: boolean; // Indicates whether the review is for the entire website
 
-  @Column({ default: false })
-  isWebsiteReview: boolean;
+    // Other properties...
 }
