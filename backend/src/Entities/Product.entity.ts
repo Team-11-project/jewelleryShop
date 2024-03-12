@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, ManyToMany,JoinTable} from "typeorm";
 import { CategoryEntity } from "./Category.entity";
 import { CartEntity } from "./Cart.entity";
-import { ReviewEntity } from './review.entity';
+import { ReviewEntity } from './Review.entity';
 
 @Entity()
 export class ProductEntity {

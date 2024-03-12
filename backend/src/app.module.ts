@@ -26,9 +26,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './Mail/MailService.service';
 import { OrdersController } from './Controllers/OrdersController.controller';
 import { OrderService } from './Services/OrderService.service';
-// import { ReviewService } from './Services/ReviewService.service';
-// import { ReviewController } from './Controllers/ReviewController.controller';
- import { ReviewEntity } from './Entities/review.entity';
+
+import { ReviewEntity } from './Entities/Review.entity';
 import { ReviewService } from './Services/ReviewService.service';
 import { ReviewController } from './Controllers/ReviewController.controller';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
