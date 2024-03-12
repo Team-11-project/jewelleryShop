@@ -26,6 +26,11 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './Mail/MailService.service';
 import { OrdersController } from './Controllers/OrdersController.controller';
 import { OrderService } from './Services/OrderService.service';
+// import { ReviewService } from './Services/ReviewService.service';
+// import { ReviewController } from './Controllers/ReviewController.controller';
+ import { ReviewEntity } from './Entities/review.entity';
+import { ReviewService } from './Services/ReviewService.service';
+import { ReviewController } from './Controllers/ReviewController.controller';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -59,7 +64,7 @@ import { OrderService } from './Services/OrderService.service';
       password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [ProductEntity, CategoryEntity, UserEntity],
+      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity],
       // ssl: {
       //   ca: process.env.CERT,
       // },
@@ -83,11 +88,11 @@ import { OrderService } from './Services/OrderService.service';
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity, ReviewEntity]),
 
   ],
-  controllers: [ProductsController,CartController,OrdersController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService],
+  controllers: [ProductsController,CartController,OrdersController, ReviewController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService, ReviewService],
 })
 export class AppModule {}
 
