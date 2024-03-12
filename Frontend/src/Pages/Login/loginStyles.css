@@ -66,6 +66,10 @@
     font-size: 1vw;
 }
 
+.pwd{
+    font-size: 1vw;
+}
+
 .inWith{
     text-decoration: underline;
     margin-bottom: 15px;
@@ -158,7 +162,7 @@
     background-color: #FFD977;
     border: 0;
     border-radius: 5px;
-    height: 4vh;
+    height: 10vh;
     width: 10vw;
     font-size: 1.8vw;
     font-family: 'Libre Caslon Display', sans-serif;
@@ -178,6 +182,10 @@
     }
     
     .acc{
+        font-size: 2vw;
+    }
+
+    .pwd{
         font-size: 2vw;
     }
 
