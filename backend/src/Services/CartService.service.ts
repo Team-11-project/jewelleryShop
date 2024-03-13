@@ -14,6 +14,7 @@ import { PaymentInfoEntity } from 'src/Entities/PaymentInfo.entity';
 import { CreatePaymentDto } from 'src/Dto/createPaymentInfo.dto';
 import { use } from 'passport';
 import { AddressType } from 'src/Entities/AddressType.enum';
+import { EditOrderDto } from 'src/Dto/editOrderDto.dto';
 
 @Injectable()
 export class CartService {
@@ -333,7 +334,34 @@ async updateOrderStatus(orderId: number, newStatus): Promise<BaseResponse>{
   }
 }
 
-// async editOrderInformation(orderId: number){}
+async editOrderInformation(orderId: number, editOrderDto: EditOrderDto): Promise<BaseResponse>{
+  try {
+    const order = await this.orderRepository.findOne({where: {id: orderId}})
+
+    if(!order){
+      return{
+        status: 404,
+        message:"order not found"
+      }
+    }
+
+    order.city = editOrderDto.city
+    order.address = editOrderDto.address
+    order.postcode = editOrderDto.postcode
+    order.country = editOrderDto.country
+
+    await this.orderRepository.save(order)
+    return{
+      status: 200,
+      message: "order updated",
+      response: order
+    }
+  }
+  catch(error){
+    console.log(error)
+  }
+
+}
 
 async deleteOrder(orderId: number): Promise<BaseResponse>{
   try {
