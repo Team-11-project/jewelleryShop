@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Orders.css";
+import AuthContext from '../../../../Context/AuthContext';
 
 const Orders = () => {
+  const { authTokens } = useContext(AuthContext); 
   const [ordersData, setOrdersData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -9,19 +11,19 @@ const Orders = () => {
 
   useEffect(() => {
     fetchOrdersData();
-  }, []);
+  }, []); 
 
   const fetchOrdersData = async () => {
     try {
-      const response = await fetch('http://localhost:3001/cart/getAllOrders');
-      if (!response.ok) {
-        throw new Error('Failed to fetch orders');
-      }
-      
+      const token = authTokens.token; 
+      const response = await fetch("http://localhost:3001/cart/getAllOrders", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
-
-      setOrdersData(data);
-      setSearchResults(data);
+      setOrdersData(data.response);
+      setSearchResults(data.response); 
     } catch (error) {
       console.error("Error fetching orders data:", error);
     }
@@ -85,12 +87,12 @@ const Orders = () => {
           </tr>
         </thead>
         <tbody>
-          {searchResults.map((order) => (
-            <tr key={order.id}>
-              <td>{order.serialNumber}</td>
-              <td>{order.orderId}</td>
+          {searchResults.map((order, index) => (
+            <tr key={index}>
+              <td></td>
+              <td>{order.id}</td>
               <td>{order.status}</td>
-              <td>{order.date}</td>
+              <td>{new Date(order.createdAt).toLocaleDateString()}</td>
             </tr>
           ))}
         </tbody>
