@@ -24,6 +24,8 @@ import path from "path";
 import { OrderEntity } from './Entities/Order.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './Mail/MailService.service';
+import { PaymentInfoEntity } from './Entities/PaymentInfo.entity';
+import { AddressEntity } from './Entities/Address.entity';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -57,7 +59,7 @@ import { MailService } from './Mail/MailService.service';
       password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [ProductEntity, CategoryEntity, UserEntity],
+      entities: [ProductEntity, CategoryEntity, UserEntity, PaymentInfoEntity, AddressEntity],
       // ssl: {
       //   ca: process.env.CERT,
       // },
@@ -81,7 +83,7 @@ import { MailService } from './Mail/MailService.service';
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity, PaymentInfoEntity, AddressEntity]),
 
   ],
   controllers: [ProductsController,CartController],
