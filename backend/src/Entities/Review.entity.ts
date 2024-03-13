@@ -12,10 +12,9 @@ export class ReviewEntity {
     content: string;
 
     @Column({ nullable: true })
-    productId: number; // Add this line to include productId field
+    productId: number; 
 
     @Column({ default: false })
     isWebsiteReview: boolean; // Indicates whether the review is for the entire website
 
-    // Other properties...
 }
