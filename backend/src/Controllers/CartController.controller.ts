@@ -1,8 +1,8 @@
-import { Controller, Post, Delete, Param, Get, ParseIntPipe, UseGuards, Req, Body } from '@nestjs/common';
+import { Controller, Post, Delete, Param, Get, ParseIntPipe, UseGuards, Req, Body, Put } from '@nestjs/common';
 import { CartService } from './../Services/CartService.service';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { BaseResponse } from 'src/Responses/BaseResponse';
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiBody, ApiTags } from "@nestjs/swagger";
 import { UserEntity } from './../Entities/UserEntity.entity'; 
 import { CreateOrderDto } from 'src/Dto/createOrderDto.dto';
 import { Roles } from 'src/Decorators/role.decorator';
@@ -66,6 +66,23 @@ async removeFromCart(
  @Get("getAllOrders")
  async getAllOrders():Promise<BaseResponse>{
   return await this.cartService.getAllOrders();
+ }
+
+ @ApiBody({
+  schema: {
+    type: 'object',
+    properties: {
+      newStatus: {
+        type: 'string',
+      },
+    },
+  }, 
+})
+ @UseGuards(JwtGuard)
+ @Roles(Role.ADMIN)
+ @Put("updateOrderStatus/:orderId/:newStatus")
+ async updateOrderStatus(@Param("orderId") orderId: number, @Body() newStatus: String):Promise<BaseResponse>{
+  return await this.cartService.updateOrderStatus(orderId, newStatus)
  }
 
 }

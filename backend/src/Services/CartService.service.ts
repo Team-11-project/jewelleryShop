@@ -284,6 +284,57 @@ async createOrder(createOrderDto: CreateOrderDto): Promise<BaseResponse> {
   }
 }
 
+async updateOrderStatus(orderId: number, newStatus): Promise<BaseResponse>{
+  try {
+    console.log(newStatus)
+    const order = await this.orderRepository.findOne({where: {id: orderId}})
+
+    if(!order){
+      return{
+        status: 404,
+        message:"order not found"
+      }
+    }
+    
+    switch(newStatus.newStatus) {
+        case "canceled":
+        order.status = OrderStatus.CANCELED
+        break;
+        case "delivered":
+        order.status = OrderStatus.DELIVERED
+        break;
+        case "in delivery":
+        order.status = OrderStatus.IN_DELIVERY
+        break;
+        case "in progress":
+        order.status = OrderStatus.IN_PROGRESS
+        break;
+        case "returned":
+        order.status = OrderStatus.RETURNED
+        break;
+      default:
+        return {
+          status: 400,
+          message: "status does not exist try 'canceled', 'in progress', 'in delivery', 'returned', 'delivered' ",
+          response: newStatus
+        }
+    }
+
+    await this.orderRepository.save(order)
+
+    return{
+      status: 200,
+      message:"status updated",
+      response: order
+    }
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// async editOrderInformation(orderId: number){}
+
 async deleteOrder(orderId: number): Promise<BaseResponse>{
   try {
 
