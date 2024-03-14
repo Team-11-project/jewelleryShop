@@ -1,7 +1,9 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, ManyToMany,JoinTable} from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, ManyToMany,JoinTable, OneToMany} from "typeorm";
 import { CategoryEntity } from "./Category.entity";
 import { CartEntity } from "./Cart.entity";
 import { ReviewEntity } from './Review.entity';
+import { FavoriteEntity } from "./Favorite.entity";import { OrderEntity } from "./Order.entity";
+
 
 @Entity()
 export class ProductEntity {
@@ -36,11 +38,17 @@ export class ProductEntity {
     createdAt: Date
 
     @ManyToOne(() => CartEntity, cart => cart.products)
-    carts: CartEntity;
+    cart: CartEntity;
 
     @ManyToMany(() => ReviewEntity)
     @JoinTable()
     reviews: ReviewEntity[];
 
+    @OneToMany(() => FavoriteEntity, favorite => favorite.product)
+    favorites: FavoriteEntity[];
 
+
+
+    @ManyToOne(() => OrderEntity, order => order.products)
+    order: OrderEntity;
 }
