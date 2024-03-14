@@ -34,6 +34,8 @@ import { ReviewController } from './Controllers/ReviewController.controller';
 import { FavoriteEntity } from './Entities/Favorite.entity';
 import { FavoritesService } from './Services/FavoriteService.service';
 import { FavoritesController } from './Controllers/FavoriteController.controller';
+import { PaymentInfoEntity } from './Entities/PaymentInfo.entity';
+import { AddressEntity } from './Entities/Address.entity';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -67,7 +69,7 @@ import { FavoritesController } from './Controllers/FavoriteController.controller
       password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity],
+      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity, AddressEntity],
       // ssl: {
       //   ca: process.env.CERT,
       // },
@@ -91,7 +93,7 @@ import { FavoritesController } from './Controllers/FavoriteController.controller
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity, ReviewEntity,FavoriteEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity, ReviewEntity,FavoriteEntity, PaymentInfoEntity, AddressEntity]),
 
   ],
   controllers: [ProductsController,CartController,OrdersController, ReviewController, FavoritesController],

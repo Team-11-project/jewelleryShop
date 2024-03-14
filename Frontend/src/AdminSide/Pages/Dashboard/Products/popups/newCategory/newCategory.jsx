@@ -19,7 +19,7 @@ function NewCategory({ getPop }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Category created", formData);
+        // console.log("Category created", formData);
         const token = authTokens.token
         try {
             console.log("submitted")
@@ -57,8 +57,8 @@ function NewCategory({ getPop }) {
                             name="categoryName"
                             value={formData.categoryName}
                             onChange={(e) => setFormData({ ...formData, categoryName: e.target.value })}
-                            placeholder="Type name here" 
-                        /> 
+                            placeholder="Type name here"
+                        />
                     </div>
                     <div className="form-item">
                         <label>Category Description:</label>
@@ -66,7 +66,7 @@ function NewCategory({ getPop }) {
                             name="categoryDescription"
                             value={formData.categoryDescription}
                             onChange={(e) => setFormData({ ...formData, categoryDescription: e.target.value })}
-                            placeholder="Type description here" 
+                            placeholder="Type description here"
                         />
                     </div>
                     <div className="create-category">
