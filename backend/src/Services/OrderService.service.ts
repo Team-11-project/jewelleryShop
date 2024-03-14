@@ -17,11 +17,10 @@ export class OrderService {
         try {
             const orders = await this.orderRepository.find({
                 where: {
-                    cart: {
+                
                         user: { userId: customerId },
-                    },
                 },
-                relations: ['cart', 'cart.user'],
+                relations: ['products'],
 
             });
 
@@ -40,7 +39,7 @@ export class OrderService {
         try {
             const order = await this.orderRepository.findOne({
                 where: { id: orderId },
-                relations: ['cart', 'cart.user'],
+                relations: ['products'],
             });
 
             if (!order) {
@@ -60,7 +59,7 @@ export class OrderService {
                 where: {
                     status: status,
                 },
-                relations: ['cart', 'cart.user'],
+                relations: ['products'],
             });
 
             if (!orders || orders.length === 0) {
