@@ -8,8 +8,8 @@ export class CartEntity {
     @PrimaryGeneratedColumn()
     cartId: number;
 
-    @OneToOne(() => UserEntity)
-    @JoinColumn({'name': 'cart'})
+    @OneToOne(() => UserEntity, user => user.cart)
+    @JoinColumn({ name: 'userId' })
     user: UserEntity;
 
     @OneToMany(() => ProductEntity, product => product.cart)

@@ -1,11 +1,12 @@
-import { Column, Entity, ManyToOne, ManyToMany, PrimaryGeneratedColumn ,JoinTable} from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, ManyToMany,JoinTable, OneToMany} from "typeorm";
 import { CategoryEntity } from "./Category.entity";
 import { CartEntity } from "./Cart.entity";
-import { OrderEntity } from "./Order.entity";
+import { ReviewEntity } from './Review.entity';
+import { FavoriteEntity } from "./Favorite.entity";import { OrderEntity } from "./Order.entity";
 
 
 @Entity()
-export class ProductEntity{
+export class ProductEntity {
     @PrimaryGeneratedColumn()
     productId: number
 
@@ -27,10 +28,10 @@ export class ProductEntity{
     @Column()
     price: number
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     image: string
 
-    @Column({default: null})
+    @Column({ default: null })
     stock: number
 
     @Column()
@@ -38,6 +39,15 @@ export class ProductEntity{
 
     @ManyToOne(() => CartEntity, cart => cart.products)
     cart: CartEntity;
+
+    @ManyToMany(() => ReviewEntity)
+    @JoinTable()
+    reviews: ReviewEntity[];
+
+    @OneToMany(() => FavoriteEntity, favorite => favorite.product)
+    favorites: FavoriteEntity[];
+
+
 
     @ManyToOne(() => OrderEntity, order => order.products)
     order: OrderEntity;
