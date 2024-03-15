@@ -23,6 +23,10 @@ import Signup from './Signup/Signup'
 import AdminSignUp from './Signup/AdminSignUp'
 import CheckoutComplete from './Checkout/checkoutComplete';
 import Orders from './AdminSide/Pages/Dashboard/Orders/Orders';
+import Profile from './menuPages/menu.jsx';
+import Myinfo from './menuPages/myinfo.jsx';
+import OrderHistory from './menuPages/history.jsx'
+// import Profile from './menuPages/pages/history.jsx'
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -51,6 +55,9 @@ function App() {
           <Route path='/ResetPassword' exact element={<ResetPassword />} />
           <Route path='/dashboard' exact element={<Dashboard />} />
           <Route path='/checkout' exact element={<Checkout />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/my-info' element={<Myinfo />} />
+          <Route path='/order-history' element={<OrderHistory />} />
           <Route path='/products' element={<Products />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/about' element={<About />} />

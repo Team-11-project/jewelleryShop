@@ -1,7 +1,7 @@
 import React from 'react';
 import './about.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import img1 from "./img1.png";
+import img1 from "./img1.png"; 
 import img2 from "./img2.png";
 import img3 from "./img3.png";
 import img4 from "./img4.png";
@@ -14,13 +14,12 @@ import AppNavbar from "../assets/navbar";
 const AboutSection = () => {
   return (
     <Container fluid className="about-wrapper">
-      <AppNavbar />
       <Row className="align-items-center about-section">
         <Col md={6} className="about-text">
           <h1 className="about-title">About Us</h1>
           <p className="brand-name">Regalia</p>
           <p className="about-description">
-            Delve into the exquisite world of Regalia. Join us in crafting not just jewelry, but a movement towards breaking barriers. Together, let's celebrate beauty, strength, and innovation, one fine piece at a time. Embrace elegance, drive change.
+          Delve into the exquisite world of Regalia. Join us in crafting not just jewelry, but a movement towards breaking barriers. Together, let's celebrate beauty, strength, and innovation, one fine piece at a time. Embrace elegance, drive change.
           </p>
         </Col>
         <Col md={6} className="p-0">
