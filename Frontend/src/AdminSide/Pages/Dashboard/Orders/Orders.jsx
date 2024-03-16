@@ -1,33 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import "./Orders.css";
-import AuthContext from '../../../../Context/AuthContext';
 
 const Orders = () => {
-  const { authTokens } = useContext(AuthContext); 
-  const [ordersData, setOrdersData] = useState([]);
+  const ordersData = [
+    { id: 1, serialNumber: 1, orderId: "#30498", status: "Pending", date: "10/10/24" },
+    { id: 2, serialNumber: 2, orderId: "#30499", status: "In Progress", date: "10/10/24" },
+    { id: 3, serialNumber: 3, orderId: "#30500", status: "Returned", date: "10/10/24" },
+    { id: 4, serialNumber: 4, orderId: "#30501", status: "Delivered", date: "10/10/24" }
+  ];
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState(ordersData);
   const [filter, setFilter] = useState(""); 
-
-  useEffect(() => {
-    fetchOrdersData();
-  }, []); 
-
-  const fetchOrdersData = async () => {
-    try {
-      const token = authTokens.token; 
-      const response = await fetch("http://localhost:3001/cart/getAllOrders", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await response.json();
-      setOrdersData(data.response);
-      setSearchResults(data.response); 
-    } catch (error) {
-      console.error("Error fetching orders data:", error);
-    }
-  };
 
   const handleSearchChange = (event) => {
     const term = event.target.value;
@@ -87,12 +71,12 @@ const Orders = () => {
           </tr>
         </thead>
         <tbody>
-          {searchResults.map((order, index) => (
-            <tr key={index}>
-              <td></td>
-              <td>{order.id}</td>
+          {searchResults.map((order) => (
+            <tr key={order.id}>
+              <td>{order.serialNumber}</td>
+              <td>{order.orderId}</td>
               <td>{order.status}</td>
-              <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+              <td>{order.date}</td>
             </tr>
           ))}
         </tbody>
