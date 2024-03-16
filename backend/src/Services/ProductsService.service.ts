@@ -12,7 +12,7 @@ import { ConfigService } from '@nestjs/config';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import * as AWS from 'aws-sdk';
 import { ReviewEntity } from '../Entities/Review.entity';
-import { CreateReviewDto } from '../dto/createReview.dto';
+import { CreateReviewDto } from '../Dto/createReview.dto';
 
 
 @Injectable()
