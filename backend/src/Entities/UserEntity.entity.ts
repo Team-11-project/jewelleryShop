@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn} from "typeorm";
 import { Role } from "./Role.enum";
 import { CartEntity } from "./Cart.entity";
+import { Review } from './Review.entity';
 
 @Entity()
 export class UserEntity{
@@ -34,5 +35,8 @@ export class UserEntity{
     @OneToOne(() => CartEntity)
     @JoinColumn({name: 'cartId'})
     cart: CartEntity;
+
+    @OneToMany(() => Review, review => review.user)
+    reviews: Review[];
 
 }

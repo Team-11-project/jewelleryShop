@@ -20,6 +20,10 @@ import { CartController } from './Controllers/CartController.controller';
 import { CartService } from './Services/CartService.service';
 
 import path from "path";
+import { Review } from './Entities/Review.entity';
+import { ReviewController } from './Controllers/ReviewController.controller';
+import { ReviewService } from './Services/ReviewService.service';
+import { InventoryInbox } from './Entities/InventoryInbox.entity';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -58,11 +62,12 @@ import path from "path";
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, Review, InventoryInbox]),
 
   ],
-  controllers: [ProductsController,CartController],
+  
   providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService],
+  controllers: [ProductsController,CartController],
 })
 export class AppModule {}
 

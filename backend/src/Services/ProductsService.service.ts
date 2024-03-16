@@ -11,6 +11,8 @@ import { Repository } from "typeorm";
 import { ConfigService } from '@nestjs/config';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import * as AWS from 'aws-sdk';
+import { Review } from 'src/Entities/Review.entity';
+import { CreateReviewDto } from 'src/dto/createReview.dto';
 
 
 @Injectable()
@@ -30,7 +32,9 @@ export class ProductService{
         private readonly categoryRepository: Repository<CategoryEntity>,
         @InjectRepository(CartEntity)
         private readonly cartRepository: Repository<CartEntity>,
-        private readonly configService: ConfigService
+        private readonly configService: ConfigService,
+        @InjectRepository(Review)
+        private readonly reviewRepository: Repository<Review>,
     ){}
 
     async createProduct(createProductDto: CreateProductDto, fileName?:string, file?:Buffer): Promise<BaseResponse> {
@@ -485,6 +489,65 @@ async deleteCategory(name: string): Promise<BaseResponse> {
         }
         
     }
+
+    async createReview(createReviewDto: CreateReviewDto): Promise<BaseResponse> {
+        try {
+            console.log(createReviewDto)
+            const review = new Review()
+            const prod = await this.productRepository.findOne({where : {productId: createReviewDto.productId}})
+            review.content = createReviewDto.content
+            review.product = prod
+            review.rating = createReviewDto.rating
+            review.title = createReviewDto.title
+            const newReview = await this.reviewRepository.save(review);
+            if(newReview)
+            return{
+                status: 200,
+                message: "review created",
+                response: newReview
+            }
+            return{
+                status: 400,
+                message: "review not created",
+            }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad Request",
+                response: error.detail
+            }
+            
+        }
+        
+      }
+    
+      async findByProductId(productId: number): Promise<BaseResponse> {
+        try {
+            const reviews = await this.reviewRepository.find({
+                where: { product: { productId: productId } },
+              });
+
+              if(!reviews){
+                  return{
+                      status: 400,
+                      message: "No reviews for product"
+                  }
+              }
+              return{
+                status: 200,
+                message: "reviews found",
+                response: reviews
+            }
+            
+        } catch (error) {
+            return{
+                status: 400,
+                message: "Bad Request",
+                response: error.detail
+            }
+        }
+      }
 
     
 }

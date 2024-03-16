@@ -1,6 +1,9 @@
-import { Column, Entity, ManyToOne, ManyToMany, PrimaryGeneratedColumn ,JoinTable} from "typeorm";
+import { Column, Entity, ManyToOne, ManyToMany, PrimaryGeneratedColumn ,JoinTable, OneToMany} from "typeorm";
 import { CategoryEntity } from "./Category.entity";
 import { CartEntity } from "./Cart.entity";
+import { Review } from './Review.entity';
+import { InventoryInbox } from "./InventoryInbox.entity";
+
 
 
 @Entity()
@@ -37,4 +40,11 @@ export class ProductEntity{
 
     @ManyToOne(() => CartEntity, cart => cart.products)
     carts: CartEntity;
+
+    @OneToMany(() => Review, (review) => review.product)
+    reviews: Review[];
+
+    @OneToMany(() => InventoryInbox, inventoryInbox => inventoryInbox.product)
+    notifications: InventoryInbox[];
+
 }

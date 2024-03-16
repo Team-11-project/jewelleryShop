@@ -10,13 +10,15 @@ import { BaseResponse } from 'src/Responses/BaseResponse';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { RolesGuard } from 'src/guards/role.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CreateReviewDto } from 'src/dto/createReview.dto';
+import { ReviewService } from 'src/services/ReviewService.service';
 
 @ApiBearerAuth()
 @ApiTags("Products Controller")
 @Controller("products")
 export class ProductsController{
     constructor(
-        private productService: ProductService
+        private productService: ProductService,
       
     ){}
 
@@ -161,6 +163,16 @@ export class ProductsController{
     })
   ) file: Express.Multer.File){
     return await this.productService.uploadProductImage(file.originalname, file.buffer)
+  }
+
+  @Post('createReview')
+  create(@Body() createReviewDto: CreateReviewDto) {
+    return this.productService.createReview(createReviewDto);
+  }
+
+  @Get('review/:productId')
+  findByProductId(@Param('productId') productId: string) {
+    return this.productService.findByProductId(+productId);
   }
 
 
