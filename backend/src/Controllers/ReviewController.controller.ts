@@ -1,9 +1,9 @@
 import { Body, Controller, Post, Get, Param, Put, Delete } from '@nestjs/common';
-import { ReviewService } from '../services/ReviewService.service';
+import { ReviewService } from '../Services/ReviewService.service';
 import { ReviewEntity } from '../Entities/Review.entity';
-import { CreateReviewDto } from '../dto/createReview.dto';
+import { CreateReviewDto } from '../Dto/createReview.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { BaseResponse } from 'src/Responses/BaseResponse';
+import { BaseResponse } from '../Responses/BaseResponse';
 
 @ApiBearerAuth()
 @ApiTags("Reviews Controller")

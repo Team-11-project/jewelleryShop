@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateReviewDto } from '../dto/createReview.dto';
-import { UserEntity } from '../entities/UserEntity.entity';
-import { ReviewEntity } from './../Entities/Review.entity';
-import { BaseResponse } from "src/Responses/BaseResponse";
+import { CreateReviewDto } from '../Dto/createReview.dto';
+import { UserEntity } from '../Entities/UserEntity.entity';
+import { ReviewEntity } from '../Entities/Review.entity';
+import { BaseResponse } from "../Responses/BaseResponse";
 
 
 @Injectable()
