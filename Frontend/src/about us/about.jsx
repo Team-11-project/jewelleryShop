@@ -1,10 +1,7 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from "react";
-import { Carousel, Card } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-import "./about.css";
-import img1 from "./img1.png";
+import React from 'react';
+import './about.css';
+import { Container, Row, Col } from 'react-bootstrap';
+import img1 from "./img1.png"; 
 import img2 from "./img2.png";
 import img3 from "./img3.png";
 import img4 from "./img4.png";
@@ -14,146 +11,72 @@ import img7 from "./img7.png";
 import img8 from "./img8.png";
 import AppNavbar from "../assets/navbar";
 
-const About = () => {
+const AboutSection = () => {
   return (
-    <div className="about-page">
-      <AppNavbar />
-      {/* About Us Section */}
-      <div className="container-fluid about-section">
-        <div className="row">
-          <div className="col-md-6 p-0 align-items-center justify-content-centre" id="boxBlue">
-            <div className="text-center p-0 text-white">
-              <div className="image-container my-5">
-                <img
-                  src={img1}
-                  alt=""
-                  className="img-fluid mt-5"
-                  style={{ maxWidth: "50%", maxHeight: "50%", borderRadius: "20px" }}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6 d-flex align-items-center justify-content-center p-5" id="boxBlue">
-            <div className="text-center text-white">
-              <h1>Regalia</h1>
-              <p>
-                Explore the world of Regalia and get involved. Let’s work towards
-                breaking barriers, one fine piece at a time.
-              </p>
-            </div>
-          </div>
+    <Container fluid className="about-wrapper">
+      <Row className="align-items-center about-section">
+        <Col md={6} className="about-text">
+          <h1 className="about-title">About Us</h1>
+          <p className="brand-name">Regalia</p>
+          <p className="about-description">
+          Delve into the exquisite world of Regalia. Join us in crafting not just jewelry, but a movement towards breaking barriers. Together, let's celebrate beauty, strength, and innovation, one fine piece at a time. Embrace elegance, drive change.
+          </p>
+        </Col>
+        <Col md={6} className="p-0">
+          <img src={img1} alt="About Regalia" className="img-fluid" />
+        </Col>
+      </Row>
 
-        </div>
-      </div>
+      <Row className="justify-content-center align-items-center mission-section">
+        <Col md={12} className="text-center mission-header">
+          <h2>Our Mission</h2>
+          <p className="mission-statement">Our mission is to deliver uniquely crafted, high-quality jewellery that celebrates life's special moments. We combine traditional craftsmanship with contemporary design, ensuring each piece tells a personal story with elegance and style.</p>
+        </Col>
+        <Col xs={4} md={4} className="mission-image">
+          <img src={img2} alt="Mission 1" className="img-fluid" />
+        </Col>
+        <Col xs={4} md={4} className="mission-image">
+          <img src={img3} alt="Mission 2" className="img-fluid" />
+        </Col>
+        <Col xs={4} md={4} className="mission-image">
+          <img src={img4} alt="Mission 3" className="img-fluid" />
+        </Col>
+      </Row>
 
+      <Row className="justify-content-center align-items-center values-section">
+        <Col md={12} className="text-center values-header">
+          <h2>Our Values</h2>
+          <p className="values-statement">The principles that guide our craftsmanship, community, and commitment to sustainability.</p>
+        </Col>
+        <Col xs={4} md={4} className="values-image">
+          <img src={img5} alt="Craftsmanship" className="img-fluid" />
+          <h3>Artistry & Craftsmanship</h3>
+          <p>Every piece is a testament to our artisans' mastery, reflecting unparalleled skill and attention to detail.</p>
+        </Col>
+        <Col xs={4} md={4} className="values-image">
+          <img src={img6} alt="Sustainability" className="img-fluid" />
+          <h3>Sustainability</h3>
+          <p>We're committed to ethical sourcing and fostering a sustainable future for fashion.</p>
+        </Col>
+        <Col xs={4} md={4} className="values-image">
+          <img src={img7} alt="Community" className="img-fluid" />
+          <h3>Community Engagement</h3>
+          <p>Regalia isn't just a brand; it's a community of passionate individuals who share a vision for a better world.</p>
+        </Col>
+      </Row>
 
-      {/* Mission Section */}
-      <div className="container-fluid mission-section">
-        <div className="row">
-          <div className="text-center text-container">
-            <h2>Our Mission</h2>
-            <p>
-              “We are redefining luxury in the world of fine jewelry by offering
-              meticulously crafted, ethically-sourced pieces that transcend time
-              and trends.”
-            </p>
-          </div>
-        </div>
-        <div className="row px-5">
-          <div className="col img px-5">
-            <div className="image-container  px-5 mt-0">
-              <img src={img2} alt="" class="img-fluid float-right" />
-            </div>
-          </div>
-          <div className="col img px-5">
-            <div className="image-container px-5 mt-0">
-              <img src={img3} alt="" class="img-fluid float-center" />
-            </div>
-          </div>
-          <div className="col img px-5" >
-            <div className="image-container px-5 mt-0">
-              <img src={img4} alt="" class="img-fluid float-left" />
-            </div>
-          </div>
-          <div className="text-center text-container mt-4">
-            <h4 className="elevating-jewellery">ELEVATING JEWELLERY BEYOND LUXURY</h4>
-          </div>
-        </div>
-      </div>
-
-      {/* OUR Values section */}
-      <div className="container-fluid values-section">
-        <div className="row px-5">
-          <div className="col img px-10">
-            <div className="image-container px-5 mt-0">
-              <img src={img5} alt="" className="img-fluid" />
-            </div>
-          </div>
-          <div className="col px-10">
-            <div className="image-container px-5 mt-0">
-              <img src={img6} alt="" className="img-fluid" />
-            </div>
-          </div>
-          <div className="col px-10">
-            <div className="image-container px-5 mt-0">
-              <img src={img7} alt="" className="img-fluid" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Visions Section */}
-      <div className="container-fluid visions-section">
-        <div className="row blue">
-          <div className="col p-5 d-flex align-items-center justify-content-center">
-            <div className="text-center text-container text-white">
-              <h2>Our Vision</h2>
-
-              <p>
-                Regalia envisions a world where luxury is not just a status
-                symbol but a conscious choice. We aspire to be the premier
-                destination for those who seek more than just beautiful
-                jewelry—they seek a connection to a legacy of responsible
-                luxury. Our vision is to lead the transformation of the jewelry
-                industry, setting new standards for ethics, sustainability, and
-                exquisite design. Through Regalia, we aim to inspire a global
-                community that celebrates the true essence of luxury—one that is
-                founded on timeless beauty, ethical integrity, and the enduring
-                allure of finely crafted jewelry.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Community Section */}
-      <div className="container-fluid values-section">
-        <div className="row">
-          <div className="col p-5 d-flex align-items-center justify-content-center">
-            <div className="text-center text-container px-4">
-              <h2>Our Community</h2>
-
-              <p>
-                Our Regalia Community? That’s you. Welcome to our Regalia
-                Community—where diversity, achievement, and shared values take
-                center stage. Whether you're a cherished customer, a skilled
-                artisan, or an influencer, you're not just welcome; you're
-                embraced. At Regalia, we celebrate inclusivity and invite
-                collaboration. Join us in shaping the legacy of responsible
-                luxury. It's a Regalia gathering, and you're an honored guest.
-                Connect with us for new possibilities and shared visions{" "}
-              </p>
-            </div>
-          </div>
-          <div className="col my-5">
-            <div className="image-container mt-0 text-center">
-              <img src={img8} alt="" className="img-fluid w-50 mx-auto" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <Row className="justify-content-center align-items-center community-section">
+        <Col md={6} className="p-0 community-image">
+          <img src={img8} alt="Our Community" className="img-fluid" />
+        </Col>
+        <Col md={6} className="community-text">
+          <h2>Our Community</h2>
+          <p>Welcome to our Regalia Community—where diversity, achievement, and shared values take center stage. Whether you're a cherished customer, a skilled artisan, or an influencer, you're not just welcome; you're embraced.</p>
+          <p>At Regalia, we celebrate inclusivity and invite collaboration. Join us in shaping the legacy of responsible luxury. It's a Regalia gathering, and you're an honored guest. Connect with us for new possibilities and shared visions.</p>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
-export default About;
+export default AboutSection;

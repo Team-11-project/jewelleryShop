@@ -29,7 +29,7 @@ const Signup = () => {
     e.preventDefault()
     try {
       //console.log("trying signup")
-      const response = await fetch('http://localhost:3000/auth/createUser', {
+      const response = await fetch('http://localhost:3001/auth/createUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

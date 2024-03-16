@@ -1,3 +1,5 @@
+import { CreateAddressDto } from './../Dto/createAddressDto.dto';
+import { CreateOrderDto } from './../Dto/createOrderDto.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -5,6 +7,14 @@ import { ProductEntity } from 'src/Entities/Product.entity';
 import { CartEntity } from 'src/Entities/Cart.entity';
 import { UserEntity } from 'src/Entities/UserEntity.entity';
 import { BaseResponse } from 'src/Responses/BaseResponse';
+import { OrderEntity } from 'src/Entities/Order.entity';
+import { OrderStatus } from 'src/Entities/OrderStatus.enum';
+import { AddressEntity } from 'src/Entities/Address.entity';
+import { PaymentInfoEntity } from 'src/Entities/PaymentInfo.entity';
+import { CreatePaymentDto } from 'src/Dto/createPaymentInfo.dto';
+import { use } from 'passport';
+import { AddressType } from 'src/Entities/AddressType.enum';
+import { EditOrderDto } from 'src/Dto/editOrderDto.dto';
 
 @Injectable()
 export class CartService {
@@ -15,6 +25,12 @@ export class CartService {
     private readonly productRepository: Repository<ProductEntity>,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(OrderEntity)
+    private readonly orderRepository: Repository<OrderEntity>,
+    @InjectRepository(AddressEntity)
+    private readonly addressRepository: Repository<AddressEntity>,
+    @InjectRepository(PaymentInfoEntity)
+    private readonly paymentInfoRepository: Repository<PaymentInfoEntity>,
   ) {}
 
   async addToCart(userId: number, productId: number): Promise<CartEntity> {
@@ -54,8 +70,6 @@ export class CartService {
       throw new Error('Error adding to cart: ' + error.message);
     }
   }
-  
-  
     
   async removeFromCart(userId: number, productId: number): Promise<CartEntity> {
     try {
@@ -76,7 +90,6 @@ export class CartService {
       throw new Error('Error removing from cart: ' + error.message);
     }
   }
-  
 
   async getOrCreateCart(Id: number): Promise<any> {
 const user = await this.userRepository.findOne({
@@ -116,7 +129,6 @@ if(user)
     return cart;
   }
 }
-  
 
   async getCartByUserId(Id: number): Promise<BaseResponse> {
     try {
@@ -153,6 +165,24 @@ if(user)
     }
 }
 
+async deleteCart(userId: number): Promise<CartEntity> {
+  try {
+    const cartToDel = await this.cartRepository.findOne({
+      where: {
+        user: {userId: userId}
+      }})
+
+      if(cartToDel){
+        // await this.cartRepository.remove(cartToDel);
+        this.cartRepository.delete(cartToDel.cartId)
+        return await this.getOrCreateCart(userId)
+      }
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 async removeAllFromCart(userId: number): Promise<CartEntity> {
   try {
     // Get or create the cart for the user
@@ -172,4 +202,228 @@ async removeAllFromCart(userId: number): Promise<CartEntity> {
     throw new Error('Error removing from cart: ' + error.message);
   }
 }
+
+async getorCreateAddress(createAddressDto: CreateAddressDto){
+  try {
+    const user = await this.userRepository.findOne({
+      where: {
+        userId:createAddressDto.userId
+      }
+    })
+    
+    if(user)
+    {
+      let add = await this.addressRepository.findOne({
+        where: {
+          user : user
+        },
+      })
+      
+        if (!add) {
+          // const user = await this.userRepository.findOne({ where: { userId: user.userId } });
+          add = this.addressRepository.create({
+            user: user,
+            town: createAddressDto.town,
+            city: createAddressDto.city,
+            address: createAddressDto.address,
+            postcode: createAddressDto.postcode,
+            country: createAddressDto.country,
+          })
+        }
+      }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async createPaymentInfo(createPaymentDto: CreatePaymentDto){}
+
+async createOrder(createOrderDto: CreateOrderDto): Promise<BaseResponse> {
+  try {
+    let order = new OrderEntity
+    const cart = await this.cartRepository.findOne({
+      where: {
+        user: {userId: createOrderDto.userId}
+      },
+    relations: ['products']})
+    order.products = cart.products
+    order.createdAt = new Date
+    order.status = OrderStatus.PENDING
+    order.totalPrice = createOrderDto.totalPrice
+    order.user = await this.userRepository.findOne({where: {userId: createOrderDto.userId}})
+
+    //address
+    order.address = createOrderDto.address
+    order.postcode = createOrderDto.postcode
+    order.city = createOrderDto.city
+    order.country = createOrderDto.country
+
+    //payment
+    order.cardHolder = createOrderDto.cardHolder
+    order.cardNumber = createOrderDto.cardNumber
+    order.cvc = createOrderDto.cvc
+    order.expiryDate = createOrderDto.expiryDate
+    
+    const newOrder = await this.orderRepository.save(order)
+
+    if(newOrder){
+      this.removeAllFromCart(createOrderDto.userId)
+      
+        return{
+            status: 200,
+            message: "order created",
+            response: newOrder
+        }
+    }
+    return{
+        status: 400,
+        message: "order could not be created"
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async updateOrderStatus(orderId: number, newStatus): Promise<BaseResponse>{
+  try {
+    console.log(newStatus)
+    const order = await this.orderRepository.findOne({where: {id: orderId}})
+
+    if(!order){
+      return{
+        status: 404,
+        message:"order not found"
+      }
+    }
+    
+    switch(newStatus.newStatus) {
+        case "canceled":
+        order.status = OrderStatus.CANCELED
+        break;
+        case "delivered":
+        order.status = OrderStatus.DELIVERED
+        break;
+        case "in delivery":
+        order.status = OrderStatus.IN_DELIVERY
+        break;
+        case "in progress":
+        order.status = OrderStatus.IN_PROGRESS
+        break;
+        case "returned":
+        order.status = OrderStatus.RETURNED
+        break;
+      default:
+        return {
+          status: 400,
+          message: "status does not exist try 'canceled', 'in progress', 'in delivery', 'returned', 'delivered' ",
+          response: newStatus
+        }
+    }
+
+    await this.orderRepository.save(order)
+
+    return{
+      status: 200,
+      message:"status updated",
+      response: order
+    }
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async editOrderInformation(orderId: number, editOrderDto: EditOrderDto): Promise<BaseResponse>{
+  try {
+    const order = await this.orderRepository.findOne({where: {id: orderId}})
+
+    if(!order){
+      return{
+        status: 404,
+        message:"order not found"
+      }
+    }
+
+    order.city = editOrderDto.city
+    order.address = editOrderDto.address
+    order.postcode = editOrderDto.postcode
+    order.country = editOrderDto.country
+
+    await this.orderRepository.save(order)
+    return{
+      status: 200,
+      message: "order updated",
+      response: order
+    }
+  }
+  catch(error){
+    console.log(error)
+  }
+
+}
+
+async deleteOrder(orderId: number): Promise<BaseResponse>{
+  try {
+
+    const order = await this.orderRepository.findOne(
+      {
+        where:{
+          id: orderId
+        },
+        relations: ['cart'], 
+      }
+    )
+    if(!order){
+      return{
+        status: 404,
+        message: "order not found"
+      }
+    }
+
+    // await this.orderRepository.delete(order);
+    order.status = OrderStatus.CANCELED
+    await this.orderRepository.save(order)
+    return{
+      status: 200,
+      message: "order deleted"
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async getAllOrders(): Promise<BaseResponse>{
+  try {
+
+    const orders = await this.orderRepository.find(
+      {relations: ['products', 'user']}
+    )
+    if (orders){
+      return{
+        status: 200,
+        message: "orders found",
+        response: orders
+      }
+  }
+  return{
+    status: 400,
+    message: "no orders found"
+  }
+    
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// async editOrder(orderId: number) : Promise<BaseResponse>{
+//   try {
+    
+//   } catch (error) {
+
+    
+//   }
+// }
 }

@@ -1,9 +1,14 @@
-import { Controller, Post, Delete, Param, Get, ParseIntPipe, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, Delete, Param, Get, ParseIntPipe, UseGuards, Req, Body, Put } from '@nestjs/common';
 import { CartService } from './../Services/CartService.service';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { BaseResponse } from 'src/Responses/BaseResponse';
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiBody, ApiTags } from "@nestjs/swagger";
 import { UserEntity } from './../Entities/UserEntity.entity'; 
+import { CreateOrderDto } from 'src/Dto/createOrderDto.dto';
+import { Roles } from 'src/Decorators/role.decorator';
+import { Role } from 'src/Entities/Role.enum';
+import { get } from 'http';
+import { EditOrderDto } from 'src/Dto/editOrderDto.dto';
 
 
 @ApiBearerAuth()
@@ -43,4 +48,51 @@ async removeFromCart(
 ) {
   return this.cartService.removeAllFromCart(userId);
 }
+
+ @UseGuards(JwtGuard)
+ @Post("createOrder")
+ async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<BaseResponse>{
+  return await this.cartService.createOrder(createOrderDto);
+ }
+
+ @UseGuards(JwtGuard)
+ @Roles(Role.ADMIN)
+ @Delete("deleteOrder/:orderId")
+ async deleteOrder(@Param("orderId") orderId: number): Promise<BaseResponse>{
+  return await this.cartService.deleteOrder(orderId);
+ }
+
+ @UseGuards(JwtGuard)
+ @Roles(Role.ADMIN)
+ @Get("getAllOrders")
+ async getAllOrders():Promise<BaseResponse>{
+  return await this.cartService.getAllOrders();
+ }
+
+ @UseGuards(JwtGuard)
+ @Roles(Role.ADMIN)
+ @Put("updateOrderInformation/:orderId")
+ async updateOrderInformation(@Param("orderId") orderId: number, @Body() editOrderDto: EditOrderDto): Promise<BaseResponse>{
+  return await this.cartService.editOrderInformation(orderId, editOrderDto)
+ }
+
+ @ApiBody({
+  schema: {
+    type: 'object',
+    properties: {
+      newStatus: {
+        type: 'string',
+      },
+    },
+  }, 
+})
+ @UseGuards(JwtGuard)
+ @Roles(Role.ADMIN)
+ @Put("updateOrderStatus/:orderId")
+ async updateOrderStatus(@Param("orderId") orderId: number, @Body() newStatus: String):Promise<BaseResponse>{
+  return await this.cartService.updateOrderStatus(orderId, newStatus)
+ }
+
+
+
 }

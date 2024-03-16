@@ -3,9 +3,12 @@ import { ProductEntity } from './Product.entity';
 import { UserEntity } from './UserEntity.entity';
 
 @Entity()
-export class Review {
+export class ReviewEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  customerName: string;
 
   @Column()
   title: string;
@@ -13,12 +16,19 @@ export class Review {
   @Column()
   content: string;
 
+  @Column({ nullable: true })
+  productId: number; 
+
   @Column({ type: 'numeric' })
-  rating: number;
+  rating: number; 
+
+  @Column({ default: false })
+  isWebsiteReview: boolean;
 
   @ManyToOne(() => ProductEntity, product => product.reviews)
   product: ProductEntity;
 
   @ManyToOne(() => UserEntity, user => user.reviews, { eager: false })
-  user: UserEntity;  
+  user: UserEntity;
+
 }

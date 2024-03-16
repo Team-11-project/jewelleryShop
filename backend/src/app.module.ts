@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { type } from 'os';
 import { AuthModule } from './Authentication/auth.module';
 import { UserEntity } from './Entities/UserEntity.entity';
@@ -18,17 +19,45 @@ import { join } from 'path';
 import { CartEntity } from './Entities/Cart.entity';
 import { CartController } from './Controllers/CartController.controller';
 import { CartService } from './Services/CartService.service';
-
 import path from "path";
-import { Review } from './Entities/Review.entity';
+import { ReviewEntity } from './Entities/Review.entity';
 import { ReviewController } from './Controllers/ReviewController.controller';
 import { ReviewService } from './Services/ReviewService.service';
 import { InventoryInbox } from './Entities/InventoryInbox.entity';
+import { OrderEntity } from './Entities/Order.entity';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { MailService } from './Mail/MailService.service';
+import { OrdersController } from './Controllers/OrdersController.controller';
+import { OrderService } from './Services/OrderService.service';
+import { FavoriteEntity } from './Entities/Favorite.entity';
+import { FavoritesService } from './Services/FavoriteService.service';
+import { FavoritesController } from './Controllers/FavoriteController.controller';
+import { PaymentInfoEntity } from './Entities/PaymentInfo.entity';
+import { AddressEntity } from './Entities/Address.entity';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
-    AuthModule,
     ConfigModule.forRoot({isGlobal: true}),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        ignoreTLS: true,
+        secure: true,
+        auth: {
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASS,
+        },
+    },
+    template: {
+      dir: join(__dirname, 'Mail/MailTemplates'),
+        adapter: new HandlebarsAdapter(),
+        options: {
+          strict: true,
+        },
+    }
+    }),
+    AuthModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.HOST,
@@ -38,7 +67,7 @@ import { InventoryInbox } from './Entities/InventoryInbox.entity';
       password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [ProductEntity, CategoryEntity, UserEntity],
+      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity, AddressEntity],
       // ssl: {
       //   ca: process.env.CERT,
       // },
@@ -62,12 +91,11 @@ import { InventoryInbox } from './Entities/InventoryInbox.entity';
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, Review, InventoryInbox]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity]),
 
   ],
-  
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService],
   controllers: [ProductsController,CartController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService],
 })
 export class AppModule {}
 

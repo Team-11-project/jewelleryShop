@@ -26,7 +26,7 @@ const Signup = () => {
   const Submit = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch('http://localhost:3000/auth/createUser', {
+      const response = await fetch('http://localhost:3001/auth/createUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
