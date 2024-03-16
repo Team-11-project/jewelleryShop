@@ -6,13 +6,13 @@ import { Body, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProductEntity } from '../Entities/Product.entity';
 import { CartEntity } from '../Entities/Cart.entity';
-import { BaseResponse } from "src/Responses/BaseResponse";
+import { BaseResponse } from "../Responses/BaseResponse";
 import { Repository } from "typeorm";
 import { ConfigService } from '@nestjs/config';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import * as AWS from 'aws-sdk';
-import { ReviewEntity } from 'src/Entities/Review.entity';
-import { CreateReviewDto } from 'src/dto/createReview.dto';
+import { ReviewEntity } from '../Entities/Review.entity';
+import { CreateReviewDto } from '../dto/createReview.dto';
 
 
 @Injectable()
