@@ -101,7 +101,6 @@
   cursor: pointer;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .individual-p-container {
     flex-direction: column;
