@@ -24,5 +24,6 @@ export class CreateReviewDto {
     @IsNumber()
     @ApiProperty({ example: 1, description: "userID of user creting the review", required: true })
     userId: number;
+  customerName: string;
   }
   

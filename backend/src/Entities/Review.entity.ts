@@ -20,7 +20,7 @@ export class ReviewEntity {
   productId: number; 
 
   @Column({ type: 'numeric' })
-  rating: number; 
+  rating: number;
 
   @Column({ default: false })
   isWebsiteReview: boolean;
@@ -29,6 +29,5 @@ export class ReviewEntity {
   product: ProductEntity;
 
   @ManyToOne(() => UserEntity, user => user.reviews, { eager: false })
-  user: UserEntity;
-
+  user: UserEntity;   
 }

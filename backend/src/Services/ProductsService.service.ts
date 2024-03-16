@@ -11,7 +11,7 @@ import { Repository } from "typeorm";
 import { ConfigService } from '@nestjs/config';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import * as AWS from 'aws-sdk';
-import { Review } from 'src/Entities/Review.entity';
+import { ReviewEntity } from 'src/Entities/Review.entity';
 import { CreateReviewDto } from 'src/dto/createReview.dto';
 
 
@@ -33,8 +33,8 @@ export class ProductService{
         @InjectRepository(CartEntity)
         private readonly cartRepository: Repository<CartEntity>,
         private readonly configService: ConfigService,
-        @InjectRepository(Review)
-        private readonly reviewRepository: Repository<Review>,
+        @InjectRepository(ReviewEntity)
+        private readonly reviewRepository: Repository<ReviewEntity>,
     ){}
 
     async createProduct(createProductDto: CreateProductDto, fileName?:string, file?:Buffer): Promise<BaseResponse> {
@@ -493,7 +493,7 @@ async deleteCategory(name: string): Promise<BaseResponse> {
     async createReview(createReviewDto: CreateReviewDto): Promise<BaseResponse> {
         try {
             console.log(createReviewDto)
-            const review = new Review()
+            const review = new ReviewEntity()
             const prod = await this.productRepository.findOne({where : {productId: createReviewDto.productId}})
             review.content = createReviewDto.content
             review.product = prod
