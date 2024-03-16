@@ -1,14 +1,25 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
-import { ReviewService } from './../Services/ReviewService.service';
-import { ReviewEntity } from './../Entities/Review.entity';
-import { BaseResponse } from "src/Responses/BaseResponse";
-import { CreateReviewDto } from './../Dto/createReviewDto.dto';
-import { ApiTags} from "@nestjs/swagger";
+import { Body, Controller, Post, Get, Param, Put, Delete } from '@nestjs/common';
+import { ReviewService } from '../Services/ReviewService.service';
+import { ReviewEntity } from '../Entities/Review.entity';
+import { CreateReviewDto } from '../Dto/createReview.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { BaseResponse } from '../Responses/BaseResponse';
 
+@ApiBearerAuth()
 @ApiTags("Reviews Controller")
 @Controller('reviews')
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
+
+  @Post('createReview')
+  create(@Body() createReviewDto: CreateReviewDto) { 
+    return this.reviewService.create(createReviewDto, createReviewDto.userId); 
+  }
+
+  @Get('review/:productId')
+  findByProductId(@Param('productId') productId: string) {
+    return this.reviewService.findByProductId(+productId);
+  }
 
   @Get("getallreviews")
   getAllReviews(): Promise<ReviewEntity[]> {
@@ -34,4 +45,20 @@ export class ReviewController {
   async createProductReview(@Param('productId') productId: number, @Body() createReviewDto: CreateReviewDto): Promise<BaseResponse> {
     return this.reviewService.createProductReview(productId, createReviewDto);
   }
+  @Put('updateReview/:reviewId')
+  async updateReview(
+    @Param('reviewId') reviewId: string,
+    @Body() updateReviewDto: CreateReviewDto,
+  ) {
+    return this.reviewService.updateReview(+reviewId, updateReviewDto);
+  }
+  
+  @Delete('deleteReview/:reviewId')
+  async deleteReview(@Param('reviewId') reviewId: string) {
+    await this.reviewService.deleteReview(+reviewId);
+    return { message: 'Review deleted successfully' };
+  }
+
+  
+
 }
