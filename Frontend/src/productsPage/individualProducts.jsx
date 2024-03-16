@@ -32,7 +32,7 @@ function IndividualProduct() {
       customerName: `${user?.user.firstName} ${user?.user.lastName}`,
       content: reviewContent,
       productId: product.productId,
-      isWebsiteReview: false // Set this depending on your needs
+      isWebsiteReview: false 
     };
   
     try {
@@ -46,10 +46,9 @@ function IndividualProduct() {
   
       if (response.ok) {
         const result = await response.json();
-        console.log(result); // Check the server response
-        // Potentially check for `result.status === 200` or another success condition based on your API
+        console.log(result); 
+        
         setReviewContent('');
-        // Re-fetch reviews to display the new one
         fetchProductReviews(); 
       } else {
         console.error('Failed to submit review, response status:', response.status);
