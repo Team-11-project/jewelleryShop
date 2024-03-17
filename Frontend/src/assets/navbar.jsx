@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -9,26 +9,28 @@ import './navbar.css';
 import AuthContext from '../Context/AuthContext';
 
 function AppNavbar() {
+  let { user, logoutUser } = useContext(AuthContext)
+  const role = user?.user?.role
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   // Dummy product data
- const products = [
-   { id: 1, name: 'Elegant Watch' },
-   { id: 2, name: 'Stylish Sunglasses' },
-   { id: 3, name: 'Classic Handbag' },
-   { id: 4, name: 'Diamond Tennis Bracelet' },
-   { id: 5, name: 'Sapphire and Diamond Necklace' },
-   { id: 6, name: 'Emerald Stud Earrings' },
-   { id: 7, name: 'Pearl and Gold Ring' },
-   { id: 8, name: 'Ruby Pendant Necklace' },
-   { id: 9, name: 'Amethyst Drop Earrings' },
-   { id: 10, name: 'Opal and Silver Bangle' },
-   { id: 11, name: 'Topaz Cocktail Ring' },
-   { id: 12, name: 'Garnet Choker Necklace' },
-   { id: 13, name: 'Turquoise Cuff Bracelet' }
- ];
+  const products = [
+    { id: 1, name: 'Elegant Watch' },
+    { id: 2, name: 'Stylish Sunglasses' },
+    { id: 3, name: 'Classic Handbag' },
+    { id: 4, name: 'Diamond Tennis Bracelet' },
+    { id: 5, name: 'Sapphire and Diamond Necklace' },
+    { id: 6, name: 'Emerald Stud Earrings' },
+    { id: 7, name: 'Pearl and Gold Ring' },
+    { id: 8, name: 'Ruby Pendant Necklace' },
+    { id: 9, name: 'Amethyst Drop Earrings' },
+    { id: 10, name: 'Opal and Silver Bangle' },
+    { id: 11, name: 'Topaz Cocktail Ring' },
+    { id: 12, name: 'Garnet Choker Necklace' },
+    { id: 13, name: 'Turquoise Cuff Bracelet' }
+  ];
 
 
   const toggleSearch = () => {
@@ -68,9 +70,10 @@ function AppNavbar() {
               <Nav.Link className="nav-link-custom" as={Link} to="/">Home</Nav.Link>
               <Nav.Link className="nav-link-custom" as={Link} to="/about">About</Nav.Link>
               <Nav.Link className="nav-link-custom" as={Link} to="/products">Products</Nav.Link>
-              <Nav.Link className="nav-link-custom" as={Link} to="/best-sellers">Best Sellers</Nav.Link>
+              {/* <Nav.Link className="nav-link-custom" as={Link} to="/best-sellers">Best Sellers</Nav.Link> */}
+              {user ? <Nav.Link onClick={logoutUser} className="nav-link-custom" as={Link} to="/">Logout</Nav.Link> : <Nav.Link className="nav-link-custom" as={Link} to="/login">Login</Nav.Link>}
               <Nav.Link className="nav-link-custom" as={Link} to="/contact">Contact</Nav.Link>
-              <Nav.Link className="nav-link-custom" as={Link} to="/dashboard">Dashboard</Nav.Link>
+              {role === "admin" ? <Nav.Link className="nav-link-custom" as={Link} to="/dashboard">Dashboard</Nav.Link> : <></>}
             </Nav>
             <Nav>
               <Nav.Link className="nav-link-icons" onClick={toggleSearch}>

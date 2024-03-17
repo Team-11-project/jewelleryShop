@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './homePage/home';
-import About from './about us/about';
+// import About from './about us/about';
 import Login from './Pages/Login/Login';
 import Contact from './Contact Us/contact';
 import AppNavbar from './assets/navbar';
@@ -31,6 +31,8 @@ import OrderHistory from './menuPages/history.jsx'
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
+import AboutSection from './about us/about.jsx';
+import AboutUs from './about us/about.jsx';
 
 library.add(faHome, faTh, faInfo, faStar);
 
@@ -61,7 +63,7 @@ function App() {
           <Route path='/order-history' element={<OrderHistory />} />
           <Route path='/products' element={<Products />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/about' element={<About />} />
+          <Route path='/about' element={<AboutUs />} />
           <Route path="/addCart" element={<AddCart />} />
           <Route path='/product/:productId' element={<IndividualProduct />} />
           <Route path="/cart" element={<AddCartPage />} />
