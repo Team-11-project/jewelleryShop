@@ -1,22 +1,24 @@
 import { ProductService } from './../Services/ProductsService.service';
 import { Body, Controller, Get, Post, UseGuards, Param, Delete, Put, UseInterceptors, UploadedFile, ParseFilePipe, MaxFileSizeValidator, FileTypeValidator } from "@nestjs/common";
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from "@nestjs/swagger";
-import { Roles } from 'src/Decorators/role.decorator';
-import { CreateCategoryDto } from 'src/Dto/createCategory.dto';
-import { UpdateProductDto } from './../Dto/updateProduct.dto';
-import { CreateProductDto } from 'src/Dto/createProduct.dto';
-import { Role } from 'src/Entities/Role.enum';
-import { BaseResponse } from 'src/Responses/BaseResponse';
-import { JwtGuard } from 'src/guards/jwt.guard';
-import { RolesGuard } from 'src/guards/role.guard';
+import { Roles } from '../Decorators/role.decorator';
+import { CreateCategoryDto } from '../Dto/createCategory.dto';
+import { UpdateProductDto } from '../Dto/updateProduct.dto';
+import { CreateProductDto } from '../Dto/createProduct.dto';
+import { Role } from '../Entities/Role.enum';
+import { BaseResponse } from '../Responses/BaseResponse';
+import { JwtGuard } from '../guards/jwt.guard';
+import { RolesGuard } from '../guards/role.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CreateReviewDto } from '../Dto/createReview.dto';
+import { ReviewService } from '../Services/ReviewService.service';
 
 @ApiBearerAuth()
 @ApiTags("Products Controller")
 @Controller("products")
 export class ProductsController{
     constructor(
-        private productService: ProductService
+        private productService: ProductService,
       
     ){}
 
@@ -161,6 +163,16 @@ export class ProductsController{
     })
   ) file: Express.Multer.File){
     return await this.productService.uploadProductImage(file.originalname, file.buffer)
+  }
+
+  @Post('createReview')
+  create(@Body() createReviewDto: CreateReviewDto) {
+    return this.productService.createReview(createReviewDto);
+  }
+
+  @Get('review/:productId')
+  findByProductId(@Param('productId') productId: string) {
+    return this.productService.findByProductId(+productId);
   }
 
 
