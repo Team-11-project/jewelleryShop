@@ -12,6 +12,8 @@ function IndividualProduct() {
   let { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
   const [reviewContent, setReviewContent] = useState('');
+  const [editingReviewId, setEditingReviewId] = useState(null);
+  const [editingContent, setEditingContent] = useState('');
 
   useEffect(() => {
     const fetchProductReviews = async () => {
@@ -58,6 +60,53 @@ function IndividualProduct() {
     }
   };
 
+  const startEditing = (review) => {
+    setEditingReviewId(review.id);
+    setEditingContent(review.content);
+  };
+
+  const submitEdit = async (reviewId) => {
+    try {
+      const response = await fetch(`http://localhost:3001/reviews/${reviewId}`, {
+        method: 'PUT', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: editingContent,
+        }),
+      });
+  
+      if (response.ok) {
+        setEditingReviewId(null);
+        fetchProductReviews();
+      } else {
+        console.error('Failed to edit review, response status:', response.status);
+      }
+    } catch (error) {
+      console.error('There was an error editing the review:', error);
+    }
+  };
+
+  const handleDelete = async (reviewId) => {
+    try {
+      const response = await fetch(`http://localhost:3001/reviews/${reviewId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+  
+      if (response.ok) {
+        setReviews(reviews.filter((review) => review.id !== reviewId));
+      } else {
+        console.error('Failed to delete review, response status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error deleting review:', error);
+    }
+  };
+
   const addToCart = async (productId) => {
     
     try {
@@ -87,10 +136,9 @@ function IndividualProduct() {
           <Col md={6}>
             <img src={product?.image} alt={product?.name} className="img-fluid rounded" />
           </Col>
-          <Col md={6} className="product-details d-flex flex-column justify-content-center align-items-start">
+          <Col md={6} className="product-details">
             <h1>{product?.name}</h1>
             <p className="description">{product?.details}</p>
-            
             <p className="price-p mb-4">£{product?.price}</p>
             <Link to="/addCart" onClick={() => addToCart(product.productId)}>
               <Button variant="primary" className="add-to-cart-btn">
@@ -99,25 +147,53 @@ function IndividualProduct() {
             </Link>
           </Col>
         </Row>
-        {/* Review Section Code */}
-        <Row className="mt-4">
+        <Row className="mt-4 review-section">
           <Col>
             <h3>Customer Reviews</h3>
-            {reviews.length > 0 ? (
-              <ListGroup>
-                {reviews.map((review) => (
-                  <ListGroup.Item key={review.id}>
-                    
-                    <strong>{review.customerName}</strong>
-                    <p>{review.content}</p>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
-            ) : (
-              <p>No reviews yet. Be the first to write one!</p>
-            )}
+            <ListGroup className="review-list">
+              {reviews.map((review) => (
+                <ListGroup.Item key={review.id} className="review-item">
+                  {editingReviewId === review.id ? (
+                    <Form onSubmit={(e) => {
+                      e.preventDefault();
+                      submitEdit(review.id);
+                    }}>
+                      <Form.Group controlId="editContent">
+                        <Form.Control
+                          as="textarea"
+                          rows={3}
+                          value={editingContent}
+                          onChange={(e) => setEditingContent(e.target.value)}
+                        />
+                      </Form.Group>
+                      <Button variant="secondary" onClick={() => setEditingReviewId(null)}>
+                        Cancel
+                      </Button>
+                      <Button variant="primary" type="submit">
+                        Save
+                      </Button>
+                    </Form>
+                  ) : (
+                    <>
+                      <strong>{review.customerName}</strong>
+                      <p>{review.content}</p>
+                      {user?.user.id === review.userId && (
+                        <div className="review-actions">
+                          <Button variant="outline-primary" onClick={() => startEditing(review)}>
+                            Edit
+                          </Button>
+                          <Button variant="outline-danger" onClick={() => handleDelete(review.id)}>
+                            Delete
+                          </Button>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
             {user?.user && (
-              <Form onSubmit={handleReviewSubmit}>
+              <Form onSubmit={handleReviewSubmit} className="review-form">
                 <Form.Group controlId="reviewContent">
                   <Form.Label>Write your review</Form.Label>
                   <Form.Control
@@ -127,7 +203,7 @@ function IndividualProduct() {
                     onChange={(e) => setReviewContent(e.target.value)}
                   />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="submit-review-btn">
                   Submit Review
                 </Button>
               </Form>
