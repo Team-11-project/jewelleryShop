@@ -1,0 +1,87 @@
+.topSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10%;
+    margin-top: 8vh;
+}
+
+.metric{
+    width: 200px;
+    height: 90px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+}
+
+.info{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 8%;
+}
+
+.info > p {
+    font-size: 1.2rem;
+    margin: 0;
+   
+}
+
+.icon-side{
+    width: 50%;
+    height: 100%;
+}
+
+.metric-icon{
+    float: right;
+    width: 40px;
+    height: 40px;
+    background-color: #9CC1FF;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.metric-icon.orders{
+    background-color: #FFCD93;
+}
+
+.metric-icon.returns{
+    background-color: #FFBCF5;
+}
+
+.metric-icon.products{
+    background-color: #A7F4D9;
+}
+
+.middleSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5%;
+    padding: 2%;
+}
+
+.sP{
+    border: 3px solid red;
+    background-color: white;
+    border-radius: 12px;
+    width: 57.5%;
+    height: 32vh;
+}
+
+.tP{
+    border: 3px solid blue;
+    background-color: white;
+    border-radius: 10px;
+    width: 37.5%;
+    height: 32vh;
+}
+
+.bottomSection{}

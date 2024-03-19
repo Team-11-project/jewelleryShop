@@ -14,7 +14,7 @@ export class CreateReviewDto {
     content: string;
 
     @IsNumber()
-    @ApiProperty({example: '', description: "", required: true})
+    @ApiProperty({example: 5, description: "Rate the webiste", required: true})
     rating: number;
 
     @IsNumber()

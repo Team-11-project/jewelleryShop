@@ -33,6 +33,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
 import AboutSection from './about us/about.jsx';
 import AboutUs from './about us/about.jsx';
+import ProfilePage from './Profile/ProfilePage.jsx';
 
 library.add(faHome, faTh, faInfo, faStar);
 
@@ -59,6 +60,7 @@ function App() {
           <Route path='/dashboard' exact element={<Dashboard />} />
           <Route path='/checkout' exact element={<Checkout />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/myProfile' element={<ProfilePage />} />
           <Route path='/my-info' element={<Myinfo />} />
           <Route path='/order-history' element={<OrderHistory />} />
           <Route path='/products' element={<Products />} />

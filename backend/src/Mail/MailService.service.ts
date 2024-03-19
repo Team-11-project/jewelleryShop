@@ -31,6 +31,26 @@ export class MailService {
     }
   }
 
+  async sendOrderStatusUpdateNotification(user: UserEntity, order: OrderEntity): Promise<boolean> {
+    try {
+      await this.mailerService.sendMail({
+        to: user.email,
+        from: '"Regalia" <regalia912@gmail.com>',
+        subject: 'Order Status Update',
+        template: './OrderStatusUpdate',
+        context: {
+          name: user.firstName,
+          orderId: order.id,
+          status: order.status,
+        },
+      });
+      return true;
+    } catch (error) {
+      console.error('Failed to send order status update notification:', error);
+      return false;
+    }
+  }
+
   async newOrderNotification(body:string, user:UserEntity, order:OrderEntity){
     try {
       await this.mailerService.sendMail({
