@@ -69,7 +69,7 @@ import { ReturnEntity } from './Entities/Return.entity';
       password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity,OrderEntity, AddressEntity, InventoryInbox, ReturnEntity],
+      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity,OrderEntity, AddressEntity, InventoryInbox, ReturnEntity, CartEntity],
       // ssl: {
       //   ca: process.env.CERT,
       // },
@@ -93,7 +93,7 @@ import { ReturnEntity } from './Entities/Return.entity';
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, AddressEntity, PaymentInfoEntity, ReturnEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, FavoriteEntity, PaymentInfoEntity, AddressEntity, InventoryInbox, ReturnEntity]),
 
   ],
   controllers: [ProductsController,CartController],
