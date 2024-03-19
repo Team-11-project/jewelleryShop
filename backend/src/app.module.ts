@@ -34,6 +34,8 @@ import { FavoritesService } from './Services/FavoriteService.service';
 import { FavoritesController } from './Controllers/FavoriteController.controller';
 import { PaymentInfoEntity } from './Entities/PaymentInfo.entity';
 import { AddressEntity } from './Entities/Address.entity';
+import { ReturnEntity } from './Entities/Return.entity';
+
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -67,7 +69,7 @@ import { AddressEntity } from './Entities/Address.entity';
       password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity, AddressEntity],
+      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity,OrderEntity, AddressEntity, InventoryInbox, ReturnEntity],
       // ssl: {
       //   ca: process.env.CERT,
       // },
@@ -91,11 +93,11 @@ import { AddressEntity } from './Entities/Address.entity';
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, AddressEntity, PaymentInfoEntity, ReturnEntity]),
 
   ],
   controllers: [ProductsController,CartController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService],
 })
 export class AppModule {}
 

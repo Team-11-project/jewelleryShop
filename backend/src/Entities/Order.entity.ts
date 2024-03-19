@@ -5,6 +5,7 @@ import { PaymentInfoEntity } from "./PaymentInfo.entity";
 import { AddressEntity } from "./Address.entity";
 import { UserEntity } from "./UserEntity.entity";
 import { ProductEntity } from "./Product.entity";
+import { ReturnEntity } from "./Return.entity"
 
 @Entity()
 export class OrderEntity{
@@ -50,4 +51,7 @@ export class OrderEntity{
 
     @Column({default: null})
     cvc: String
+
+    @OneToMany(() => ReturnEntity, ReturnEntity => ReturnEntity.order)
+    return: ReturnEntity[];
 }
