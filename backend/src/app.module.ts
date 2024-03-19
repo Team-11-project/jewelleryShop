@@ -94,8 +94,8 @@ import { AddressEntity } from './Entities/Address.entity';
 TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, FavoriteEntity, PaymentInfoEntity, AddressEntity, InventoryInbox]),
 
   ],
-  controllers: [ProductsController,CartController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService],
+  controllers: [ProductsController,CartController, OrdersController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, OrderService],
 })
 export class AppModule {}
 
