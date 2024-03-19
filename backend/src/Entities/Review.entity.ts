@@ -10,7 +10,7 @@ export class ReviewEntity {
   @Column()
   customerName: string;
 
-  @Column()
+  @Column({})
   title: string;
 
   @Column()
