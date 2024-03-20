@@ -75,7 +75,7 @@ function App() {
           <Route path='/orderDetails/:orderId' element={<OrderDetails />} />
         </Routes>
         {
-          currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <Footer />
+          (currentURL === "/dashboard" || currentURL === "/login" || currentURL === "/forgotPassword") ? <></> : <Footer />
         }
       </AuthProvider>
     </Router>
