@@ -1,103 +1,144 @@
+/* OrderDetails.css */
+
 .order-details-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-  .order-details-container {
-    background: #FFFFFF;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    width: 60%;
-    max-width: 800px;
-  }
-  
-  .order-details-header {
-    border-bottom: 1px solid #EAEAEA;
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 24px;
-  }
-  
-  .order-details-header h2 {
-    font-size: 24px;
-    margin: 0;
-    font-weight: normal;
-    color: #333;
-  }
-  
-  .order-details-header .close-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 24px;
-  }
-  
-  .order-details-body {
-    padding: 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 32px;
-  }
-  
-  .order-details-body .order-products {
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  
-  .order-products .product-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .product-item img {
-    width: 64px; 
-    height: 64px;
-    object-fit: cover;
-    margin-right: 16px;
-    border-radius: 8px;
-  }
-  
-  .product-item h3 {
-    font-size: 16px;
-    margin: 0;
-    color: #333;
-  }
-  
-  .product-item p {
-    font-size: 14px;
-    color: #666;
-    margin: 4px 0;
-  }
-  
-  .order-summary, .customer-details, .payment-details {
-    background: #F9F9F9;
-    padding: 16px;
-    border-radius: 8px;
-  }
-  
-  .order-summary h3, .customer-details h3, .payment-details h3 {
-    font-size: 18px;
-    color: #333;
-    margin: 0 0 16px;
-  }
-  
-  .order-summary p, .customer-details p, .payment-details p {
-    font-size: 14px;
-    color: #666;
-    margin: 4px 0;
-  }
-  
-  .order-summary p {
-    font-weight: bold;
-  }  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.order-details-container {
+  background: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 60%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.order-details-header {
+  border-bottom: 1px solid #EAEAEA;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f4f4f4;
+}
+
+.order-details-header h2 {
+  font-size: 24px;
+  margin: 0;
+  color: #333;
+}
+
+.order-details-header .close-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.order-details-body {
+  padding: 24px;
+  display: flex;
+  gap: 32px;
+}
+
+.summary-section,
+.customer-info-section,
+.payment-info-section {
+  background: #F9F9F9;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.summary-section h3,
+.customer-info-section h3,
+.payment-info-section h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 0 0 16px;
+}
+
+.summary-section p,
+.customer-info-section p,
+.payment-info-section p {
+  font-size: 14px;
+  color: #666;
+  margin: 4px 0;
+}
+
+.status-section {
+  margin-top: 8px;
+}
+
+.status-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.status-pending {
+  background-color: #e0bbe4;
+}
+
+.status-in-progress {
+  background-color: #fff3cd;
+}
+
+.status-returned {
+  background-color: #f8d7da;
+}
+
+.status-delivered {
+  background-color: #d4edda;
+}
+
+.edit-icon {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.customer-info-section input[type="text"],
+.customer-info-section input[type="email"],
+.customer-info-section select,
+.payment-info-section input[type="text"],
+.payment-info-section input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.customer-info-section button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.customer-info-section button:hover {
+  background-color: #45a049;
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
