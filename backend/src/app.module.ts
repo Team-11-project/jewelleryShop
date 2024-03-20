@@ -38,7 +38,7 @@ import { ReturnEntity } from './Entities/Return.entity';
 
 import { NotificationService } from './Services/NotificationService.service';
 import { NotificationController } from './Controllers/NotificationController.controller';
-import { NotificationEntity } from './entities/notification.entity';
+import { NotificationEntity } from './Entities/Notification.entity';
 import { InventoryInboxService } from './Services/InventoryInboxService.service';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
