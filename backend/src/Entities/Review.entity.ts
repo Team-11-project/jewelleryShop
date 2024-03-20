@@ -16,9 +16,6 @@ export class ReviewEntity {
   @Column()
   content: string;
 
-  @Column({ nullable: true })
-  productId: number; 
-
   @Column({ type: 'numeric' })
   rating: number;
 

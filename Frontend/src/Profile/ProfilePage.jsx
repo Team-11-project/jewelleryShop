@@ -12,7 +12,7 @@ function ProfilePage() {
     const [page, setPage] = useState(0)
     let { user, authTokens } = useContext(AuthContext)
     const [userData, setUserData] = useState([])
-    const uid = user.user.id
+    const uid = user?.user?.id
 
     const setP = (page) => {
         console.log(page)

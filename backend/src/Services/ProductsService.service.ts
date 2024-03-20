@@ -489,38 +489,38 @@ async deleteCategory(name: string): Promise<BaseResponse> {
         }
         
     }
-
-    async createReview(createReviewDto: CreateReviewDto): Promise<BaseResponse> {
-        try {
-            console.log(createReviewDto)
-            const review = new ReviewEntity()
-            const prod = await this.productRepository.findOne({where : {productId: createReviewDto.productId}})
-            review.content = createReviewDto.content
-            review.product = prod
-            review.rating = createReviewDto.rating
-            review.title = createReviewDto.title
-            const newReview = await this.reviewRepository.save(review);
-            if(newReview)
-            return{
-                status: 200,
-                message: "review created",
-                response: newReview
-            }
-            return{
-                status: 400,
-                message: "review not created",
-            }
+// 
+    // async createReview(createReviewDto: CreateReviewDto): Promise<BaseResponse> {
+    //     try {
+    //         console.log(createReviewDto)
+    //         const review = new ReviewEntity()
+    //         const prod = await this.productRepository.findOne({where : {productId: createReviewDto.productId}})
+    //         review.content = createReviewDto.content
+    //         review.product = prod
+    //         review.rating = createReviewDto.rating
+    //         review.title = createReviewDto.title
+    //         const newReview = await this.reviewRepository.save(review);
+    //         if(newReview)
+    //         return{
+    //             status: 200,
+    //             message: "review created",
+    //             response: newReview
+    //         }
+    //         return{
+    //             status: 400,
+    //             message: "review not created",
+    //         }
             
-        } catch (error) {
-            return{
-                status: 400,
-                message: "Bad Request",
-                response: error.detail
-            }
+    //     } catch (error) {
+    //         return{
+    //             status: 400,
+    //             message: "Bad Request",
+    //             response: error.detail
+    //         }
             
-        }
+    //     }
         
-      }
+    //   }
     
       async findByProductId(productId: number): Promise<BaseResponse> {
         try {

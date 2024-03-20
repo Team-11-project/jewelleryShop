@@ -7,9 +7,9 @@ function PersonalInfo({ userInfo }) {
     let { user, logoutUser } = useContext(AuthContext)
     const [edit, setEdit] = useState(false)
     const [formData, setFormData] = useState({
-        email: user.user?.email,
-        firstName: user.user?.firstName,
-        lastName: user.user?.lastName
+        email: user?.user?.email,
+        firstName: user?.user?.firstName,
+        lastName: user?.user?.lastName
     });
 
 
@@ -51,7 +51,7 @@ function PersonalInfo({ userInfo }) {
                 :
                 <div className="editBtn" onClick={() => { setEdit(false) }}>Cancel</div>}
 
-            <form action="submit" className='form' onSubmit={handleSubmit()}>
+            <form action="submit" className='form'>
                 <div className="e">
                     <label>Email:</label>
                     <input
@@ -85,7 +85,7 @@ function PersonalInfo({ userInfo }) {
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                     />
                 </div>
-                {edit === false ? <></> : <button type='submit' onClick={() => { setEdit(false) }}>submit</button>}
+                {edit === false ? <></> : <button type='submit' onClick={() => { { handleSubmit() }; { setEdit(false) } }}>submit</button>}
 
             </form>
         </>
