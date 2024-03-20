@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import './checkout.css';
 import diamondRingImg from './signatureRing.png';
 import silverNecklaceImg from './silverNecklace.png';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import CheckoutBox from './checkoutBox';
 import { Link } from 'react-router-dom';
 import AuthContext from '../Context/AuthContext';
@@ -20,6 +20,8 @@ const Checkout = () => {
   let { authTokens } = useContext(AuthContext)
   const location = useLocation()
   const Cart = location.state
+
+  const navigate = useNavigate()
   // console.log(Cart)
   const goBack = () => {
     window.history.back();
@@ -94,6 +96,11 @@ const Checkout = () => {
       const res = await req.json();
       if (res.status === 200) {
         console.log(res)
+        setTimeout(() => {
+          navigate('/checkoutComplete')
+
+        }, 2000);
+
       }
       else {
         console.log(res)
@@ -226,9 +233,9 @@ const Checkout = () => {
             <span className="amount-label">TOTAL:</span>
             <span className="amount-value">{formattedTotal}</span>
           </div>
-          <Link to="/checkoutComplete" >
-            <button type='submit' className="checkout-button" onClick={() => createOrder()}>Checkout</button>
-          </Link>
+          {/* <Link to="/checkoutComplete" > */}
+          <button type='submit' className="checkout-button" onClick={() => createOrder()}>Checkout</button>
+          {/* </Link> */}
 
         </div>
       </div>
