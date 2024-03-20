@@ -86,7 +86,7 @@ function App() {
           <Route path='/watches' element={<Watches />} />
         </Routes>
         {
-          currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <Footer />
+          (currentURL === "/dashboard" || currentURL === "/login" || currentURL === "/forgotPassword") ? <></> : <Footer />
         }
       </AuthProvider>
     </Router>

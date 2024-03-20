@@ -1,17 +1,184 @@
+@import url('https://fonts.cdnfonts.com/css/Kapakana');
+
 .footer-custom {
     background-color: rgb(1, 0, 59);
     color: rgb(255, 217, 119);
-    padding: 20px 0;
-    text-align: center;
+    padding-top: 40px;
+    font-family: 'Open Sans', sans-serif;
+    padding-right: 30px;
+    padding-left: 40px !important;
+}
+
+#logo {
+    color: rgb(255, 217, 119) !important;
+    font-family: 'Kapakana' !important;
+    font-size: 70px !important;
+    font-weight: 400;
+    padding-right: 80px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    text-align: left;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    margin: 10px 0;
+    min-width: 150px;
+}
+
+.footer-section h6 {
+    color: rgb(255, 217, 119);
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: 400;
+
+}
+
+.footer-section p,
+.footer-section a {
+    color: rgb(255, 217, 119);
+    margin-bottom: 5px;
+    display: block;
+    text-decoration: none;
+    font-family: Libre Caslon Display;
+    font-size: 16px;
+
+}
+
+.newsletter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px; /* Adjust if necessary */
+}
+
+.newsletter input[type="email"] {
+    flex-grow: 1; /* If you want it to expand */
+    width: 100%; /* Full width */
+    background: transparent; /* No background */
+    border: none; /* No border */
+    border-bottom: 2px solid rgb(255, 217, 119); /* Gold bottom border */
+    color: rgb(255, 217, 119); /* Gold text color to match the theme */
+    padding: 5px 0; /* Smaller padding, adjust as necessary */
+    margin-bottom: 0; /* No margin below */
+    font-size: 16px; /* Adjust as necessary */
+    line-height: 1.5; /* Adjust as necessary */
+}
+
+.newsletter button {
+    padding: 5px 15px; /* Reduced padding */
+    background-color: rgb(255, 217, 119); /* Gold background */
+    color: rgb(1, 0, 59); /* Dark text color */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    /* If you also want to reduce the font size, uncomment the next line */
+    /* font-size: 14px; */
+}
+
+/* Smaller hover effect */
+.newsletter button:hover {
+    background-color: #e6c067; /* Slightly lighter gold on hover */
+    /* No color change for text */
+}
+
+/* Remove outline on focus for input and button */
+.newsletter input[type="email"]:focus,
+.newsletter button:focus {
+    outline: none;
+}
+
+/* Placeholder color */
+.newsletter input[type="email"]::placeholder {
+    color: rgb(255, 217, 119);
+    opacity: 0.7; /* Adjust the opacity as needed */
+}
+
+/* For a smooth transition on input focus */
+.newsletter input[type="email"] {
+    transition: border-color 0.2s;
+}
+
+.newsletter input[type="email"]:focus {
+    border-bottom: 2px solid #e6c067; /* Slightly lighter gold on focus */
+}
+
+/* Ensure the form elements are aligned properly */
+.newsletter-form input,
+.newsletter-form button {
+    height: auto; /* Set to auto or adjust as needed */
 }
 
 .social-icons {
     display: flex;
     justify-content: flex-end;
 }
-  
+
 .social-icon {
     color: rgb(255, 217, 119);
     margin: 0 10px;
-    font-size: 20px;
+    font-size: 24px;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.footer-bottom a {
+    color: rgb(255, 217, 119);
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+.footer-divider {
+    border: 0;
+    border-top: 1px solid rgb(255, 217, 119);
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-section {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .social-icons {
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-bottom .social-icons {
+        align-self: center;
+        margin-top: 10px;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
 }
