@@ -27,7 +27,6 @@ import { InventoryInbox } from './Entities/InventoryInbox.entity';
 import { OrderEntity } from './Entities/Order.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './Mail/MailService.service';
-import { ContactService } from './Services/contact.service';
 import { OrdersController } from './Controllers/OrdersController.controller';
 import { OrderService } from './Services/OrderService.service';
 import { FavoriteEntity } from './Entities/Favorite.entity';
