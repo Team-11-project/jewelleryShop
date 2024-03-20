@@ -33,18 +33,18 @@ function IndividualProduct() {
     event.preventDefault();
   
     const reviewData = {
-      customerName: `${user?.firstName} ${user?.lastName}`,
+      customerName: user?.user?.firstName === user?.user?.lastName ? user?.user?.firstName : `${user?.user?.firstName} ${user?.user?.lastName}`,
       title: reviewTitle,
       content: reviewContent,
       productId: product.productId,
       rating: reviewRating,
-      isWebsiteReview: false, 
-      productProductId: product.productId, 
-      userUserId: user?.userId 
+      isWebsiteReview: false,
+      productProductId: product.productId,
+      userUserId: user?.userId
     };
   
     try {
-      const response = await fetch(`http://localhost:3001/reviews/Createproductreview/${product.productId}`, {
+      const response = await fetch(`http://localhost:3001/reviews/CreateReview/${product.productId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function IndividualProduct() {
   };
 
   const addToCart = async (productId) => {
-    
+    // http://localhost:3001/cart/add/userid/productid
     try {
       // setIsLoading(true)
       const userId = user.user.id

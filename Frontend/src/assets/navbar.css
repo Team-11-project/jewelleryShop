@@ -56,7 +56,7 @@
 
 .nav-link-icons:hover svg,
 .nav-link-icons:focus svg {
-    transform: scale(1.3); 
+    transform: scale(1.2); 
 }
 
 .nav-link-icons:not(:hover) svg {

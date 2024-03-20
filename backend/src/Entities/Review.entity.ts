@@ -10,14 +10,11 @@ export class ReviewEntity {
   @Column()
   customerName: string;
 
-  @Column()
+  @Column({})
   title: string;
 
   @Column()
   content: string;
-
-  @Column({ nullable: true })
-  productId: number; 
 
   @Column({ type: 'numeric' })
   rating: number;

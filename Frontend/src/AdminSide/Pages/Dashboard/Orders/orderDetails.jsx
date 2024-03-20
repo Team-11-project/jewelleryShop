@@ -9,7 +9,6 @@ const OrderDetails = ({ orderId, closePopup }) => {
   const [orderDetails, setOrderDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [statusEditMode, setStatusEditMode] = useState(false);
   const [editedInfo, setEditedInfo] = useState({});
 
   useEffect(() => {
@@ -53,16 +52,8 @@ const OrderDetails = ({ orderId, closePopup }) => {
     setEditedInfo(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleStatusChange = (e) => {
-    setEditedInfo(prev => ({ ...prev, status: e.target.value }));
-  };
-
   const handleEditClick = () => {
     setEditMode(true);
-  };
-
-  const handleStatusEditClick = () => {
-    setStatusEditMode(true);
   };
 
   const handleSaveInfo = async () => {
@@ -75,9 +66,33 @@ const OrderDetails = ({ orderId, closePopup }) => {
     setEditMode(false);
   };
 
+  const handleStatusEditClick = () => {
+    setEditMode(true);
+  };
+
   const handleSaveStatus = async () => {
-    updateOrderStatus(editedInfo.status);
-    setStatusEditMode(false);
+    try {
+      const response = await fetch(`http://localhost:3001/cart/updateOrderStatus/${orderId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authTokens.token}`,
+        },
+        body: JSON.stringify({ status: editedInfo.status }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to update order status.');
+      }
+  
+      // Assuming your API returns the updated order details after the update
+      const updatedData = await response.json();
+      console.log('Updated Order Details:', updatedData);
+      setOrderDetails({ ...orderDetails, status: updatedData.status });
+      setEditMode(false); // Exiting edit mode after successful update
+    } catch (error) {
+      console.error("Error updating order status:", error);
+    }
   };
 
   // Function to mask card number except the last four digits
@@ -106,13 +121,16 @@ const OrderDetails = ({ orderId, closePopup }) => {
 
   const updateOrderStatus = async (newStatus) => {
     try {
+      // Convert the status value to lowercase
+      const lowercaseStatus = newStatus.toLowerCase();
+  
       const response = await fetch(`http://localhost:3001/cart/updateOrderStatus/${orderId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authTokens.token}`,
         },
-        body: JSON.stringify({ status: newStatus }),
+        body: JSON.stringify({ status: lowercaseStatus }), // Use the lowercase status value
       });
   
       if (!response.ok) {
@@ -151,22 +169,19 @@ const OrderDetails = ({ orderId, closePopup }) => {
             <p>Date: {new Date(orderDetails.createdAt).toLocaleDateString()}</p>
             <p>Total Price: £{orderDetails.totalPrice.toFixed(2)}</p>
             <div className="status-section">
-              {statusEditMode ? (
+              {editMode ? (
                 <>
-                  <select
+                  <input
+                    type="text"
+                    name="status"
                     value={editedInfo.status}
-                    onChange={handleStatusChange}
-                    className={`status-tag status-${editedInfo.status}`}
-                  >
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Returned">Returned</option>
-                    <option value="Delivered">Delivered</option>
-                  </select>
+                    onChange={handleInputChange}
+                    placeholder="Status"
+                  />
                   <button onClick={handleSaveStatus}>Save Status</button>
                 </>
               ) : (
-                <div className={`status-tag status-${orderDetails.status}`}>
+                <div className="status-tag">
                   {orderDetails.status} <FaPencilAlt onClick={handleStatusEditClick} className="edit-icon" />
                 </div>
               )}
@@ -178,6 +193,7 @@ const OrderDetails = ({ orderId, closePopup }) => {
             <h3>Customer Information</h3>
             {editMode ? (
               <>
+                <input type="text" name="firstName" placeholder="First Name" value={editedInfo.firstName || ''} onChange={handleInputChange} />
                 <input type="text" name="firstName" placeholder="First Name" value={editedInfo.firstName || ''} onChange={handleInputChange} />
                 <input type="text" name="lastName" placeholder="Last Name" value={editedInfo.lastName || ''} onChange={handleInputChange} />
                 <input type="email" name="email" placeholder="Email" value={editedInfo.email || ''} onChange={handleInputChange} />
@@ -196,7 +212,7 @@ const OrderDetails = ({ orderId, closePopup }) => {
               </>
             )}
           </div>
-  
+
           {/* Payment Information Section */}
           <div className="payment-info-section">
             <h3>Payment Information</h3>
@@ -209,4 +225,5 @@ const OrderDetails = ({ orderId, closePopup }) => {
     </div>
   );
 }
+
 export default OrderDetails;

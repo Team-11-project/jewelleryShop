@@ -2,6 +2,7 @@ import { MailerService } from "@nestjs-modules/mailer";
 import { Injectable } from "@nestjs/common";
 import { OrderEntity } from "src/Entities/Order.entity";
 import { UserEntity } from "src/Entities/UserEntity.entity";
+import { ContactDto } from "src/Dto/contact.dto";
 
 @Injectable()
 export class MailService {
@@ -31,6 +32,26 @@ export class MailService {
     }
   }
 
+  async sendOrderStatusUpdateNotification(user: UserEntity, order: OrderEntity): Promise<boolean> {
+    try {
+      await this.mailerService.sendMail({
+        to: user.email,
+        from: '"Regalia" <regalia912@gmail.com>',
+        subject: 'Order Status Update',
+        template: './OrderStatusUpdate',
+        context: {
+          name: user.firstName,
+          orderId: order.id,
+          status: order.status,
+        },
+      });
+      return true;
+    } catch (error) {
+      console.error('Failed to send order status update notification:', error);
+      return false;
+    }
+  }
+
   async newOrderNotification(body:string, user:UserEntity, order:OrderEntity){
     try {
       await this.mailerService.sendMail({
@@ -54,6 +75,12 @@ export class MailService {
       };
       
     }
+  }
+
+  async handleContactForm(contactData: ContactDto): Promise<any> {
+    // Implement logic
+    console.log(contactData);
+    return { success: true, message: 'Your message has been received.' };
   }
 
 }
