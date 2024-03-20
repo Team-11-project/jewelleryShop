@@ -460,11 +460,12 @@ async deleteCategory(name: string): Promise<BaseResponse> {
 
     async getProductByCategory(Category: string): Promise<BaseResponse>{
         try {
-
+            console.log(Category)
             const product = await this.productRepository.find({
                 where: {
                     category: { categoryName: Category },
                 },
+                relations: ["category"]
             });
 
             if(!product){

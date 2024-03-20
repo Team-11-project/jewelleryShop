@@ -162,7 +162,7 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                         </div>
                     }
 
-                    {/* <div className="full-bottom-line"></div>
+                    <div className="full-bottom-line"></div>
 
                     <div className="full-section insight">
                         <p>Insights</p>
@@ -174,7 +174,7 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                             <div className="full-icon"><FontAwesomeIcon icon={faEnvelope} /></div>
                             <div className="full-page-name">Inbox</div>
                         </div>
-                    </div> */}
+                    </div>
 
                 </div>
             </>
