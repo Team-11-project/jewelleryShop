@@ -38,7 +38,6 @@ export class CartService {
   async addToCart(userId: number, productId: number): Promise<CartEntity> {
     try {
       // Get or create the cart for the user
-      console.log("---------")
       let cart = await this.getOrCreateCart(userId);
   
       // Find the product by productId
@@ -106,7 +105,6 @@ export class CartService {
      
       if(user)
       {
-        console.log("-----")
         let cart = await this.cartRepository.findOne({
           where: {
             user :{userId:Id}
