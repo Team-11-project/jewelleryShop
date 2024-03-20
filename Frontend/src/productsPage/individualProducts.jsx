@@ -155,9 +155,17 @@ function IndividualProduct() {
                     </Form>
                   ) : (
                     <>
-                      <strong>{review.customerName}</strong>
-                      <p>{review.content}</p>
-                      {user?.user.id === review.userId && (
+                      <strong>{review.customerName}</strong>   
+          <div>
+            <strong>{review.title}</strong> 
+          </div>
+          <div>
+            {review.content}
+          </div>
+          <div>
+            Rating: {review.rating}
+          </div>
+          {user?.userId === review.userId && (
                         <div className="review-actions">
                           <Button variant="outline-primary" onClick={() => startEditing(review)}>
                             Edit
