@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import './menu.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartShopping, faCircleInfo, faRightLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCartShopping, faCircleInfo, faRightLeft, faComments, faHeart, faLock, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import AuthContext from '../Context/AuthContext'
 import { Link } from 'react-router-dom'
 import PersonalInfo from './subs/PersonalInfo'
@@ -12,14 +12,15 @@ function Menu({ setP }) {
     let { user, logoutUser } = useContext(AuthContext)
     const u = user?.user
 
+
     const menuItems = [
         { name: "Personal Information", page: 0, icon: faCircleInfo, },
         { name: "Orders", page: 1, icon: faCartShopping },
         { name: "Returns", page: 2, icon: faRightLeft },
-        { name: "My Reviews", page: 3, icon: faRightLeft },
-        { name: "My Wishlist", icon: faRightLeft, link: "/#" },
-        { name: "Change Password", icon: faRightLeft, link: "/forgotPassword" },
-        { name: "Logout", icon: faRightLeft, func: logoutUser },
+        { name: "My Reviews", page: 3, icon: faComments },
+        { name: "My Wishlist", icon: faHeart, link: "/#" },
+        { name: "Change Password", icon: faLock, link: "/forgotPassword" },
+        { name: "Logout", icon: faRightFromBracket, func: logoutUser },
     ]
 
 

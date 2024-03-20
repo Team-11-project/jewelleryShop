@@ -40,7 +40,7 @@ library.add(faHome, faTh, faInfo, faStar);
 function App() {
 
   const currentURL = window.location.pathname
-  console.log(currentURL)
+  // console.log(currentURL)
 
   return (
     <Router>

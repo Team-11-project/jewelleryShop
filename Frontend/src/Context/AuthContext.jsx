@@ -1,5 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 
 const AuthContext = createContext()
@@ -40,6 +40,21 @@ export const AuthProvider = ({ children }) => {
             alert("error: " + res.message);
         }
     };
+
+    const autoLogOut = () => {
+        const tokenDecode = jwtDecode(authTokens?.token)
+        if (tokenDecode?.exp * 1000 < Date.now()) {
+            localStorage.clear();
+            navigate("/")
+        }
+    }
+
+    useEffect(() => {
+        if (user) {
+            autoLogOut()
+        }
+
+    }, [])
 
     const logoutUser = () => {
         setAuthTokens(null);

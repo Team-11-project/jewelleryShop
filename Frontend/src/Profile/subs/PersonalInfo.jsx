@@ -51,7 +51,7 @@ function PersonalInfo({ userInfo }) {
                 :
                 <div className="editBtn" onClick={() => { setEdit(false) }}>Cancel</div>}
 
-            <form action="submit" className='form' onSubmit={handleSubmit}>
+            <form action="submit" className='form' onSubmit={handleSubmit()}>
                 <div className="e">
                     <label>Email:</label>
                     <input
@@ -85,7 +85,7 @@ function PersonalInfo({ userInfo }) {
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                     />
                 </div>
-                {edit === false ? <></> : <button type='submit' onClick={() => { handleSubmit; setEdit(false) }}>submit</button>}
+                {edit === false ? <></> : <button type='submit' onClick={() => { setEdit(false) }}>submit</button>}
 
             </form>
         </>

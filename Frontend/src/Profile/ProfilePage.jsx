@@ -47,7 +47,7 @@ function ProfilePage() {
                 });
             const res = await req.json();
             if (res.status === 200) {
-                console.log(res.response, "response")
+                // console.log(res.response, "response")
                 setUserData(res.response)
                 // return res.response
 
