@@ -48,6 +48,7 @@ export class ProductEntity {
     @OneToMany(() => InventoryInbox, inventoryInbox => inventoryInbox.product)
     notifications: InventoryInbox[];
 
+    @ManyToOne(() =>CartEntity, (cart) => cart.products)
     cart: CartEntity;
 
     @OneToMany(() => FavoriteEntity, favorite => favorite.product)
