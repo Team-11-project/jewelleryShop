@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
-import { ProductEntity } from './Product.entity'; // Adjust the import path as needed
+import { ProductEntity } from './Product.entity';
 
 @Entity()
 export class InventoryInbox {

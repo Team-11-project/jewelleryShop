@@ -3,11 +3,9 @@ import { Container, Row, Col, Dropdown, Form, Card, Button } from 'react-bootstr
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faShoppingBag, faFilter, faSort } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import img1 from './img1.jpg';
-import rolexOyster from './rolexOyster.jpg'
-import './products.css';
-import AppNavbar from '../assets/navbar';
-import AuthContext from '../Context/AuthContext';
+import './bracelets.css';
+import AppNavbar from '../../assets/navbar';
+import AuthContext from '../../Context/AuthContext';
 
 function Bracelets() {
   let { user } = useContext(AuthContext)
@@ -23,7 +21,7 @@ function Bracelets() {
   const getProducts = async () => {
     try {
       // setIsLoading(true)
-      let response = await fetch(`http://localhost:3001/products/get-all-products`,
+      let response = await fetch(`http://localhost:3001/products/getProductByCategory/Bracelets`,
         {
           method: "GET",
           headers: {
@@ -113,8 +111,8 @@ function Bracelets() {
         <Row>
           <Col>
             <div className="products-intro">
-              <h1>All Products</h1>
-              <p>Explore our wide range of exquisite products. Find the perfect piece for every occasion.</p>
+              <h1>Bracelets</h1>
+              <p>Wrap your wrist in luxury with bracelets that speak volumes of style.</p>
             </div>
           </Col>
         </Row>
@@ -221,4 +219,4 @@ function Bracelets() {
     </>
   )
 }
-export default Products;
+export default Bracelets;

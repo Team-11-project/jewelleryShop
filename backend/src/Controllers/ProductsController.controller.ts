@@ -114,7 +114,7 @@ export class ProductsController{
 
 
     // @UseGuards(JwtGuard)
-    @Get("getProductByCategory/:categoyName")
+    @Get("getProductByCategory/:categoryName")
     async getProductByCategory(@Param("categoryName") categoryName: string): Promise<BaseResponse> {
         return await this.productService.getProductByCategory(categoryName);
     }
