@@ -108,7 +108,7 @@ function IndividualProduct() {
   };
 
   const addToCart = async (productId) => {
-    
+    // http://localhost:3001/cart/add/userid/productid
     try {
       // setIsLoading(true)
       const userId = user.user.id
