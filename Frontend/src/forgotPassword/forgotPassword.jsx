@@ -37,6 +37,7 @@ const ForgotPassword = () => {
   };
 
   const redirectToResetPassword = (id) => {
+
     navigate('/ResetPassword', {state: {userId: id}})
     // window.location.href = '/ResetPassword';
   };

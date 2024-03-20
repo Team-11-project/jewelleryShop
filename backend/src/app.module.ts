@@ -24,9 +24,24 @@ import path from "path";
 import { OrderEntity } from './Entities/Order.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './Mail/MailService.service';
+<<<<<<< HEAD
 import { ContactController } from './Controllers/contact.controller';
 import { ContactService } from './Services/contact.service';
 
+=======
+import { OrdersController } from './Controllers/OrdersController.controller';
+import { OrderService } from './Services/OrderService.service';
+
+import { ReviewEntity } from './Entities/Review.entity';
+import { ReviewService } from './Services/ReviewService.service';
+import { ReviewController } from './Controllers/ReviewController.controller';
+
+import { FavoriteEntity } from './Entities/Favorite.entity';
+import { FavoritesService } from './Services/FavoriteService.service';
+import { FavoritesController } from './Controllers/FavoriteController.controller';
+import { PaymentInfoEntity } from './Entities/PaymentInfo.entity';
+import { AddressEntity } from './Entities/Address.entity';
+>>>>>>> 1f15d0971b4cf145a56c328703a86ebedba73443
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -60,7 +75,7 @@ import { ContactService } from './Services/contact.service';
       password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [ProductEntity, CategoryEntity, UserEntity],
+      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity, AddressEntity],
       // ssl: {
       //   ca: process.env.CERT,
       // },
@@ -84,11 +99,16 @@ import { ContactService } from './Services/contact.service';
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity, ReviewEntity,FavoriteEntity, PaymentInfoEntity, AddressEntity]),
 
   ],
+<<<<<<< HEAD
   controllers: [ProductsController,CartController, ContactController],
   providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService]
+=======
+  controllers: [ProductsController,CartController,OrdersController, ReviewController, FavoritesController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService, ReviewService, FavoritesService],
+>>>>>>> 1f15d0971b4cf145a56c328703a86ebedba73443
 })
 export class AppModule {}
 
