@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -8,6 +8,8 @@ import { faSearch, faHeart, faShoppingBag, faUser, faBars } from '@fortawesome/f
 import './navbar.css';
 
 function AppNavbar() {
+  let { user, logoutUser } = useContext(AuthContext)
+  const role = user?.user?.role
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -73,12 +75,13 @@ function AppNavbar() {
           </Navbar.Toggle>
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mx-auto">
-              <Nav.Link as={Link} to="/" className="nav-link-custom">Home</Nav.Link>
-              <Nav.Link as={Link} to="/about" className="nav-link-custom">About</Nav.Link>
-              <Nav.Link as={Link} to="/products" className="nav-link-custom">Products</Nav.Link>
-              <Nav.Link as={Link} to="/best-sellers" className="nav-link-custom">Best Sellers</Nav.Link>
-              <Nav.Link as={Link} to="/contact" className="nav-link-custom">Contact</Nav.Link>
-              <Nav.Link as={Link} to="/dashboard" className="nav-link-custom">Dashboard</Nav.Link>
+              <Nav.Link className="nav-link-custom" as={Link} to="/">Home</Nav.Link>
+              <Nav.Link className="nav-link-custom" as={Link} to="/about">About</Nav.Link>
+              <Nav.Link className="nav-link-custom" as={Link} to="/products">Products</Nav.Link>
+              {/* <Nav.Link className="nav-link-custom" as={Link} to="/best-sellers">Best Sellers</Nav.Link> */}
+              {user ? <Nav.Link onClick={logoutUser} className="nav-link-custom" as={Link} to="/">Logout</Nav.Link> : <Nav.Link className="nav-link-custom" as={Link} to="/login">Login</Nav.Link>}
+              <Nav.Link className="nav-link-custom" as={Link} to="/contact">Contact</Nav.Link>
+              {role === "admin" ? <Nav.Link className="nav-link-custom" as={Link} to="/dashboard">Dashboard</Nav.Link> : <></>}
             </Nav>
             <Nav>
               <Nav.Link onClick={toggleSearch} className="nav-link-icons">
@@ -87,7 +90,7 @@ function AppNavbar() {
               <Nav.Link className="nav-link-icons">
                 <FontAwesomeIcon icon={faHeart} />
               </Nav.Link>
-              <Nav.Link className="nav-link-icons">
+              <Nav.Link className="nav-link-icons" as={Link} to="/myProfile">
                 <FontAwesomeIcon icon={faUser} />
               </Nav.Link>
               <Nav.Link as={Link} to="/cart" className="nav-link-icons">

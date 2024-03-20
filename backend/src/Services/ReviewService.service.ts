@@ -5,6 +5,7 @@ import { CreateReviewDto } from '../Dto/createReview.dto';
 import { UserEntity } from '../Entities/UserEntity.entity';
 import { ReviewEntity } from '../Entities/Review.entity';
 import { BaseResponse } from "../Responses/BaseResponse";
+import { ProductEntity } from 'src/Entities/Product.entity';
 
 
 @Injectable()
@@ -14,19 +15,29 @@ export class ReviewService {
     private reviewRepository: Repository<ReviewEntity>,
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
+    @InjectRepository(ProductEntity)
+        private productRepository: Repository<ProductEntity>,
   ) {}
 
-  async create(createReviewDto: CreateReviewDto, userId: number): Promise<ReviewEntity> {
-    const user = await this.userRepository.findOne({ where: { userId: userId } });
+  async create(createReviewDto: CreateReviewDto, productId: number): Promise<ReviewEntity> {
+    const user = await this.userRepository.findOne({ where: { userId: createReviewDto.userId } });
     if (!user) {
       throw new Error('User not found');
     }
 
-    const review = this.reviewRepository.create({
-      ...createReviewDto,
-      user,
-    });
-    return this.reviewRepository.save(review);
+    // const review = this.reviewRepository.create({
+    //   ...createReviewDto,
+    //   user,
+    // });
+    const newreview = new ReviewEntity()
+    newreview.content= createReviewDto.content
+    newreview.customerName= createReviewDto.customerName
+    newreview.user= user
+    newreview.rating= createReviewDto.rating
+    newreview.isWebsiteReview= createReviewDto.isWebsiteReview
+    newreview.product= await this.productRepository.findOne({where: {productId: productId}}) 
+    newreview.title= createReviewDto.title
+    return await this.reviewRepository.save(newreview);
   }
 
   async findByProductId(productId: number): Promise<ReviewEntity[]> {
@@ -80,7 +91,7 @@ export class ReviewService {
       const review = new ReviewEntity();
       review.customerName = createReviewDto.customerName;
       review.content = createReviewDto.content;
-      review.productId = productId;
+      // review.productId = productId;
 
       const newReview = await this.reviewRepository.save(review);
 
@@ -101,11 +112,11 @@ export class ReviewService {
 
 
   async getAllReviews(): Promise<ReviewEntity[]> {
-    return this.reviewRepository.find();
+    return this.reviewRepository.find({relations: ['user']});
   }
 
   async getWebsiteReviews(): Promise<ReviewEntity[]> {
-    return this.reviewRepository.find({ where: { isWebsiteReview: true } });
+    return this.reviewRepository.find({ where: { isWebsiteReview: true }, relations: ['user'] });
   }
 
   async getProductReviews(productId: number): Promise<ReviewEntity[]> {
@@ -114,5 +125,20 @@ export class ReviewService {
       .where('review.productId = :productId', { productId })
       .andWhere('review.isWebsiteReview = :isWebsiteReview', { isWebsiteReview: false })
       .getMany();
+  }
+
+  async getProductReviewByUserId(userId: number){
+    try {
+      return await this.reviewRepository.find({
+        where: {
+          user: {userId: userId},
+          isWebsiteReview: false
+        },
+        relations: ['user']
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

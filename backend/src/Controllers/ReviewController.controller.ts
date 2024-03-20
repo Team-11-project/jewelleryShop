@@ -11,9 +11,9 @@ import { BaseResponse } from '../Responses/BaseResponse';
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
-  @Post('createReview')
-  create(@Body() createReviewDto: CreateReviewDto) { 
-    return this.reviewService.create(createReviewDto, createReviewDto.userId); 
+  @Post('createReview/:productId')
+  create(@Param("productId") productId: number, @Body() createReviewDto: CreateReviewDto) { 
+    return this.reviewService.create(createReviewDto, productId); 
   }
 
   @Get('review/:productId')
@@ -41,10 +41,10 @@ export class ReviewController {
     return this.reviewService.createWebsiteReview(createReviewDto);
   }
 
-  @Post('Createproductreview/:productId')
-  async createProductReview(@Param('productId') productId: number, @Body() createReviewDto: CreateReviewDto): Promise<BaseResponse> {
-    return this.reviewService.createProductReview(productId, createReviewDto);
-  }
+  // @Post('Createproductreview/:productId')
+  // async createProductReview(@Param('productId') productId: number, @Body() createReviewDto: CreateReviewDto): Promise<BaseResponse> {
+  //   return this.reviewService.createProductReview(productId, createReviewDto);
+  // }
   @Put('updateReview/:reviewId')
   async updateReview(
     @Param('reviewId') reviewId: string,
@@ -57,6 +57,11 @@ export class ReviewController {
   async deleteReview(@Param('reviewId') reviewId: string) {
     await this.reviewService.deleteReview(+reviewId);
     return { message: 'Review deleted successfully' };
+  }
+
+  @Get('getProductReviewByUser/:userId')
+  async getPReviewByUser(@Param("userId") userId: number){
+    return await this.reviewService.getProductReviewByUserId(userId)
   }
 
   

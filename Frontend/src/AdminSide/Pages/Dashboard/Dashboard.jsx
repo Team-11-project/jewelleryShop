@@ -10,7 +10,7 @@ import Orders from './Orders/Orders'
 
 
 function Dashboard() {
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(0)
     const [ex, setEx] = useState(false)
     const [isNewCategory, setIsNewCategory] = useState(false)
     const [selectedCat, setSelectedCat] = useState({})
@@ -46,7 +46,7 @@ function Dashboard() {
         if (page === 1) {
             return <Products isNewCategory={isNewCategory} />
         }
-        if (page == 2)  {
+        if (page == 2) {
             return <Orders />;
         }
     }
@@ -63,8 +63,6 @@ function Dashboard() {
                     <Navbar />
                     {isNewCategory === true ? <NewCategory getPop={getIsNewCategory} /> : ""}
                     {isEditCategory === true ? <EditCategory getPop={getIsEditCategory} selectedCat={selectedCat} /> : ""}
-
-                    { }
                     {PageDisplay()}
                 </div>
             </div>
