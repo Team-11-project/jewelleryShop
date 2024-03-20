@@ -28,9 +28,9 @@ const OrderDetails = ({ orderId, closePopup }) => {
         const data = await response.json();
         setOrderDetails(data);
         setEditedInfo({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
+          firstName: data.user?.firstName,
+          lastName: data.user?.lastName,
+          email: data.user?.email,
           address: data.address,
           city: data.city,
           postcode: data.postcode,
@@ -72,13 +72,14 @@ const OrderDetails = ({ orderId, closePopup }) => {
 
   const handleSaveStatus = async () => {
     try {
+      console.log(JSON.stringify({ status: editedInfo.status }),)
       const response = await fetch(`http://localhost:3001/cart/updateOrderStatus/${orderId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authTokens.token}`,
         },
-        body: JSON.stringify({ status: editedInfo.status }),
+        body: JSON.stringify({ newStatus: editedInfo.status }),
       });
   
       if (!response.ok) {
@@ -130,14 +131,14 @@ const OrderDetails = ({ orderId, closePopup }) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authTokens.token}`,
         },
-        body: JSON.stringify({ status: lowercaseStatus }), // Use the lowercase status value
+        body: JSON.stringify({ status: lowercaseStatus }),
       });
   
       if (!response.ok) {
         throw new Error('Failed to update order status.');
       }
   
-      // Assuming your API returns the updated order details after the update
+     
       const updatedData = await response.json();
       setOrderDetails({ ...orderDetails, status: updatedData.status });
     } catch (error) {
@@ -193,10 +194,9 @@ const OrderDetails = ({ orderId, closePopup }) => {
             <h3>Customer Information</h3>
             {editMode ? (
               <>
-                <input type="text" name="firstName" placeholder="First Name" value={editedInfo.firstName || ''} onChange={handleInputChange} />
-                <input type="text" name="firstName" placeholder="First Name" value={editedInfo.firstName || ''} onChange={handleInputChange} />
-                <input type="text" name="lastName" placeholder="Last Name" value={editedInfo.lastName || ''} onChange={handleInputChange} />
-                <input type="email" name="email" placeholder="Email" value={editedInfo.email || ''} onChange={handleInputChange} />
+                <input disabled={true} type="text" name="firstName" placeholder="First Name" value={editedInfo.firstName || ''} onChange={handleInputChange} />
+                <input disabled={true} type="text" name="lastName" placeholder="Last Name" value={editedInfo.lastName || ''} onChange={handleInputChange} />
+                <input disabled={true} type="email" name="email" placeholder="Email" value={editedInfo.email || ''} onChange={handleInputChange} />
                 <input type="text" name="address" placeholder="Address" value={editedInfo.address || ''} onChange={handleInputChange} />
                 <input type="text" name="city" placeholder="City" value={editedInfo.city || ''} onChange={handleInputChange} />
                 <input type="text" name="postcode" placeholder="Postcode" value={editedInfo.postcode || ''} onChange={handleInputChange} />
@@ -205,8 +205,8 @@ const OrderDetails = ({ orderId, closePopup }) => {
               </>
             ) : (
               <>
-                <p>Name: {orderDetails.firstName} {orderDetails.lastName}</p>
-                <p>Email: {orderDetails.email}</p>
+                <p>Name: {orderDetails.user?.firstName} {orderDetails.lastName}</p>
+                <p>Email: {orderDetails.user?.email}</p>
                 <p>Address: {orderDetails.address}, {orderDetails.city}, {orderDetails.postcode}, {orderDetails.country}</p>
                 <FaPencilAlt onClick={handleEditClick} className="edit-icon" />
               </>
