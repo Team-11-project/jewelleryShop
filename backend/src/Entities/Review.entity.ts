@@ -28,6 +28,6 @@ export class ReviewEntity {
   @ManyToOne(() => ProductEntity, product => product.reviews)
   product: ProductEntity;
 
-  @ManyToOne(() => UserEntity, user => user.reviews, { eager: false })
+  @ManyToOne(() => UserEntity, user => user.reviews, { eager: true })
   user: UserEntity;   
 }

@@ -14,14 +14,16 @@ function IndividualProduct() {
   const [reviewContent, setReviewContent] = useState('');
   const [editingReviewId, setEditingReviewId] = useState(null);
   const [editingContent, setEditingContent] = useState('');
+  const [reviewTitle, setReviewTitle] = useState('');
+  const [reviewRating, setReviewRating] = useState(0);
+
+  const fetchProductReviews = async () => {
+    const res = await fetch(`http://localhost:3001/reviews/review/${product.productId}`);
+    const data = await res.json();
+    setReviews(data);
+  };
 
   useEffect(() => {
-    const fetchProductReviews = async () => {
-      const res = await fetch(`http://localhost:3001/reviews/getproduct/${product.productId}`);
-      const data = await res.json();
-      setReviews(data);
-    };
-
     if (product?.productId) {
       fetchProductReviews();
     }
@@ -31,10 +33,14 @@ function IndividualProduct() {
     event.preventDefault();
   
     const reviewData = {
-      customerName: `${user?.user.firstName} ${user?.user.lastName}`,
+      customerName: `${user?.firstName} ${user?.lastName}`,
+      title: reviewTitle,
       content: reviewContent,
       productId: product.productId,
-      isWebsiteReview: false 
+      rating: reviewRating,
+      isWebsiteReview: false, 
+      productProductId: product.productId, 
+      userUserId: user?.userId 
     };
   
     try {
@@ -45,12 +51,14 @@ function IndividualProduct() {
         },
         body: JSON.stringify(reviewData),
       });
-  
+
       if (response.ok) {
         const result = await response.json();
         console.log(result); 
         
         setReviewContent('');
+        setReviewTitle('');
+        setReviewRating(0);
         fetchProductReviews(); 
       } else {
         console.error('Failed to submit review, response status:', response.status);
@@ -60,37 +68,9 @@ function IndividualProduct() {
     }
   };
 
-  const startEditing = (review) => {
-    setEditingReviewId(review.id);
-    setEditingContent(review.content);
-  };
-
-  const submitEdit = async (reviewId) => {
-    try {
-      const response = await fetch(`http://localhost:3001/reviews/${reviewId}`, {
-        method: 'PUT', 
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          content: editingContent,
-        }),
-      });
-  
-      if (response.ok) {
-        setEditingReviewId(null);
-        fetchProductReviews();
-      } else {
-        console.error('Failed to edit review, response status:', response.status);
-      }
-    } catch (error) {
-      console.error('There was an error editing the review:', error);
-    }
-  };
-
   const handleDelete = async (reviewId) => {
     try {
-      const response = await fetch(`http://localhost:3001/reviews/${reviewId}`, {
+      const response = await fetch(`http://localhost:3001/deleteReview/${reviewId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -192,22 +172,41 @@ function IndividualProduct() {
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            {user?.user && (
-              <Form onSubmit={handleReviewSubmit} className="review-form">
-                <Form.Group controlId="reviewContent">
-                  <Form.Label>Write your review</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    value={reviewContent}
-                    onChange={(e) => setReviewContent(e.target.value)}
-                  />
-                </Form.Group>
-                <Button variant="primary" type="submit" className="submit-review-btn">
-                  Submit Review
-                </Button>
-              </Form>
-            )}
+            {user && (
+          <Form onSubmit={handleReviewSubmit} className="review-form">
+            <Form.Group controlId="reviewTitle">
+              <Form.Label>Review Title</Form.Label>
+              <Form.Control
+                type="text"
+                value={reviewTitle}
+                onChange={(e) => setReviewTitle(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="reviewRating">
+              <Form.Label>Rating out of 5</Form.Label>
+              <Form.Control
+                type="number"
+                min="0"
+                max="5"
+                step="0.5"
+                value={reviewRating}
+                onChange={(e) => setReviewRating(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="reviewContent">
+              <Form.Label>Write your review</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={reviewContent}
+                onChange={(e) => setReviewContent(e.target.value)}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit" className="submit-review-btn">
+              Submit Review
+            </Button>
+          </Form>
+        )}
           </Col>
         </Row>
       </Container>
