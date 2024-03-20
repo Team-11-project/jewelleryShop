@@ -2,14 +2,14 @@ import { CreateProductDto } from './../Dto/createProduct.dto';
 import { CategoryEntity } from './../Entities/Category.entity';
 import { CreateCategoryDto } from './../Dto/createCategory.dto';
 import { UpdateProductDto } from './../Dto/updateProduct.dto';
-import { Body, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProductEntity } from '../Entities/Product.entity';
 import { CartEntity } from '../Entities/Cart.entity';
 import { BaseResponse } from "../Responses/BaseResponse";
 import { Repository } from "typeorm";
 import { ConfigService } from '@nestjs/config';
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { S3Client } from '@aws-sdk/client-s3';
 import * as AWS from 'aws-sdk';
 import { ReviewEntity } from '../Entities/Review.entity';
 import { CreateReviewDto } from '../Dto/createReview.dto';
@@ -490,38 +490,38 @@ async deleteCategory(name: string): Promise<BaseResponse> {
         }
         
     }
-
-    async createReview(createReviewDto: CreateReviewDto): Promise<BaseResponse> {
-        try {
-            console.log(createReviewDto)
-            const review = new ReviewEntity()
-            const prod = await this.productRepository.findOne({where : {productId: createReviewDto.productId}})
-            review.content = createReviewDto.content
-            review.product = prod
-            review.rating = createReviewDto.rating
-            review.title = createReviewDto.title
-            const newReview = await this.reviewRepository.save(review);
-            if(newReview)
-            return{
-                status: 200,
-                message: "review created",
-                response: newReview
-            }
-            return{
-                status: 400,
-                message: "review not created",
-            }
+// 
+    // async createReview(createReviewDto: CreateReviewDto): Promise<BaseResponse> {
+    //     try {
+    //         console.log(createReviewDto)
+    //         const review = new ReviewEntity()
+    //         const prod = await this.productRepository.findOne({where : {productId: createReviewDto.productId}})
+    //         review.content = createReviewDto.content
+    //         review.product = prod
+    //         review.rating = createReviewDto.rating
+    //         review.title = createReviewDto.title
+    //         const newReview = await this.reviewRepository.save(review);
+    //         if(newReview)
+    //         return{
+    //             status: 200,
+    //             message: "review created",
+    //             response: newReview
+    //         }
+    //         return{
+    //             status: 400,
+    //             message: "review not created",
+    //         }
             
-        } catch (error) {
-            return{
-                status: 400,
-                message: "Bad Request",
-                response: error.detail
-            }
+    //     } catch (error) {
+    //         return{
+    //             status: 400,
+    //             message: "Bad Request",
+    //             response: error.detail
+    //         }
             
-        }
+    //     }
         
-      }
+    //   }
     
       async findByProductId(productId: number): Promise<BaseResponse> {
         try {

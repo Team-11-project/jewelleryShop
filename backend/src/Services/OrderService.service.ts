@@ -3,6 +3,9 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { OrderEntity } from "./../Entities/Order.entity";
 import { OrderStatus } from "./../Entities/OrderStatus.enum";
+import { ReturnEntity } from "src/Entities/Return.entity";
+import { CreateReturnDto } from "src/Dto/createReturnDto.dto";
+import { MailService } from "src/Mail/MailService.service";
 
 @Injectable()
 export class OrderService {
@@ -11,6 +14,9 @@ export class OrderService {
     constructor(
         @InjectRepository(OrderEntity)
         private readonly orderRepository: Repository<OrderEntity>,
+        @InjectRepository(ReturnEntity)
+        private readonly returnRepository: Repository<ReturnEntity>,
+        private readonly mailService: MailService,
     ) {}
 
     async getOrdersByCustomer(customerId: number): Promise<OrderEntity[]> {
@@ -39,7 +45,7 @@ export class OrderService {
         try {
             const order = await this.orderRepository.findOne({
                 where: { id: orderId },
-                relations: ['products'],
+                relations: ['products', 'user'],
             });
 
             if (!order) {
@@ -71,6 +77,37 @@ export class OrderService {
             console.error(error);
             throw new InternalServerErrorException("Failed to retrieve orders");
         }
+    }
+
+    async createReturn(orderId: number, createReturnDto: CreateReturnDto): Promise<ReturnEntity> {
+        try {
+            const order = await this.orderRepository.findOne({where:{id: orderId},});
+            if (!order) {
+                throw new NotFoundException(`Order with ID ${orderId} not found`);
+            }
+
+            const newReturn = new ReturnEntity();
+            newReturn.order = order;
+            newReturn.dateCreated = new Date();
+            newReturn.status = createReturnDto.status;
+            newReturn.returnedProducts = createReturnDto.returnedProducts;
+
+            return await this.returnRepository.save(newReturn);
+        } catch (error) {
+            console.error(error);
+            throw new InternalServerErrorException("Failed to create return");
+        }
+    }
+
+    async updateReturnStatus(returnId: number, newStatus: string): Promise<ReturnEntity> {
+        const returnEntity = await this.returnRepository.findOne({where:{id: returnId},});
+        if (!returnEntity) {
+            throw new NotFoundException(`Return with ID ${returnId} not found`);
+        }
+
+        
+        returnEntity.status = newStatus;
+        return await this.returnRepository.save(returnEntity);
     }
 
 }

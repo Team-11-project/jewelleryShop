@@ -121,7 +121,7 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                         <p>Admin Panel</p>
                         <div className={page === 0 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(0) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faChartLine} /></div>
-                            <div className="full-page-name">Dashboard</div>
+                            <div className="full-page-name">Overview</div>
                         </div>
                         <div className={page === 1 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(1) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faStore} /></div>

@@ -165,10 +165,10 @@ export class ProductsController{
     return await this.productService.uploadProductImage(file.originalname, file.buffer)
   }
 
-  @Post('createReview')
-  create(@Body() createReviewDto: CreateReviewDto) {
-    return this.productService.createReview(createReviewDto);
-  }
+  // @Post('createReview')
+  // create(@Body() createReviewDto: CreateReviewDto) {
+  //   return this.productService.createReview(createReviewDto);
+  // }
 
   @Get('review/:productId')
   findByProductId(@Param('productId') productId: string) {

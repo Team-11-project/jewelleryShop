@@ -10,14 +10,11 @@ export class ReviewEntity {
   @Column()
   customerName: string;
 
-  @Column()
+  @Column({})
   title: string;
 
   @Column()
   content: string;
-
-  @Column({ nullable: true })
-  productId: number; 
 
   @Column({ type: 'numeric' })
   rating: number;
@@ -28,6 +25,6 @@ export class ReviewEntity {
   @ManyToOne(() => ProductEntity, product => product.reviews)
   product: ProductEntity;
 
-  @ManyToOne(() => UserEntity, user => user.reviews, { eager: false })
+  @ManyToOne(() => UserEntity, user => user.reviews, { eager: true })
   user: UserEntity;   
 }

@@ -15,6 +15,7 @@ import { CreatePaymentDto } from 'src/Dto/createPaymentInfo.dto';
 import { use } from 'passport';
 import { AddressType } from 'src/Entities/AddressType.enum';
 import { EditOrderDto } from 'src/Dto/editOrderDto.dto';
+import { MailService } from 'src/Mail/MailService.service';
 
 @Injectable()
 export class CartService {
@@ -31,6 +32,7 @@ export class CartService {
     private readonly addressRepository: Repository<AddressEntity>,
     @InjectRepository(PaymentInfoEntity)
     private readonly paymentInfoRepository: Repository<PaymentInfoEntity>,
+    private mailService: MailService,
   ) {}
 
   async addToCart(userId: number, productId: number): Promise<CartEntity> {
@@ -92,42 +94,50 @@ export class CartService {
   }
 
   async getOrCreateCart(Id: number): Promise<any> {
-const user = await this.userRepository.findOne({
-  where: {
-    userId:Id
-  }
-})
-
-
-if(user)
-{
-  let cart = await this.cartRepository.findOne({
-    where: {
-      user :{userId:Id}
-    },
-    relations:['user', 'products']
-  })
-
-
-
-// {    let cart = await this.cartRepository.findOne({
-//       where: { user:  user  },
-//       relations: ['products'],
-//     });
-  
-    if (!cart) {
-      const user = await this.userRepository.findOne({ where: { userId:Id } });
-      cart = this.cartRepository.create({
-        user: user,  // Ensure 'user' is a property in your CartEntity
-        products: [],
-        isSubmitted: false,
-        createdAt: new Date
-
-      });
+    try {
+      const user = await this.userRepository.findOne({
+        where: {
+          userId:Id
+        }
+      })
+      // console.log(user)
+      
+     
+      if(user)
+      {
+        let cart = await this.cartRepository.findOne({
+          where: {
+            user :{userId:Id}
+          },
+          relations:['user', 'products']
+        })
+        
+      
+      
+      
+      // {    let cart = await this.cartRepository.findOne({
+      //       where: { user:  user  },
+      //       relations: ['products'],
+      //     });
+        
+          if (!cart) {
+            const user = await this.userRepository.findOne({ where: { userId:Id } });
+            cart = this.cartRepository.create({
+              user: user,  // Ensure 'user' is a property in your CartEntity
+              products: [],
+              isSubmitted: false,
+              createdAt: new Date
+      
+            });
+          }
+        
+          return cart;
+        }
+      
+    } catch (error) {
+      
     }
-  
-    return cart;
-  }
+
 }
 
   async getCartByUserId(Id: number): Promise<BaseResponse> {
@@ -322,6 +332,7 @@ async updateOrderStatus(orderId: number, newStatus): Promise<BaseResponse>{
     }
 
     await this.orderRepository.save(order)
+    await this.mailService.sendOrderStatusUpdateNotification(order.user, order);
 
     return{
       status: 200,

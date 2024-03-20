@@ -1,10 +1,12 @@
-import { Controller, Get, Param, UseGuards, HttpStatus, HttpException, NotFoundException } from "@nestjs/common";
+import { Controller, Get, Param, UseGuards, HttpStatus, HttpException, NotFoundException, Post, Body, ParseIntPipe, Put } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags, ApiParam, ApiResponse, ApiNotFoundResponse } from "@nestjs/swagger";
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { RolesGuard } from 'src/guards/role.guard'; 
 import { OrderService } from './../Services/OrderService.service'; 
 import { OrderEntity } from './../Entities/Order.entity';
 import { OrderStatus } from "./../Entities/OrderStatus.enum";
+import { CreateReturnDto } from "src/Dto/createReturnDto.dto";
+import { ReturnEntity } from "src/Entities/Return.entity";
 
 @ApiBearerAuth()
 @ApiTags("Orders Controller")
@@ -75,4 +77,25 @@ export class OrdersController {
           throw error;
       }
   }
+
+  @Post(":id/returns")
+  async createReturn(
+      @Param('id', ParseIntPipe) orderId: number,
+      @Body() createReturnDto: CreateReturnDto
+  ): Promise<ReturnEntity> {
+      return await this.orderService.createReturn(orderId, createReturnDto);
+  }
+
+  @Put('/returns/:returnId/status')
+    async updateReturnStatus(
+        @Param('returnId', ParseIntPipe) returnId: number,
+        @Body('status') newStatus: string,
+    ) {
+        try {
+            const updatedReturn = await this.orderService.updateReturnStatus(returnId, newStatus);
+            return { message: 'Return status updated successfully', updatedReturn };
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
     }

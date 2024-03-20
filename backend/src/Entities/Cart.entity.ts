@@ -9,7 +9,7 @@ export class CartEntity {
     cartId: number;
 
     @OneToOne(() => UserEntity, user => user.cart)
-    @JoinColumn({ name: 'userId' })
+    @JoinColumn()
     user: UserEntity;
 
     @OneToMany(() => ProductEntity, product => product.cart)
