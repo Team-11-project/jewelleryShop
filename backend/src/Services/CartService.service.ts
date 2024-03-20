@@ -15,6 +15,7 @@ import { CreatePaymentDto } from 'src/Dto/createPaymentInfo.dto';
 import { use } from 'passport';
 import { AddressType } from 'src/Entities/AddressType.enum';
 import { EditOrderDto } from 'src/Dto/editOrderDto.dto';
+import { MailService } from 'src/Mail/MailService.service';
 
 @Injectable()
 export class CartService {
@@ -31,6 +32,7 @@ export class CartService {
     private readonly addressRepository: Repository<AddressEntity>,
     @InjectRepository(PaymentInfoEntity)
     private readonly paymentInfoRepository: Repository<PaymentInfoEntity>,
+    private mailService: MailService,
   ) {}
 
   async addToCart(userId: number, productId: number): Promise<CartEntity> {
@@ -322,6 +324,7 @@ async updateOrderStatus(orderId: number, newStatus): Promise<BaseResponse>{
     }
 
     await this.orderRepository.save(order)
+    await this.mailService.sendOrderStatusUpdateNotification(order.user, order);
 
     return{
       status: 200,

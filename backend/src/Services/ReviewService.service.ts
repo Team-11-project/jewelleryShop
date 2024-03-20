@@ -1,17 +1,55 @@
-// review.service.ts
-import { Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ReviewEntity } from './../Entities/Review.entity';
-import { BaseResponse } from "src/Responses/BaseResponse";
-import { CreateReviewDto } from './../Dto/createReviewDto.dto';
+import { CreateReviewDto } from '../Dto/createReview.dto';
+import { UserEntity } from '../Entities/UserEntity.entity';
+import { ReviewEntity } from '../Entities/Review.entity';
+import { BaseResponse } from "../Responses/BaseResponse";
+
 
 @Injectable()
 export class ReviewService {
   constructor(
     @InjectRepository(ReviewEntity)
-    private readonly reviewRepository: Repository<ReviewEntity>,
+    private reviewRepository: Repository<ReviewEntity>,
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
   ) {}
+
+  async create(createReviewDto: CreateReviewDto, userId: number): Promise<ReviewEntity> {
+    const user = await this.userRepository.findOne({ where: { userId: userId } });
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const review = this.reviewRepository.create({
+      ...createReviewDto,
+      user,
+    });
+    return this.reviewRepository.save(review);
+  }
+
+  async findByProductId(productId: number): Promise<ReviewEntity[]> {
+    return this.reviewRepository.find({
+      where: { product: { productId: productId } },
+    });
+  }
+
+  async updateReview(reviewId: number, updateReviewDto: CreateReviewDto): Promise<ReviewEntity> {
+    const review = await this.reviewRepository.findOne({ where: { id: reviewId } }); 
+    if (!review) {
+      throw new Error('Review not found');
+    }
+    Object.assign(review, updateReviewDto);
+    return this.reviewRepository.save(review);
+  }
+
+  async deleteReview(reviewId: number): Promise<void> {
+    const result = await this.reviewRepository.delete(reviewId);
+    if (result.affected === 0) {
+      throw new Error('Review not found or could not be deleted');
+    }
+  }
 
   async createWebsiteReview(createReviewDto: CreateReviewDto): Promise<BaseResponse> {
     try {

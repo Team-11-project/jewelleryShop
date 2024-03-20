@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn} from "typeorm";
 import { Role } from "./Role.enum";
 import { CartEntity } from "./Cart.entity";
+import { ReviewEntity } from './Review.entity';
 import { FavoriteEntity } from "./Favorite.entity";
 import { AddressEntity } from "./Address.entity";
 import { PaymentInfoEntity } from "./PaymentInfo.entity";
@@ -39,6 +40,8 @@ export class UserEntity{
     @JoinColumn({name: 'cartId'})
     cart: CartEntity;
 
+    @OneToMany(() => ReviewEntity, review => review.user)
+    reviews: ReviewEntity[];
     @OneToMany(() => FavoriteEntity, favorite => favorite.user)
     favoriteProducts: FavoriteEntity[];
 

@@ -2,29 +2,138 @@
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
 .search-filter-container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 .search-input, .filter-select {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.search-input {
+  flex-grow: 1;
 }
 
 .orders-table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 10px;
-  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+th {
+  background-color: #f2f2f2; 
+  color: #333; 
+  padding: 15px 10px;
+}
+
+td {
+  padding: 15px 10px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #fafafa;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.pagination-button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination-button:hover {
+  background-color: #ccc;
+}
+
+.status-tag {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.status-tag.pending {
+  background-color: #f0ad4e;
+}
+
+.status-tag.in-progress {
+  background-color: #5bc0de;
+}
+
+.status-tag.returned {
+  background-color: #d9534f;
+}
+
+.status-tag.delivered {
+  background-color: #5cb85c;
+}
+
+.more-link {
+  color: #5cb85c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.more-link:hover {
+  text-decoration: underline;
+}
+
+.status-tag {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.status-pending {
+  background-color: #e2a9f3; 
+}
+
+.status-inprogress {
+  background-color: #f3eaa9; 
+}
+
+.status-returned {
+  background-color: #f3a9a9; 
+}
+
+.status-delivered {
+  background-color: #a9f3d1; 
+}
+
+.details-button {
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px; 
+}
+
+.details-button:hover {
+  color: #333; 
 }

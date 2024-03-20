@@ -19,29 +19,25 @@ import { join } from 'path';
 import { CartEntity } from './Entities/Cart.entity';
 import { CartController } from './Controllers/CartController.controller';
 import { CartService } from './Services/CartService.service';
-
 import path from "path";
+import { ReviewEntity } from './Entities/Review.entity';
+import { ReviewController } from './Controllers/ReviewController.controller';
+import { ReviewService } from './Services/ReviewService.service';
+import { InventoryInbox } from './Entities/InventoryInbox.entity';
 import { OrderEntity } from './Entities/Order.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './Mail/MailService.service';
-<<<<<<< HEAD
 import { ContactController } from './Controllers/contact.controller';
 import { ContactService } from './Services/contact.service';
-
-=======
 import { OrdersController } from './Controllers/OrdersController.controller';
 import { OrderService } from './Services/OrderService.service';
-
-import { ReviewEntity } from './Entities/Review.entity';
-import { ReviewService } from './Services/ReviewService.service';
-import { ReviewController } from './Controllers/ReviewController.controller';
-
 import { FavoriteEntity } from './Entities/Favorite.entity';
 import { FavoritesService } from './Services/FavoriteService.service';
 import { FavoritesController } from './Controllers/FavoriteController.controller';
 import { PaymentInfoEntity } from './Entities/PaymentInfo.entity';
 import { AddressEntity } from './Entities/Address.entity';
->>>>>>> 1f15d0971b4cf145a56c328703a86ebedba73443
+import { ReturnEntity } from './Entities/Return.entity';
+
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -75,7 +71,7 @@ import { AddressEntity } from './Entities/Address.entity';
       password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity, AddressEntity],
+      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity,OrderEntity, AddressEntity, InventoryInbox, ReturnEntity, CartEntity],
       // ssl: {
       //   ca: process.env.CERT,
       // },
@@ -99,16 +95,11 @@ import { AddressEntity } from './Entities/Address.entity';
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, OrderEntity, ReviewEntity,FavoriteEntity, PaymentInfoEntity, AddressEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, FavoriteEntity, PaymentInfoEntity, AddressEntity, InventoryInbox, ReturnEntity]),
 
   ],
-<<<<<<< HEAD
-  controllers: [ProductsController,CartController, ContactController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService]
-=======
-  controllers: [ProductsController,CartController,OrdersController, ReviewController, FavoritesController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService, ReviewService, FavoritesService],
->>>>>>> 1f15d0971b4cf145a56c328703a86ebedba73443
+  controllers: [ProductsController,CartController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService],
 })
 export class AppModule {}
 
