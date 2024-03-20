@@ -38,6 +38,7 @@ export class CartService {
   async addToCart(userId: number, productId: number): Promise<CartEntity> {
     try {
       // Get or create the cart for the user
+      console.log("---------")
       let cart = await this.getOrCreateCart(userId);
   
       // Find the product by productId
@@ -94,42 +95,51 @@ export class CartService {
   }
 
   async getOrCreateCart(Id: number): Promise<any> {
-const user = await this.userRepository.findOne({
-  where: {
-    userId:Id
-  }
-})
-
-
-if(user)
-{
-  let cart = await this.cartRepository.findOne({
-    where: {
-      user :{userId:Id}
-    },
-    relations:['user', 'products']
-  })
-
-
-
-// {    let cart = await this.cartRepository.findOne({
-//       where: { user:  user  },
-//       relations: ['products'],
-//     });
-  
-    if (!cart) {
-      const user = await this.userRepository.findOne({ where: { userId:Id } });
-      cart = this.cartRepository.create({
-        user: user,  // Ensure 'user' is a property in your CartEntity
-        products: [],
-        isSubmitted: false,
-        createdAt: new Date
-
-      });
+    try {
+      const user = await this.userRepository.findOne({
+        where: {
+          userId:Id
+        }
+      })
+      // console.log(user)
+      
+     
+      if(user)
+      {
+        console.log("-----")
+        let cart = await this.cartRepository.findOne({
+          where: {
+            user :{userId:Id}
+          },
+          relations:['user', 'products']
+        })
+        
+      
+      
+      
+      // {    let cart = await this.cartRepository.findOne({
+      //       where: { user:  user  },
+      //       relations: ['products'],
+      //     });
+        
+          if (!cart) {
+            const user = await this.userRepository.findOne({ where: { userId:Id } });
+            cart = this.cartRepository.create({
+              user: user,  // Ensure 'user' is a property in your CartEntity
+              products: [],
+              isSubmitted: false,
+              createdAt: new Date
+      
+            });
+          }
+        
+          return cart;
+        }
+      
+    } catch (error) {
+      
     }
-  
-    return cart;
-  }
+
 }
 
   async getCartByUserId(Id: number): Promise<BaseResponse> {
