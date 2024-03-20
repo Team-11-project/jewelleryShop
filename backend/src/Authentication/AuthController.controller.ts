@@ -1,5 +1,5 @@
 import { CreateUserDto } from './../Dto/CreateUserDto.dto';
-import { Controller, Post, Get, Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, UseGuards, Put } from '@nestjs/common';
 import { AuthService } from './AuthService.service';
 import { BaseResponse } from 'src/Responses/BaseResponse';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -9,6 +9,8 @@ import { RolesGuard } from 'src/guards/role.guard';
 import { Roles } from 'src/Decorators/role.decorator';
 import { Role } from 'src/Entities/Role.enum';
 import { ResetPasswordDto } from 'src/Dto/resetPassword.dto';
+import { EditOrderDto } from 'src/Dto/editOrderDto.dto';
+import { EditUserDto } from 'src/Dto/EditUserDto.dto';
 // import * as nodemailer from 'nodemailer';
 
 
@@ -60,6 +62,11 @@ export class AuthController{
     @Post("resetPassword/:userId")
     async resetPassword(@Param("userId") userId: number, @Body() resetPasswordDto: ResetPasswordDto): Promise<BaseResponse> {
         return await this.authService.resetPassword(userId, resetPasswordDto);
+    }
+
+    @Put("updateUser/:userId")
+    async editUser(@Param("userId") userId:number, @Body() editUserDto:EditUserDto): Promise<BaseResponse>{
+        return await this.authService.editUser(userId, editUserDto);
     }
     
 }

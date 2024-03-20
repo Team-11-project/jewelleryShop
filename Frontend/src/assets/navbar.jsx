@@ -82,7 +82,7 @@ function AppNavbar() {
               <Nav.Link className="nav-link-icons">
                 <FontAwesomeIcon icon={faHeart} />
               </Nav.Link>
-              <Nav.Link className="nav-link-icons">
+              <Nav.Link className="nav-link-icons" as={Link} to="/myProfile">
                 <FontAwesomeIcon icon={faUser} />
               </Nav.Link>
               <Nav.Link className="nav-link-icons" as={Link} to="/cart">

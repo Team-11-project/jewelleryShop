@@ -11,6 +11,7 @@ import { LoginUserDto } from 'src/Dto/LoginUserDto.dto';
 import { JwtService } from '@nestjs/jwt';
 import { MailService } from 'src/Mail/MailService.service';
 import { use } from 'passport';
+import { EditUserDto } from 'src/Dto/EditUserDto.dto';
 // import * as nodemailer from 'nodemailer';
 
 @Injectable()
@@ -340,17 +341,31 @@ export class AuthService{
        
     }
 
-    // async validateUser(otp:string, email:string){
-    //     try {
-    //         const user = await this.userRepository.findOne({
-    //             where:{
-    //                 email: email
-    //             }
-    //         })
-    //         const validate = await this.validateUserPassword(otp, user)}
-    //     catch (error) {
+    async editUser(userId:number, editUserDto:EditUserDto) : Promise<BaseResponse>{
+        try {
+            const user = await this.userRepository.findOne({
+                where: {userId: userId}
+            })
+            if (!user){
+                return{
+                    status: 404,
+                    message: "user not found"
+                }
+            }
+            user.email = editUserDto.email
+            user.firstName= editUserDto.firstName
+            user.lastName = editUserDto.lastName
+            await this.userRepository.save(user)
+            return{
+                status:200,
+                message:"user details updated"
+            }
             
-    // }
-// }
+        } catch (error) {
+            console.log(error)
+            
+        }
+
+    }
 
 }

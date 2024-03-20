@@ -46,11 +46,12 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         localStorage.removeItem("authTokens");
         localStorage.removeItem("user");
-        navigate("/login");
+        navigate("/");
     };
 
     const contextData = {
         user,
+        setUser,
         loginUser,
         logoutUser,
         authTokens,
