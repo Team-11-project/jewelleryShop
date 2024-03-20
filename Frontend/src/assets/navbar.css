@@ -16,7 +16,7 @@
 .nav-link-icons {
     position: relative;
     color: rgb(255, 217, 119) !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
 }
 
 .shopping-bag-count {
@@ -134,3 +134,16 @@
     align-items: center; 
 }
 
+.close-search-button {
+    position: absolute;
+    right: 20px; /* Adjust based on your layout */
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgb(255, 217, 119); /* Or any color you prefer */
+    cursor: pointer;
+  }
+
+  .icon-cross {
+    color: red;
+    font-size: 24px;
+  }

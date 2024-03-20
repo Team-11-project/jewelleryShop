@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faHeart, faShoppingBag, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faHeart, faShoppingBag, faUser, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './navbar.css';
 
 function AppNavbar() {
@@ -81,8 +81,8 @@ function AppNavbar() {
               <Nav.Link as={Link} to="/dashboard" className="nav-link-custom">Dashboard</Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link onClick={toggleSearch} className="nav-link-icons">
-                <FontAwesomeIcon icon={faSearch} />
+            <Nav.Link onClick={toggleSearch} className="nav-link-icons">
+              <FontAwesomeIcon icon={searchVisible ? faTimes : faSearch} />
               </Nav.Link>
               <Nav.Link className="nav-link-icons">
                 <FontAwesomeIcon icon={faHeart} />
