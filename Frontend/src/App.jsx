@@ -34,6 +34,8 @@ import Necklaces from './productsPage/Necklaces/necklaces.jsx';
 import Earrings from './productsPage/Earrings/earrings.jsx';
 import Watches from './productsPage/Watches/watches.jsx';
 
+import { ToastContainer, toast } from 'react-toastify';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
 import AboutSection from './about us/about.jsx';
@@ -41,6 +43,7 @@ import AboutUs from './about us/about.jsx';
 import ProfilePage from './Profile/ProfilePage.jsx';
 
 library.add(faHome, faTh, faInfo, faStar);
+toast.configure();
 
 function App() {
 
