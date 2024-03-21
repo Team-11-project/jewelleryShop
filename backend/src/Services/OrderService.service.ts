@@ -26,7 +26,7 @@ export class OrderService {
                 
                         user: { userId: customerId },
                 },
-                relations: ['products'],
+                relations: ['products', 'user'],
 
             });
 
@@ -45,7 +45,7 @@ export class OrderService {
         try {
             const order = await this.orderRepository.findOne({
                 where: { id: orderId },
-                relations: ['products'],
+                relations: ['products', 'user'],
             });
 
             if (!order) {

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './subs.css'
 import AuthContext from '../../Context/AuthContext'
+import img1 from './pexels-dima-valkov-3266700-2-2.jpg'
+import ImageZoomComponent from '../../assets/ImageZoomComponent'
 
 function MyReviews() {
     let { user } = useContext(AuthContext)
@@ -35,8 +37,7 @@ function MyReviews() {
     const ReviewComponent = (review) => {
         return (
             <>
-                <div className="lev1">level1</div>
-                <div className="lev2"></div>
+                <div className="lev2">level 2</div>
                 <div className="lev3"></div>
             </>
         )

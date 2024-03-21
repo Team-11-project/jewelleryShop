@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import './individualProducts.css';
 import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
+import ImageZoomComponent from '../assets/ImageZoomComponent';
 
 function IndividualProduct() {
   const location = useLocation();
@@ -29,14 +30,14 @@ function IndividualProduct() {
 
   const handleReviewSubmit = async (event) => {
     event.preventDefault();
-  
+
     const reviewData = {
       customerName: `${user?.user.firstName} ${user?.user.lastName}`,
       content: reviewContent,
       productId: product.productId,
-      isWebsiteReview: false 
+      isWebsiteReview: false
     };
-  
+
     try {
       const response = await fetch(`http://localhost:3001/reviews/Createproductreview/${product.productId}`, {
         method: 'POST',
@@ -45,13 +46,13 @@ function IndividualProduct() {
         },
         body: JSON.stringify(reviewData),
       });
-  
+
       if (response.ok) {
         const result = await response.json();
-        console.log(result); 
-        
+        console.log(result);
+
         setReviewContent('');
-        fetchProductReviews(); 
+        fetchProductReviews();
       } else {
         console.error('Failed to submit review, response status:', response.status);
       }
@@ -68,7 +69,7 @@ function IndividualProduct() {
   const submitEdit = async (reviewId) => {
     try {
       const response = await fetch(`http://localhost:3001/reviews/${reviewId}`, {
-        method: 'PUT', 
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -76,7 +77,7 @@ function IndividualProduct() {
           content: editingContent,
         }),
       });
-  
+
       if (response.ok) {
         setEditingReviewId(null);
         fetchProductReviews();
@@ -96,7 +97,7 @@ function IndividualProduct() {
           'Content-Type': 'application/json',
         }
       });
-  
+
       if (response.ok) {
         setReviews(reviews.filter((review) => review.id !== reviewId));
       } else {
@@ -134,7 +135,8 @@ function IndividualProduct() {
       <Container className="individual-p-container mt-5">
         <Row>
           <Col md={6}>
-            <img src={product?.image} alt={product?.name} className="img-fluid rounded" />
+            <ImageZoomComponent image={product?.image} />
+            {/* <img src={product?.image} alt={product?.name} className="img-fluid rounded" /> */}
           </Col>
           <Col md={6} className="product-details">
             <h1>{product?.name}</h1>
