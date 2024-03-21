@@ -134,7 +134,7 @@ export class ReviewService {
           user: {userId: userId},
           isWebsiteReview: false
         },
-        relations: ['user']
+        relations: ['product']
       })
       
     } catch (error) {
