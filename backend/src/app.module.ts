@@ -36,6 +36,10 @@ import { PaymentInfoEntity } from './Entities/PaymentInfo.entity';
 import { AddressEntity } from './Entities/Address.entity';
 import { ReturnEntity } from './Entities/Return.entity';
 
+import { NotificationService } from './Services/NotificationService.service';
+import { NotificationController } from './Controllers/NotificationController.controller';
+import { NotificationEntity } from './Entities/Notification.entity';
+import { InventoryInboxService } from './Services/InventoryInboxService.service';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -69,7 +73,8 @@ import { ReturnEntity } from './Entities/Return.entity';
       password: process.env.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity,OrderEntity, AddressEntity, InventoryInbox, ReturnEntity, CartEntity],
+      entities: [ CategoryEntity, UserEntity, ReviewEntity,ProductEntity,FavoriteEntity, PaymentInfoEntity,OrderEntity,
+                   AddressEntity, InventoryInbox, ReturnEntity, CartEntity, NotificationEntity],
       // ssl: {
       //   ca: process.env.CERT,
       // },
@@ -93,11 +98,11 @@ import { ReturnEntity } from './Entities/Return.entity';
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, FavoriteEntity, PaymentInfoEntity, AddressEntity, InventoryInbox, ReturnEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, FavoriteEntity, PaymentInfoEntity, AddressEntity, InventoryInbox, ReturnEntity, NotificationEntity]),
 
   ],
-  controllers: [ProductsController,CartController, OrdersController, ReviewController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService, ReviewService],
+  controllers: [ProductsController,CartController, OrdersController, ReviewController, ReviewController, NotificationController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService, ReviewService, ReviewService, InventoryInboxService, NotificationService],
 })
 export class AppModule {}
 

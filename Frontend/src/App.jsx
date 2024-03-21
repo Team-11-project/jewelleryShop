@@ -27,7 +27,14 @@ import OrderDetails from './AdminSide/Pages/Dashboard/Orders/orderDetails.jsx';
 import Profile from './menuPages/menu.jsx';
 import Myinfo from './menuPages/myinfo.jsx';
 import OrderHistory from './menuPages/history.jsx'
-// import Profile from './menuPages/pages/history.jsx'
+import AdminReviews from './AdminSide/Pages/Dashboard/Reviews/adminReviews.jsx';
+import Rings from './productsPage/Rings/rings.jsx';
+import Bracelets from './productsPage/Bracelets/bracelets.jsx';
+import Necklaces from './productsPage/Necklaces/necklaces.jsx';
+import Earrings from './productsPage/Earrings/earrings.jsx';
+import Watches from './productsPage/Watches/watches.jsx';
+
+import { ToastContainer, toast } from 'react-toastify';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -73,9 +80,15 @@ function App() {
           <Route path='/AdminSignUp' exact element={<AdminSignUp />} />
           <Route path='/CheckoutComplete' exact element={<CheckoutComplete />} />
           <Route path='/orderDetails/:orderId' element={<OrderDetails />} />
+          <Route path='/admin-reviews' element={<AdminReviews />} />
+          <Route path='/rings' element={<Rings />} />
+          <Route path='/bracelets' element={<Bracelets />} />
+          <Route path='/necklaces' element={<Necklaces />} />
+          <Route path='/earrings' element={<Earrings />} />
+          <Route path='/watches' element={<Watches />} />
         </Routes>
         {
-          currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <Footer />
+          (currentURL === "/dashboard" || currentURL === "/login" || currentURL === "/forgotPassword") ? <></> : <Footer />
         }
       </AuthProvider>
     </Router>

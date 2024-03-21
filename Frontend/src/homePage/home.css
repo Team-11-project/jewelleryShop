@@ -54,7 +54,7 @@ p {
 }
 
 /* Section-2 Styling */
-.section-2 {
+.section-2, .rings-section, .bracelets-section {
   padding: 50px;
   background-color: #fff;
   min-height: 100vh;
@@ -64,19 +64,19 @@ p {
   justify-content: center;
 }
 
-.section-2 h1 {
+.section-2 h1, .rings-section h1, .bracelets-section h1 {
   color: rgb(1, 0, 59);
   font-size: 3.5em;
   padding-bottom: 20px;
 }
 
-.section-2 p {
+.section-2 p, .rings-section p, .bracelets-section p{
   color: rgb(1, 0, 59);
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-.section-2 button {
+.section-2 button, .rings-section button, .bracelets-section button {
   background-color: rgb(255, 217, 119) !important;
   color: rgb(1, 0, 59) !important;
   border: none !important;
@@ -86,7 +86,7 @@ p {
   margin-right: auto;
 }
 
-.section-2 img {
+.section-2 img, .rings-section img, .bracelets-section img{
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -94,7 +94,7 @@ p {
 }
 
 /* Section-3 Styling */
-.section-3 {
+.section-3, .necklaces-section {
   padding: 50px;
   background-color: rgb(1, 0, 59);
   min-height: 100vh;
@@ -104,19 +104,19 @@ p {
   justify-content: center;
 }
 
-.section-3 h1 {
+.section-3 h1, .necklaces-section h1 {
   color: rgb(255, 217, 119);
   font-size: 3.5em;
   padding-bottom: 20px;
 }
 
-.section-3 p {
+.section-3 p, .necklaces-section p{
   color: rgb(255, 217, 119);
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-.section-3 button {
+.section-3 button, .necklaces-section button {
   background-color: rgb(255, 217, 119) !important;
   color: rgb(1, 0, 59) !important;
   border: none !important;
@@ -126,7 +126,7 @@ p {
   margin-right: auto;
 }
 
-.section-3 img {
+.section-3 img, .necklaces-section img {
   width: 100%;
   height: 100%;
   object-fit: cover;

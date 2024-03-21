@@ -3,13 +3,11 @@ import { Container, Row, Col, Dropdown, Form, Card, Button } from 'react-bootstr
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faShoppingBag, faFilter, faSort } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import img1 from './img1.jpg';
-import rolexOyster from './rolexOyster.jpg'
-import './products.css';
-import AppNavbar from '../assets/navbar';
-import AuthContext from '../Context/AuthContext';
+import './watches.css';
+import AppNavbar from '../../assets/navbar';
+import AuthContext from '../../Context/AuthContext';
 
-function Products() {
+function Watches() {
   let { user } = useContext(AuthContext)
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
@@ -23,7 +21,7 @@ function Products() {
   const getProducts = async () => {
     try {
       // setIsLoading(true)
-      let response = await fetch(`http://localhost:3001/products/get-all-products`,
+      let response = await fetch(`http://localhost:3001/products/getProductByCategory/Watches`,
         {
           method: "GET",
           headers: {
@@ -46,7 +44,7 @@ function Products() {
   }
 
   const addToCart = async (productId) => {
-    // http://localhost:300/cart/add/userid/productid
+   
     try {
       // setIsLoading(true)
       const userId = user.user.id
@@ -83,7 +81,7 @@ function Products() {
 
   const priceOptions = ['100-500', '500-1000', '1000-5000', '5000+'];
   const materialOptions = ['Gold', 'Silver', 'Diamond', 'Gemstone'];
-  const categoryOptions = ['Earrings', 'Watches', 'Necklaces', 'Bracelets', 'Rings'];
+  const categoryOptions = ['Earrings', 'Watches', 'Bracelets', 'Necklaces, Rings'];
   const sortOptions = ['Recommend', 'New Arrivals', 'Price Low to High', 'Price High to Low'];
 
   // const addToCart = (product) => {
@@ -113,8 +111,8 @@ function Products() {
         <Row>
           <Col>
             <div className="products-intro">
-              <h1>All Products</h1>
-              <p>Explore our wide range of exquisite products. Find the perfect piece for every occasion.</p>
+              <h1>Watches</h1>
+              <p>Explore elegant timepieces, each marking time with timeless grace.</p>
             </div>
           </Col>
         </Row>
@@ -221,4 +219,4 @@ function Products() {
     </>
   )
 }
-export default Products;
+export default Watches;

@@ -4,6 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import './individualProducts.css';
 import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
+import ImageZoomComponent from '../assets/ImageZoomComponent';
 
 function IndividualProduct() {
   const location = useLocation();
@@ -28,7 +29,7 @@ function IndividualProduct() {
 
   const handleReviewSubmit = async (event) => {
     event.preventDefault();
-  
+
     const reviewData = {
       customerName: user?.user?.firstName === user?.user?.lastName ? user?.user?.firstName : `${user?.user?.firstName} ${user?.user?.lastName}`,
       title: reviewTitle,
@@ -39,7 +40,7 @@ function IndividualProduct() {
       productProductId: product.productId,
       userUserId: user?.userId
     };
-  
+
     try {
       const response = await fetch(`http://localhost:3001/reviews/CreateReview/${product.productId}`, {
         method: 'POST',
@@ -51,12 +52,12 @@ function IndividualProduct() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log(result); 
-        
+        console.log(result);
+
         setReviewContent('');
         setReviewTitle('');
         setReviewRating(0);
-        fetchProductReviews(); 
+        fetchProductReviews();
       } else {
         console.error('Failed to submit review, response status:', response.status);
       }
@@ -146,7 +147,8 @@ function IndividualProduct() {
       <Container className="individual-p-container mt-5">
         <Row>
           <Col md={6}>
-            <img src={product?.image} alt={product?.name} className="img-fluid rounded" />
+            <ImageZoomComponent image={product?.image} />
+            {/* <img src={product?.image} alt={product?.name} className="img-fluid rounded" /> */}
           </Col>
           <Col md={6} className="product-details">
             <h1>{product?.name}</h1>
@@ -213,6 +215,39 @@ function IndividualProduct() {
                 </Button>
               </Form>
             )}
+              <Form onSubmit={handleReviewSubmit} className="review-form">
+                <Form.Group controlId="reviewTitle">
+                  <Form.Label>Review Title</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={reviewTitle}
+                    onChange={(e) => setReviewTitle(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group controlId="reviewRating">
+                  <Form.Label>Rating out of 5</Form.Label>
+                  <Form.Control
+                    type="number"
+                    min="0"
+                    max="5"
+                    step="0.5"
+                    value={reviewRating}
+                    onChange={(e) => setReviewRating(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group controlId="reviewContent">
+                  <Form.Label>Write your review</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={reviewContent}
+                    onChange={(e) => setReviewContent(e.target.value)}
+                  />
+                </Form.Group>
+                <Button variant="primary" type="submit" className="submit-review-btn">
+                  Submit Review
+                </Button>
+              </Form>
           </Col>
         </Row>
       </Container>
