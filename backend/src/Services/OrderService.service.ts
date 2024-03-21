@@ -26,7 +26,7 @@ export class OrderService {
                 
                         user: { userId: customerId },
                 },
-                relations: ['products'],
+                relations: ['products', 'user'],
 
             });
 
