@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Form, ListGroup } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import './individualProducts.css';
 import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
@@ -13,8 +12,6 @@ function IndividualProduct() {
   let { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
   const [reviewContent, setReviewContent] = useState('');
-  const [editingReviewId, setEditingReviewId] = useState(null);
-  const [editingContent, setEditingContent] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
   const [reviewRating, setReviewRating] = useState(0);
 
@@ -69,24 +66,59 @@ function IndividualProduct() {
     }
   };
 
-  const handleDelete = async (reviewId) => {
-    try {
-      const response = await fetch(`http://localhost:3001/deleteReview/${reviewId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
+  // const startEditing = (review) => {
+  //   if (user && user.userId === review.userUserId) {
+  //     setEditingReviewId(review.id);
+  //     setEditingContent(review.content);
+  //   }
+  // };
 
-      if (response.ok) {
-        setReviews(reviews.filter((review) => review.id !== reviewId));
-      } else {
-        console.error('Failed to delete review, response status:', response.status);
-      }
-    } catch (error) {
-      console.error('Error deleting review:', error);
-    }
-  };
+  // const submitEdit = async (reviewId) => {
+  //   if (user) {
+  //     const reviewData = {
+  //       title: reviewTitle,
+  //       content: editingContent,
+  //       rating: reviewRating,
+  //       isWebsiteReview: false,
+  //     };
+
+  //     try {
+  //       const response = await fetch(`http://localhost:3001/reviews/updateReview/${reviewId}`, {
+  //         method: 'PUT',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify(reviewData),
+  //       });
+
+  //       if (response.ok) {
+  //         setEditingReviewId(null);
+  //         fetchProductReviews(); 
+  //       } else {
+  //         console.error("Failed to edit review");
+  //       }
+  //     } catch (error) {
+  //       console.error('There was an error editing the review:', error);
+  //     }
+  //   }
+  // };
+
+  // const handleDelete = async (reviewId) => {
+  //   if (user) {
+  //     const response = await fetch(`http://localhost:3001/reviews/deleteReview/${reviewId}`, {
+  //       method: 'DELETE',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+    
+  //     if (response.ok) {
+  //       setReviews(reviews.filter((review) => review.id !== reviewId));
+  //     } else {
+  //       console.error("Failed to delete review");
+  //     }
+  //   }
+  // }        
 
   const addToCart = async (productId) => {
     // http://localhost:3001/cart/add/userid/productid
@@ -135,50 +167,16 @@ function IndividualProduct() {
             <ListGroup className="review-list">
               {reviews.map((review) => (
                 <ListGroup.Item key={review.id} className="review-item">
-                  {editingReviewId === review.id ? (
-                    <Form onSubmit={(e) => {
-                      e.preventDefault();
-                      submitEdit(review.id);
-                    }}>
-                      <Form.Group controlId="editContent">
-                        <Form.Control
-                          as="textarea"
-                          rows={3}
-                          value={editingContent}
-                          onChange={(e) => setEditingContent(e.target.value)}
-                        />
-                      </Form.Group>
-                      <Button variant="secondary" onClick={() => setEditingReviewId(null)}>
-                        Cancel
-                      </Button>
-                      <Button variant="primary" type="submit">
-                        Save
-                      </Button>
-                    </Form>
-                  ) : (
-                    <>
-                      <strong>{review.customerName}</strong>
-                      <div>
-                        <strong>{review.title}</strong>
-                      </div>
-                      <div>
-                        {review.content}
-                      </div>
-                      <div>
-                        Rating: {review.rating}
-                      </div>
-                      {user?.userId === review.userId && (
-                        <div className="review-actions">
-                          <Button variant="outline-primary" onClick={() => startEditing(review)}>
-                            Edit
-                          </Button>
-                          <Button variant="outline-danger" onClick={() => handleDelete(review.id)}>
-                            Delete
-                          </Button>
-                        </div>
-                      )}
-                    </>
-                  )}
+                  <strong>{review.customerName}</strong>   
+                  <div>
+                    <strong>{review.title}</strong> 
+                  </div>
+                  <div>
+                    {review.content}
+                  </div>
+                  <div>
+                    Rating: {review.rating}
+                  </div>
                 </ListGroup.Item>
               ))}
             </ListGroup>
@@ -217,10 +215,44 @@ function IndividualProduct() {
                 </Button>
               </Form>
             )}
+              <Form onSubmit={handleReviewSubmit} className="review-form">
+                <Form.Group controlId="reviewTitle">
+                  <Form.Label>Review Title</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={reviewTitle}
+                    onChange={(e) => setReviewTitle(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group controlId="reviewRating">
+                  <Form.Label>Rating out of 5</Form.Label>
+                  <Form.Control
+                    type="number"
+                    min="0"
+                    max="5"
+                    step="0.5"
+                    value={reviewRating}
+                    onChange={(e) => setReviewRating(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group controlId="reviewContent">
+                  <Form.Label>Write your review</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={reviewContent}
+                    onChange={(e) => setReviewContent(e.target.value)}
+                  />
+                </Form.Group>
+                <Button variant="primary" type="submit" className="submit-review-btn">
+                  Submit Review
+                </Button>
+              </Form>
           </Col>
         </Row>
       </Container>
     </>
   );
 }
+
 export default IndividualProduct;
