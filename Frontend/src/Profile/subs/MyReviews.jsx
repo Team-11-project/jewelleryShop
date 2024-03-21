@@ -25,16 +25,28 @@ function MyReviews() {
         const found = reviews.find((element) => element.id == id);
         // console.log(found)
         setSelectedReview(found)
+        setFormData({
+            title: found.title,
+            content: found.content,
+            rating: found.rating
+        })
     }
 
+    const resetEdit = () => {
+        setEdit(null)
+        setFormData({
+            title: "",
+            content: "",
+            rating: ""
+        })
+
+    }
 
     const [formData, setFormData] = useState({
         title: "",
-        content: selectedReview?.content,
-        rating: selectedReview?.rating,
+        content: "",
+        rating: "",
     })
-    // console.log(selectedReview.title)
-    console.log(formData)
 
     const getReviews = async (userId) => {
         // const token = authTokens.token
@@ -89,7 +101,8 @@ function MyReviews() {
                     body: JSON.stringify(formData),
                 });
             const res = await req.json();
-            setEdit(null)
+            resetEdit()
+
             notify(res.message)
 
         } catch (error) {
@@ -98,7 +111,6 @@ function MyReviews() {
 
     }
 
-    // console.log(reviews)
     useEffect(() => {
         getReviews(userId)
     }, [edit, selectedReview])
@@ -136,7 +148,7 @@ function MyReviews() {
                                                 }
                                                 {
                                                     edit === review?.id ?
-                                                        <FontAwesomeIcon icon={faRectangleXmark} color='red' onClick={() => setEdit(null)} />
+                                                        <FontAwesomeIcon icon={faRectangleXmark} color='red' onClick={() => resetEdit()} />
                                                         :
                                                         <FontAwesomeIcon color={"red"} icon={faTrash} onClick={() => deleteReview(review.id)} />
                                                 }
@@ -150,7 +162,7 @@ function MyReviews() {
                                         <div className="left">
                                             <ReactStars
                                                 count={5}
-                                                value={review?.rating}
+                                                value={Number(review?.rating)}
                                                 disabled={true}
                                                 size={24}
                                                 color="grey"
@@ -171,13 +183,9 @@ function MyReviews() {
                                                         :
                                                         <FontAwesomeIcon color={"red"} icon={faTrash} onClick={() => deleteReview(review.id)} />
                                                 }
-
-
-
                                             </div>
                                         </div>
                                 }
-
 
                                 {
                                     edit === review?.id
@@ -246,7 +254,9 @@ function MyReviews() {
                 {reviews.length > 0 && (
                     <>
                         {reviews.map(review => (
-                            ReviewComponent(review)
+                            <div className="" key={review?.id}>
+                                {ReviewComponent(review)}
+                            </div>
                         ))}
                     </>
                 )}
