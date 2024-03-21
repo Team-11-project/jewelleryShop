@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn } from "typeorm";
 import { Role } from "./Role.enum";
 import { CartEntity } from "./Cart.entity";
 import { ReviewEntity } from './Review.entity';
@@ -6,35 +6,36 @@ import { FavoriteEntity } from "./Favorite.entity";
 import { AddressEntity } from "./Address.entity";
 import { PaymentInfoEntity } from "./PaymentInfo.entity";
 import { OrderEntity } from "./Order.entity";
+//import { NotificationEntity } from "./Notification.entity"; 
 
 @Entity()
-export class UserEntity{
+export class UserEntity {
     @PrimaryGeneratedColumn()
-    userId: number
+    userId: number;
 
     @Column()
-    firstName: string
+    firstName: string;
 
     @Column()
-    lastName: string
+    lastName: string;
     
     @Column()
-    email: string
+    email: string;
     
     @Column()
-    password: string
+    password: string;
     
     @Column({ type: 'date' })
-    createdAt: Date
+    createdAt: Date;
     
     @Column()
-    isActive: boolean
+    isActive: boolean;
 
     @Column()
-    role: Role
+    role: Role;
 
     @Column()
-    employeeNumber: number
+    employeeNumber: number;
 
     @OneToOne(() => CartEntity)
     @JoinColumn({name: 'cartId'})
@@ -42,24 +43,22 @@ export class UserEntity{
 
     @OneToMany(() => ReviewEntity, review => review.user)
     reviews: ReviewEntity[];
+
     @OneToMany(() => FavoriteEntity, favorite => favorite.user)
     favoriteProducts: FavoriteEntity[];
 
     @OneToMany(() => OrderEntity, order => order.user)
     orders: OrderEntity[];
 
-    // @OneToMany(() => AddressEntity, (address) => address.customer)
-    // addresses: AddressEntity[]
-
     @OneToOne(() => AddressEntity)
     @JoinColumn()
-    address: AddressEntity
-
-    // @OneToMany(() => PaymentInfoEntity, (paymentInfo) => paymentInfo.customer)
-    // payments: PaymentInfoEntity[]
+    address: AddressEntity;
 
     @OneToOne(() => PaymentInfoEntity)
     @JoinColumn()
-    paymentInfo: PaymentInfoEntity
+    paymentInfo: PaymentInfoEntity;
 
+    //@OneToMany(() => NotificationEntity, notification => notification.recipient)
+    //notifications: NotificationEntity[];
+    
 }
