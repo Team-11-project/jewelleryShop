@@ -20,6 +20,7 @@ const Checkout = () => {
   let { authTokens } = useContext(AuthContext)
   const location = useLocation()
   const Cart = location.state
+  console.log(Cart)
 
   const navigate = useNavigate()
   // console.log(Cart)
@@ -27,7 +28,7 @@ const Checkout = () => {
     window.history.back();
   };
 
-  const subtotal = Cart ? Cart.reduce((acc, item) => acc + parseFloat(item.price), 0) : 0;
+  const subtotal = Cart ? Cart.reduce((acc, item) => acc + (parseFloat(item.product.price) * item.qty), 0) : 0;
   const formattedSubtotal = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(subtotal);
   const total = subtotal + 34
   const formattedTotal = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(total);
@@ -215,7 +216,7 @@ const Checkout = () => {
             <>
               <div className="">
                 {Cart.map(item => (
-                  <CheckoutBox key={item.productId} item={item} />
+                  <CheckoutBox key={item.product.productId} item={item} />
                 ))}
               </div>
             </>

@@ -24,8 +24,8 @@ const AddCart = () => {
         })
       const resJson = await response.json();
       if (response.status === 200) {
-        console.log(resJson.products, "response")
-        setItems(resJson.products);
+        console.log(resJson.cartProducts, "response")
+        setItems(resJson.cartProducts);
       } else {
         console.log(resJson);
         alert("error: " + resJson.message)

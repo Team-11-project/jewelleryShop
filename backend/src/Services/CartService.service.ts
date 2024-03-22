@@ -2,7 +2,7 @@ import { CreateAddressDto } from './../Dto/createAddressDto.dto';
 import { CreateOrderDto } from './../Dto/createOrderDto.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { ProductEntity } from 'src/Entities/Product.entity';
 import { CartEntity } from 'src/Entities/Cart.entity';
 import { UserEntity } from 'src/Entities/UserEntity.entity';
@@ -38,18 +38,26 @@ export class CartService {
     private mailService: MailService,
   ) {}
 
-  async addToCart(userId: number, productId: number, quantity:number): Promise<CartEntity> {
+  async addToCart(userId: number, productId: number, quantity:number): Promise<BaseResponse> {
     try {
       // Get or create the cart for the user
       let cart = await this.getOrCreateCart(userId);
   
       // Find the product by productId
       const product = await this.productRepository.findOne({
-        where: { productId },
-      });
+        where: { productId:productId}});
+
+        
 
       if (!product) {
         throw new Error('Product not found');
+      }
+
+      if(product.stock < 1){
+        return {
+          status:400,
+          message:"product is out of stock"
+        }
       }
   
       // Initialize 'products' array if not already initialized
@@ -68,6 +76,7 @@ export class CartService {
       // Check if the product with the given productId is already in the cart
       if (cart.cartProducts.some((cartProd: CartProdEntity) => cartProd.product.productId === product.productId)) {
         // increase qty
+
         oldCartProd.qty += 1
         await this.cartProdRepository.save(oldCartProd)
         // return this.cartRepository.save(cart);
@@ -81,7 +90,12 @@ export class CartService {
       cart.cartProducts.push(newCartProd);
       }
         // Save the updated cart
-       return this.cartRepository.save(cart);
+        await this.cartRepository.save(cart)
+        return {
+          status:200,
+          message:"product added to cart",
+          response: cart
+        }
 
     } catch (error) {
       throw new Error('Error adding to cart: ' + error.message);
@@ -233,10 +247,11 @@ async removeAllFromCart(userId: number): Promise<CartEntity> {
 
     // Check if the cart has products
     if (cart.cartProducts) {
-      const cartProdsLength = cart.cartProducts.length
-      for(let i = 0; i < cartProdsLength; i++){
-        await this.cartProdRepository.delete(await this.cartProdRepository.findOne({where:{id: cart.cartProducts[i].id}}))
-      }
+      // const cartProdsLength = cart.cartProducts.length
+      // for(let i = 0; i < cartProdsLength; i++){
+        // await this.cartProdRepository.delete(await this.cartProdRepository.findOne({where:{id: cart.cartProducts[i].id}}))
+      // }
+      cart.cartProducts = []
       return this.cartRepository.save(cart);
     } else {
       throw new Error('Cart is empty or not found');
@@ -289,7 +304,18 @@ async createOrder(createOrderDto: CreateOrderDto): Promise<BaseResponse> {
         user: {userId: createOrderDto.userId}
       },
     relations: ['cartProducts', 'cartProducts.product']})
-    order.cartProducts = cart.cartProducts
+    const cartProds = cart.cartProducts
+    if(cartProds.length < 1){
+      return{
+        status:400,
+        message:'cart is empty'
+      }
+    }
+    order.cartProducts = []
+    // console.log(cartProds[0])
+    for(let i = 0; i <cartProds.length; i++){
+      order.cartProducts.push(cartProds[i])
+    }
     order.createdAt = new Date
     order.status = OrderStatus.PENDING
     order.totalPrice = createOrderDto.totalPrice
@@ -307,9 +333,16 @@ async createOrder(createOrderDto: CreateOrderDto): Promise<BaseResponse> {
     order.cvc = createOrderDto.cvc
     order.expiryDate = createOrderDto.expiryDate
     
+    
     const newOrder = await this.orderRepository.save(order)
+    // const newOrder = order
 
     if(newOrder){
+      for(let i = 0; i <cartProds.length; i++){
+        const newStock = cartProds[i].product.stock - cartProds[i].qty
+        cartProds[i].product.stock = newStock
+        await this.productRepository.save(cartProds[i].product)
+      }
       this.removeAllFromCart(createOrderDto.userId)
       
         return{
@@ -442,7 +475,7 @@ async getAllOrders(): Promise<BaseResponse>{
   try {
 
     const orders = await this.orderRepository.find(
-      {relations: ['products', 'user']}
+      {relations: ['cartProducts', 'user', 'cartProducts.product']}
     )
     if (orders){
       return{

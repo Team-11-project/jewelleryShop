@@ -1,13 +1,14 @@
-function CheckoutBox ({item}){
-    return (
-        <div className="order-summary-item">
-          <img src={item?.image} alt={item?.name} className="order-item-image" />
-          <div>
-            <p className="item-name">{item?.name}</p>
-            <p className="item-details">Material: {item?.material}</p>
-            <p className="item-price">£{item?.price}</p>
-          </div>
-        </div>
-    )
+function CheckoutBox({ item }) {
+  return (
+    <div className="order-summary-item">
+      <img src={item?.product?.image} alt={item?.product.name} className="order-item-image" />
+      <div>
+        <p className="item-name">{item?.product.name}</p>
+        <p className="item-detail">Material: {item?.product.material}</p>
+        <p className="item-price">£{item?.product.price}</p>
+        <p className="item-price">Qty: {item?.qty}</p>
+      </div>
+    </div>
+  )
 }
 export default CheckoutBox
