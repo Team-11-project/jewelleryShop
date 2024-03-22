@@ -288,7 +288,7 @@ async createOrder(createOrderDto: CreateOrderDto): Promise<BaseResponse> {
       where: {
         user: {userId: createOrderDto.userId}
       },
-    relations: ['products']})
+    relations: ['cartProducts', 'cartProducts.product']})
     order.cartProducts = cart.cartProducts
     order.createdAt = new Date
     order.status = OrderStatus.PENDING
