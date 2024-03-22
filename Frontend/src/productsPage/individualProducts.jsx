@@ -14,6 +14,40 @@ function IndividualProduct() {
   const [reviewContent, setReviewContent] = useState('');
   const [reviewTitle, setReviewTitle] = useState('');
   const [reviewRating, setReviewRating] = useState(0);
+  const [status, setStatus] = useState({
+    message: "",
+    color: ""
+  })
+
+  const style = {
+    color: status.color
+  }
+
+  const StockStatus = (product) => {
+
+    const stock = product?.stock
+    if (stock > 1 && stock <= 5) {
+      setStatus({
+        message: stock + " left in stock ",
+        color: "orange"
+      })
+
+    }
+    else if (stock > 5) {
+      setStatus({
+        message: "In Stock",
+        color: "green"
+      })
+
+    }
+    else {
+      setStatus({
+        message: "Out Of Stock",
+        color: "red"
+      })
+
+    }
+  }
 
   const fetchProductReviews = async () => {
     const res = await fetch(`http://localhost:3001/reviews/review/${product.productId}`);
@@ -25,6 +59,7 @@ function IndividualProduct() {
     if (product?.productId) {
       fetchProductReviews();
     }
+    StockStatus(product)
   }, [product?.productId]);
 
   const handleReviewSubmit = async (event) => {
@@ -111,7 +146,7 @@ function IndividualProduct() {
   //         'Content-Type': 'application/json',
   //       },
   //     });
-    
+
   //     if (response.ok) {
   //       setReviews(reviews.filter((review) => review.id !== reviewId));
   //     } else {
@@ -154,11 +189,24 @@ function IndividualProduct() {
             <h1>{product?.name}</h1>
             <p className="description">{product?.details}</p>
             <p className="price-p mb-4">£{product?.price}</p>
-            <Link to="/addCart" onClick={() => addToCart(product.productId)}>
-              <Button variant="primary" className="add-to-cart-btn">
-                Add to Cart
-              </Button>
-            </Link>
+
+            <p style={style}>{status.message}</p>
+            {
+              product.stock < 1 ?
+                // <Link to="/addCart" onClick={() => addToCart(product.productId)}>
+                <Button variant="danger" className="add-to-cart-btn" active disabled>
+                  Out Of stock
+                </Button>
+                // </Link>
+                :
+                <Link to="/addCart" onClick={() => addToCart(product.productId)}>
+                  <Button variant="primary" className="add-to-cart-btn">
+                    Add to Cart
+                  </Button>
+                </Link>
+
+            }
+
           </Col>
         </Row>
         <Row className="mt-4 review-section">
@@ -167,9 +215,9 @@ function IndividualProduct() {
             <ListGroup className="review-list">
               {reviews.map((review) => (
                 <ListGroup.Item key={review.id} className="review-item">
-                  <strong>{review.customerName}</strong>   
+                  <strong>{review.customerName}</strong>
                   <div>
-                    <strong>{review.title}</strong> 
+                    <strong>{review.title}</strong>
                   </div>
                   <div>
                     {review.content}
@@ -215,39 +263,39 @@ function IndividualProduct() {
                 </Button>
               </Form>
             )}
-              <Form onSubmit={handleReviewSubmit} className="review-form">
-                <Form.Group controlId="reviewTitle">
-                  <Form.Label>Review Title</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={reviewTitle}
-                    onChange={(e) => setReviewTitle(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="reviewRating">
-                  <Form.Label>Rating out of 5</Form.Label>
-                  <Form.Control
-                    type="number"
-                    min="0"
-                    max="5"
-                    step="0.5"
-                    value={reviewRating}
-                    onChange={(e) => setReviewRating(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="reviewContent">
-                  <Form.Label>Write your review</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    value={reviewContent}
-                    onChange={(e) => setReviewContent(e.target.value)}
-                  />
-                </Form.Group>
-                <Button variant="primary" type="submit" className="submit-review-btn">
-                  Submit Review
-                </Button>
-              </Form>
+            <Form onSubmit={handleReviewSubmit} className="review-form">
+              <Form.Group controlId="reviewTitle">
+                <Form.Label>Review Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={reviewTitle}
+                  onChange={(e) => setReviewTitle(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId="reviewRating">
+                <Form.Label>Rating out of 5</Form.Label>
+                <Form.Control
+                  type="number"
+                  min="0"
+                  max="5"
+                  step="0.5"
+                  value={reviewRating}
+                  onChange={(e) => setReviewRating(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId="reviewContent">
+                <Form.Label>Write your review</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={reviewContent}
+                  onChange={(e) => setReviewContent(e.target.value)}
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit" className="submit-review-btn">
+                Submit Review
+              </Button>
+            </Form>
           </Col>
         </Row>
       </Container>
