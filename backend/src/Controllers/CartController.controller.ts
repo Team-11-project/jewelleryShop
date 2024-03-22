@@ -17,17 +17,23 @@ import { EditOrderDto } from 'src/Dto/editOrderDto.dto';
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 
-  @Post('add/:userId/:productId')
-async addToCart(@Param('userId') userId: number, @Param('productId') productId: number) {
-  return this.cartService.addToCart(userId, productId);
+  @Post('add/:userId/:productId/:qty')
+async addToCart(@Param('userId') userId: number, @Param('productId') productId: number, @Param("qty") qty: number) {
+  return this.cartService.addToCart(userId, productId, qty);
 }
 
-@Delete('remove/:userId/:productId')
-async removeFromCart(
+@Delete('deleteFromCart/:userId/:cartProductId')
+async deleteFromCart(
   @Param('userId') userId: number,
-  @Param('productId') productId: number,
+  @Param('cartProductId') cartProductId: number,
 ) {
-  return this.cartService.removeFromCart(userId, productId);
+  return this.cartService.deleteFromCart(userId, cartProductId)
+}
+
+@Delete('reduceQtyinCart/:userId/:cartProductId')
+async reduceQtyinCart(@Param('userId') userId: number, @Param('cartProductId') cartProductId: number,
+) {
+  return this.cartService.reduceQtyInCart(userId, cartProductId);
 }
 
   @Get('getOrCreateCart/:userId')

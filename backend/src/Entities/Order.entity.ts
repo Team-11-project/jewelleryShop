@@ -6,6 +6,7 @@ import { AddressEntity } from "./Address.entity";
 import { UserEntity } from "./UserEntity.entity";
 import { ProductEntity } from "./Product.entity";
 import { ReturnEntity } from "./Return.entity"
+import { CartProdEntity } from "./cartProd.entity";
 
 @Entity()
 export class OrderEntity{
@@ -15,8 +16,8 @@ export class OrderEntity{
     @ManyToOne(() => UserEntity, (user) => user.orders)
     user: UserEntity
 
-    @OneToMany(() => ProductEntity, product => product.order)
-    products: ProductEntity[];
+    @OneToMany(() => CartProdEntity, product => product.order)
+    cartProducts: CartProdEntity[];
 
     @Column()
     createdAt: Date

@@ -39,8 +39,8 @@ export class ProductEntity {
     @Column()
     createdAt: Date
 
-    @ManyToOne(() => CartEntity, cart => cart.products)
-    carts: CartEntity;
+    // @ManyToOne(() => CartEntity, cart => cart.products)
+    // carts: CartEntity;
 
     @OneToMany(() => ReviewEntity, (review) => review.product)
     reviews: ReviewEntity[];
@@ -48,12 +48,12 @@ export class ProductEntity {
     @OneToMany(() => InventoryInbox, inventoryInbox => inventoryInbox.product)
     notifications: InventoryInbox[];
 
-    @ManyToOne(() =>CartEntity, (cart) => cart.products)
+    @ManyToOne(() =>CartEntity, (cart) => cart.cartProducts)
     cart: CartEntity;
 
     @OneToMany(() => FavoriteEntity, favorite => favorite.product)
     favorites: FavoriteEntity[];
 
-    @ManyToOne(() => OrderEntity, order => order.products)
+    @ManyToOne(() => OrderEntity, order => order.cartProducts)
     order: OrderEntity;
 }
