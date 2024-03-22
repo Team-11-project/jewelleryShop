@@ -19,6 +19,6 @@ export class CartProdEntity {
     @Column()
     qty: number
 
-    @ManyToOne(() => OrderEntity, order => order.cartProducts)
+    @ManyToOne(() => OrderEntity, (order) => order.cartProducts)
     order: OrderEntity;
 }

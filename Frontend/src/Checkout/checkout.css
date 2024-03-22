@@ -123,6 +123,7 @@
   .order-summary-item {
       display: flex;
       align-items: center;
+      justify-content: center;
       padding: 10px 0;
       border-bottom: 1px solid #eaeaea;
       margin-bottom: 10px;
@@ -147,6 +148,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  .item-detail {
+    font-family: 'Libre Caslon Display', sans-serif; 
+    font-size: 12px; 
+    color: #555; 
   }
   
   .item-price {

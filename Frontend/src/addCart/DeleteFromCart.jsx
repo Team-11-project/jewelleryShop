@@ -33,13 +33,34 @@ function DeleteFromCart({ getDeletePop, chosenProduct, handleDeleteItem }) {
     }
   };
 
+  const deleteFromCart = async (cartProductId) => {
+    // http://localhost:300/cart/add/userid/productid
+    try {
+      // setIsLoading(true)
+      const userId = user.user.id
+      let response = await fetch(`http://localhost:3001/cart/deleteFromCart/${userId}/${cartProductId}`,
+        {
+          method: "DELETE",
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+      handlePop(false);
+      // const resJson = await response.json();
+    }
+    catch (error) {
+      // setIsLoading(true)
+      console.log(error)
+    }
+  }
+
   return (
     <div className="delete-popup">
       <div className="delete-popup-inner">
         <button className="cancel-btn" onClick={() => handlePop(false)}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
-        <form onSubmit={handleDelete}>
+        <form onSubmit={deleteFromCart(chosenProduct.id)}>
           <div className="left-form"></div>
           <div className="right-form">
             <div className="form-item">

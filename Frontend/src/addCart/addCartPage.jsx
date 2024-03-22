@@ -34,6 +34,27 @@ const AddCartPage = () => {
     setDeletePopup(false);
   };
 
+  const deleteFromCart = async (cartProductId) => {
+    // http://localhost:300/cart/add/userid/productid
+    try {
+      // setIsLoading(true)
+      const userId = user.user.id
+      let response = await fetch(`http://localhost:3001/cart/deleteFromCart/${userId}/${cartProductId}`,
+        {
+          method: "DELETE",
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+      // handlePop(false);
+      // const resJson = await response.json();
+    }
+    catch (error) {
+      // setIsLoading(true)
+      console.log(error)
+    }
+  }
+
   const getCart = async (userId) => {
     try {
       const response = await fetch(`http://localhost:3001/cart/getOrCreateCart/${userId}`, {
@@ -115,7 +136,6 @@ const AddCartPage = () => {
     )
   }
 
-
   return (
     <>
       <AppNavbar />
@@ -140,7 +160,7 @@ const AddCartPage = () => {
                         <FontAwesomeIcon
                           icon={faTrash}
                           className="delete-icon"
-                          onClick={() => handleDeletePopup(item)}
+                          onClick={() => { setEdit(true); deleteFromCart(item.id) }}
                         />
                       </Col>
                     </Row>
@@ -159,14 +179,14 @@ const AddCartPage = () => {
           </Col>
         </Row>
 
-        {deletePopup && (
+        {/* {deletePopup && (
           <DeleteFromCart
             getDeletePop={setDeletePopup}
             chosenProduct={selectedProduct}
             handleDeleteItem={handleDeleteItem}
             user={user}
           />
-        )}
+        )} */}
       </Container>
     </>
   );

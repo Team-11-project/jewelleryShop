@@ -16,7 +16,7 @@ export class OrderEntity{
     @ManyToOne(() => UserEntity, (user) => user.orders)
     user: UserEntity
 
-    @OneToMany(() => CartProdEntity, product => product.order)
+    @OneToMany(() => CartProdEntity, (product) => product.order)
     cartProducts: CartProdEntity[];
 
     @Column()
