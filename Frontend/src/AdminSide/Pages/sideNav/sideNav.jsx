@@ -64,9 +64,9 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                         <div className={page === 2 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(2) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faCartShopping} /></div>
                         </div>
-                        <div className={page === 3 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(3) }}>
+                        {/* <div className={page === 3 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(3) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faCreditCard} /></div>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="bottom-line"></div>
@@ -79,9 +79,9 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                                 </div>
 
                             ))}
-                            <div className={"full-page"} onClick={() => { getIsNewCategory(true) }}>
+                            {/* <div className={"full-page"} onClick={() => { getIsNewCategory(true) }}>
                                 <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
-                            </div>
+                            </div> */}
                         </div>
                     )
                         :
@@ -90,19 +90,19 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                         </div>
                     }
 
-                    {/* <div className="bottom-line"></div>
+                    <div className="bottom-line"></div>
 
                     <div className="full-section insight">
-                        <div className={page === 7 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(7) }}>
+                        <div className={page === 5 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(5) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faCommentDots} /></div>
                         </div>
-                        <div className={page === 8 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(8) }}>
+                        <div className={page === 6 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(6) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faEnvelope} /></div>
                         </div>
 
 
 
-                    </div> */}
+                    </div>
 
                 </div>
             </>
@@ -131,10 +131,10 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                             <div className="full-icon"><FontAwesomeIcon icon={faCartShopping} /></div>
                             <div className="full-page-name">Orders</div>
                         </div>
-                        <div className={page === 3 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(3) }}>
+                        {/* <div className={page === 3 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(3) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faCreditCard} /></div>
                             <div className="full-page-name">Payments</div>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="full-bottom-line"></div>
@@ -149,10 +149,10 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                                 </div>
 
                             ))}
-                            <div className={"full-page"} onClick={() => { getIsNewCategory(true) }}>
+                            {/* <div className={"full-page"} onClick={() => { getIsNewCategory(true) }}>
                                 <div className="full-icon"><FontAwesomeIcon icon={faSquarePlus} /></div>
                                 <div className="full-page-name">New</div>
-                            </div>
+                            </div> */}
                         </div>
                     )
                         :

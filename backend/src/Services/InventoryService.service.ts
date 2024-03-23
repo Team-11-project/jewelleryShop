@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { ProductEntity } from '../Entities/Product.entity';
 import { InventoryInboxService } from './InventoryInboxService.service';
 import { InventoryInbox } from 'src/Entities/InventoryInbox.entity';
+import { BaseResponse } from 'src/Responses/BaseResponse';
 
 @Injectable()
 export class InventoryService {
@@ -13,16 +14,27 @@ export class InventoryService {
     private inventoryInboxService: InventoryInboxService 
   ) {}
 
-  async checkInventoryAndNotify(productId: number) {
+  async checkInventoryAndNotify(productId: number) :Promise<BaseResponse> {
     const product = await this.productRepository.findOne({ where: { productId } });
     if (!product) {
-      throw new Error('Product not found');
+      return {
+        status: 404,
+        message: 'Product not found'
+      }
+    }
+    else{
+      if (product.stock == 0) {
+        return await this.inventoryInboxService.createNotification(`Product is out of stock.`, productId);
+      } else if (product.stock > 1 && product.stock <= 5) {
+        return await this.inventoryInboxService.createNotification(`Stock is low.`, productId);
+      }
+      else {
+        return{
+        status: 204,
+        message: "no new stock alerts"
+      }}
     }
     
-    if (product.stock <= 0) {
-      await this.inventoryInboxService.createNotification(`Product ${product.name} is out of stock.`, productId);
-    } else if (product.stock < 3) {
-      await this.inventoryInboxService.createNotification(`Stock for ${product.name} is low.`, productId);
-    }
+    
   }
 }

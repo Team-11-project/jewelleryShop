@@ -1,29 +1,30 @@
-import { Controller, Post, Delete, Param, Body, HttpCode, HttpStatus, ValidationPipe, Get } from '@nestjs/common';
-import { CreateNotificationDto } from '../Dto/createNotificationDto.dto';
-import { NotificationService } from '../Services/NotificationService.service';
-import { InventoryInboxService } from '../Services/InventoryInboxService.service';
+// import { Controller, Post, Delete, Param, Body, HttpCode, HttpStatus, ValidationPipe, Get } from '@nestjs/common';
+// import { CreateNotificationDto } from '../Dto/createNotificationDto.dto';
+// import { NotificationService } from '../Services/NotificationService.service';
+// import { InventoryInboxService } from '../Services/InventoryInboxService.service';
+// import { ApiTags } from '@nestjs/swagger';
 
-@Controller('notifications')
-export class NotificationController {
-  constructor(
-    private readonly notificationService: NotificationService,
-    private readonly inventoryInboxService: InventoryInboxService // Inject InventoryInboxService
-  ) {}
+// @ApiTags("Notifications Controller (Stock)")
+// @Controller('notifications')
+// export class NotificationController {
+//   constructor(
+//     private readonly notificationService: NotificationService,
+//     private readonly inventoryInboxService: InventoryInboxService // Inject InventoryInboxService
+//   ) {}
 
-  @Post()
-  createNotification(@Body(new ValidationPipe()) createDto: CreateNotificationDto) {
-    console.log(createDto); // For debugging
-    return this.inventoryInboxService.createNotification(createDto.message, createDto.productId);
-  }
+//   @Post()
+//   createNotification(@Body(new ValidationPipe()) createDto: CreateNotificationDto) {
+//     console.log(createDto); // For debugging
+//     return this.notificationService.createNotification(createDto.message, createDto.productId);
+//   }
 
-  @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id') id: string) {
-    return this.notificationService.deleteNotification(+id);
-  }
+//   @Delete(':id')
+//   delete(@Param('id') id: number) {
+//     return this.notificationService.deleteNotification(id);
+//   }
 
-  @Get("getAllNotifications")
-  async getAllNotifications(){
-    return await this.inventoryInboxService.getAllNotifications()
-  }
-}
+//   @Get("getAllNotifications")
+//   async getAllNotifications(){
+//     return await this.inventoryInboxService.getAllNotifications()
+//   }
+// }
