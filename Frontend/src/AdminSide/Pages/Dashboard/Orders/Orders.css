@@ -137,3 +137,31 @@ tbody tr:nth-child(even) {
 .details-button:hover {
   color: #333; 
 }
+
+.prod-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.search-bar {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  margin-bottom: 10px; 
+  width: calc(100% - 10px); 
+}
+
+.search-bar::placeholder {
+  color: #aaa;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: #000000; 
+}
