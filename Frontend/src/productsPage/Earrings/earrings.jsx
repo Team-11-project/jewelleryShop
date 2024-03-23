@@ -8,6 +8,7 @@ import AppNavbar from '../../assets/navbar';
 import AuthContext from '../../Context/AuthContext';
 
 function Earrings() {
+  const imgPath = '../../../src/assets/'
   let { user } = useContext(AuthContext)
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
@@ -66,18 +67,6 @@ function Earrings() {
   useEffect(() => {
     getProducts()
   }, [])
-
-  // const products = [
-  //   { id: 1, name: 'Rolex Oyster Perpetual', price: 8000, image: rolexOyster },
-  //   { id: 2, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 3, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 4, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 5, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 6, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 7, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 8, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 9, name: 'Product 2', price: 30, image: img1 },
-  // ];
 
   const priceOptions = ['100-500', '500-1000', '1000-5000', '5000+'];
   const materialOptions = ['Gold', 'Silver', 'Diamond', 'Gemstone'];
@@ -197,7 +186,7 @@ function Earrings() {
             {AllProducts.map((product) => (
               <Card key={product.productId}>
                 <Link to={`/product/${product.productId}`} state={product}>
-                  <Card.Img variant="top" src={product.image} />
+                  <Card.Img variant="top" src={imgPath + product.image} />
                 </Link>
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>

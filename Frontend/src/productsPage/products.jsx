@@ -9,7 +9,11 @@ import './products.css';
 import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
 
+
+
 function Products() {
+  // const imgPath = "src/assets/"
+  const imgPath = "../../src/assets/"
   let { user } = useContext(AuthContext)
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
@@ -198,7 +202,7 @@ function Products() {
             {AllProducts.map((product) => (
               <Card key={product.productId}>
                 <Link to={`/product/${product.productId}`} state={product}>
-                  <Card.Img variant="top" src={product.image} />
+                  <Card.Img variant="top" src={imgPath + product?.image} />
                 </Link>
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>

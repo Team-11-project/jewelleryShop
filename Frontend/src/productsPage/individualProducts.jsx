@@ -7,6 +7,8 @@ import AuthContext from '../Context/AuthContext';
 import ImageZoomComponent from '../assets/ImageZoomComponent';
 
 function IndividualProduct() {
+  const imgPath = "../../src/assets/"
+
   const location = useLocation();
   const product = location.state;
   let { user } = useContext(AuthContext);
@@ -183,8 +185,8 @@ function IndividualProduct() {
       <Container className="individual-p-container mt-5">
         <Row>
           <Col md={6}>
-            <ImageZoomComponent image={product?.image} />
-            {/* <img src={product?.image} alt={product?.name} className="img-fluid rounded" /> */}
+            <ImageZoomComponent image={imgPath + product?.image} />
+            {/* <img src={imgPath + product?.image} alt={product?.name} className="img-fluid rounded" /> */}
           </Col>
           <Col md={6} className="product-details">
             <h1>{product?.name}</h1>

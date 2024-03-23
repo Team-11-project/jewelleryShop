@@ -8,6 +8,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 
 function Inbox() {
+
+    const imgPath = "../../../../assets/"
     let { authTokens, user } = useContext(AuthContext)
     const notify = (message) => toast(message);
     const userId = user?.user?.id
@@ -93,7 +95,7 @@ function Inbox() {
                 <div className="messageComponent">
                     <div className="topSect">
                         <div className="topLeft">
-                            {/* <img className="prodImg" src={""} alt="image" /> */}
+                            <img className="prodImg" src={imgPath + message?.product?.image} alt="image" />
                             <div className="">
                                 <p>{message?.product.name}</p>
                                 <p className='message'>{message?.message}</p>

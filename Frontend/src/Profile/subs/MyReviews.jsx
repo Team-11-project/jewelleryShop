@@ -11,6 +11,8 @@ import { faPenToSquare, faRectangleXmark, faSquareCheck, faTrash } from '@fortaw
 
 function MyReviews() {
 
+    const imgPath = '../../../src/assets/'
+
     let { authTokens } = useContext(AuthContext)
     const notify = (message) => toast(message);
     let { user } = useContext(AuthContext)
@@ -121,7 +123,7 @@ function MyReviews() {
                 <form action="" >
                     <div className="reviewContainer">
 
-                        <div className="im"><img src={img1} alt="image" /></div>
+                        <div className="im"><img src={imgPath + review?.product?.image} alt="image" /></div>
                         <div className="le">
                             <div className="lev2">
                                 {
