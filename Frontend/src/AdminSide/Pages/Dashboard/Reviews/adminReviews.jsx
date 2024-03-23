@@ -1,7 +1,5 @@
-// AdminReviews.jsx
-
-import React, { useEffect, useState } from 'react';
-import './adminReviews.css'; // Make sure to rename your reviews.css to adminReviews.css
+import React, { useContext, useEffect, useState } from 'react';
+import './adminReviews.css'; 
 import Navbar from '../../navbar/navbar';
 import SideNav from '../../sideNav/sideNav';
 
