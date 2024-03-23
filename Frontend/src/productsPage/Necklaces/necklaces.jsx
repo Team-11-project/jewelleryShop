@@ -44,7 +44,7 @@ function Necklaces() {
   }
 
   const addToCart = async (productId) => {
-   
+
     try {
       // setIsLoading(true)
       const userId = user.user.id
@@ -202,6 +202,8 @@ function Necklaces() {
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text>£{product.price}</Card.Text>
+                  {product.stock < 1 ? <Card.Text className='outOfS'>Out Of Stock </Card.Text> : <></>}
+
                   <div className="card-icons">
                     <a href="#" onClick={() => handleHeartClick(product)}>
                       <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />

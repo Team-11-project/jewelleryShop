@@ -16,11 +16,11 @@ const countries = [
 
 
 const Checkout = () => {
-  let { user } = useContext(AuthContext)
+  let { user, checkStocks } = useContext(AuthContext)
   let { authTokens } = useContext(AuthContext)
   const location = useLocation()
   const Cart = location.state
-  console.log(Cart)
+  // console.log(Cart)
 
   const navigate = useNavigate()
   // console.log(Cart)
@@ -101,6 +101,7 @@ const Checkout = () => {
           navigate('/checkoutComplete')
 
         }, 2000);
+        checkStocks()
 
       }
       else {

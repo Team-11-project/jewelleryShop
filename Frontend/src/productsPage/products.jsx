@@ -19,28 +19,6 @@ function Products() {
   const [showFilters, setShowFilters] = useState(false);
   const [AllProducts, setAllProducts] = useState([])
 
-  const StockStatus = (product) => {
-    const status = {
-      message: "",
-      color: ""
-    }
-    const stock = product?.stock
-    if (stock > 1 && stock <= 5) {
-      status.message = stock + " left in stock "
-      status.color = "orange"
-    }
-    else if (stock > 5) {
-      status.message = "In Stock"
-      status.color = "green"
-    }
-    else {
-      status.message = "Out Of Stock"
-      status.color = "red"
-    }
-    return status
-  }
-
-
   const getProducts = async () => {
     try {
       // setIsLoading(true)

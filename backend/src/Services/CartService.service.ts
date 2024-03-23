@@ -47,8 +47,6 @@ export class CartService {
       const product = await this.productRepository.findOne({
         where: { productId:productId}});
 
-        
-
       if (!product) {
         throw new Error('Product not found');
       }
@@ -79,6 +77,12 @@ export class CartService {
 
         oldCartProd.qty += 1
         await this.cartProdRepository.save(oldCartProd)
+        await this.cartRepository.save(cart)
+        return {
+          status:200,
+          message:"product added to cart",
+          response: cart
+        }
         // return this.cartRepository.save(cart);
        
       }
@@ -475,7 +479,10 @@ async getAllOrders(): Promise<BaseResponse>{
   try {
 
     const orders = await this.orderRepository.find(
-      {relations: ['cartProducts', 'user', 'cartProducts.product']}
+      {relations: ['cartProducts', 'user', 'cartProducts.product'],
+    order:{
+      id: "ASC"
+    }}
     )
     if (orders){
       return{

@@ -1,6 +1,8 @@
 .displayT{
     font-size: 1.8rem;
     border-bottom: 2px solid rgb(207, 207, 207);
+    display: flex;
+    justify-content: space-between;
 }
 .editBtn{
     text-decoration: underline;
@@ -55,7 +57,6 @@
 
 .im{
     width: 20%;
-
 }
 .le{
     width: 75%
@@ -82,5 +83,96 @@
     column-gap: 30%;
     font-size: 1.2rem;
 }
+
+.ordersContainer{
+    margin-top: 10px;
+    /* border: 3px solid red; */
+    max-height: 60vh; /*change to max */
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vh;
+}
+
+.orderBox{
+    /* border: 1px solid black; */
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    /* height: 12vh; */
+}
+
+.orderBox p{
+    margin-bottom: 2px;
+}
+
+.viewOrderPopContainer {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    font-family: 'Libre Caslon Display', sans-serif;
+    }
+
+.viewOrderPop {
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 30px 20px 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+    min-width: 60%;
+    min-height: 70vh;
+}
+
+.orderNumber{
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgb(207, 207, 207);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.orderNumber p{
+    margin: 5px;
+}
+.items{
+    display: flex;
+    justify-content: space-between;
+    column-gap: 5%;
+}
+.itemContainer{
+    padding: 10px;
+    /* width: 15vw; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mid{
+    margin-top: 10px;
+    border-bottom: 1px solid rgb(207, 207, 207);
+}
+
+.itemContainer img{
+    width: 10vw;
+    height: 10vh;
+}
+
+.address{
+    margin-top: 20px;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
 
 

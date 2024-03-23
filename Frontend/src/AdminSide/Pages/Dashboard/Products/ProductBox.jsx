@@ -93,15 +93,17 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDelet
                             <div className="val">300</div>
                         </div>
                     </div> */}
+
+
                     <div className="b-line"></div>
-                    <div className="grey-box-2">
+                    <div className={product.stock < 1 ? "outStock" : product.stock > 1 && product.stock < 5 ? "lowStock" : "grey-box-2"}>
                         <div className="level l2">
                             <div className="titl">Stock level:</div>
                             <div className="val">{product?.stock}</div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
