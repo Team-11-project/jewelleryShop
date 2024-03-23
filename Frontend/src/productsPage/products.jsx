@@ -19,6 +19,27 @@ function Products() {
   const [showFilters, setShowFilters] = useState(false);
   const [AllProducts, setAllProducts] = useState([])
 
+  const StockStatus = (product) => {
+    const status = {
+      message: "",
+      color: ""
+    }
+    const stock = product?.stock
+    if (stock > 1 && stock <= 5) {
+      status.message = stock + " left in stock "
+      status.color = "orange"
+    }
+    else if (stock > 5) {
+      status.message = "In Stock"
+      status.color = "green"
+    }
+    else {
+      status.message = "Out Of Stock"
+      status.color = "red"
+    }
+    return status
+  }
+
 
   const getProducts = async () => {
     try {
@@ -50,7 +71,7 @@ function Products() {
     try {
       // setIsLoading(true)
       const userId = user.user.id
-      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}`,
+      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}/1`,
         {
           method: "POST",
           headers: {
@@ -204,6 +225,8 @@ function Products() {
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text>£{product.price}</Card.Text>
+                  {product.stock < 1 ? <Card.Text className='outOfS'>Out Of Stock </Card.Text> : <></>}
+
                   <div className="card-icons">
                     <a href="#" onClick={() => handleHeartClick(product)}>
                       <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />

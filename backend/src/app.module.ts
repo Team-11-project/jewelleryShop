@@ -40,6 +40,7 @@ import { NotificationService } from './Services/NotificationService.service';
 import { NotificationController } from './Controllers/NotificationController.controller';
 import { NotificationEntity } from './Entities/Notification.entity';
 import { InventoryInboxService } from './Services/InventoryInboxService.service';
+import { CartProdEntity } from './Entities/cartProd.entity';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -98,7 +99,7 @@ import { InventoryInboxService } from './Services/InventoryInboxService.service'
       //   IntegratedSecurity: false,
       //   }
 }),
-TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, FavoriteEntity, PaymentInfoEntity, AddressEntity, InventoryInbox, ReturnEntity, NotificationEntity]),
+TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, FavoriteEntity, PaymentInfoEntity, AddressEntity, InventoryInbox, ReturnEntity, NotificationEntity, CartProdEntity]),
 
   ],
   controllers: [ProductsController,CartController, OrdersController, ReviewController, ReviewController, NotificationController],

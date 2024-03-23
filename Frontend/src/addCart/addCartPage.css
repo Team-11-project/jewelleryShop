@@ -79,3 +79,33 @@
 .checkout-btn:hover {
   background-color: gold;
 }
+
+.qtyComponent{
+  max-width: fit-content;
+  border: 3px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius:5px
+
+}
+
+.increase, .reduce{
+  /* border: 3px solid red; */
+  color: black;
+  font-size: 1.2rem;
+  /* border-left: 1px solid black;
+  border-bottom:1px solid black ;
+  border-top: 1px solid black ; */
+}
+
+.qty{
+  /* border: 3px solid blue; */
+  font-size: 1.2rem;
+  padding-left: 5px ;
+  padding-right: 5px ;
+  border-left: 1px solid black;
+  border-right:1px solid black ;
+}
+
+/* .decrease{} */

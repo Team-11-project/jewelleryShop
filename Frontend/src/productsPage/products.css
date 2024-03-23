@@ -1,6 +1,10 @@
 .products-container {
     padding: 4em 0;
 }
+
+.outOfS{
+    color:red !important;
+}
  
 .products-intro {
     text-align: center;
