@@ -155,12 +155,13 @@ function IndividualProduct() {
   //   }
   // }        
 
+
   const addToCart = async (productId) => {
     // http://localhost:3001/cart/add/userid/productid
     try {
       // setIsLoading(true)
       const userId = user.user.id
-      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}`,
+      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}/1`,
         {
           method: "POST",
           headers: {
@@ -192,12 +193,11 @@ function IndividualProduct() {
 
             <p style={style}>{status.message}</p>
             {
-              product.stock < 1 ?
-                // <Link to="/addCart" onClick={() => addToCart(product.productId)}>
+              product.stock < 1
+                ?
                 <Button variant="danger" className="add-to-cart-btn" active disabled>
                   Out Of stock
                 </Button>
-                // </Link>
                 :
                 <Link to="/addCart" onClick={() => addToCart(product.productId)}>
                   <Button variant="primary" className="add-to-cart-btn">

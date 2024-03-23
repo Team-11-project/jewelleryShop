@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./dashboard.css"
 import Navbar from '../navbar/navbar'
 import SideNav from '../sideNav/sideNav'
@@ -7,6 +7,8 @@ import Products from './Products/Products'
 import NewCategory from './Products/popups/newCategory/newCategory'
 import EditCategory from './Products/popups/editCategory/editCategory'
 import Orders from './Orders/Orders'
+import Inbox from './Inbox/Inbox'
+import AuthContext from '../../../Context/AuthContext'
 
 
 function Dashboard() {
@@ -48,6 +50,9 @@ function Dashboard() {
         }
         if (page == 2) {
             return <Orders />;
+        }
+        if (page == 6) {
+            return <Inbox />;
         }
     }
 

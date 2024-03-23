@@ -35,6 +35,7 @@ import Earrings from './productsPage/Earrings/earrings.jsx';
 import Watches from './productsPage/Watches/watches.jsx';
 
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -51,8 +52,22 @@ function App() {
   // console.log(currentURL)
 
   return (
+
     <Router>
       <AuthProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition:Bounce
+        />
         {/* {
           currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <AppNavbar />
         } */}

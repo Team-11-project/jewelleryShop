@@ -91,8 +91,29 @@
     padding-left: 30px;
     padding-right: 30px;
     border-radius: 10px 10px 10px 10px;
-    border: 1px solid black;
-  
+    border: 2px solid green;
+}
+
+.outStock{
+    background-color: #F1F1F1;
+    width: 76%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 10px 10px 10px 10px;
+    border: 2px solid red;
+}
+
+.lowStock{
+    background-color: #F1F1F1;
+    width: 76%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 10px 10px 10px 10px;
+    border: 2px solid orange;
 }
 
 .level{
