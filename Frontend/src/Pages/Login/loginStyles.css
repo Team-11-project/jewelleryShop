@@ -66,6 +66,10 @@
     font-size: 1vw;
 }
 
+.pwd{
+    font-size: 1vw;
+}
+
 .inWith{
     text-decoration: underline;
     margin-bottom: 15px;
@@ -180,6 +184,11 @@
     .acc{
         font-size: 2vw;
     }
+
+    .acc{
+        font-size: 2vw;
+    }
+
 
     .inWith{
         font-size: 1.8vw;
