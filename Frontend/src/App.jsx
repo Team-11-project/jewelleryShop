@@ -43,8 +43,6 @@ import AboutUs from './about us/about.jsx';
 import ProfilePage from './Profile/ProfilePage.jsx';
 
 library.add(faHome, faTh, faInfo, faStar);
-toast.configure();
-
 function App() {
 
   const currentURL = window.location.pathname
