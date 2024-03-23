@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './subs.css'
 import AuthContext from '../../Context/AuthContext'
+import { ToastContainer, toast } from 'react-toastify';
 
 function PersonalInfo({ userInfo }) {
+
+    const notify = (message) => toast(message);
 
     let { user, logoutUser } = useContext(AuthContext)
     const [edit, setEdit] = useState(false)
@@ -16,7 +19,6 @@ function PersonalInfo({ userInfo }) {
 
     const handleSubmit = async (e) => {
         // e.preventDefault()
-        console.log("hello")
         // 
         try {
             const req = await fetch(` http://localhost:3001/auth/updateUser/${user.user.id}`,
@@ -31,10 +33,10 @@ function PersonalInfo({ userInfo }) {
             const res = await req.json();
             if (res.status === 200) {
                 // console.log("done")
-                alert("your data has been updated. Please log in again")
-                logoutUser()
+                notify("your data has been updated.")
+                // logoutUser()
             } else {
-                alert("error: " + res.message);
+                notify("error: " + res.message);
             }
         } catch (error) {
             console.log(error)
@@ -42,12 +44,27 @@ function PersonalInfo({ userInfo }) {
         }
     }
 
+    useEffect(() => { }, [edit])
+
 
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition:Bounce
+            />
             <div className="displayT">Personal Info</div>
-            {edit === false ? <div className="editBtn" onClick={() => { setEdit(true) }}>Edit</div>
+            {edit === false ? <div className="editBtn" onClick={() => { setEdit(true); }}>Edit</div>
                 :
                 <div className="editBtn" onClick={() => { setEdit(false) }}>Cancel</div>}
 

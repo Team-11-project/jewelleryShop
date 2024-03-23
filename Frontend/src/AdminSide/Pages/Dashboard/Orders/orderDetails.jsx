@@ -1,4 +1,3 @@
-// OrderDetails.js
 import React, { useState, useContext, useEffect } from 'react';
 import './OrderDetails.css';
 import AuthContext from '../../../../Context/AuthContext';
@@ -86,17 +85,15 @@ const OrderDetails = ({ orderId, closePopup }) => {
         throw new Error('Failed to update order status.');
       }
   
-      // Assuming your API returns the updated order details after the update
       const updatedData = await response.json();
       console.log('Updated Order Details:', updatedData);
       setOrderDetails({ ...orderDetails, status: updatedData.status });
-      setEditMode(false); // Exiting edit mode after successful update
+      setEditMode(false); 
     } catch (error) {
       console.error("Error updating order status:", error);
     }
   };
 
-  // Function to mask card number except the last four digits
   const maskCardNumber = (cardNumber) => cardNumber.slice(-4).padStart(cardNumber.length, '*');
   const updateOrderInformation = async (info) => {
     try {
@@ -122,7 +119,6 @@ const OrderDetails = ({ orderId, closePopup }) => {
 
   const updateOrderStatus = async (newStatus) => {
     try {
-      // Convert the status value to lowercase
       const lowercaseStatus = newStatus.toLowerCase();
   
       const response = await fetch(`http://localhost:3001/cart/updateOrderStatus/${orderId}`, {
@@ -164,7 +160,6 @@ const OrderDetails = ({ orderId, closePopup }) => {
           <button onClick={closePopup} className="close-button">X</button>
         </div>
         <div className="order-details-body">
-          {/* Summary Section */}
           <div className="summary-section">
             <h3>Summary</h3>
             <p>Date: {new Date(orderDetails.createdAt).toLocaleDateString()}</p>
@@ -188,8 +183,6 @@ const OrderDetails = ({ orderId, closePopup }) => {
               )}
             </div>
           </div>
-  
-          {/* Customer Information Section */}
           <div className="customer-info-section">
             <h3>Customer Information</h3>
             {editMode ? (
@@ -212,8 +205,6 @@ const OrderDetails = ({ orderId, closePopup }) => {
               </>
             )}
           </div>
-
-          {/* Payment Information Section */}
           <div className="payment-info-section">
             <h3>Payment Information</h3>
             <p>Card Holder: {orderDetails.cardHolder}</p>

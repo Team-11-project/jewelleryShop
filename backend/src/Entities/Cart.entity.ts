@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn
 import { UserEntity } from './UserEntity.entity'; 
 import { ProductEntity } from './Product.entity'; 
 import { OrderEntity } from './Order.entity';
+import { CartProdEntity } from './cartProd.entity';
 
 @Entity('cart')
 export class CartEntity {
@@ -12,8 +13,11 @@ export class CartEntity {
     @JoinColumn()
     user: UserEntity;
 
-    @OneToMany(() => ProductEntity, product => product.cart)
-    products: ProductEntity[];
+    // @OneToMany(() => ProductEntity, product => product.cart)
+    // products: ProductEntity[];
+
+    @OneToMany(() => CartProdEntity, product => product.cart, {onDelete: 'CASCADE'})
+    cartProducts: CartProdEntity[];
 
     @Column()
     isSubmitted: Boolean
