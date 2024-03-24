@@ -82,11 +82,11 @@ function AppNavbar() {
               {/* <Nav.Link className="nav-link-custom" as={Link} to="/best-sellers">Best Sellers</Nav.Link> */}
               {user ? <Nav.Link onClick={logoutUser} className="nav-link-custom" as={Link} to="/">Logout</Nav.Link> : <Nav.Link className="nav-link-custom" as={Link} to="/login">Login</Nav.Link>}
               <Nav.Link className="nav-link-custom" as={Link} to="/contact">Contact</Nav.Link>
-              {role === "admin" ? <Nav.Link className="nav-link-custom" as={Link} to="/dashboard">Dashboard</Nav.Link> : <></>}
+              {role == "admin" ? <Nav.Link className="nav-link-custom" as={Link} to="/dashboard">Dashboard</Nav.Link> : <></>}
             </Nav>
             <Nav>
-            <Nav.Link onClick={toggleSearch} className="nav-link-icons">
-              <FontAwesomeIcon icon={searchVisible ? faTimes : faSearch} />
+              <Nav.Link onClick={toggleSearch} className="nav-link-icons">
+                <FontAwesomeIcon icon={searchVisible ? faTimes : faSearch} />
               </Nav.Link>
               <Nav.Link className="nav-link-icons">
                 <FontAwesomeIcon icon={faHeart} />
