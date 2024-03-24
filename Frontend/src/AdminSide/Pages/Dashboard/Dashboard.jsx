@@ -9,6 +9,7 @@ import EditCategory from './Products/popups/editCategory/editCategory'
 import Orders from './Orders/Orders'
 import Inbox from './Inbox/Inbox'
 import AuthContext from '../../../Context/AuthContext'
+import AdminReviews from './Reviews/adminReviews'
 
 
 function Dashboard() {
@@ -50,6 +51,9 @@ function Dashboard() {
         }
         if (page == 2) {
             return <Orders />;
+        }
+        if (page == 5){
+            return <AdminReviews/>
         }
         if (page == 6) {
             return <Inbox />;
