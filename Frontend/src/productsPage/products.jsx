@@ -8,8 +8,12 @@ import rolexOyster from './rolexOyster.jpg'
 import './products.css';
 import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Products() {
+  const notify = (message) => toast(message);
+  // const imgPath = "src/assets/"
+  const imgPath = "../../src/assets/"
   let { user } = useContext(AuthContext)
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedSort, setSelectedSort] = useState(null);
@@ -76,7 +80,11 @@ function Products() {
             'Content-Type': 'application/json',
           }
         })
-      // const resJson = await response.json();
+
+      const resJson = await response.json();
+      if (resJson.status == 200) {
+        notify(resJson.message)
+      }
     }
     catch (error) {
       // setIsLoading(true)
@@ -211,7 +219,7 @@ function Products() {
             {sortedProducts.map((product) => (
               <Card key={product.productId}>
                 <Link to={`/product/${product.productId}`} state={product}>
-                  <Card.Img variant="top" src={product.image} />
+                <Card.Img variant="top" src={imgPath + product?.image} />
                 </Link>
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
@@ -220,9 +228,9 @@ function Products() {
                     <a href="#!" onClick={() => { /* Add to Favorites logic */ }}>
                       <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
                     </a>
-                    <Link to="/cart" onClick={() => { /* Add to Cart logic */ }}>
-                      <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
-                    </Link>
+                    {/* <Link to="/addCart" onClick={() => addToCart(product?.productId)}> */}
+                    <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} onClick={() => addToCart(product?.productId)} />
+                    {/* </Link> */}
                   </div>
                 </Card.Body>
               </Card>

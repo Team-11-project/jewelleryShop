@@ -19,7 +19,7 @@ function OrderSummany({ order, getView }) {
                     <div className="infoSide">
                         {/* <p>{item?.product?.name}</p>
                         <p>Price: £{item?.product?.price}</p> */}
-                        <button className='reviewCreate'>create review</button>
+                        <button className='reviewCreate'>Create Review</button>
                         <p>Qty: {item.qty}</p>
                     </div>
 
