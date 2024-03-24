@@ -253,7 +253,7 @@ function MyReviews() {
             />
             <div className="displayT" >My Reviews</div>
             <div className="reviews">
-                {reviews.length > 0 && (
+                {reviews.length > 0 ? (
                     <>
                         {reviews.map(review => (
                             <div className="" key={review?.id}>
@@ -261,7 +261,10 @@ function MyReviews() {
                             </div>
                         ))}
                     </>
-                )}
+                )
+                    :
+                    ("No Reviews yet")
+                }
             </div>
 
         </>

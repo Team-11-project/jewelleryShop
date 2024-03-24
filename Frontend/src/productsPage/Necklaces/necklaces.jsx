@@ -6,9 +6,12 @@ import { Link } from 'react-router-dom';
 import './necklaces.css';
 import AppNavbar from '../../assets/navbar';
 import AuthContext from '../../Context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Necklaces() {
   const imgPath = '../../../src/assets/'
+  const notify = (message) => toast(message);
+
   let { user } = useContext(AuthContext)
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
@@ -35,7 +38,7 @@ function Necklaces() {
         setAllProducts(resJson.response);
       } else {
         console.log(resJson);
-        alert("error: " + resJson.message)
+        notiify("error: " + resJson.message)
       }
     }
     catch (error) {
@@ -56,7 +59,10 @@ function Necklaces() {
             'Content-Type': 'application/json',
           }
         })
-      // const resJson = await response.json();
+      const resJson = await response.json();
+      if (resJson.status == 200) {
+        notify(resJson.message)
+      }
     }
     catch (error) {
       // setIsLoading(true)
@@ -197,9 +203,9 @@ function Necklaces() {
                     <a href="#" onClick={() => handleHeartClick(product)}>
                       <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
                     </a>
-                    <Link to="/addCart" onClick={() => addToCart(product?.productId)}>
-                      <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
-                    </Link>
+                    {/* <Link to="/addCart" onClick={() => addToCart(product?.productId)}> */}
+                    <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} onClick={() => addToCart(product?.productId)} />
+                    {/* </Link> */}
                   </div>
                 </Card.Body>
               </Card>

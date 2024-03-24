@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function Inbox() {
 
-    const imgPath = "../../../../assets/"
+    const imgPath = "../../../src/assets/"
     let { authTokens, user } = useContext(AuthContext)
     const notify = (message) => toast(message);
     const userId = user?.user?.id
@@ -99,6 +99,7 @@ function Inbox() {
                             <div className="">
                                 <p>{message?.product.name}</p>
                                 <p className='message'>{message?.message}</p>
+                                <p>{message?.createdAt.split("T")[0]}</p>
                             </div>
 
                         </div>

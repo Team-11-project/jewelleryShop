@@ -8,10 +8,10 @@ import rolexOyster from './rolexOyster.jpg'
 import './products.css';
 import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
-
-
+import { ToastContainer, toast } from 'react-toastify';
 
 function Products() {
+  const notify = (message) => toast(message);
   // const imgPath = "src/assets/"
   const imgPath = "../../src/assets/"
   let { user } = useContext(AuthContext)
@@ -82,7 +82,11 @@ function Products() {
             'Content-Type': 'application/json',
           }
         })
-      // const resJson = await response.json();
+
+      const resJson = await response.json();
+      if (resJson.status == 200) {
+        notify(resJson.message)
+      }
     }
     catch (error) {
       // setIsLoading(true)
@@ -235,9 +239,9 @@ function Products() {
                     <a href="#" onClick={() => handleHeartClick(product)}>
                       <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
                     </a>
-                    <Link to="/addCart" onClick={() => addToCart(product?.productId)}>
-                      <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
-                    </Link>
+                    {/* <Link to="/addCart" onClick={() => addToCart(product?.productId)}> */}
+                    <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} onClick={() => addToCart(product?.productId)} />
+                    {/* </Link> */}
                   </div>
                 </Card.Body>
               </Card>
