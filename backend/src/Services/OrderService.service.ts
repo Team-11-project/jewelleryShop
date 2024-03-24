@@ -125,5 +125,25 @@ export class OrderService {
         return await this.returnRepository.save(returnEntity);
     }
 
+    async getReturnsByUser(userId: number): Promise<ReturnEntity[]> {
+        try {
+            const returns = await this.returnRepository.find({
+                where: {
+                    order: {
+                        user: { userId }
+                    }
+                },
+                relations: ['order', 'order.user']
+            });
+            if (returns.length === 0) {
+                throw new NotFoundException('No returns found for the specified user');
+            }
+            return returns;
+        } catch (error) {
+            this.logger.error(`Failed to get returns for user with ID ${userId}`, error.stack);
+            throw new InternalServerErrorException('Failed to get returns');
+        }
+    }
+
 }
 

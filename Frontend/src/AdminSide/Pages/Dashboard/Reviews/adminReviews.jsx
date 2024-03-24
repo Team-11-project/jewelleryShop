@@ -7,9 +7,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AdminReviews = () => {
-  const { authTokens } = useContext(AuthContext);
+  const { authTokens, user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
-
+  console.log(user);
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -60,7 +60,7 @@ const AdminReviews = () => {
         {reviews.length > 0 ? (
           reviews.map(review => (
             <div key={review.id} className="admin-review-item">
-              <h4 className="admin-review-name">{review.customerName} </h4>
+              <h4 className="admin-review-name">{review.user.firstName} {review.user.lastName} </h4>
               <h5 className="admin-review-title">{review.title}</h5>
               <div className="admin-review-description">{review.content}</div>
               <div className="admin-review-rating">
