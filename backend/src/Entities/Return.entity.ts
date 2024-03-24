@@ -22,7 +22,7 @@ export class ReturnEntity {
   totalPrice: number;
 
   @Column({ type: 'simple-array', nullable: true }) // Example for storing product IDs as an array
-  returnedProducts: number[];
+  returnedProductsIds: number[];
 
 }
 

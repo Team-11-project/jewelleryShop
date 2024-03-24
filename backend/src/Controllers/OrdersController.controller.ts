@@ -71,11 +71,11 @@ export class OrdersController {
       }
   }
 
-  @Post(":id/returns")
+  @Post(":orderId/returns")
   async createReturn(
-      @Param('id', ParseIntPipe) orderId: number,
+      @Param('orderId', ParseIntPipe) orderId: number,
       @Body() createReturnDto: CreateReturnDto
-  ): Promise<ReturnEntity> {
+  ): Promise<BaseResponse> {
       return await this.orderService.createReturn(orderId, createReturnDto);
   }
 
