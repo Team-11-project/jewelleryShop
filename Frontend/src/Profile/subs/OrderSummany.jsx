@@ -38,7 +38,7 @@ function OrderSummany({ order, getView }) {
     }
 
     useEffect(() => {
-        console.log(selectedItem)
+        // console.log(selectedItem)
     }, [isReview, selectedItem])
     // console.log(order, "summary page")
     return (
