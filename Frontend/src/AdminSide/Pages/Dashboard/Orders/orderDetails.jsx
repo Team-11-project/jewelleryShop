@@ -209,7 +209,7 @@ const OrderDetails = ({ orderId, closePopup }) => {
             <h3>Payment Information</h3>
             <p>Card Holder: {orderDetails.cardHolder}</p>
             <p>Card Number: {maskCardNumber(orderDetails.cardNumber)}</p>
-            <p>Expiry Date: {new Date(orderDetails.expiryDate).toISOString().substring(0, 10)}</p>
+            <p>Expiry Date: {new Date(orderDetails.expiryDate).toLocaleDateString()}</p>
           </div>
         </div>
       </div>
