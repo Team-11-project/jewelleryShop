@@ -12,7 +12,7 @@ export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
   @Post('createReview/:productId')
-  create(@Param("productId") productId: number, @Body() createReviewDto: CreateReviewDto) { 
+  create(@Param("productId") productId: number, @Body() createReviewDto: CreateReviewDto): Promise<BaseResponse> { 
     return this.reviewService.create(createReviewDto, productId); 
   }
 

@@ -19,25 +19,60 @@ export class ReviewService {
         private productRepository: Repository<ProductEntity>,
   ) {}
 
-  async create(createReviewDto: CreateReviewDto, productId: number): Promise<ReviewEntity> {
+  async create(createReviewDto: CreateReviewDto, productId: number): Promise<BaseResponse> {
     const user = await this.userRepository.findOne({ where: { userId: createReviewDto.userId } });
     if (!user) {
-      throw new Error('User not found');
+      return {
+        status:404,
+        message: "User not found"
+      }
     }
 
     // const review = this.reviewRepository.create({
     //   ...createReviewDto,
     //   user,
     // });
-    const newreview = new ReviewEntity()
+
+    const product = await this.productRepository.findOne({where: {productId: productId}}) 
+    if(!product){
+      return {
+        status:404,
+        message: "Product not found"
+      }
+    }
+
+    const existingReview = await this.reviewRepository.findOne(
+      {
+        where: {
+          user:user,
+          product:product
+        }
+      }
+    )
+    if(!existingReview){
+      const newreview = new ReviewEntity()
     newreview.content= createReviewDto.content
     newreview.customerName= createReviewDto.customerName
     newreview.user= user
     newreview.rating= createReviewDto.rating
     newreview.isWebsiteReview= createReviewDto.isWebsiteReview
-    newreview.product= await this.productRepository.findOne({where: {productId: productId}}) 
+    newreview.product= product
     newreview.title= createReviewDto.title
-    return await this.reviewRepository.save(newreview);
+    await this.reviewRepository.save(newreview);
+    return {
+      status:200,
+      message: "Review created",
+      response: newreview
+    }
+    }
+    else{
+      return {
+        status:400,
+        message: "You already have a review for this product"
+      }
+    }
+    
+   
   }
 
   async findByProductId(productId: number): Promise<ReviewEntity[]> {
