@@ -198,7 +198,7 @@ const OrderDetails = ({ orderId, closePopup }) => {
               </>
             ) : (
               <>
-                <p>Name: {orderDetails.user?.firstName} {orderDetails.lastName}</p>
+                <p>Name: {orderDetails.user?.firstName} {orderDetails.user?.lastName}</p>
                 <p>Email: {orderDetails.user?.email}</p>
                 <p>Address: {orderDetails.address}, {orderDetails.city}, {orderDetails.postcode}, {orderDetails.country}</p>
                 <FaPencilAlt onClick={handleEditClick} className="edit-icon" />
@@ -209,7 +209,7 @@ const OrderDetails = ({ orderId, closePopup }) => {
             <h3>Payment Information</h3>
             <p>Card Holder: {orderDetails.cardHolder}</p>
             <p>Card Number: {maskCardNumber(orderDetails.cardNumber)}</p>
-            <p>Expiry Date: {orderDetails.expiryDate}</p>
+            <p>Expiry Date: {new Date(orderDetails.expiryDate).toLocaleDateString()}</p>
           </div>
         </div>
       </div>
