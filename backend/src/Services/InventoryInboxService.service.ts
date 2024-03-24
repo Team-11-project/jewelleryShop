@@ -35,10 +35,10 @@ export class InventoryInboxService {
   
       
       if (!existingNotification) {
-        const notification = this.inventoryInboxRepository.create({
-          message,
-          product
-      });
+        const notification = new InventoryInbox()
+        notification.createdAt = new Date()
+        notification.message = message
+        notification.product = product
       const newNot = this.inventoryInboxRepository.save(notification);
       return {
         status: 200,

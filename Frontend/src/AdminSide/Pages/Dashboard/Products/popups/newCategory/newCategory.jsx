@@ -3,8 +3,10 @@ import './newCategory.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '../../../../../../Context/AuthContext';
+import { toast } from 'react-toastify';
 
 function NewCategory({ getPop }) {
+    const notify = (message) => { toast(message) }
 
     let { authTokens } = useContext(AuthContext)
 
@@ -33,6 +35,7 @@ function NewCategory({ getPop }) {
             });
             const res = await req.json();
             if (res.status === 200) {
+                notify(res.message)
                 handlePop()
             } else {
                 alert("error: " + res.message);
@@ -57,8 +60,8 @@ function NewCategory({ getPop }) {
                             name="categoryName"
                             value={formData.categoryName}
                             onChange={(e) => setFormData({ ...formData, categoryName: e.target.value })}
-                            placeholder="Type name here" 
-                        /> 
+                            placeholder="Type name here"
+                        />
                     </div>
                     <div className="form-item">
                         <label>Category Description:</label>
@@ -66,7 +69,7 @@ function NewCategory({ getPop }) {
                             name="categoryDescription"
                             value={formData.categoryDescription}
                             onChange={(e) => setFormData({ ...formData, categoryDescription: e.target.value })}
-                            placeholder="Type description here" 
+                            placeholder="Type description here"
                         />
                     </div>
                     <div className="create-category">

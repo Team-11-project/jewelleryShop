@@ -5,8 +5,12 @@ import './individualProducts.css';
 import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
 import ImageZoomComponent from '../assets/ImageZoomComponent';
+import { ToastContainer, toast } from 'react-toastify';
 
 function IndividualProduct() {
+  const imgPath = "../../src/assets/"
+  const notify = (message) => toast(message);
+
   const location = useLocation();
   const product = location.state;
   let { user } = useContext(AuthContext);
@@ -169,7 +173,9 @@ function IndividualProduct() {
           }
         })
       const resJson = await response.json();
-      console.log(resJson)
+      // if (resJson.status == 200) {
+      notify(resJson.message)
+      // }
     }
     catch (error) {
       // setIsLoading(true)
@@ -180,11 +186,24 @@ function IndividualProduct() {
   return (
     <>
       <AppNavbar />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
       <Container className="individual-p-container mt-5">
         <Row>
           <Col md={6}>
-            <ImageZoomComponent image={product?.image} />
-            {/* <img src={product?.image} alt={product?.name} className="img-fluid rounded" /> */}
+            <ImageZoomComponent image={imgPath + product?.image} />
+            {/* <img src={imgPath + product?.image} alt={product?.name} className="img-fluid rounded" /> */}
           </Col>
           <Col md={6} className="product-details">
             <h1>{product?.name}</h1>
@@ -199,11 +218,11 @@ function IndividualProduct() {
                   Out Of stock
                 </Button>
                 :
-                <Link to="/addCart" onClick={() => addToCart(product.productId)}>
-                  <Button variant="primary" className="add-to-cart-btn">
-                    Add to Cart
-                  </Button>
-                </Link>
+                // <Link to="/addCart" onClick={() => addToCart(product.productId)}>
+                <Button variant="primary" className="add-to-cart-btn" onClick={() => addToCart(product.productId)}>
+                  Add to Cart
+                </Button>
+              // </Link>
 
             }
 

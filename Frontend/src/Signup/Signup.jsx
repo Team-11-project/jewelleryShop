@@ -4,8 +4,11 @@ import './Signup.css';
 import Google from '../assets/Icons/Google.svg';
 import Instagram from '../assets/Icons/Instagram.svg';
 import Facebook from '../assets/Icons/Facebook.svg';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Signup = () => {
+
+  const notify = (message) => toast(message);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -36,10 +39,12 @@ const Signup = () => {
 
       const res = await response.json()
       if (res.status === 200) {
-        alert('Signup complete');
-        window.location.href = "/Login";
+        notify('Signup complete, please log in');
+        setTimeout(() => {
+          window.location.href = "/Login";
+        }, 2000);
       } else {
-        alert('Signup incomplete');
+        notify('Signup incomplete');
       }
     } catch (error) {
       //console.log('Signup Error:', error);

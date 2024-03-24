@@ -6,6 +6,7 @@ import { OrderStatus } from "./../Entities/OrderStatus.enum";
 import { ReturnEntity } from "src/Entities/Return.entity";
 import { CreateReturnDto } from "src/Dto/createReturnDto.dto";
 import { MailService } from "src/Mail/MailService.service";
+import { BaseResponse } from "src/Responses/BaseResponse";
 
 @Injectable()
 export class OrderService {
@@ -19,11 +20,10 @@ export class OrderService {
         private readonly mailService: MailService,
     ) {}
 
-    async getOrdersByCustomer(customerId: number): Promise<OrderEntity[]> {
+    async getOrdersByCustomer(customerId: number): Promise<BaseResponse> {
         try {
             const orders = await this.orderRepository.find({
                 where: {
-                
                         user: { userId: customerId },
                 },
                 relations: ['cartProducts', 'user', 'cartProducts.product'],
@@ -31,13 +31,21 @@ export class OrderService {
             });
 
             if (!orders || orders.length === 0) {
-                throw new NotFoundException("No orders found for the specified customer");
+                return{
+                    status: 204,
+                    message:"No orders found for the specified customer"
+                }
+                // throw new NotFoundException("No orders found for the specified customer");
             }
 
-            return orders;
+            return{
+                status: 200,
+                message:"orders Found",
+                response: orders
+            }
         } catch (error) {
             console.error(error);
-            throw new InternalServerErrorException("Failed to retrieve orders");
+            // throw new InternalServerErrorException("Failed to retrieve orders");
         }
     }
 

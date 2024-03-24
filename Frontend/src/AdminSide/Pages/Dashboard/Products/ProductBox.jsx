@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react'
 import "./productsBox.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faEllipsis, faInfo, faPenToSquare, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
+// import p from '../../../../../src/assets/pexels.jpg'
+// import { pexels } from "../../../../assets/uploads/productImages/pexels.jpg"
 
 function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDeletePopup, openViewProduct }) {
+
+    const pathToImage = "../../../../../src/assets/"
 
     const [isOption, setIsOption] = useState(false)
     const empty = {}
@@ -69,7 +73,7 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDelet
             <div className="box-container">
                 <div className="box-head">
                     <div className="prod-image">
-                        <img src={product?.image} alt="" />
+                        <img src={pathToImage + product?.image} alt="" />
                     </div>
                     <div className="deets">
                         <div className="prod-det">

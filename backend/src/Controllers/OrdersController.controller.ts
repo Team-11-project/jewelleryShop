@@ -7,6 +7,7 @@ import { OrderEntity } from './../Entities/Order.entity';
 import { OrderStatus } from "./../Entities/OrderStatus.enum";
 import { CreateReturnDto } from "src/Dto/createReturnDto.dto";
 import { ReturnEntity } from "src/Entities/Return.entity";
+import { BaseResponse } from "src/Responses/BaseResponse";
 
 @ApiBearerAuth()
 @ApiTags("Orders Controller")
@@ -14,22 +15,14 @@ import { ReturnEntity } from "src/Entities/Return.entity";
 export class OrdersController {
     constructor(private orderService: OrderService) {}
 
-    @ApiResponse({status: 200,description: 'OK',type: OrderEntity,isArray: true,})
-      @ApiNotFoundResponse({description: 'No orders found for the specified customer',})
-      @UseGuards(JwtGuard, RolesGuard)
-      @ApiParam({ name: 'customerId', type: 'number' })
+    // @ApiResponse({status: 200,description: 'OK',type: OrderEntity,isArray: true,})
+    //   @ApiNotFoundResponse({description: 'No orders found for the specified customer',})
+    //   @UseGuards(JwtGuard, RolesGuard)
+    //   @ApiParam({ name: 'customerId', type: 'number' })
       @Get("get-orders-by-customer/:customerId")
-      async getOrdersByCustomer(@Param("customerId") customerId: number): Promise<OrderEntity[]> {
-        try {
-          const orders = await this.orderService.getOrdersByCustomer(customerId);
-          return orders;
-        } catch (error) {
-          if (error instanceof NotFoundException) {
-            // Throw a more specific exception for Swagger documentation
-            throw new NotFoundException('No orders found for the specified customer');
-          }
-          throw error;
-        }
+      async getOrdersByCustomer(@Param("customerId") customerId: number): Promise<BaseResponse> {
+          return await this.orderService.getOrdersByCustomer(customerId);
+        //   return orders;
       }
       
     @ApiNotFoundResponse({description: 'Order not found',})

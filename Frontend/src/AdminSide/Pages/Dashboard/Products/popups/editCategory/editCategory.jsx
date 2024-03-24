@@ -3,12 +3,14 @@ import './editCategory.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '../../../../../../Context/AuthContext';
+import { toast } from 'react-toastify';
 
 function EditCategory({ getPop, selectedCat }) {
     let { authTokens } = useContext(AuthContext)
+    const notify = (message) => { toast(message) }
     const [formData, setFormData] = useState({
         categoryName: selectedCat?.categoryName || "",
-        description: selectedCat?.description || "", 
+        description: selectedCat?.description || "",
     });
     console.log(selectedCat)
 
@@ -32,6 +34,7 @@ function EditCategory({ getPop, selectedCat }) {
                 });
             const res = await req.json();
             if (res.status === 200) {
+                notify(res.message)
                 handlePop(false)
                 handleIsOption(false)
             } else {
@@ -56,10 +59,11 @@ function EditCategory({ getPop, selectedCat }) {
                 });
             const res = await req.json();
             if (res.status === 200) {
+                notify(res.message)
                 handlePop(false)
                 handleIsOption(false)
             } else {
-                alert("error: " + res.message);
+                notify("error: " + res.message);
             }
         } catch (error) {
 
@@ -81,7 +85,7 @@ function EditCategory({ getPop, selectedCat }) {
                             name="categoryName"
                             value={formData.categoryName}
                             onChange={(e) => setFormData({ ...formData, categoryName: e.target.value })}
-                            placeholder="Type name here" 
+                            placeholder="Type name here"
                         />
                     </div>
                     <div className="form-item">
@@ -90,7 +94,7 @@ function EditCategory({ getPop, selectedCat }) {
                             name="categoryDescription"
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                            placeholder="Type description here" 
+                            placeholder="Type description here"
                         />
                     </div>
                     <div className="edit-buttons">

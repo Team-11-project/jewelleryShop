@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import './forgotPassword.css'; 
+import './forgotPassword.css';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 const ForgotPassword = () => {
+  const notify = (message) => { toast(message) }
+
   const [email, setEmail] = useState('');
   const [userId, setUserId] = useState(0)
   const navigate = useNavigate()
@@ -17,15 +20,16 @@ const ForgotPassword = () => {
           'Content-Type': 'application/json',
         },
       });
+      const res = await response.json()
 
-      if (response.ok) {
-        console.log('Email link sent successfully');
-        const res = await response.json()
+      if (res.status == 200) {
+        notify('Email link sent successfully');
+        // const res = await response.json()
         // setUserId(response.response)
-        console.log(res.response.userId)
+        // console.log(res.response.userId)
         redirectToResetPassword(res.response.userId);
       } else {
-        console.error('Failed to send email link');
+        notify('Failed to send email link, check email');
       }
     } catch (error) {
       console.error('Error sending email link:', error);
@@ -37,7 +41,7 @@ const ForgotPassword = () => {
   };
 
   const redirectToResetPassword = (id) => {
-    navigate('/ResetPassword', {state: {userId: id}})
+    navigate('/ResetPassword', { state: { userId: id } })
     // window.location.href = '/ResetPassword';
   };
 
@@ -53,12 +57,12 @@ const ForgotPassword = () => {
           <h1 className="email-confirmation-title">Confirm your email</h1>
           <form onSubmit={handleSubmit} className="email-form">
             <label htmlFor="email" className="email-label">Email</label>
-            <input 
-              type="email" 
-              id="email" 
-              className="email-input" 
-              value={email} 
-              onChange={handleEmailChange} 
+            <input
+              type="email"
+              id="email"
+              className="email-input"
+              value={email}
+              onChange={handleEmailChange}
             />
             <div className="email-additional-text">Enter the email you signed up with</div>
             <button type="submit" className="send-link-button">Send link</button>
