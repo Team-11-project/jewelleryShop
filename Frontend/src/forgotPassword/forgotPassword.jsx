@@ -41,10 +41,14 @@ const ForgotPassword = () => {
     // window.location.href = '/ResetPassword';
   };
 
+  const handleBackButtonClick = () => {
+    navigate('/');
+  };
+
   return (
     <div className="forgot-password-page">
       <div className="email-confirmation-card">
-        <div className="back-button">← Back</div>
+        <div className="back-button" onClick={handleBackButtonClick}>← Back</div>
         <div className="email-form-container">
           <h1 className="email-confirmation-title">Confirm your email</h1>
           <form onSubmit={handleSubmit} className="email-form">
