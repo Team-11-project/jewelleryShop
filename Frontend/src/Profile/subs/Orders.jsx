@@ -38,7 +38,7 @@ function Orders({ userId }) {
                 });
             const res = await req.json();
             // console.log(res)
-            setPrevOrders(res)
+            setPrevOrders(res.response)
 
         } catch (error) { console.log(error) }
 
@@ -87,7 +87,7 @@ function Orders({ userId }) {
             <div className="displayT">Orders</div>
 
             <div className="ordersContainer">
-                {prevOrders && (
+                {prevOrders.length > 0 ? (
                     <>
                         {prevOrders.map(order => (
                             <div className="" key={order?.id}>
@@ -95,7 +95,10 @@ function Orders({ userId }) {
                             </div>
                         ))}
                     </>
-                )}
+                )
+                    :
+                    ("No Orders yet")
+                }
             </div>
         </>
     )

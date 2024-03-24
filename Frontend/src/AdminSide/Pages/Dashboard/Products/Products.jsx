@@ -11,8 +11,10 @@ import EditProduct from './popups/editproduct/EditProduct';
 import NewCategory from './popups/newCategory/newCategory';
 import DeleteProduct from './popups/deleteProduct/DeleteProduct';
 import ViewProduct from './popups/viewProduct/ViewProduct';
+import { toast } from 'react-toastify';
 
 function Products({ isNewCategory }) {
+    const notify = (message) => { toast(message) }
     const { authTokens } = useContext(AuthContext);
 
     const [Allproducts, setAllProducts] = useState([]);
@@ -122,7 +124,7 @@ function Products({ isNewCategory }) {
                 setAllProducts(resJson.response);
             } else {
                 console.log(resJson);
-                alert('error: ' + resJson.message);
+                notify('error: ' + resJson.message);
             }
         } catch (error) {
             console.log(error);
@@ -162,7 +164,7 @@ function Products({ isNewCategory }) {
             {editProdPop === true ? <EditProduct getEditPop={getEditPop} chosenProd={chosenProd} getIsOption={getIsOption} /> : ''}
             {deleteProductPop && <DeleteProduct getDeletePop={setDeleteProductPop} chosenProd={chosenProd} />}
             {viewProductPop && <ViewProduct product={selectedProduct} closeDetailView={closeViewProduct} />}
-    
+
             <div className="path">Dashboard/Products</div>
             <div className="prod-container">
                 <input
@@ -171,7 +173,7 @@ function Products({ isNewCategory }) {
                     onChange={handleSearchChange}
                     className="search-bar"
                 />
-    
+
                 {filteredProducts.length > 0 && (
                     <>
                         <div className="prod">
@@ -189,7 +191,7 @@ function Products({ isNewCategory }) {
                         </div>
                     </>
                 )}
-    
+
                 <div className="prod-container-footer">
                     <div className="pagination">
                         {currPage == 1 ? (
@@ -199,7 +201,7 @@ function Products({ isNewCategory }) {
                                 <FontAwesomeIcon icon={faChevronLeft} />
                             </div>
                         )}
-    
+
                         {pages.length > 0 && (
                             <div className="p">
                                 {pages.map((page) => (

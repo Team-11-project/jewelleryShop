@@ -10,7 +10,10 @@ import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
 import { Link } from 'react-router-dom';
 
+
 const AddCartPage = () => {
+
+  const imgPath = 'src/assets/'
   let { user } = useContext(AuthContext)
   // console.log(user.user)
   const [items, setItems] = useState([])
@@ -88,7 +91,7 @@ const AddCartPage = () => {
             'Content-Type': 'application/json',
           }
         })
-      // const resJson = await response.json();
+      const resJson = await response.json();
     }
     catch (error) {
       // setIsLoading(true)
@@ -149,7 +152,7 @@ const AddCartPage = () => {
                   <div key={item.id} className="cart-item">
                     <Row>
                       <Col md={2}>
-                        <img src={item?.product?.image} alt={item?.product?.name} className="cart-item-image" />
+                        <img src={imgPath + item?.product?.image} alt={item?.product?.name} className="cart-item-image" />
                       </Col>
                       <Col md={6} className="item-details">
                         <p className="item-name">{item?.product?.name}</p>

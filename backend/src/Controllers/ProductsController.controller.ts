@@ -12,6 +12,10 @@ import { RolesGuard } from '../guards/role.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateReviewDto } from '../Dto/createReview.dto';
 import { ReviewService } from '../Services/ReviewService.service';
+import { diskStorage } from 'multer';
+import path from 'path';
+// import '../../../Frontend/src/assets'
+
 
 @ApiBearerAuth()
 @ApiTags("Products Controller")
@@ -58,7 +62,15 @@ export class ProductsController{
   })
     @UseGuards(JwtGuard, RolesGuard)
     @Roles(Role.ADMIN)
-    @UseInterceptors(FileInterceptor("file"))
+    @UseInterceptors(FileInterceptor("file", {
+      storage: diskStorage({
+        destination: "../Frontend/src/assets",
+        filename(req, file, callback) {
+            const filename: string =  file.originalname
+            callback(null, `${filename}`)
+        },
+      })
+    }))
     @Post("create-product")
     async createProduct(@UploadedFile(new ParseFilePipe({validators: [new FileTypeValidator({fileType: 'image/jpeg'})], fileIsRequired: false})) file: Express.Multer.File, @Body() createProductDto: CreateProductDto): Promise<BaseResponse> {
       if (file){
@@ -152,8 +164,29 @@ export class ProductsController{
       },
     },
   })
-  @Post("upload-file")
-  @UseInterceptors(FileInterceptor("file"))
+  // @Post("upload-file")
+  // @UseInterceptors(FileInterceptor("file"))
+  // async uploadFile(@UploadedFile(
+  //   new ParseFilePipe({
+  //       validators: [
+  //           // new MaxFileSizeValidator({maxSize: 300000}),
+  //           new FileTypeValidator({fileType: 'image/jpeg'})
+  //       ]
+  //   })
+  // ) file: Express.Multer.File){
+  //   return await this.productService.uploadProductImage(file.originalname, file.buffer)
+  // }
+
+   @Post("upload-file")
+  @UseInterceptors(FileInterceptor("file", {
+    storage: diskStorage({
+      destination: "../Frontend/src/assets",
+      filename(req, file, callback) {
+          const filename: string =  file.originalname
+          callback(null, `${filename}`)
+      },
+    })
+  }))
   async uploadFile(@UploadedFile(
     new ParseFilePipe({
         validators: [
@@ -162,7 +195,8 @@ export class ProductsController{
         ]
     })
   ) file: Express.Multer.File){
-    return await this.productService.uploadProductImage(file.originalname, file.buffer)
+    return {imagePath: file.path}
+    // return await this.productService.uploadProductImage(file.originalname, file.buffer)
   }
 
   // @Post('createReview')

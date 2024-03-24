@@ -4,6 +4,7 @@ import React from 'react'
 
 function OrderSummany({ order, getView }) {
     // console.log(order)
+    const imgPath = '../../../src/assets/'
 
     const items = order?.cartProducts
 
@@ -14,10 +15,11 @@ function OrderSummany({ order, getView }) {
         return (
             <>
                 <div className="itemContainer">
-                    <img src={item?.product?.image} alt="image" />
+                    <img src={imgPath + item?.product?.image} alt="product image" />
                     <div className="infoSide">
                         {/* <p>{item?.product?.name}</p>
                         <p>Price: £{item?.product?.price}</p> */}
+                        <button className='reviewCreate'>create review</button>
                         <p>Qty: {item.qty}</p>
                     </div>
 
@@ -57,7 +59,7 @@ function OrderSummany({ order, getView }) {
                     </div>
                     <div className="bottom">
                         <div className="total">Status: {order?.status} </div>
-                        <div className="address">Address: {order.address}, {order.city}, {order.country}</div>
+                        <div className="address">Address: {order?.address}, {order?.city}, {order?.postcode}, {order?.country}</div>
                         <div className="total">Order Total: £{order.totalPrice}</div>
                     </div>
                 </div>
