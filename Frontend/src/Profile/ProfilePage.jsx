@@ -37,7 +37,7 @@ function ProfilePage() {
     const getUserData = async (id) => {
         const token = authTokens.token
         try {
-            const req = await fetch(` http://localhost:3001/auth/getUserByUserId/${id}`,
+            const req = await fetch(`http://localhost:3001/auth/getUserByUserId/${id}`,
                 {
                     method: "GET",
                     headers: {
