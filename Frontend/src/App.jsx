@@ -42,6 +42,7 @@ import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons'
 import AboutSection from './about us/about.jsx';
 import AboutUs from './about us/about.jsx';
 import ProfilePage from './Profile/ProfilePage.jsx';
+import CreateReview from './Profile/subs/CreateReview.jsx'
 
 library.add(faHome, faTh, faInfo, faStar);
 // toast.configure();
@@ -91,6 +92,7 @@ function App() {
           <Route path='/about' element={<AboutUs />} />
           <Route path="/addCart" element={<AddCart />} />
           <Route path='/product/:productId' element={<IndividualProduct />} />
+          <Route path='/product/:productId' element={<CreateReview />} />
           <Route path="/cart" element={<AddCartPage />} />
           <Route path='/Signup' exact element={<Signup />} />
           <Route path='/AdminSignUp' exact element={<AdminSignUp />} />
