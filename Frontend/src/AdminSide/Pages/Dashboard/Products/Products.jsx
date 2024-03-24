@@ -21,21 +21,26 @@ function Products({ isNewCategory }) {
     const [productsCount, setProductsCount] = useState();
     const [newProductPop, setNewProductPop] = useState(false);
 
+
     const [editProdPop, setEditProdPop] = useState(false);
     const [deleteProductPop, setDeleteProductPop] = useState(false);
     const [viewProductPop, setViewProductPop] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isOption, setIsOption] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const filteredProducts = Allproducts.filter(product =>
+        product?.name.toLowerCase().includes(searchTerm)
+    );
 
     const [chosenProd, setChosenProd] = useState({});
     const [pages, setPages] = useState([]);
     const [currPage, setCurrPage] = useState(1);
-    const totalPageCount = Math.ceil(Allproducts.length / 6);
+    const totalPageCount = Math.ceil(filteredProducts.length / 6);
     const lastIndex = currPage * 6;
     const firstIndex = lastIndex - 6;
-    const products = Allproducts.slice(firstIndex, lastIndex);
+    const products = filteredProducts.slice(firstIndex, lastIndex);
     const prodLength = products.length;
-    const [searchTerm, setSearchTerm] = useState('');
+
 
     const range = (start, end) => {
         let length = end - start + 1;
@@ -141,9 +146,7 @@ function Products({ isNewCategory }) {
         setSearchTerm(newSearchTerm);
     };
 
-    const filteredProducts = Allproducts.filter(product =>
-        product.name.toLowerCase().includes(searchTerm)
-    );
+
 
     const filterProducts = (newSearchTerm) => {
         if (newSearchTerm === '') {
@@ -165,8 +168,8 @@ function Products({ isNewCategory }) {
             {deleteProductPop && <DeleteProduct getDeletePop={setDeleteProductPop} chosenProd={chosenProd} />}
             {viewProductPop && <ViewProduct product={selectedProduct} closeDetailView={closeViewProduct} />}
 
-            <div className="path">Dashboard/Products</div>
-            <div className="prod-container">
+            {/* <div className="path">Dashboard/Products</div> */}
+            <div className="product-container">
                 <input
                     type="text"
                     placeholder="Search..."
@@ -174,10 +177,10 @@ function Products({ isNewCategory }) {
                     className="search-bar"
                 />
 
-                {filteredProducts.length > 0 && (
+                {products.length > 0 && (
                     <>
                         <div className="prod">
-                            {filteredProducts.map((product) => (
+                            {products.map((product) => (
                                 <ProductBox
                                     key={product.productId}
                                     product={product}
@@ -197,7 +200,7 @@ function Products({ isNewCategory }) {
                         {currPage == 1 ? (
                             <div className=""></div>
                         ) : (
-                            <div className="page-no" onClick={() => { prevPage(); getProducts(authTokens.token); }}>
+                            <div className="page-no" onClick={() => { prevPage(); /*getProducts(authTokens.token); */ }}>
                                 <FontAwesomeIcon icon={faChevronLeft} />
                             </div>
                         )}
