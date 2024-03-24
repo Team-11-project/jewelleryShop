@@ -15,6 +15,7 @@ function Products() {
   // const imgPath = "src/assets/"
   const imgPath = "../../src/assets/"
   let { user } = useContext(AuthContext)
+  const pathToImages = '../../src/assets/'
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedSort, setSelectedSort] = useState(null);
   const [cart, setCart] = useState([]);
@@ -96,24 +97,9 @@ function Products() {
     getProducts()
   }, [])
 
-  // const products = [
-  //   { id: 1, name: 'Rolex Oyster Perpetual', price: 8000, image: rolexOyster },
-  //   { id: 2, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 3, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 4, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 5, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 6, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 7, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 8, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 9, name: 'Product 2', price: 30, image: img1 },
-  // ];
-
   const priceOptions = ['100-500', '500-1000', '1000-5000', '5000+'];
   const sortOptions = ['Price Low to High', 'Price High to Low'];
 
-  // const addToCart = (product) => {
-  //   setCart([...cart, product]);
-  // };
 
   const handleToggleFilters = () => setShowFilters(!showFilters);
 
@@ -129,8 +115,8 @@ function Products() {
     console.log('min:', min, 'max:', max, 'price:', price);
     return price >= min && price <= max;
   };
-  
-  
+
+
   const filteredProducts = AllProducts.filter(product =>
     inPriceRange(product)
   );
@@ -142,7 +128,7 @@ function Products() {
       case 'Price High to Low':
         return b.price - a.price;
       default:
-        return 0; 
+        return 0;
     }
   });
 
@@ -219,7 +205,7 @@ function Products() {
             {sortedProducts.map((product) => (
               <Card key={product.productId}>
                 <Link to={`/product/${product.productId}`} state={product}>
-                <Card.Img variant="top" src={imgPath + product?.image} />
+                  <Card.Img variant="top" src={pathToImages + product.image} />
                 </Link>
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
