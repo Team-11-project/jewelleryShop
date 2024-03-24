@@ -4,14 +4,14 @@ import AuthContext from '../../../../../../Context/AuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import ImageUpload from './ImageUpload'
+import { toast } from 'react-toastify';
 
 function NewProduct({ getPop }) {
+    const notify = (message) => { toast(message) }
 
     let { authTokens } = useContext(AuthContext)
 
     const [categories, setCategories] = useState([])
-
-
 
     const handlePop = () => {
         getPop(false)
@@ -58,9 +58,10 @@ function NewProduct({ getPop }) {
             });
             const res = await req.json();
             if (res.status === 200) {
+                notify(res.message)
                 handlePop()
             } else {
-                alert("error: " + res.message);
+                notify("error: " + res.message);
             }
         } catch (error) {
             console.log(error.message)
@@ -82,11 +83,12 @@ function NewProduct({ getPop }) {
                 })
             const resJson = await response.json();
             if (response.status === 200) {
+                // notify(response.message)
                 // console.log(resJson, "response")
                 setCategories(resJson.response);
             } else {
                 console.log(resJson);
-                alert("error: " + resJson.message)
+                notify("error: " + resJson.message)
             }
 
         }

@@ -26,14 +26,14 @@ function Dashboard() {
     }
     const [newCategoryPop, setNewCategoryPop] = useState(isNewCategory)
 
-    console.log(isNewCategory)
+    // console.log(isNewCategory)
     const [isEditCategory, setIsEditCategory] = useState(false)
     const getIsEditCategory = (p) => {
         setIsEditCategory(p)
     }
     const [editCategoryPop, setEditCategoryPop] = useState(isEditCategory)
 
-    console.log(isEditCategory)
+    // console.log(isEditCategory)
     const getPage = (p) => {
         setPage(p)
     }

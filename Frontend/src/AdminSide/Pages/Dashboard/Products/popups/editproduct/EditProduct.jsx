@@ -3,8 +3,10 @@ import './editProduct.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import AuthContext from '../../../../../../Context/AuthContext'
+import { toast } from 'react-toastify';
 
 function EditProduct({ getEditPop, chosenProd, getIsOption }) {
+    const notify = (message) => { toast(message) }
     console.log(chosenProd)
 
     // const categories = [2, 3, 4]
@@ -45,11 +47,12 @@ function EditProduct({ getEditPop, chosenProd, getIsOption }) {
                 })
             const resJson = await response.json();
             if (response.status === 200) {
+                notify(response.message)
                 // console.log(resJson, "response")
                 setCategories(resJson.response);
             } else {
                 console.log(resJson);
-                alert("error: " + resJson.message)
+                notify("error: " + resJson.message)
             }
 
         }
@@ -77,6 +80,7 @@ function EditProduct({ getEditPop, chosenProd, getIsOption }) {
                 });
             const res = await req.json();
             if (res.status === 200) {
+                notify(res.message)
                 handlePop(false)
                 handleIsOption(false)
             } else {
