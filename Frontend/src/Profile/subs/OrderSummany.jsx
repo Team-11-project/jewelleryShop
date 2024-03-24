@@ -1,10 +1,18 @@
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import CreateReview from './CreateReview'
 
 function OrderSummany({ order, getView }) {
     // console.log(order)
+    const [isReview, setIsReview] = useState(false)
+    const [selectedItem, setSelectedItem] = useState({})
     const imgPath = '../../../src/assets/'
+
+    const getIsReview = (val) => {
+        setIsReview(val)
+    }
+    // console.log(order)
 
     const items = order?.cartProducts
 
@@ -19,7 +27,7 @@ function OrderSummany({ order, getView }) {
                     <div className="infoSide">
                         {/* <p>{item?.product?.name}</p>
                         <p>Price: £{item?.product?.price}</p> */}
-                        <button className='reviewCreate'>create review</button>
+                        <button className='reviewCreate' onClick={() => { setSelectedItem(item); setIsReview(true) }}>create review</button>
                         <p>Qty: {item.qty}</p>
                     </div>
 
@@ -28,9 +36,15 @@ function OrderSummany({ order, getView }) {
         )
 
     }
+
+    useEffect(() => {
+        // console.log(selectedItem)
+    }, [isReview, selectedItem])
     // console.log(order, "summary page")
     return (
         <>
+            {isReview == true ? <CreateReview getIsReview={getIsReview} item={selectedItem?.product} /> : ""}
+
             <div className="viewOrderPopContainer">
                 <div className='viewOrderPop'>
                     <div className="upper">

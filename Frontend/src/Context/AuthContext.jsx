@@ -130,7 +130,10 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         localStorage.removeItem("authTokens");
         localStorage.removeItem("user");
-        navigate("/");
+        setTimeout(() => {
+            navigate("/");
+        }, 1500);
+
     };
 
     const contextData = {

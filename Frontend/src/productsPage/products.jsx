@@ -15,9 +15,8 @@ function Products() {
   // const imgPath = "src/assets/"
   const imgPath = "../../src/assets/"
   let { user } = useContext(AuthContext)
+  const pathToImages = '../../src/assets/'
   const [selectedPrice, setSelectedPrice] = useState(null);
-  const [selectedMaterial, setSelectedMaterial] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSort, setSelectedSort] = useState(null);
   const [cart, setCart] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
@@ -98,30 +97,40 @@ function Products() {
     getProducts()
   }, [])
 
-  // const products = [
-  //   { id: 1, name: 'Rolex Oyster Perpetual', price: 8000, image: rolexOyster },
-  //   { id: 2, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 3, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 4, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 5, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 6, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 7, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 8, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 9, name: 'Product 2', price: 30, image: img1 },
-  // ];
-
   const priceOptions = ['100-500', '500-1000', '1000-5000', '5000+'];
-  const materialOptions = ['Gold', 'Silver', 'Diamond', 'Gemstone'];
-  const categoryOptions = ['Earrings', 'Watches', 'Necklaces', 'Bracelets', 'Rings'];
-  const sortOptions = ['Recommend', 'New Arrivals', 'Price Low to High', 'Price High to Low'];
+  const sortOptions = ['Price Low to High', 'Price High to Low'];
 
-  // const addToCart = (product) => {
-  //   setCart([...cart, product]);
-  // };
 
-  const handleToggleFilters = () => {
-    setShowFilters(!showFilters);
+  const handleToggleFilters = () => setShowFilters(!showFilters);
+
+  const inPriceRange = (product) => {
+    if (!selectedPrice) return true;
+    const price = parseInt(product.price, 10);
+    const [min, max] = selectedPrice.split('-').map((value) => {
+      if (value === '5000+') {
+        return [5000, Number.MAX_VALUE];
+      }
+      return value.split('-').map(Number);
+    }).flat();
+    console.log('min:', min, 'max:', max, 'price:', price);
+    return price >= min && price <= max;
   };
+
+
+  const filteredProducts = AllProducts.filter(product =>
+    inPriceRange(product)
+  );
+
+  const sortedProducts = filteredProducts.sort((a, b) => {
+    switch (selectedSort) {
+      case 'Price Low to High':
+        return a.price - b.price;
+      case 'Price High to Low':
+        return b.price - a.price;
+      default:
+        return 0;
+    }
+  });
 
   const handleHeartClick = (product) => {
     // Handle heart icon click, e.g., add to favorites/liked
@@ -173,38 +182,6 @@ function Products() {
               </Form.Group>
 
               <Form.Group className="filter-group">
-                <Form.Label>Material:</Form.Label>
-                <Dropdown onSelect={(eventKey) => setSelectedMaterial(eventKey)}>
-                  <Dropdown.Toggle variant="light" id="dropdown-material">
-                    {selectedMaterial || 'Select Material'}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {materialOptions.map((option) => (
-                      <Dropdown.Item key={option} eventKey={option}>
-                        {option}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Form.Group>
-
-              <Form.Group className="filter-group">
-                <Form.Label>Category:</Form.Label>
-                <Dropdown onSelect={(eventKey) => setSelectedCategory(eventKey)}>
-                  <Dropdown.Toggle variant="light" id="dropdown-category">
-                    {selectedCategory || 'Select Category'}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {categoryOptions.map((option) => (
-                      <Dropdown.Item key={option} eventKey={option}>
-                        {option}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Form.Group>
-
-              <Form.Group className="filter-group">
                 <Form.Label>Sort By:</Form.Label>
                 <Dropdown onSelect={(eventKey) => setSelectedSort(eventKey)}>
                   <Dropdown.Toggle variant="light" id="dropdown-sort">
@@ -225,18 +202,16 @@ function Products() {
 
         <div className="product-display">
           <div className="card-container">
-            {AllProducts.map((product) => (
+            {sortedProducts.map((product) => (
               <Card key={product.productId}>
                 <Link to={`/product/${product.productId}`} state={product}>
-                  <Card.Img variant="top" src={imgPath + product?.image} />
+                  <Card.Img variant="top" src={pathToImages + product.image} />
                 </Link>
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text>£{product.price}</Card.Text>
-                  {product.stock < 1 ? <Card.Text className='outOfS'>Out Of Stock </Card.Text> : <></>}
-
                   <div className="card-icons">
-                    <a href="#" onClick={() => handleHeartClick(product)}>
+                    <a href="#!" onClick={() => { /* Add to Favorites logic */ }}>
                       <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
                     </a>
                     {/* <Link to="/addCart" onClick={() => addToCart(product?.productId)}> */}

@@ -86,6 +86,7 @@
   border-radius: 12px;
   font-weight: bold;
   cursor: pointer;
+  color: #444444;
 }
 
 .status-pending {

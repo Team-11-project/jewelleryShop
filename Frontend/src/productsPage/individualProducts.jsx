@@ -212,7 +212,7 @@ function IndividualProduct() {
 
             <p style={style}>{status.message}</p>
             {
-              product.stock < 1
+              product?.stock < 1
                 ?
                 <Button variant="danger" className="add-to-cart-btn" active disabled>
                   Out Of stock
