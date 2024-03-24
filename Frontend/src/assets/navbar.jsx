@@ -120,9 +120,9 @@ function AppNavbar() {
             {error && <div>{error}</div>}
             <div className="dropdown-container">
               {filteredProducts.map((product) => (
-                <div key={product.productId} className="dropdown-item"> {/* Ensure the key is unique */}
-                  {product.name}
-                </div>
+                <Link key={product.productId} to={`/product/${product.productId}`} state={product}>
+                  <div className="dropdown-item">{product.name}</div>
+                </Link>
               ))}
             </div>
           </Container>
