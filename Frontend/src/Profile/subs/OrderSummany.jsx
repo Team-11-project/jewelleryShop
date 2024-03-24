@@ -1,19 +1,20 @@
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CreateReview from './CreateReview'
+import AuthContext from '../../Context/AuthContext'
 
 function OrderSummany({ order, getView }) {
     // console.log(order)
     const [isReview, setIsReview] = useState(false)
     const [selectedItem, setSelectedItem] = useState({})
     const imgPath = '../../../src/assets/'
-
+    console.log(selectedItem.product)
     const getIsReview = (val) => {
         setIsReview(val)
     }
     // console.log(order)
-
+    let { user } = useContext(AuthContext)
     const items = order?.cartProducts
 
     // const 
@@ -43,8 +44,8 @@ function OrderSummany({ order, getView }) {
     // console.log(order, "summary page")
     return (
         <>
-            {isReview == true ? <CreateReview getIsReview={getIsReview} item={selectedItem?.product} /> : ""}
-
+            {isReview == true ? <CreateReview getIsReview={getIsReview} item={selectedItem?.product} user={user}/> : ""}
+            
             <div className="viewOrderPopContainer">
                 <div className='viewOrderPop'>
                     <div className="upper">
