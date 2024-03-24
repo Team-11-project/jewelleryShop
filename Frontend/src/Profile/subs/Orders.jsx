@@ -38,7 +38,7 @@ function Orders({ userId }) {
                 });
             const res = await req.json();
             // console.log(res)
-            setPrevOrders(res)
+            setPrevOrders(res.response)
 
         } catch (error) { console.log(error) }
 

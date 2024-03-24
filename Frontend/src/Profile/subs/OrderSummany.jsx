@@ -15,7 +15,7 @@ function OrderSummany({ order, getView }) {
         return (
             <>
                 <div className="itemContainer">
-                    <img src={imgPath + item?.product?.image} alt="image" />
+                    <img src={imgPath + item?.product?.image} alt="product image" />
                     <div className="infoSide">
                         {/* <p>{item?.product?.name}</p>
                         <p>Price: £{item?.product?.price}</p> */}
