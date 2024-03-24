@@ -36,11 +36,11 @@ function Earrings() {
         })
       const resJson = await response.json();
       if (response.status === 200) {
-        console.log(resJson, "response")
+        // console.log(resJson, "response")
         setAllProducts(resJson.response);
       } else {
-        console.log(resJson);
-        alert("error: " + resJson.message)
+        // console.log(resJson);
+        // alert("error: " + resJson.message)
       }
     }
     catch (error) {
@@ -54,7 +54,7 @@ function Earrings() {
     try {
       // setIsLoading(true)
       const userId = user.user.id
-      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}`,
+      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}/1`,
         {
           method: "POST",
           headers: {
@@ -62,6 +62,7 @@ function Earrings() {
           }
         })
       const resJson = await response.json();
+      console.log(resJson)
       if (resJson.status == 200) {
         notify(resJson.message)
       }
@@ -103,6 +104,7 @@ function Earrings() {
   return (
     <>
       <AppNavbar />
+
       <Container className="products-container">
 
         <Row>
