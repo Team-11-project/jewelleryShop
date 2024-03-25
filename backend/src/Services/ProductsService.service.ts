@@ -14,7 +14,6 @@ import * as AWS from 'aws-sdk';
 import { ReviewEntity } from '../Entities/Review.entity';
 import { CreateReviewDto } from '../Dto/createReview.dto';
 
-
 @Injectable()
 export class ProductService{
 
@@ -74,8 +73,11 @@ export class ProductService{
             product.price = createProductDto.price
             product.material = createProductDto.material
             product.keywords = createProductDto.keywords
+            // if(fileName){
+            // product.image = await (await this.uploadProductImage(fileName, file)).response
+            // }
             if(fileName){
-            product.image = await (await this.uploadProductImage(fileName, file)).response
+                product.image = fileName
             }
             product.details = createProductDto.detail
             product.stock = createProductDto.stock
@@ -361,6 +363,7 @@ async deleteCategory(name: string): Promise<BaseResponse> {
         return count;
     }
 
+    //old to aws
     async uploadProductImage(fileName: string, file:Buffer): Promise<BaseResponse> {
         try {
             let img = await this.s3.upload({

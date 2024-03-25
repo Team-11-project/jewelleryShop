@@ -11,6 +11,7 @@ import AuthContext from '../Context/AuthContext';
 function AppNavbar() {
   let { user, logoutUser } = useContext(AuthContext)
   const role = user?.user?.role
+  const userId = user?.user?.id
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -82,13 +83,13 @@ function AppNavbar() {
               {/* <Nav.Link className="nav-link-custom" as={Link} to="/best-sellers">Best Sellers</Nav.Link> */}
               {user ? <Nav.Link onClick={logoutUser} className="nav-link-custom" as={Link} to="/">Logout</Nav.Link> : <Nav.Link className="nav-link-custom" as={Link} to="/login">Login</Nav.Link>}
               <Nav.Link className="nav-link-custom" as={Link} to="/contact">Contact</Nav.Link>
-              {role === "admin" ? <Nav.Link className="nav-link-custom" as={Link} to="/dashboard">Dashboard</Nav.Link> : <></>}
+              {role == "admin" ? <Nav.Link className="nav-link-custom" as={Link} to="/dashboard">Dashboard</Nav.Link> : <></>}
             </Nav>
             <Nav>
-            <Nav.Link onClick={toggleSearch} className="nav-link-icons">
-              <FontAwesomeIcon icon={searchVisible ? faTimes : faSearch} />
+              <Nav.Link onClick={toggleSearch} className="nav-link-icons">
+                <FontAwesomeIcon icon={searchVisible ? faTimes : faSearch} />
               </Nav.Link>
-              <Nav.Link className="nav-link-icons">
+              <Nav.Link className="nav-link-icons" as={Link} to={'/favorites'}>
                 <FontAwesomeIcon icon={faHeart} />
               </Nav.Link>
               <Nav.Link className="nav-link-icons" as={Link} to="/myProfile">
@@ -120,9 +121,9 @@ function AppNavbar() {
             {error && <div>{error}</div>}
             <div className="dropdown-container">
               {filteredProducts.map((product) => (
-                <div key={product.productId} className="dropdown-item"> {/* Ensure the key is unique */}
-                  {product.name}
-                </div>
+                <Link key={product.productId} to={`/product/${product.productId}`} state={product}>
+                  <div className="dropdown-item">{product.name}</div>
+                </Link>
               ))}
             </div>
           </Container>

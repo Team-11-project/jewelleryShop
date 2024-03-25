@@ -40,9 +40,9 @@
     display: flex;
     align-items: center;
     margin-top: 20px;
-    background-color: #f2f2f2; /* Light grey background */
-    padding: 15px; /* Add padding for spacing */
-    border-radius: 8px; /* Optional: Add border-radius for rounded corners */
+    background-color: #f2f2f2; 
+    padding: 15px; 
+    border-radius: 8px; 
 }
   
 .filter-group {
@@ -54,17 +54,15 @@
 .filter-label {
     font-weight: bold;
     margin-right: 10px;
-    line-height: 1.5; /* Adjust the line height to vertically center the text */
+    line-height: 1.5; 
 }
   
-/* Additional styling for the dropdowns */
 .dropdown {
-    width: 200px; /* Adjust the width based on your design */
+    width: 200px;
 }
 
-/* Updated Section-4 Styling for Products Display */
 .section-products-display {
-    padding: 50px 0 0; /* Added padding to the top to separate from the filter bar */
+    padding: 50px 0 0; 
     background-color: #f8f9fa; 
     text-align: center;
 }
@@ -79,7 +77,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    padding-top: 40px; /* Added margin to separate from the filter bar */
+    padding-top: 40px; 
 }
   
 .card {
@@ -90,7 +88,7 @@
 .card-img-top {
     border-radius: 15px 15px 0 0;
     width: 100%;
-    height: 250px; /* Set the desired height for your images */
+    height: 250px; 
     object-fit: cover;
 }
   
@@ -106,5 +104,15 @@
   
 .card-icons {
     display: flex;
+    gap: 10%;
     justify-content: flex-end;
+<<<<<<< HEAD
+    align-items: center;
+=======
+}
+
+.reset {
+    background-color: #ebd232;
+    border-color: #ebd232;
+>>>>>>> f67556071296678f878c35af4db7023f916bcb6e
 }

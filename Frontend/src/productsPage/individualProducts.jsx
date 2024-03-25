@@ -5,8 +5,12 @@ import './individualProducts.css';
 import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
 import ImageZoomComponent from '../assets/ImageZoomComponent';
+import { ToastContainer, toast } from 'react-toastify';
 
 function IndividualProduct() {
+  const imgPath = "../../src/assets/"
+  const notify = (message) => toast(message);
+
   const location = useLocation();
   const product = location.state;
   let { user } = useContext(AuthContext);
@@ -155,12 +159,13 @@ function IndividualProduct() {
   //   }
   // }        
 
+
   const addToCart = async (productId) => {
     // http://localhost:3001/cart/add/userid/productid
     try {
       // setIsLoading(true)
       const userId = user.user.id
-      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}`,
+      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}/1`,
         {
           method: "POST",
           headers: {
@@ -168,7 +173,9 @@ function IndividualProduct() {
           }
         })
       const resJson = await response.json();
-      console.log(resJson)
+      // if (resJson.status == 200) {
+      notify(resJson.message)
+      // }
     }
     catch (error) {
       // setIsLoading(true)
@@ -179,11 +186,24 @@ function IndividualProduct() {
   return (
     <>
       <AppNavbar />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
       <Container className="individual-p-container mt-5">
         <Row>
           <Col md={6}>
-            <ImageZoomComponent image={product?.image} />
-            {/* <img src={product?.image} alt={product?.name} className="img-fluid rounded" /> */}
+            <ImageZoomComponent image={imgPath + product?.image} />
+            {/* <img src={imgPath + product?.image} alt={product?.name} className="img-fluid rounded" /> */}
           </Col>
           <Col md={6} className="product-details">
             <h1>{product?.name}</h1>
@@ -192,18 +212,17 @@ function IndividualProduct() {
 
             <p style={style}>{status.message}</p>
             {
-              product.stock < 1 ?
-                // <Link to="/addCart" onClick={() => addToCart(product.productId)}>
+              product?.stock < 1
+                ?
                 <Button variant="danger" className="add-to-cart-btn" active disabled>
                   Out Of stock
                 </Button>
-                // </Link>
                 :
-                <Link to="/addCart" onClick={() => addToCart(product.productId)}>
-                  <Button variant="primary" className="add-to-cart-btn">
-                    Add to Cart
-                  </Button>
-                </Link>
+                // <Link to="/addCart" onClick={() => addToCart(product.productId)}>
+                <Button variant="primary" className="add-to-cart-btn" onClick={() => addToCart(product.productId)}>
+                  Add to Cart
+                </Button>
+              // </Link>
 
             }
 
@@ -228,74 +247,6 @@ function IndividualProduct() {
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            {user && (
-              <Form onSubmit={handleReviewSubmit} className="review-form">
-                <Form.Group controlId="reviewTitle">
-                  <Form.Label>Review Title</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={reviewTitle}
-                    onChange={(e) => setReviewTitle(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="reviewRating">
-                  <Form.Label>Rating out of 5</Form.Label>
-                  <Form.Control
-                    type="number"
-                    min="0"
-                    max="5"
-                    step="0.5"
-                    value={reviewRating}
-                    onChange={(e) => setReviewRating(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="reviewContent">
-                  <Form.Label>Write your review</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    value={reviewContent}
-                    onChange={(e) => setReviewContent(e.target.value)}
-                  />
-                </Form.Group>
-                <Button variant="primary" type="submit" className="submit-review-btn">
-                  Submit Review
-                </Button>
-              </Form>
-            )}
-            <Form onSubmit={handleReviewSubmit} className="review-form">
-              <Form.Group controlId="reviewTitle">
-                <Form.Label>Review Title</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={reviewTitle}
-                  onChange={(e) => setReviewTitle(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group controlId="reviewRating">
-                <Form.Label>Rating out of 5</Form.Label>
-                <Form.Control
-                  type="number"
-                  min="0"
-                  max="5"
-                  step="0.5"
-                  value={reviewRating}
-                  onChange={(e) => setReviewRating(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group controlId="reviewContent">
-                <Form.Label>Write your review</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  value={reviewContent}
-                  onChange={(e) => setReviewContent(e.target.value)}
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit" className="submit-review-btn">
-                Submit Review
-              </Button>
-            </Form>
           </Col>
         </Row>
       </Container>

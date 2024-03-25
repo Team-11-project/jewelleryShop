@@ -18,8 +18,8 @@ export class CartController {
   constructor(private readonly cartService: CartService) {}
 
   @Post('add/:userId/:productId/:qty')
-async addToCart(@Param('userId') userId: number, @Param('productId') productId: number, @Param("qty") qty: number) {
-  return this.cartService.addToCart(userId, productId, qty);
+async addToCart(@Param('userId') userId: number, @Param('productId') productId: number, @Param("qty") qty: number) : Promise<BaseResponse> {
+  return await this.cartService.addToCart(userId, productId, qty);
 }
 
 @Delete('deleteFromCart/:userId/:cartProductId')

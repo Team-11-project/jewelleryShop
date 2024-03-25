@@ -2,41 +2,25 @@ import { Controller, Post, Param, BadRequestException, ParseIntPipe, Delete, Get
 import { FavoritesService } from 'src/Services/FavoriteService.service';
 import { ApiTags} from "@nestjs/swagger";
 import { FavoriteEntity } from 'src/Entities/Favorite.entity';
+import { BaseResponse } from 'src/Responses/BaseResponse';
 
 @ApiTags("Favorites Controller")
 @Controller('favorites')
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
 
-  @Post('add to favorites/:userId/:productId')
-  async addToFavorites(
-    @Param('userId', ParseIntPipe) userId: number,
-    @Param('productId', ParseIntPipe) productId: number
-  ): Promise<void> {
-    try {
-      await this.favoritesService.addToFavorites(userId, productId);
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
+  @Post('addToFavorites/:userId/:productId')
+  async addToFavorites(@Param('userId') userId: number, @Param('productId') productId: number): Promise<BaseResponse> {
+    return await this.favoritesService.addToFavorites(userId, productId);
   }
 
   @Delete('remove-from-favorites/:userId/:productId')
-async removeFromFavorites(
-  @Param('userId', ParseIntPipe) userId: number,
-  @Param('productId', ParseIntPipe) productId: number
-): Promise<void> {
-  try {
-    await this.favoritesService.removeFromFavorites(userId, productId);
-  } catch (error) {
-    throw new BadRequestException(error.message);
-  }
+  async removeFromFavorites(@Param('userId') userId: number,@Param('productId') productId: number): Promise<BaseResponse> {
+    return await this.favoritesService.removeFromFavorites(userId, productId);
 }
 
-
-  @Get(':userId')
-  async getUserFavorites(
-    @Param('userId', ParseIntPipe) userId: number,
-  ): Promise<FavoriteEntity[]> {
+  @Get('/:userId')
+  async getUserFavorites(@Param('userId') userId: number): Promise<BaseResponse> {
     return this.favoritesService.getUserFavorites(userId);
   }
 }

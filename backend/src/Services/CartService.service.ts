@@ -47,10 +47,11 @@ export class CartService {
       const product = await this.productRepository.findOne({
         where: { productId:productId}});
 
-        
-
       if (!product) {
-        throw new Error('Product not found');
+        return {
+          status:404,
+          message:"product not found"
+        }
       }
 
       if(product.stock < 1){
@@ -71,7 +72,7 @@ export class CartService {
       // console.log(cart.products.length)
 
       const oldCartProd = cart.cartProducts.find((p: CartProdEntity) => p.product.productId === product.productId)
-      console.log(oldCartProd)
+      // console.log(oldCartProd)
 
       // Check if the product with the given productId is already in the cart
       if (cart.cartProducts.some((cartProd: CartProdEntity) => cartProd.product.productId === product.productId)) {
@@ -79,6 +80,12 @@ export class CartService {
 
         oldCartProd.qty += 1
         await this.cartProdRepository.save(oldCartProd)
+        await this.cartRepository.save(cart)
+        return {
+          status:200,
+          message:"product added to cart",
+          response: cart
+        }
         // return this.cartRepository.save(cart);
        
       }
@@ -98,7 +105,8 @@ export class CartService {
         }
 
     } catch (error) {
-      throw new Error('Error adding to cart: ' + error.message);
+      console.log(error)
+      // throw new Error('Error adding to cart: ' + error.message);
     }
   }
 
@@ -475,7 +483,10 @@ async getAllOrders(): Promise<BaseResponse>{
   try {
 
     const orders = await this.orderRepository.find(
-      {relations: ['cartProducts', 'user', 'cartProducts.product']}
+      {relations: ['cartProducts', 'user', 'cartProducts.product'],
+    order:{
+      id: "ASC"
+    }}
     )
     if (orders){
       return{

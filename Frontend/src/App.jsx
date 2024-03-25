@@ -35,12 +35,19 @@ import Earrings from './productsPage/Earrings/earrings.jsx';
 import Watches from './productsPage/Watches/watches.jsx';
 
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faTh, faInfo, faStar } from '@fortawesome/free-solid-svg-icons';
 import AboutSection from './about us/about.jsx';
 import AboutUs from './about us/about.jsx';
 import ProfilePage from './Profile/ProfilePage.jsx';
+import CreateReview from './Profile/subs/CreateReview.jsx'
+import Favorites from './Favorites/Favorites.jsx';
+import PrivacyPolicy from './assets/PrivacyPolicy';
+import ReturnsPolicy from './assets/ReturnsPolicy.jsx';
+
+
 
 library.add(faHome, faTh, faInfo, faStar);
 // toast.configure();
@@ -51,8 +58,22 @@ function App() {
   // console.log(currentURL)
 
   return (
+
     <Router>
       <AuthProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition:Bounce
+        />
         {/* {
           currentURL === "/dashboard" || "/login" || "/forgotPassword" ? <></> : <AppNavbar />
         } */}
@@ -76,6 +97,7 @@ function App() {
           <Route path='/about' element={<AboutUs />} />
           <Route path="/addCart" element={<AddCart />} />
           <Route path='/product/:productId' element={<IndividualProduct />} />
+          <Route path='/product/:productId' element={<CreateReview />} />
           <Route path="/cart" element={<AddCartPage />} />
           <Route path='/Signup' exact element={<Signup />} />
           <Route path='/AdminSignUp' exact element={<AdminSignUp />} />
@@ -87,6 +109,10 @@ function App() {
           <Route path='/necklaces' element={<Necklaces />} />
           <Route path='/earrings' element={<Earrings />} />
           <Route path='/watches' element={<Watches />} />
+          <Route path='/favorites' element={<Favorites />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='/returns-and-refund' element={<ReturnsPolicy />} />
+
         </Routes>
         {
           (currentURL === "/dashboard" || currentURL === "/login" || currentURL === "/forgotPassword") ? <></> : <Footer />

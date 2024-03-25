@@ -6,7 +6,8 @@ import AuthContext from '../Context/AuthContext'
 import { Link } from 'react-router-dom'
 import PersonalInfo from './subs/PersonalInfo'
 
-function Menu({ setP }) {
+function Menu({ setP, page }) {
+    // console.log(page, "menu")
     // console.log(setP, "setp")
     // const [page, setPage] = useState(0)
     let { user, logoutUser } = useContext(AuthContext)
@@ -18,7 +19,7 @@ function Menu({ setP }) {
         { name: "Orders", page: 1, icon: faCartShopping },
         { name: "Returns", page: 2, icon: faRightLeft },
         { name: "My Reviews", page: 3, icon: faComments },
-        { name: "My Wishlist", icon: faHeart, link: "/#" },
+        { name: "My Wishlist", icon: faHeart, link: "/favorites" },
         { name: "Change Password", icon: faLock, link: "/forgotPassword" },
         { name: "Logout", icon: faRightFromBracket, func: logoutUser },
     ]
@@ -36,7 +37,7 @@ function Menu({ setP }) {
                         {menuItems.map(item => (
                             <div className="menuItem" key={item.name} onClick={() => { setP(item.page) }}>
                                 <FontAwesomeIcon icon={item.icon} />
-                                {item.link ? <Link to={item.link}>{item.name}</Link> : <p onClick={item.func}>{item.name}</p>}
+                                {item.link ? <Link to={item.link}>{item.name}</Link> : <p onClick={item.func} className={page == item.page ? "active" : ""}>{item.name}</p>}
                             </div>
 
                         ))}

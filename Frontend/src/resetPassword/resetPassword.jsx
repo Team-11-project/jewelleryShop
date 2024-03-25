@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './resetPassword.css';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ResetPassword = () => {
   const [otp, setOtp] = useState('');
@@ -9,6 +10,7 @@ const ResetPassword = () => {
   const [error, setError] = useState('');
   const location = useLocation();
   const userId = location.state.userId;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -18,6 +20,8 @@ const ResetPassword = () => {
     }
   }, []);
 
+  const notify = (message) => toast(message);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -42,11 +46,11 @@ const ResetPassword = () => {
 
       if (!response.ok) {
         const responseData = await response.json();
-        setError(responseData.message || 'An error occurred while resetting the password');
+        notify(responseData.message);
         return;
       } else {
         const responseData = await response.json();
-        console.log(responseData.message); 
+        notify(responseData.message);
       }
     } catch (error) {
       console.error('Error resetting password:', error);
@@ -54,10 +58,15 @@ const ResetPassword = () => {
     }
   };
 
+  const handleBackButtonClick = () => {
+    navigate('/forgotpassword'); 
+  };
+
   return (
     <div className="reset-password-page">
+      <ToastContainer />
       <div className="reset-password-card">
-        <div className="back-button">← Back</div>
+        <div className="back-button" onClick={handleBackButtonClick}>← Back</div>
         <div className="reset-form-container">
           <h1 className="reset-password-title">Reset Password</h1>
           {error && <p className="error-message">{error}</p>}

@@ -36,11 +36,11 @@ import { PaymentInfoEntity } from './Entities/PaymentInfo.entity';
 import { AddressEntity } from './Entities/Address.entity';
 import { ReturnEntity } from './Entities/Return.entity';
 
-import { NotificationService } from './Services/NotificationService.service';
-import { NotificationController } from './Controllers/NotificationController.controller';
 import { NotificationEntity } from './Entities/Notification.entity';
 import { InventoryInboxService } from './Services/InventoryInboxService.service';
 import { CartProdEntity } from './Entities/cartProd.entity';
+import { InventoryInboxController } from './Controllers/InventoryInboxController.controller';
+import { InventoryService } from './Services/InventoryService.service';
 // const file = fs.readFileSync(path.resolve(__dirname, "../global-bundle.pem"));
 @Module({
   imports: [
@@ -102,8 +102,8 @@ import { CartProdEntity } from './Entities/cartProd.entity';
 TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, FavoriteEntity, PaymentInfoEntity, AddressEntity, InventoryInbox, ReturnEntity, NotificationEntity, CartProdEntity]),
 
   ],
-  controllers: [ProductsController,CartController, OrdersController, ReviewController, ReviewController, NotificationController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService, ReviewService, ReviewService, InventoryInboxService, NotificationService],
+  controllers: [ProductsController,CartController, OrdersController, ReviewController, ReviewController, InventoryInboxController, FavoritesController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService, ReviewService, ReviewService, InventoryInboxService, InventoryService, FavoritesService],
 })
 export class AppModule {}
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faRightLeft, faSterlingSign, faStore, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +8,7 @@ import {
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import './overviewStyles.css';
+import AuthContext from '../../../../Context/AuthContext';
 
 // Simulated data for the sales chart
 const salesData = [
@@ -35,18 +36,58 @@ const recentReviews = [
 ];
 
 function Overview() {
-  // Example state variables (replace with actual data fetching later)
+  let {authTokens} = useContext(AuthContext)  
   const totalSales = 100000;
-  const orders = 300;
-  const returns = 10;
+  const orders = 0;
+  const returns = 0;
   const products = 100;
+  const [data, setData] = useState({})
+
+  const Overview1 = async () => {
+    try {
+        let response = await fetch(`http://localhost:3001/orders/dash/getDashboardCardsData`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                //Authorization: `Bearer ${token}`,
+            },
+        });
+        const resJson = await response.json();
+        if (resJson.status === 200) {
+          console.log(resJson.response)
+            setData(resJson.response);
+        } else {
+            console.log(resJson);
+            //notify('error: ' + resJson.message);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const fetchOrdersData1 = async () => {
+  try {
+    const token = authTokens.token;
+    const response = await fetch("http://localhost:3001/products/get-all-products", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    setOrdersData(data.response);
+    setSearchResults(data.response);
+  } catch (error) {
+    console.error("Error fetching orders data:", error);
+  }
+};
+
+useEffect(() => {Overview1()},[])
 
   // Inline TopProducts component
   const topProductsData = [
     { id: 1, name: 'Product 1', sales: 2040 },
     { id: 2, name: 'Product 2', sales: 1860 },
     { id: 3, name: 'Product 3', sales: 1700 },
-    { id: 4, name: 'Product 4', sales: 1500 },
     // ... other products
   ];
 
@@ -81,7 +122,7 @@ function Overview() {
         <div className="metric">
           <div className="info">
             <p>Total Sales</p>
-            <p>£{totalSales.toLocaleString()}</p>
+            <p>£{data?.totalSales}</p>
           </div>
           <div className="icon-side">
             <FontAwesomeIcon icon={faSterlingSign} className="metric-icon" />
@@ -90,7 +131,7 @@ function Overview() {
         <div className="metric">
           <div className="info">
             <p>Orders</p>
-            <p>{orders}</p>
+            <p>{data?.totalOrders}</p>
           </div>
           <div className="icon-side">
             <FontAwesomeIcon icon={faCartShopping} className="metric-icon orders" />

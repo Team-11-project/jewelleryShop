@@ -3,9 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '../../../../../../Context/AuthContext';
 import './DeleteProduct.css';
+import { toast } from 'react-toastify';
 
 function DeleteProduct({ getDeletePop, chosenProd }) {
   let { authTokens } = useContext(AuthContext);
+
+  const notify = (message) => { toast(message) }
 
   const handlePop = (pop) => {
     getDeletePop(pop);
@@ -29,13 +32,15 @@ function DeleteProduct({ getDeletePop, chosenProd }) {
         },
       });
       const res = await req.json();
-      // if (res.status !== 200) {
+      // if (res.status == 200) {
+      notify(res.message)
+      handlePop(false);
 
       //   //console.log(res.status);
       //   console.error('Delete request failed:', res.message);
       //   alert('Error deleting product. Please try again.');
       // }
-      handlePop(false);
+
     }
     catch (error) {
       console.error('Error:', error.message);

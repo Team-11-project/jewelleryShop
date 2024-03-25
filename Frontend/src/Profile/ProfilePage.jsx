@@ -15,7 +15,7 @@ function ProfilePage() {
     const uid = user?.user?.id
 
     const setP = (page) => {
-        console.log(page)
+        // console.log(page)
         setPage(page)
     }
 
@@ -24,7 +24,7 @@ function ProfilePage() {
             return (<PersonalInfo userInfo={userData} />)
         }
         if (page === 1) {
-            return (<Orders />)
+            return (<Orders userId={uid} />)
         }
         if (page === 2) {
             return (<Returns />)
@@ -37,7 +37,7 @@ function ProfilePage() {
     const getUserData = async (id) => {
         const token = authTokens.token
         try {
-            const req = await fetch(` http://localhost:3001/auth/getUserByUserId/${id}`,
+            const req = await fetch(`http://localhost:3001/auth/getUserByUserId/${id}`,
                 {
                     method: "GET",
                     headers: {
@@ -69,7 +69,7 @@ function ProfilePage() {
             <AppNavbar />
 
             <div className="profileContainer">
-                <Menu setP={setP} />
+                <Menu setP={setP} page={page} />
                 <div className="display">
                     {PageDisplay()}
 

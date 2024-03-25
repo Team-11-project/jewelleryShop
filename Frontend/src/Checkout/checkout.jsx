@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router';
 import CheckoutBox from './checkoutBox';
 import { Link } from 'react-router-dom';
 import AuthContext from '../Context/AuthContext';
+import { toast } from 'react-toastify';
 
 const countries = [
   "Australia", "Austria", "Belgium", "Canada", "Croatia", "France",
@@ -16,11 +17,12 @@ const countries = [
 
 
 const Checkout = () => {
-  let { user } = useContext(AuthContext)
+  const notify = (message) => { toast(message) }
+  let { user, checkStocks } = useContext(AuthContext)
   let { authTokens } = useContext(AuthContext)
   const location = useLocation()
   const Cart = location.state
-  console.log(Cart)
+  // console.log(Cart)
 
   const navigate = useNavigate()
   // console.log(Cart)
@@ -96,11 +98,13 @@ const Checkout = () => {
         });
       const res = await req.json();
       if (res.status === 200) {
-        console.log(res)
+        // console.log(res)
+        notify(res.message)
         setTimeout(() => {
           navigate('/checkoutComplete')
 
         }, 2000);
+        checkStocks()
 
       }
       else {

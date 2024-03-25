@@ -21,6 +21,7 @@ function Login() {
                     <div className="log-head">
                         <div className="log">Log into your account</div>
                         <div className="acc">Don't have an account? <a href="/signup">Sign up</a></div>
+                        <div className = "pwd">Forgot your password? <a href="/forgotpassword">Forgot Password</a></div>
                     </div>
 
                     <div className="mid">

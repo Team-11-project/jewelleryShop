@@ -7,7 +7,15 @@ import './bracelets.css';
 import AppNavbar from '../../assets/navbar';
 import AuthContext from '../../Context/AuthContext';
 
+import { ToastContainer, toast } from 'react-toastify';
+
+
+
 function Bracelets() {
+  const imgPath = '../../../src/assets/'
+
+  const notify = (message) => toast(message);
+
   let { user } = useContext(AuthContext)
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
@@ -44,18 +52,21 @@ function Bracelets() {
   }
 
   const addToCart = async (productId) => {
-   
+
     try {
       // setIsLoading(true)
       const userId = user.user.id
-      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}`,
+      let response = await fetch(`http://localhost:3001/cart/add/${userId}/${productId}/1`,
         {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
           }
         })
-      // const resJson = await response.json();
+      const resJson = await response.json();
+      if (resJson.status == 200) {
+        notify(resJson.message)
+      }
     }
     catch (error) {
       // setIsLoading(true)
@@ -66,18 +77,6 @@ function Bracelets() {
   useEffect(() => {
     getProducts()
   }, [])
-
-  // const products = [
-  //   { id: 1, name: 'Rolex Oyster Perpetual', price: 8000, image: rolexOyster },
-  //   { id: 2, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 3, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 4, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 5, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 6, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 7, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 8, name: 'Product 2', price: 30, image: img1 },
-  //   { id: 9, name: 'Product 2', price: 30, image: img1 },
-  // ];
 
   const priceOptions = ['100-500', '500-1000', '1000-5000', '5000+'];
   const materialOptions = ['Gold', 'Silver', 'Diamond', 'Gemstone'];
@@ -106,6 +105,19 @@ function Bracelets() {
   return (
     <>
       <AppNavbar />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
       <Container className="products-container">
 
         <Row>
@@ -197,18 +209,20 @@ function Bracelets() {
             {AllProducts.map((product) => (
               <Card key={product.productId}>
                 <Link to={`/product/${product.productId}`} state={product}>
-                  <Card.Img variant="top" src={product.image} />
+                  <Card.Img variant="top" src={imgPath + product.image} />
                 </Link>
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text>£{product.price}</Card.Text>
+                  {product.stock < 1 ? <Card.Text className='outOfS'>Out Of Stock </Card.Text> : <></>}
+
                   <div className="card-icons">
                     <a href="#" onClick={() => handleHeartClick(product)}>
                       <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
                     </a>
-                    <Link to="/addCart" onClick={() => addToCart(product?.productId)}>
-                      <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
-                    </Link>
+                    {/* <Link to="/addCart" onClick={() => addToCart(product?.productId)}> */}
+                    <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} onClick={() => addToCart(product?.productId)} />
+                    {/* </Link> */}
                   </div>
                 </Card.Body>
               </Card>

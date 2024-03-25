@@ -14,7 +14,7 @@ const Orders = () => {
 
   useEffect(() => {
     fetchOrdersData();
-  }, []);
+  }, [selectedOrderId, orderDetailsPop]);
 
   const fetchOrdersData = async () => {
     try {
@@ -47,7 +47,7 @@ const Orders = () => {
     let filteredOrders = ordersData;
 
     if (term) {
-      filteredOrders = filteredOrders.filter((order) => 
+      filteredOrders = filteredOrders.filter((order) =>
         order.id.toString().toLowerCase().includes(lowercasedTerm) ||
         order.status.toLowerCase().includes(lowercasedTerm) ||
         order.totalPrice.toString().toLowerCase().includes(lowercasedTerm) ||
@@ -56,7 +56,7 @@ const Orders = () => {
     }
 
     if (filterStatus && filterStatus !== "") {
-      filteredOrders = filteredOrders.filter((order) => 
+      filteredOrders = filteredOrders.filter((order) =>
         order.status.toLowerCase() === filterStatus.toLowerCase()
       );
     }
@@ -93,7 +93,7 @@ const Orders = () => {
       {orderDetailsPop && selectedOrderId && (
         <OrderDetails orderId={selectedOrderId} closePopup={closeOrderDetails} />
       )}
-    
+
       <div className="orders-container">
         {/* Search and filter UI */}
         <div className="search-filter-container">
@@ -140,16 +140,16 @@ const Orders = () => {
                 </td>
                 <td>{"£" + order.totalPrice}</td>
                 <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-              <td>
-                <button onClick={() => openOrderDetails(order.id)} className="details-button">
-                  &gt;
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                <td>
+                  <button onClick={() => openOrderDetails(order.id)} className="details-button">
+                    &gt;
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

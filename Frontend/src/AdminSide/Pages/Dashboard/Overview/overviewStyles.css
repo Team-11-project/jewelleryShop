@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
-  margin-top: 8vh;
 }
 
 .metric {
@@ -129,8 +128,8 @@
 .bottomSection {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
-  gap: 20px; /* or use margin-right on the first child if gap is not supported */
+  padding: 0px 20px 20px 20px;
+  gap: 20px; 
 }
 
 .recentOrdersSection, .recentReviewsSection {
@@ -138,7 +137,7 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  width: calc(50% - 10px); /* accounting for gap */
+  width: calc(50% - 10px); 
 }
 
 .card {
