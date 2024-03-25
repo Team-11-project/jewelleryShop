@@ -113,4 +113,16 @@ export class OrdersController {
        
     }
 
+    @Get('dash/getGraphData')
+    async getGraphData(): Promise<BaseResponse> {
+        try {
+            return await this.orderService.getDashboardGraphData();
+            
+        } catch (error) {
+            console.log(error)
+            
+        }
+       
+    }
+
     }

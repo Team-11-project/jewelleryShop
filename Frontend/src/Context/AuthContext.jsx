@@ -119,9 +119,9 @@ export const AuthProvider = ({ children }) => {
     }, 10 * 60 * 1000); //10 minutes
 
     useEffect(() => {
-        if (user) {
-            autoLogOut()
-        }
+        // if (user) {
+        //     autoLogOut()
+        // }
 
     }, [])
 

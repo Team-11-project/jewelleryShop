@@ -106,13 +106,10 @@
     display: flex;
     gap: 10%;
     justify-content: flex-end;
-<<<<<<< HEAD
     align-items: center;
-=======
 }
 
 .reset {
     background-color: #ebd232;
     border-color: #ebd232;
->>>>>>> f67556071296678f878c35af4db7023f916bcb6e
 }

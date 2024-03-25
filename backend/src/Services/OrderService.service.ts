@@ -196,5 +196,29 @@ export class OrderService {
         }
     }
 
+    async getDashboardGraphData () : Promise<BaseResponse>{
+         // {name:"", sales:""}
+         const allorders = await this.orderRepository.find( {relations: ['cartProducts']})
+
+         
+
+         const data = [
+            {name:"Mon", data:""},
+            {name:"Tue", data:""},
+            {name:"Wed", data:""},
+            {name:"Thu", data:""},
+            {name:"Fri", data:""},
+            {name:"Sat", data:""},
+            {name:"Sun", data:""},
+         ]
+
+         return {
+            status:200,
+            message: "data found",
+            response: data
+         }
+    }
+   
+
 }
 
