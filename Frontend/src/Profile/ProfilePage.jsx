@@ -7,6 +7,7 @@ import Orders from './subs/Orders'
 import Returns from './subs/CreateReturns'
 import MyReviews from './subs/MyReviews'
 import AuthContext from '../Context/AuthContext'
+import MyReturns from './subs/MyReturns'
 
 function ProfilePage() {
     const [page, setPage] = useState(0)
@@ -27,7 +28,7 @@ function ProfilePage() {
             return (<Orders userId={uid} />)
         }
         if (page === 2) {
-            return (<Returns />)
+            return (<MyReturns />)
         }
         if (page === 3) {
             return (<MyReviews />)

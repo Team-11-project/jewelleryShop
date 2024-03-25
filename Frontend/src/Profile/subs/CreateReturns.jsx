@@ -61,7 +61,6 @@ function CreateReturns({ order }) {
                 <>
                     <ToastContainer position="top-right" autoClose={5000} />
                     <div className="returns-container">
-                        <h1>Returns</h1>
                         <h2>What would you like to return?</h2>
                         <p>Select the item you wish to return and the reason for return.</p>
                         <div className="items-to-return">

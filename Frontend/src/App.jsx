@@ -44,6 +44,7 @@ import AboutUs from './about us/about.jsx';
 import ProfilePage from './Profile/ProfilePage.jsx';
 import CreateReview from './Profile/subs/CreateReview.jsx'
 import Favorites from './Favorites/Favorites.jsx';
+import MyReturns from './Profile/subs/MyReturns.jsx';
 
 library.add(faHome, faTh, faInfo, faStar);
 // toast.configure();
@@ -106,6 +107,7 @@ function App() {
           <Route path='/earrings' element={<Earrings />} />
           <Route path='/watches' element={<Watches />} />
           <Route path='/favorites' element={<Favorites />} />
+          <Route path='/MyReturns' element={<MyReturns />} />
         </Routes>
         {
           (currentURL === "/dashboard" || currentURL === "/login" || currentURL === "/forgotPassword") ? <></> : <Footer />
