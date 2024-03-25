@@ -99,4 +99,16 @@ export class OrdersController {
         return this.orderService.getReturnsByUser(userId);
     }
 
+    @Get('dash/getDashboardCardsData')
+    async getData(): Promise<BaseResponse> {
+        try {
+            return await this.orderService.getDashboardCardsData();
+            
+        } catch (error) {
+            console.log(error)
+            
+        }
+       
+    }
+
     }
