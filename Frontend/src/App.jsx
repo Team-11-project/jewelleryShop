@@ -44,11 +44,11 @@ import AboutUs from './about us/about.jsx';
 import ProfilePage from './Profile/ProfilePage.jsx';
 import CreateReview from './Profile/subs/CreateReview.jsx'
 import Favorites from './Favorites/Favorites.jsx';
+
 import PrivacyPolicy from './assets/PrivacyPolicy';
 import ReturnsPolicy from './assets/ReturnsPolicy.jsx';
-
-
 import MyReturns from './Profile/subs/MyReturns.jsx';
+
 
 library.add(faHome, faTh, faInfo, faStar);
 // toast.configure();
@@ -113,7 +113,6 @@ function App() {
           <Route path='/favorites' element={<Favorites />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/returns-and-refund' element={<ReturnsPolicy />} />
-
           <Route path='/MyReturns' element={<MyReturns />} />
         </Routes>
         {
