@@ -1,3 +1,4 @@
+/*
 import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faRightLeft, faSterlingSign, faStore, faCircle } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +10,7 @@ import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import './overviewStyles.css';
 import AuthContext from '../../../../Context/AuthContext';
+
 
 // Simulated data for the sales chart
 const salesData = [
@@ -118,7 +120,6 @@ useEffect(() => {Overview1()},[])
   return (
     <>
       <div className="topSection">
-        {/* Metric cards for key statistics */}
         <div className="metric">
           <div className="info">
             <p>Total Sales</p>
@@ -241,3 +242,4 @@ useEffect(() => {Overview1()},[])
 }
 
 export default Overview;
+*/

@@ -48,6 +48,7 @@ import PrivacyPolicy from './assets/PrivacyPolicy';
 import ReturnsPolicy from './assets/ReturnsPolicy.jsx';
 
 
+import MyReturns from './Profile/subs/MyReturns.jsx';
 
 library.add(faHome, faTh, faInfo, faStar);
 // toast.configure();
@@ -113,6 +114,7 @@ function App() {
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/returns-and-refund' element={<ReturnsPolicy />} />
 
+          <Route path='/MyReturns' element={<MyReturns />} />
         </Routes>
         {
           (currentURL === "/dashboard" || currentURL === "/login" || currentURL === "/forgotPassword") ? <></> : <Footer />
