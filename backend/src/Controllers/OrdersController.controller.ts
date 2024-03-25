@@ -71,11 +71,11 @@ export class OrdersController {
       }
   }
 
-  @Post(":id/returns")
+  @Post(":orderId/returns")
   async createReturn(
-      @Param('id', ParseIntPipe) orderId: number,
+      @Param('orderId', ParseIntPipe) orderId: number,
       @Body() createReturnDto: CreateReturnDto
-  ): Promise<ReturnEntity> {
+  ): Promise<BaseResponse> {
       return await this.orderService.createReturn(orderId, createReturnDto);
   }
 
@@ -91,4 +91,12 @@ export class OrdersController {
             throw new Error(error.message);
         }
     }
+    
+    @Get('user/:userId/returns')
+    @ApiParam({ name: 'userId', type: 'number' })
+    @UseGuards(JwtGuard, RolesGuard)
+    async getReturnsByUser(@Param('userId', ParseIntPipe) userId: number): Promise<ReturnEntity[]> {
+        return this.orderService.getReturnsByUser(userId);
+    }
+
     }

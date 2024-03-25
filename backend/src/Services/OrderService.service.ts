@@ -87,23 +87,30 @@ export class OrderService {
         }
     }
 
-    async createReturn(orderId: number, createReturnDto: CreateReturnDto): Promise<ReturnEntity> {
+    async createReturn(orderId: number, createReturnDto: CreateReturnDto): Promise<BaseResponse> {
         try {
             const order = await this.orderRepository.findOne({where:{id: orderId},});
             if (!order) {
-                throw new NotFoundException(`Order with ID ${orderId} not found`);
+                return {
+                    status: 404,
+                    message: "order not found"
+                }
             }
 
             const newReturn = new ReturnEntity();
             newReturn.order = order;
             newReturn.dateCreated = new Date();
-            newReturn.status = createReturnDto.status;
-            newReturn.returnedProducts = createReturnDto.returnedProducts;
-
-            return await this.returnRepository.save(newReturn);
+            newReturn.status = "pending";
+            newReturn.returnedProductsIds = createReturnDto.returnedProducts;
+            newReturn.totalPrice = createReturnDto.totalPrice;
+            await this.returnRepository.save(newReturn);
+            return {
+                status: 200,
+                message: "return created",
+                response: newReturn
+            }
         } catch (error) {
             console.error(error);
-            throw new InternalServerErrorException("Failed to create return");
         }
     }
 
@@ -116,6 +123,26 @@ export class OrderService {
         
         returnEntity.status = newStatus;
         return await this.returnRepository.save(returnEntity);
+    }
+
+    async getReturnsByUser(userId: number): Promise<ReturnEntity[]> {
+        try {
+            const returns = await this.returnRepository.find({
+                where: {
+                    order: {
+                        user: { userId }
+                    }
+                },
+                relations: ['order', 'order.user']
+            });
+            if (returns.length === 0) {
+                throw new NotFoundException('No returns found for the specified user');
+            }
+            return returns;
+        } catch (error) {
+            this.logger.error(`Failed to get returns for user with ID ${userId}`, error.stack);
+            throw new InternalServerErrorException('Failed to get returns');
+        }
     }
 
 }
