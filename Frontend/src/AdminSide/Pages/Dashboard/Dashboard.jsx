@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import "./dashboard.css"
 import Navbar from '../navbar/navbar'
 import SideNav from '../sideNav/sideNav'
-import Overview from './Overview/Overview'
+// import Overview from './Overview/Overview'
 import Products from './Products/Products'
 import NewCategory from './Products/popups/newCategory/newCategory'
 import EditCategory from './Products/popups/editCategory/editCategory'
@@ -52,8 +52,8 @@ function Dashboard() {
         if (page == 2) {
             return <Orders />;
         }
-        if (page == 5){
-            return <AdminReviews/>
+        if (page == 5) {
+            return <AdminReviews />
         }
         if (page == 6) {
             return <Inbox />;
