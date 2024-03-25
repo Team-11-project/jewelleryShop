@@ -186,14 +186,14 @@ export class AuthService{
 
     async getUserByUserId(id: number): Promise<BaseResponse>{
         try {
-            console.log(id)
+            // console.log(id)
 
             const user = await this.userRepository.findOne({
                 where:{
                     userId: id
                 }
             })
-            console.log(user)
+            // console.log(user)
 
             if(!user){
                 return{

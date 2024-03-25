@@ -15,12 +15,12 @@ const Contact = () => {
 
     emailjs.sendForm('service_uadmzp8', 'template_f62wn2p', form.current, 'p-zQ2M_XUsqsbGlsK')
       .then((result) => {
-          alert('Message sent successfully');
-          form.current.reset();
-          console.log(result.text);
+        alert('Message sent successfully');
+        form.current.reset();
+        // console.log(result.text);
       }, (error) => {
-          alert('Failed to send the message. Please try again.');
-          console.log(error.text);
+        alert('Failed to send the message. Please try again.');
+        console.log(error.text);
       });
   };
 
@@ -64,13 +64,13 @@ const Contact = () => {
           </div>
 
           <div className="contact-info text-center">
-  <p>
-    <FontAwesomeIcon icon={faEnvelope} className="mr-2" /> regaliajewellery@example.com
-  </p>
-  <p>
-    <FontAwesomeIcon icon={faPhone} className="mr-2" /> 0121 65798745
-  </p>
-</div>
+            <p>
+              <FontAwesomeIcon icon={faEnvelope} className="mr-2" /> regaliajewellery@example.com
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faPhone} className="mr-2" /> 0121 65798745
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -79,7 +79,7 @@ export class MailService {
 
   async handleContactForm(contactData: ContactDto): Promise<any> {
     // Implement logic
-    console.log(contactData);
+    // console.log(contactData);
     return { success: true, message: 'Your message has been received.' };
   }
 

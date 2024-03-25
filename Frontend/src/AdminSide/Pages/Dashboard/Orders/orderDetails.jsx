@@ -28,7 +28,7 @@ const OrderDetails = ({ orderId, closePopup }) => {
 
         const data = await response.json();
         setOrderDetails(data);
-        console.log(data)
+        // console.log(data)
         setProducts(data?.cartProducts)
         setEditedInfo({
           firstName: data.user?.firstName,
@@ -75,7 +75,7 @@ const OrderDetails = ({ orderId, closePopup }) => {
 
   const handleSaveStatus = async () => {
     try {
-      console.log(JSON.stringify({ status: editedInfo.status }),)
+      // console.log(JSON.stringify({ status: editedInfo.status }),)
       const response = await fetch(`http://localhost:3001/cart/updateOrderStatus/${orderId}`, {
         method: 'PUT',
         headers: {
@@ -90,7 +90,7 @@ const OrderDetails = ({ orderId, closePopup }) => {
       }
 
       const updatedData = await response.json();
-      console.log('Updated Order Details:', updatedData);
+      // console.log('Updated Order Details:', updatedData);
       setOrderDetails({ ...orderDetails, status: updatedData.status });
       setEditMode(false);
     } catch (error) {
@@ -99,7 +99,7 @@ const OrderDetails = ({ orderId, closePopup }) => {
   };
 
   const ItemBox = (item) => {
-    console.log(item, "item")
+    // console.log(item, "item")
     return (
       <>
         <div className="prods">

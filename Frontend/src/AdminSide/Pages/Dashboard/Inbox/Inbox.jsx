@@ -38,7 +38,7 @@ function Inbox() {
                     }
                 });
             const res = await req.json();
-            console.log(res)
+            // console.log(res)
             setMessages(res)
 
         } catch (error) { console.log(error) }

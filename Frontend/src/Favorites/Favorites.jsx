@@ -14,7 +14,7 @@ function Favorites() {
     let { user, authTokens } = useContext(AuthContext)
     const [favorites, setFavorites] = useState([])
     const pathToImages = '../../src/assets/'
-    console.log(favorites)
+    // console.log(favorites)
     const [isRemove, setIsRemove] = useState(false)
 
 

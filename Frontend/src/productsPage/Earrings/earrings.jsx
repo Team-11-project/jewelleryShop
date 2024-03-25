@@ -62,7 +62,7 @@ function Earrings() {
           }
         })
       const resJson = await response.json();
-      console.log(resJson)
+      // console.log(resJson)
       if (resJson.status == 200) {
         notify(resJson.message)
       }
@@ -92,13 +92,13 @@ function Earrings() {
 
   const handleHeartClick = (product) => {
     // Handle heart icon click, e.g., add to favorites/liked
-    console.log(`Added ${product.name} to favorites/liked`);
+    // console.log(`Added ${product.name} to favorites/liked`);
   };
 
   const handleShoppingBagClick = (product) => {
     // Handle shopping bag icon click, e.g., add to cart
     addToCart(product);
-    console.log(`Added ${product.name} to the shopping bag`);
+    // console.log(`Added ${product.name} to the shopping bag`);
   };
 
   return (

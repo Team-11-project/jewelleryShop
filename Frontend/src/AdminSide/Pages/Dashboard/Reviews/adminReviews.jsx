@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const AdminReviews = () => {
   const { authTokens, user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
-  console.log(user);
+  // console.log(user);
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -17,7 +17,7 @@ const AdminReviews = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authTokens.token}`, 
+            'Authorization': `Bearer ${authTokens.token}`,
           },
         });
         if (!response.ok) {
@@ -39,7 +39,7 @@ const AdminReviews = () => {
       const response = await fetch(`http://localhost:3001/reviews/deleteReview/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${authTokens.token}`, 
+          'Authorization': `Bearer ${authTokens.token}`,
         },
       });
       if (!response.ok) {

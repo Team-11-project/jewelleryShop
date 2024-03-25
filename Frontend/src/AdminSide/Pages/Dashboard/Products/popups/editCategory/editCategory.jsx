@@ -12,7 +12,7 @@ function EditCategory({ getPop, selectedCat }) {
         categoryName: selectedCat?.categoryName || "",
         description: selectedCat?.description || "",
     });
-    console.log(selectedCat)
+    // console.log(selectedCat)
 
     const handlePop = () => {
         getPop(false);
