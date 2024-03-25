@@ -147,8 +147,8 @@ export class CartService {
       // Check if the cart has products
       if (cart.cartProducts) {
         // Filter out the product with the given productId
-        // cart.cartProducts = cart.cartProducts.filter((p) => p.id != cartProductId);
-        await this.cartProdRepository.delete(await this.cartProdRepository.findOne({where:{id: cartProductId}}))
+        cart.cartProducts = cart.cartProducts.filter((p) => p.id != cartProductId);
+        // await this.cartProdRepository.delete(await this.cartProdRepository.findOne({where:{id: cartProductId}}))
   
         // Save the updated cart
         await this.cartRepository.save(cart);

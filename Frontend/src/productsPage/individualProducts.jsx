@@ -232,20 +232,27 @@ function IndividualProduct() {
           <Col>
             <h3>Customer Reviews</h3>
             <ListGroup className="review-list">
-              {reviews.map((review) => (
-                <ListGroup.Item key={review.id} className="review-item">
-                  <strong>{review.customerName}</strong>
-                  <div>
-                    <strong>{review.title}</strong>
-                  </div>
-                  <div>
-                    {review.content}
-                  </div>
-                  <div>
-                    Rating: {review.rating}
-                  </div>
-                </ListGroup.Item>
-              ))}
+              {reviews.length > 0
+                ?
+                <>
+                  {reviews.map((review) => (
+                    <ListGroup.Item key={review.id} className="review-item">
+                      <strong>{review.customerName}</strong>
+                      <div>
+                        <strong>{review.title}</strong>
+                      </div>
+                      <div>
+                        {review.content}
+                      </div>
+                      <div>
+                        Rating: {review.rating}
+                      </div>
+                    </ListGroup.Item>
+                  ))}
+                </>
+                :
+                "No reviews for this product yet"}
+
             </ListGroup>
           </Col>
         </Row>

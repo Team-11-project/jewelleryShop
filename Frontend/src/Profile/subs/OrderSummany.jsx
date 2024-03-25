@@ -9,7 +9,8 @@ function OrderSummany({ order, getView }) {
     const [isReview, setIsReview] = useState(false)
     const [selectedItem, setSelectedItem] = useState({})
     const imgPath = '../../../src/assets/'
-    console.log(selectedItem.product)
+    // console.log(selectedItem)
+    console.log(order)
     const getIsReview = (val) => {
         setIsReview(val)
     }
@@ -44,8 +45,8 @@ function OrderSummany({ order, getView }) {
     // console.log(order, "summary page")
     return (
         <>
-            {isReview == true ? <CreateReview getIsReview={getIsReview} item={selectedItem?.product} user={user}/> : ""}
-            
+            {isReview == true ? <CreateReview getIsReview={getIsReview} item={selectedItem?.product} user={user} /> : ""}
+
             <div className="viewOrderPopContainer">
                 <div className='viewOrderPop'>
                     <div className="upper">
