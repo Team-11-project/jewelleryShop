@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 function MyReturns() {
     const { user, authTokens } = useContext(AuthContext);
     const [returns, setReturns] = useState([]);
-
     useEffect(() => {
         const fetchReturns = async () => {
             try {
