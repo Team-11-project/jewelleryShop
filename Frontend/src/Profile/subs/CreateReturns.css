@@ -49,3 +49,23 @@
 .submit-btn:hover, .close-btn:hover, .back-to-orders-btn:hover {
     background-color: #f1d60d;
 }
+
+.items-to-return img{
+    width: 30%;
+}
+.items-to-return{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 1vh;
+}
+
+.return-item{
+    display: flex;
+    column-gap: 3vw;
+    /* justify-content: space-between; */
+    padding: 3px;
+    border-radius: 8px;
+    border: 1px solid black;
+}

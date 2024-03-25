@@ -9,6 +9,9 @@ function CreateReturns({ order, closeReturns }) {
     const [selectedItem, setSelectedItem] = useState(null);
     const [reason, setReason] = useState("");
     const [isVisible, setIsVisible] = useState(true);
+    const pathToImage = '../../../src/assets/'
+
+    // console.log(itemsToReturn)
 
     useEffect(() => {
         if (order && order.cartProducts) {
@@ -80,7 +83,7 @@ function CreateReturns({ order, closeReturns }) {
                     <div className="items-to-return">
                         {itemsToReturn.map((item) => (
                             <div key={item.id} className="return-item">
-                                <img src={item.imageUrl} alt={item.name} className="return-item-image" />
+                                <img src={pathToImage + item.imageUrl} alt={item.name} className="return-item-image" />
                                 <div className="item-info">
                                     <p className="item-name">{item.name}</p>
                                     <p>Qty: {item.quantity}</p>
@@ -107,7 +110,7 @@ function CreateReturns({ order, closeReturns }) {
                     </div>
                     {itemsToReturn.length > 0 && (
                         <div className="action-buttons">
-                            <button onClick={handleReturn} className="submit-btn">Submit</button>
+                            <button onClick={() => { handleReturn(); closeReturns() }} className="submit-btn">Submit</button>
                             <button onClick={() => { handleClose(); closeReturns() }}>Close</button>
                         </div>
                     )}
