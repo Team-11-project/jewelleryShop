@@ -55,9 +55,9 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                 </button>
                 <div className="side-container">
                     <div className="full-section">
-                        <div className={page === 0 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(0) }}>
+                        {/* <div className={page === 0 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(0) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faChartLine} /></div>
-                        </div>
+                        </div> */}
                         <div className={page === 1 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(1) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faStore} /></div>
                         </div>
@@ -119,10 +119,10 @@ function SideNav({ getPage, getEx, getIsNewCategory, getIsEditCategory, getSelec
                     </button>
                     <div className="full-section">
                         <p>Admin Panel</p>
-                        <div className={page === 0 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(0) }}>
+                        {/* <div className={page === 0 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(0) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faChartLine} /></div>
                             <div className="full-page-name">Overview</div>
-                        </div>
+                        </div> */}
                         <div className={page === 1 ? "active-icon full-page" : "full-page"} onClick={() => { setPage(1) }}>
                             <div className="full-icon"><FontAwesomeIcon icon={faStore} /></div>
                             <div className="full-page-name">Products</div>
