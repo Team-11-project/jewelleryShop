@@ -20,7 +20,7 @@ function Dashboard() {
     const selectedCategory = (p) => {
         setSelectedCat(p)
     }
-    console.log(selectedCat)
+    // console.log(selectedCat)
     const getIsNewCategory = (p) => {
         setIsNewCategory(p)
     }
@@ -43,9 +43,9 @@ function Dashboard() {
     }
 
     const PageDisplay = () => {
-        if (page === 0) {
-            return <Overview />
-        }
+        // if (page === 0) {
+        //     return <Overview />
+        // }
         if (page === 1) {
             return <Products isNewCategory={isNewCategory} />
         }

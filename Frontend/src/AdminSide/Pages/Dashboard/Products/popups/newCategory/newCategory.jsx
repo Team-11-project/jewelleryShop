@@ -21,10 +21,10 @@ function NewCategory({ getPop }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Category created", formData);
+        // console.log("Category created", formData);
         const token = authTokens.token
         try {
-            console.log("submitted")
+            // console.log("submitted")
             const req = await fetch("http://localhost:3001/products/create-category", {
                 method: "POST",
                 headers: {

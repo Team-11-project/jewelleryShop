@@ -114,7 +114,7 @@ function Products() {
         })
       const resJson = await response.json();
       if (response.status === 200) {
-        console.log(resJson, "response")
+        // console.log(resJson, "response")
         setAllProducts(resJson.response);
       } else {
         console.log(resJson);
@@ -202,7 +202,7 @@ function Products() {
       }
       return value.split('-').map(Number);
     }).flat();
-    console.log('min:', min, 'max:', max, 'price:', price);
+    // console.log('min:', min, 'max:', max, 'price:', price);
     return price >= min && price <= max;
   };
 
@@ -224,13 +224,13 @@ function Products() {
 
   const handleHeartClick = (product) => {
     // Handle heart icon click, e.g., add to favorites/liked
-    console.log(`Added ${product.name} to favorites/liked`);
+    // console.log(`Added ${product.name} to favorites/liked`);
   };
 
   const handleShoppingBagClick = (product) => {
     // Handle shopping bag icon click, e.g., add to cart
     addToCart(product);
-    console.log(`Added ${product.name} to the shopping bag`);
+    // console.log(`Added ${product.name} to the shopping bag`);
   };
 
   return (
@@ -287,8 +287,8 @@ function Products() {
                 </Dropdown>
               </Form.Group>
               <Button variant="danger" className="reset" onClick={resetFilters}>
-              Reset
-            </Button>
+                Reset
+              </Button>
             </div>
           )}
         </div>

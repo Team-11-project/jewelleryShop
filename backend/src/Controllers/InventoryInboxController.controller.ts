@@ -12,7 +12,7 @@ export class InventoryInboxController {
 
     @Post("createNotification")
   async createNotification(@Body() createDto: CreateNotificationDto) {
-    console.log(createDto); // For debugging
+    // console.log(createDto); // For debugging
         return await this.inventoryInboxService.createNotification(createDto.message, createDto.productId);
 }
 

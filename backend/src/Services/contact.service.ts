@@ -5,7 +5,7 @@ import { ContactDto } from '../Dto/contact.dto';
 export class ContactService {
   async handleContactForm(contactData: ContactDto): Promise<any> {
     // Implement logic
-    console.log(contactData);
+    // console.log(contactData);
     return { success: true, message: 'Your message has been received.' };
   }
 }

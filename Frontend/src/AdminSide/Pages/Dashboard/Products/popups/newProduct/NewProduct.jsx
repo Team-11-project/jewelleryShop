@@ -37,7 +37,7 @@ function NewProduct({ getPop }) {
         e.preventDefault()
         const token = authTokens.token
         try {
-            console.log("submitted")
+            // console.log("submitted")
             // console.log(formData)
             // console.log(imageData)
             let data = new FormData();

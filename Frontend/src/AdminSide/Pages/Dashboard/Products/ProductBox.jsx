@@ -15,7 +15,7 @@ function ProductBox({ product, getChosenProd, getEditPop, getIsOption, openDelet
     // console.log(product,"product")
     const handleChosenProd = (prod) => {
         // console.log("test")
-        console.log(prod, "handle")
+        // console.log(prod, "handle")
         getChosenProd(prod)
     }
 

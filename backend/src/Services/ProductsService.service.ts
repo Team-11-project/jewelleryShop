@@ -89,7 +89,7 @@ export class ProductService{
             })
 
             const newProduct = await this.productRepository.save(product)
-            console.log(newProduct)
+            // console.log(newProduct)
 
             if(product){
                 return{
@@ -239,7 +239,7 @@ async deleteCategory(name: string): Promise<BaseResponse> {
                 }
             })
 
-            console.log(categoryFromDb)
+            // console.log(categoryFromDb)
 
             if (categoryFromDb){
                 return{
@@ -463,7 +463,7 @@ async deleteCategory(name: string): Promise<BaseResponse> {
 
     async getProductByCategory(Category: string): Promise<BaseResponse>{
         try {
-            console.log(Category)
+            // console.log(Category)
             const product = await this.productRepository.find({
                 where: {
                     category: { categoryName: Category },

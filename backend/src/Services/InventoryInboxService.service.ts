@@ -70,7 +70,7 @@ export class InventoryInboxService {
     async deleteNotification(id: number): Promise<BaseResponse> {
             try {
               const notification = await this.inventoryInboxRepository.findOne({where:{id:id}})
-              console.log(notification)
+              // console.log(notification)
               if(!notification){
                 return{
                   status: 404,

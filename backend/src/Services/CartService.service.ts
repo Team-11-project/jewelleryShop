@@ -371,7 +371,7 @@ async createOrder(createOrderDto: CreateOrderDto): Promise<BaseResponse> {
 
 async updateOrderStatus(orderId: number, newStatus: any): Promise<BaseResponse>{
   try {
-    console.log(newStatus)
+    // console.log(newStatus)
     const order = await this.orderRepository.findOne({where: {id: orderId}})
 
     if(!order){

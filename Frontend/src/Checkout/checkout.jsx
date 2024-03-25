@@ -46,7 +46,7 @@ const Checkout = () => {
           }
         },
       )
-      console.log(response.json())
+      // console.log(response.json())
     } catch (error) {
       console.log(error)
 
@@ -71,10 +71,10 @@ const Checkout = () => {
 
     // const userid = user?.user.id
     const token = authTokens.token
-    console.log(formData)
+    // console.log(formData)
 
     try {
-      console.log(formData)
+      // console.log(formData)
       // let data = new FormData();
       // data.append('userId', formData.userId),
       //   data.append('city', formData.city),

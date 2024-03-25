@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 function EditProduct({ getEditPop, chosenProd, getIsOption }) {
     const notify = (message) => { toast(message) }
-    console.log(chosenProd)
+    // console.log(chosenProd)
 
     // const categories = [2, 3, 4]
 
@@ -66,7 +66,7 @@ function EditProduct({ getEditPop, chosenProd, getIsOption }) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const token = authTokens.token
-        console.log(chosenProd.productId, "chosen")
+        // console.log(chosenProd.productId, "chosen")
         try {
 
             const req = await fetch(`http://localhost:3001/products/${chosenProd?.productId}`,

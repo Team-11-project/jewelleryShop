@@ -14,7 +14,7 @@ import { AuthProvider } from './Context/AuthContext';
 import ForgotPassword from './forgotPassword/forgotPassword';
 import ResetPassword from './resetPassword/resetPassword';
 import Dashboard from './AdminSide/Pages/Dashboard/Dashboard';
-import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
+// import Overview from './AdminSide/Pages/Dashboard/Overview/Overview';
 import IndividualProduct from './productsPage/individualProducts';
 import AddCartPage from './addCart/addCartPage';
 import Checkout from './Checkout/checkout';
