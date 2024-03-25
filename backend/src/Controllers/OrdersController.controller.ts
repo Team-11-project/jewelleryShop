@@ -91,4 +91,24 @@ export class OrdersController {
             throw new Error(error.message);
         }
     }
+    
+    @Get('user/:userId/returns')
+    @ApiParam({ name: 'userId', type: 'number' })
+    @UseGuards(JwtGuard, RolesGuard)
+    async getReturnsByUser(@Param('userId', ParseIntPipe) userId: number): Promise<ReturnEntity[]> {
+        return this.orderService.getReturnsByUser(userId);
+    }
+
+    @Get('dash/getDashboardCardsData')
+    async getData(): Promise<BaseResponse> {
+        try {
+            return await this.orderService.getDashboardCardsData();
+            
+        } catch (error) {
+            console.log(error)
+            
+        }
+       
+    }
+
     }

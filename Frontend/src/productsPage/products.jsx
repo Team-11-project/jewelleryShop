@@ -188,6 +188,11 @@ function Products() {
 
   const handleToggleFilters = () => setShowFilters(!showFilters);
 
+  const resetFilters = () => {
+    setSelectedPrice(null);
+    setSelectedSort(null);
+  };
+
   const inPriceRange = (product) => {
     if (!selectedPrice) return true;
     const price = parseInt(product.price, 10);
@@ -281,6 +286,9 @@ function Products() {
                   </Dropdown.Menu>
                 </Dropdown>
               </Form.Group>
+              <Button variant="danger" className="reset" onClick={resetFilters}>
+              Reset
+            </Button>
             </div>
           )}
         </div>

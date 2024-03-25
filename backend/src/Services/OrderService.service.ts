@@ -7,6 +7,7 @@ import { ReturnEntity } from "src/Entities/Return.entity";
 import { CreateReturnDto } from "src/Dto/createReturnDto.dto";
 import { MailService } from "src/Mail/MailService.service";
 import { BaseResponse } from "src/Responses/BaseResponse";
+import { ProductEntity } from "src/Entities/Product.entity";
 
 @Injectable()
 export class OrderService {
@@ -17,6 +18,8 @@ export class OrderService {
         private readonly orderRepository: Repository<OrderEntity>,
         @InjectRepository(ReturnEntity)
         private readonly returnRepository: Repository<ReturnEntity>,
+        @InjectRepository(ProductEntity)
+        private readonly productRepository: Repository<ProductEntity>,
         private readonly mailService: MailService,
     ) {}
 
@@ -123,6 +126,61 @@ export class OrderService {
         
         returnEntity.status = newStatus;
         return await this.returnRepository.save(returnEntity);
+    }
+
+    async getReturnsByUser(userId: number): Promise<ReturnEntity[]> {
+        try {
+            const returns = await this.returnRepository.find({
+                where: {
+                    order: {
+                        user: { userId }
+                    }
+                },
+                relations: ['order', 'order.user']
+            });
+            if (returns.length === 0) {
+                throw new NotFoundException('No returns found for the specified user');
+            }
+            return returns;
+        } catch (error) {
+            this.logger.error(`Failed to get returns for user with ID ${userId}`, error.stack);
+            throw new InternalServerErrorException('Failed to get returns');
+        }
+    }
+
+    //dashboardCardsData
+    //total sales, orders, returns, products
+    async getDashboardCardsData () : Promise<BaseResponse>{
+        // console.log("here")
+
+        const allProducts = await this.productRepository.find()
+        const allReturns = await this.returnRepository.find()
+        const allorders = await this.orderRepository.find( {relations: ['cartProducts']})
+       
+        let allSales = 0
+
+        for (let i = 0; i<allorders.length; i++){
+            const order = allorders[i]
+            allSales += order.totalPrice
+        }
+
+        const totalSales = allSales
+        const totalOrders = allorders.length
+        const returns = allReturns.length
+        const products = allProducts.length
+
+        const data = {
+            totalSales: totalSales,
+            totalOrders: totalOrders,
+            returns: returns,
+            products: products
+        }
+
+        return{
+            status: 200,
+            message: "data found",
+            response: data
+        }
     }
 
 }
