@@ -10,6 +10,7 @@ import img6 from "./img6.png";
 import img7 from "./img7.png";
 import img8 from "./img8.png";
 import AppNavbar from "../assets/navbar";
+import Footer from '../assets/footer';
 
 function AboutUs() {
   return (
@@ -84,6 +85,8 @@ function AboutUs() {
         </div>
 
       </div>
+
+      <Footer />
 
     </>
   )

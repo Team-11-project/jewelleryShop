@@ -7,6 +7,7 @@ import './earrings.css';
 import AppNavbar from '../../assets/navbar';
 import AuthContext from '../../Context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
+import Footer from '../../assets/footer';
 
 
 
@@ -217,6 +218,7 @@ function Earrings() {
           </div>
         </div>
       </Container>
+      <Footer />
     </>
   )
 }

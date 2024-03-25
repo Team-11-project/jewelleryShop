@@ -1,5 +1,6 @@
 import React from 'react';
 import './Policies.css';
+import Footer from './footer';
 
 const PrivacyPolicy = () => {
   return (
@@ -54,7 +55,9 @@ const PrivacyPolicy = () => {
           Last updated: 12/03/
         </p>
       </div>
+      <Footer />
     </div>
+
   );
 };
 
