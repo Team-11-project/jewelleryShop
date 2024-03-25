@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import './footer.css';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -13,23 +14,22 @@ function Footer() {
         </div>
         <div className="footer-section">
           <h6>Pages</h6>
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Best Sellers</a>
-          <a href="#">Products</a>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/products">Products</Link>
+          <Link to="/contact">Contact</Link>
         </div>
         <div className="footer-section">
           <h6>Support</h6>
-          <a href="#">Contact Us</a>
-          <a href="#">Refund Policy</a>
-          <a href="#">Delivery</a>
-          <a href="#">FAQs</a>
+          <Link to="/contact">Contact</Link>
+          <Link to="/returns-and-refund">Refunds and Refund</Link>
+          <Link to="/">FAQs</Link>
         </div>
         <div className="footer-section">
-          <h6>Title</h6>
-          <a href="#">Option 1</a>
-          <a href="#">Option 1</a>
-          <a href="#">Option 1</a>
+          <h6>Contact</h6>
+          <a>0121 558 7137</a>
+          <a>Regalia@gmail.com</a>
+          <a>20 Aventure Park Ln.</a>
         </div>
         <div className="footer-section newsletter">
           <h6>Subscribe to our Newsletter</h6>
@@ -42,13 +42,13 @@ function Footer() {
       </div>
       <hr className="footer-divider" />
       <div className="footer-bottom">
-        <a href="/privacy-policy">Privacy Policy</a>
-        <p>&copy; 2023 Regalia. All Rights Reserved</p>
+      <Link to="/privacy-policy">Privacy Policy</Link>
+        <p>&copy; 2024 Regalia. All Rights Reserved</p>
         <div className="social-icons">
-          <a href="#" className="social-icon"><FontAwesomeIcon icon={faFacebook} /></a>
-          <a href="#" className="social-icon"><FontAwesomeIcon icon={faTwitter} /></a>
-          <a href="#" className="social-icon"><FontAwesomeIcon icon={faInstagram} /></a>
-          <a href="#" className="social-icon"><FontAwesomeIcon icon={faTiktok} /></a>
+        <a href="https://facebook.com" className="social-icon"><FontAwesomeIcon icon={faFacebook} /></a>
+        <a href="https://twitter.com" className="social-icon"><FontAwesomeIcon icon={faTwitter} /></a>
+        <a href="https://instagram.com" className="social-icon"><FontAwesomeIcon icon={faInstagram} /></a>
+        <a href="https://tiktok.com" className="social-icon"><FontAwesomeIcon icon={faTiktok} /></a>
         </div>
       </div>
     </footer>

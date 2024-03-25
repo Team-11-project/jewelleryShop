@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import emailjs from 'emailjs-com';
 import "./contact.css";
+import { Link } from 'react-router-dom';
+
 
 const Contact = () => {
   const form = useRef();
@@ -24,6 +26,7 @@ const Contact = () => {
 
   return (
     <div className="contact-page">
+      <Link to="/" className="back-button">Back to Home</Link>
       <div className="d-flex" style={{ height: '100vh' }}>
         {/* Contact Form Side */}
         <div className="d-flex flex-column justify-content-center align-items-center p-5" style={{ flex: '1' }}>
@@ -60,15 +63,14 @@ const Contact = () => {
             <h6 style={{ fontSize: '0.8em' }}>True luxury in jewellery.</h6>
           </div>
 
-          {/* Contact Information */}
-          <div className="text-black text-center">
-            <p>
-              <FontAwesomeIcon icon={faEnvelope} className="mr-2" /> regaliajewellery@example.com
-            </p>
-            <p>
-              <FontAwesomeIcon icon={faPhone} className="mr-2" /> 0121 65798745
-            </p>
-          </div>
+          <div className="contact-info text-center">
+  <p>
+    <FontAwesomeIcon icon={faEnvelope} className="mr-2" /> regaliajewellery@example.com
+  </p>
+  <p>
+    <FontAwesomeIcon icon={faPhone} className="mr-2" /> 0121 65798745
+  </p>
+</div>
         </div>
       </div>
     </div>
