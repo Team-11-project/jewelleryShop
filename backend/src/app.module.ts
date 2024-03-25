@@ -102,8 +102,8 @@ import { InventoryService } from './Services/InventoryService.service';
 TypeOrmModule.forFeature([ProductEntity, CategoryEntity, CartEntity, UserEntity, ReviewEntity, OrderEntity, FavoriteEntity, PaymentInfoEntity, AddressEntity, InventoryInbox, ReturnEntity, NotificationEntity, CartProdEntity]),
 
   ],
-  controllers: [ProductsController,CartController, OrdersController, ReviewController, ReviewController, InventoryInboxController],
-  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService, ReviewService, ReviewService, InventoryInboxService, InventoryService],
+  controllers: [ProductsController,CartController, OrdersController, ReviewController, ReviewController, InventoryInboxController, FavoritesController],
+  providers: [AppService, JwtGuard, JwtStrategy, ProductService,CartService, MailService, OrderService, ReviewService, ReviewService, InventoryInboxService, InventoryService, FavoritesService],
 })
 export class AppModule {}
 

@@ -11,6 +11,7 @@ import AuthContext from '../Context/AuthContext';
 function AppNavbar() {
   let { user, logoutUser } = useContext(AuthContext)
   const role = user?.user?.role
+  const userId = user?.user?.id
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -88,7 +89,7 @@ function AppNavbar() {
               <Nav.Link onClick={toggleSearch} className="nav-link-icons">
                 <FontAwesomeIcon icon={searchVisible ? faTimes : faSearch} />
               </Nav.Link>
-              <Nav.Link className="nav-link-icons">
+              <Nav.Link className="nav-link-icons" as={Link} to={'/favorites'}>
                 <FontAwesomeIcon icon={faHeart} />
               </Nav.Link>
               <Nav.Link className="nav-link-icons" as={Link} to="/myProfile">

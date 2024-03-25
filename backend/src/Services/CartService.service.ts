@@ -105,7 +105,7 @@ export class CartService {
         }
 
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
       // throw new Error('Error adding to cart: ' + error.message);
     }
   }
