@@ -1,96 +1,51 @@
-.returns-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center; /
-}
-.returns-container h1 {
-    font-family: 'Libre Caslon Text', serif;
-    font-size: 36px; 
-    margin-bottom: 20px; 
-    
-}
-
-
-body, .returns-container {
-    font-family: 'Libre Caslon Display', serif;
-}
-
-
-.returns-container h2 {
-    font-family: 'Libre Caslon Display', serif;
-    font-weight: 700; 
-}
-
-
-.proceed-btn, .item-info select, .item-info p {
-    font-family: 'Libre Caslon Display', serif;
-}
-
-.items-to-return .return-item {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 15px;
+.createReturnsContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
-    justify-content: space-between; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    justify-content: center;
+    z-index: 1000;
+}
+  
+.createReturnsBox {
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px; /* Adjust based on content */
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.createReturnsBox h2 {
+    margin-bottom: 16px;
 }
 
-.items-to-return img {
-    max-width: 80px; 
-    margin-right: 15px;
-    border-radius: 5px; 
+.createReturnsBox form {
+    width: 100%;
 }
 
-.item-info {
-    flex-grow: 1; 
-    text-align: left; 
-}
-
-.item-info p {
-    margin: 5px 0; 
-}
-
-.reason-for-return {
-    width: calc(100% - 30px); 
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.proceed-btn {
-    display: block;
-    margin-top: 10px; 
-    padding: 10px 20px; 
-    background-color: #FFD977;
+.submit-btn, .close-btn, .back-to-orders-btn {
+    background-color: #3f3f3f;
+    color: white;
+    padding: 8px 16px;
     border: none;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 4px;
     cursor: pointer;
-    width: auto;
-    max-width: 150px;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 14px;
+    margin-top: 16px;
 }
 
-.proceed-btn:hover {
-    background-color: #e6c067; 
+.close-btn, .back-to-orders-btn {
+    background-color: #c23b22; /* Different color for distinction */
 }
 
-
-@media (max-width: 768px) {
-    .items-to-return .return-item {
-        flex-direction: column; /
-    }
-
-    .items-to-return img {
-        margin-bottom: 10px; 
-    }
-
-    .reason-for-return {
-        width: 100%; 
-    }
+.submit-btn:hover, .close-btn:hover, .back-to-orders-btn:hover {
+    background-color: #f1d60d;
 }

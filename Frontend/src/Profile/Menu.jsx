@@ -17,7 +17,7 @@ function Menu({ setP, page }) {
     const menuItems = [
         { name: "Personal Information", page: 0, icon: faCircleInfo, },
         { name: "Orders", page: 1, icon: faCartShopping },
-        { name: "Returns", page: 2, icon: faRightLeft, link: "/MyReturns" },
+        { name: "Returns", page: 2, icon: faRightLeft },
         { name: "My Reviews", page: 3, icon: faComments },
         { name: "My Wishlist", icon: faHeart, link: "/favorites" },
         { name: "Change Password", icon: faLock, link: "/forgotPassword" },

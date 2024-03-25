@@ -8,6 +8,7 @@ function CreateReturns({ order }) {
     const [itemsToReturn, setItemsToReturn] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
     const [reason, setReason] = useState("");
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
         if (order && order.cartProducts) {
@@ -23,18 +24,19 @@ function CreateReturns({ order }) {
         }
     }, [order]);
     
-    // Handle return submission
+    
     const handleReturn = async () => {
         if (!selectedItem || !reason) {
             toast.error("Please select an item and a reason for return");
             return;
         }
+
         const requestBody = {
-          orderId: order.id, // The ID of the order for which the return is being created
-          returnedProducts: [selectedItem], // Array of product IDs being returned
-          dateCreated: new Date(), // Current date
-          totalPrice: order.totalPrice, // The total price of the returned items
-          status: 'pending' // The initial status of the return
+          orderId: order.id, // id of the order for which the return is being created
+          returnedProducts: [selectedItem], // product IDs being returned array
+          dateCreated: new Date(),
+          totalPrice: order.totalPrice,
+          status: 'pending' //initial status
       };
         
       try {
@@ -52,15 +54,27 @@ function CreateReturns({ order }) {
       }
             const result = await response.json();
             toast.success("Return submitted successfully");
+            setTimeout(() => {
+              handleClose();
+          }, 1500);
         } catch (error) {
             console.error('Error submitting return:', error);
             toast.error("Failed to submit return");
         }
     };
+
+    const handleClose = () => {
+      setIsVisible(false);
+     };
+
+     if (!isVisible) {
+       return null;
+   }
             return (
                 <>
                     <ToastContainer position="top-right" autoClose={5000} />
-                    <div className="returns-container">
+                    <div className="createReturnsContainer">
+                      <div className="createReturnsBox">
                         <h2>What would you like to return?</h2>
                         <p>Select the item you wish to return and the reason for return.</p>
                         <div className="items-to-return">
@@ -92,13 +106,15 @@ function CreateReturns({ order }) {
                             ))}
                         </div>
                         {itemsToReturn.length > 0 && (
-                            <div className="proceed-button-container">
-                                <button onClick={handleReturn} className="proceed-btn">Proceed</button>
+                            <div className="action-buttons">
+                                <button onClick={handleReturn} className="submit-btn">Submit</button>
+                                <button onClick={handleClose}>Close</button>
                             </div>
                         )}
+                    </div>
                     </div>
                 </>
             );
         }
 
-        export default CreateReturns; 
+        export default CreateReturns;
