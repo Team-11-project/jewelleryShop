@@ -6,6 +6,7 @@ import AppNavbar from '../assets/navbar';
 import AuthContext from '../Context/AuthContext';
 import ImageZoomComponent from '../assets/ImageZoomComponent';
 import { ToastContainer, toast } from 'react-toastify';
+import Footer from '../assets/footer';
 
 function IndividualProduct() {
   const imgPath = "../../src/assets/"
@@ -257,6 +258,7 @@ function IndividualProduct() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </>
   );
 }

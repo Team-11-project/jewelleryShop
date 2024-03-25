@@ -55,6 +55,16 @@ library.add(faHome, faTh, faInfo, faStar);
 
 function App() {
 
+  // const location = useLocation()
+  // const pathsToShowFooter = [
+  //   '/',
+  //   '/privacy-policy',
+  //   '/returns-and-refund',
+  //   '/products',
+  //   '/contact',
+  //   '/about'
+  // ];
+
   const currentURL = window.location.pathname
   // console.log(currentURL)
 
@@ -115,10 +125,11 @@ function App() {
           <Route path='/returns-and-refund' element={<ReturnsPolicy />} />
           <Route path='/MyReturns' element={<MyReturns />} />
         </Routes>
-        {
-          (currentURL === "/dashboard" || currentURL === "/login" || currentURL === "/forgotPassword") ? <></> : <Footer />
-        }
       </AuthProvider>
+      {/* {
+        (currentURL === "/dashboard" || currentURL === "/login" || currentURL === "/forgotPassword") ? <></> : <Footer />
+      } */}
+      {/* {pathsToShowFooter.includes(window.location.pathname) && <Footer />} */}
     </Router>
   )
 }

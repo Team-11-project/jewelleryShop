@@ -5,6 +5,7 @@ import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import emailjs from 'emailjs-com';
 import "./contact.css";
 import { Link } from 'react-router-dom';
+import Footer from '../assets/footer';
 
 
 const Contact = () => {
@@ -73,6 +74,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+      {/* <Footer /> */}
     </div>
   );
 };

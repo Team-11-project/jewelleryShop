@@ -7,6 +7,7 @@ import './rings.css';
 import AppNavbar from '../../assets/navbar';
 import AuthContext from '../../Context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
+import { Footer } from 'react-bootstrap/lib/Modal';
 
 
 
@@ -216,6 +217,7 @@ function Rings() {
           </div>
         </div>
       </Container>
+      <Footer />
     </>
   )
 }

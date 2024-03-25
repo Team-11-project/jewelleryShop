@@ -1,5 +1,6 @@
 import React from 'react';
 import './Policies.css';
+import Footer from './footer';
 
 const ReturnsPolicy = () => {
   return (
@@ -49,6 +50,7 @@ const ReturnsPolicy = () => {
           Last updated: [Date]
         </p>
       </div>
+      <Footer />
     </div>
   );
 };
