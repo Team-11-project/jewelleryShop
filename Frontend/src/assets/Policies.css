@@ -1,0 +1,30 @@
+.regalia-background {
+    background-color: rgb(1, 0, 59); /* Deep blue background */
+    color: rgb(255, 217, 119); /* Golden text color */
+    font-family: Arial, sans-serif; /* Clean, readable font */
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 50px; /* Adds padding to the top */
+}
+
+.privacy-policy-container,
+.returns-policy-container {
+    padding: 50px;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 100%; /* Ensures it does not exceed the parent width */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 50px; /* Adds spacing to the bottom */
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .privacy-policy-container,
+    .returns-policy-container {
+        padding: 20px;
+        margin: 20px;
+    }
+}

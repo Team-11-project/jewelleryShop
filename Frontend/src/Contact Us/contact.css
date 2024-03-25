@@ -46,3 +46,25 @@
 .contact-page .btn-primary:visited {
   border: 0;
 }
+
+.contact-info p {
+  color: rgb(255, 217, 119); /* Change text color to gold */
+}
+
+.contact-page .back-button {
+  position: absolute;
+  top: 20px; /* Adjust as per your spacing requirements */
+  left: 20px; /* Adjust as per your spacing requirements */
+  padding: 10px 20px; /* Padding for the button */
+  background-color: rgb(255, 217, 119); /* Background color for the button */
+  color: #000; /* Text color for the button */
+  text-decoration: none; /* No underline */
+  border-radius: 5px; /* Rounded corners for the button */
+  font-weight: bold; /* Bold text */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: shadow for button */
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+.contact-page .back-button:hover {
+  background-color: rgb(237, 181, 39); /* Slightly darker background on hover */
+}
