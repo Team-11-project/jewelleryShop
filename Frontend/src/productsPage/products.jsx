@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col, Dropdown, Form, Card, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faShoppingBag, faFilter, faSort } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faShoppingBag, faFilter, faSort, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import img1 from './img1.jpg';
 import rolexOyster from './rolexOyster.jpg'
@@ -14,13 +14,27 @@ function Products() {
   const notify = (message) => toast(message);
   // const imgPath = "src/assets/"
   const imgPath = "../../src/assets/"
-  let { user } = useContext(AuthContext)
+  let { user, authTokens } = useContext(AuthContext)
+  const userId = user?.user?.id
   const pathToImages = '../../src/assets/'
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedSort, setSelectedSort] = useState(null);
   const [cart, setCart] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   const [AllProducts, setAllProducts] = useState([])
+  const [favorites, setFavorites] = useState([])
+  const [isRemove, setIsRemove] = useState(false)
+  const [isfave, setIsfave] = useState(false)
+
+  const isAFave = (productId) => {
+    const found = favorites.find((element) => element?.product.productId == productId);
+    if (found) {
+      // setIsfave(true)
+      return true
+    }
+    // setIsfave(false)
+    return false
+  }
 
   const StockStatus = (product) => {
     const status = {
@@ -43,6 +57,50 @@ function Products() {
     return status
   }
 
+  const getFavorites = async (userId) => {
+    const token = authTokens?.token
+    try {
+      let response = await fetch(`http://localhost:3001/favorites/${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Authorization: `Bearer ${token}`,
+        },
+      });
+      const resJson = await response.json();
+      if (resJson.status === 200) {
+        setFavorites(resJson.response);
+      } else {
+        console.log(resJson);
+        // notify('error: ' + resJson.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const addToFavorites = async (productId) => {
+    const userId = user?.user?.id
+    const token = authTokens?.token
+    try {
+      let response = await fetch(`http://localhost:3001/favorites/addToFavorites/${userId}/${productId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Authorization: `Bearer ${token}`,
+        },
+      });
+      const resJson = await response.json();
+      if (resJson.status === 200) {
+        notify(resJson.message);
+      } else {
+        notify('error: ' + resJson.message);
+      }
+      setIsRemove(false)
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const getProducts = async () => {
     try {
@@ -71,6 +129,7 @@ function Products() {
 
   const addToCart = async (productId) => {
     // http://localhost:300/cart/add/userid/productid
+    // console.log(userIdId)
     try {
       // setIsLoading(true)
       const userId = user.user.id
@@ -93,9 +152,35 @@ function Products() {
     }
   }
 
+  const removeFromFavorites = async (userId, productId) => {
+    const token = authTokens?.token
+    try {
+      let response = await fetch(`
+        http://localhost:3001/favorites/remove-from-favorites/${userId}/${productId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const resJson = await response.json();
+      if (response.status === 200) {
+        notify(resJson.message);
+      } else {
+        notify('error: ' + resJson.message);
+      }
+      setIsRemove(false)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   useEffect(() => {
     getProducts()
-  }, [])
+    // console.log(user.user, "user")
+    getFavorites(user?.user?.id)
+  }, [isRemove])
 
   const priceOptions = ['100-500', '500-1000', '1000-5000', '5000+'];
   const sortOptions = ['Price Low to High', 'Price High to Low'];
@@ -211,9 +296,19 @@ function Products() {
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text>£{product.price}</Card.Text>
                   <div className="card-icons">
-                    <a href="#!" onClick={() => { /* Add to Favorites logic */ }}>
-                      <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
-                    </a>
+                    {(isAFave(product?.productId)) === true
+                      ?
+                      <a href="#!" onClick={() => { removeFromFavorites(user?.user?.id, product.productId); setIsRemove(true) }}>
+                        <FontAwesomeIcon icon={faXmark} className="rem-icon" style={{ color: 'rgb(0, 1, 59)' }} />
+
+                      </a>
+                      :
+                      <a href="#!" onClick={() => { addToFavorites(product?.productId); setIsRemove(true) }}>
+                        <FontAwesomeIcon icon={faHeart} className="icon" style={{ color: 'rgb(0, 1, 59)' }} />
+                      </a>
+                    }
+
+
                     {/* <Link to="/addCart" onClick={() => addToCart(product?.productId)}> */}
                     <FontAwesomeIcon icon={faShoppingBag} className="icon" style={{ color: 'rgb(0, 1, 59)' }} onClick={() => addToCart(product?.productId)} />
                     {/* </Link> */}
