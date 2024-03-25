@@ -106,3 +106,8 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.reset {
+    background-color: #ebd232;
+    border-color: #ebd232;
+}
