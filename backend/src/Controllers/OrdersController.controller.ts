@@ -93,10 +93,12 @@ export class OrdersController {
     }
     
     @Get('user/:userId/returns')
-    @ApiParam({ name: 'userId', type: 'number' })
     @UseGuards(JwtGuard, RolesGuard)
-    async getReturnsByUser(@Param('userId', ParseIntPipe) userId: number): Promise<ReturnEntity[]> {
+    @ApiParam({ name: 'userId', type: 'number' })
+    async getReturnsByUser(@Param('userId', ParseIntPipe) userId: number): Promise<BaseResponse> {
         return this.orderService.getReturnsByUser(userId);
     }
+    
+    
 
     }
